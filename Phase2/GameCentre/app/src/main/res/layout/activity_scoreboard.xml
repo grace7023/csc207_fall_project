@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+xmlns:app="http://schemas.android.com/apk/res-auto"
+xmlns:tools="http://schemas.android.com/tools"
+android:layout_width="match_parent"
+android:layout_height="match_parent"
+tools:context="fall2018.csc2017.game_centre.GameMenuActivity">
+
+    <ListView
+        android:id="@+id/scoreList"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="0.5"/>
+
+    <ListView
+        android:id="@+id/scoreList2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="0.5"/>
+
+
+
+
+
+    <!--<ListView-->
+        <!--android:id="@+id/listView"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"></ListView>-->
+    <!--<ScrollView-->
+        <!--android:id ="@+id/ScrollView"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content">-->
+        <!--<TableLayout-->
+            <!--android:id="@+id/TableLayout"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content">-->
+            <!--<ListView-->
+                <!--android:id="@+id/scoreList"-->
+                <!--android:layout_width="192px"-->
+                <!--android:layout_height="215px"></ListView>-->
+
+            <!--<ListView-->
+                <!--android:id = "@+id/scoreList2"-->
+                <!--android:layout_width="192px"-->
+                <!--android:layout_height="215px"></ListView>-->
+        <!--</TableLayout>-->
+    <!--</ScrollView>-->
+
+
+
+    <!--<TextView-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_alignParentTop="true"-->
+        <!--android:layout_alignParentEnd="true"-->
+        <!--android:layout_marginTop="228dp"-->
+        <!--android:layout_marginEnd="30dp"-->
+        <!--android:text="Total Highscore or \n player highscore" />-->
+
+    <!--<Switch-->
+        <!--android:id="@+id/scoreSwitch"-->
+        <!--android:layout_width="77dp"-->
+        <!--android:layout_height="78dp"-->
+        <!--android:layout_alignParentTop="true"-->
+        <!--android:layout_alignParentEnd="true"-->
+        <!--android:layout_marginTop="245dp"-->
+        <!--android:layout_marginEnd="64dp" />-->
+
+
+</LinearLayout>
