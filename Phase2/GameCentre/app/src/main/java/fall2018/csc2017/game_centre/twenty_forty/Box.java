@@ -1,13 +1,33 @@
 package fall2018.csc2017.game_centre.twenty_forty;
 
 import java.util.Objects;
+import fall2018.csc2017.game_centre.R;
 
 public class Box {
     private int exponent;
-    //TODO: Need to make power of 2s tiles: 2,4,8,16,32,64,.... (Photoshop time)
+    private int background;
+    private final static int[] BOX_BACKGROUNDS = {
+            R.drawable.box_0,
+            R.drawable.box_2,
+            R.drawable.box_4,
+            R.drawable.box_8,
+            R.drawable.box_16,
+            R.drawable.box_32,
+            R.drawable.box_64,
+            R.drawable.box_128,
+            R.drawable.box_256,
+            R.drawable.box_512,
+            R.drawable.box_1024,
+            R.drawable.box_2048,
+    };
 
     Box(int exponent) {
         this.exponent = exponent;
+        this.background = BOX_BACKGROUNDS[exponent];
+    }
+
+    public boolean isEmptyBox() {
+        return exponent == 0;
     }
 
     @Override
