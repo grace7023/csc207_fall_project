@@ -22,11 +22,11 @@ public class BoardAndTileTest {
      * Make a set of tiles that are in order.
      * @return a set of tiles that are in order
      */
-    private List<Tile> makeTiles() {
+    private List<Tile> makeTiles(int sideLength) {
         List<Tile> tiles = new ArrayList<>();
-        final int numTiles = Board.NUM_ROWS * Board.NUM_COLS;
+        final int numTiles = sideLength * sideLength;
         for (int tileNum = 0; tileNum != numTiles; tileNum++) {
-            tiles.add(new Tile(tileNum + 1, tileNum));
+            tiles.add(new Tile(tileNum, sideLength));
         }
 
         return tiles;
@@ -36,8 +36,8 @@ public class BoardAndTileTest {
      * Make a solved Board.
      */
     private void setUpCorrect() {
-        List<Tile> tiles = makeTiles();
-        Board board = new Board(tiles);
+        List<Tile> tiles = makeTiles(4);
+        Board board = new Board(tiles, 4);
         slidingTilesGame = new SlidingTilesGame(board);
     }
 
