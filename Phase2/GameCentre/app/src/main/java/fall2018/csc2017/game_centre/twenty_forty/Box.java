@@ -30,6 +30,14 @@ public class Box {
         return exponent == 0;
     }
 
+    public int getExponent() {
+        return exponent;
+    }
+
+    public int getBackground() {
+        return background;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
