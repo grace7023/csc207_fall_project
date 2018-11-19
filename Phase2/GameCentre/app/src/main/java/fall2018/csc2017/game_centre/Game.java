@@ -10,19 +10,19 @@ import android.support.v7.app.AppCompatActivity;
 public abstract class Game {
 
     /**
-     * Return whether a tap at position is valid
+     * Return whether a move with parameter arg is valid
      *
-     * @param position what position the tap is
+     * @param arg what argument representing the move attempted
      * @return whether the tap is valid
      */
-    public abstract boolean isValidTap(int position);
+    public abstract boolean isValidMove(int arg);
 
     /**
-     * Perform a move based on the tap at position.
+     * Perform a move identified by arg.
      *
-     * @param position where the tap occurred
+     * @param arg integer identifying the move
      */
-    public abstract void touchMove(int position);
+    public abstract void move(int arg);
 
     /**
      * Return whether the Game is over.

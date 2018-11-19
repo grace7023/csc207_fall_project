@@ -186,11 +186,11 @@ public class SlidingTilesGame extends Game implements Serializable {
     /**
      * Return whether any of the four surrounding tiles is the blank tile.
      *
-     * @param position the tile to check
+     * @param arg the tile to check
      * @return whether the tile at position is surrounded by a blank tile
      */
-    public boolean isValidTap(int position) {
-        List<Tile> surroundings = adjacentTiles(position, this.board);
+    public boolean isValidMove(int arg) {
+        List<Tile> surroundings = adjacentTiles(arg, this.board);
         Tile blank = returnBlankTile();
         return surroundings.contains(blank);
     }
@@ -198,19 +198,19 @@ public class SlidingTilesGame extends Game implements Serializable {
     /**
      * Process a touch at position in the board, swapping tiles as appropriate.
      *
-     * @param position the position
+     * @param arg the position
      */
-    public void touchMove(int position) {
-        int row = position / this.boardSize;
-        int col = position % this.boardSize;
-        List<Tile> adjacent_tiles = adjacentTiles(position, this.board);
+    public void move(int arg) {
+        int row = arg / this.boardSize;
+        int col = arg % this.boardSize;
+        List<Tile> adjacent_tiles = adjacentTiles(arg, this.board);
         Tile blank = returnBlankTile();
         int indBlank = adjacent_tiles.indexOf(blank);
         int row2 = row + MOVE_ADJUSTMENT_VALUES[indBlank][0];
         int col2 = col + MOVE_ADJUSTMENT_VALUES[indBlank][1];
         score++;
         board.swapTiles(row, col, row2, col2);
-        addMove(indBlank, position);
+        addMove(indBlank, arg);
     }
 
     /**
@@ -270,7 +270,7 @@ public class SlidingTilesGame extends Game implements Serializable {
      */
     public void undo() {
         int undoPosition = moves.get(0);
-        touchMove(undoPosition);
+        move(undoPosition);
         // remove undo move just performed
         moves.remove(0);
         if (moves.get(0) == undoPosition) {

@@ -18,8 +18,8 @@ class MovementController {
     }
 
     void processGameTapMovement(Context context, int position) {
-        if (slidingTilesGame.isValidTap(position)) {
-            slidingTilesGame.touchMove(position);
+        if (slidingTilesGame.isValidMove(position)) {
+            slidingTilesGame.move(position);
             if (slidingTilesGame.puzzleSolved()) {
                 Toast.makeText(context, "YOU WIN!", Toast.LENGTH_SHORT).show();
             }
