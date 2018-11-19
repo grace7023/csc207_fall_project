@@ -127,8 +127,9 @@ public class SlidingTilesGame extends Game implements Serializable {
      */
     private void shuffleTiles() {
         Random rand = new Random();
+        int blankId = tempBoard.getBoardSize() * tempBoard.getBoardSize();
         for (int i = 0; i < Math.pow(this.boardSize, 4); i++) {
-            int blankTilePosition = returnTilePosition(tempBoard, tempBoard.numTiles());
+            int blankTilePosition = returnTilePosition(tempBoard, blankId);
             int randomNumber = rand.nextInt(4);
             randomSwap(randomNumber, blankTilePosition);
         }
@@ -236,7 +237,7 @@ public class SlidingTilesGame extends Game implements Serializable {
      */
 
     private Tile returnBlankTile() {
-        int blankId = board.numTiles();
+        int blankId = board.getBoardSize() * board.getBoardSize();
         for (Tile t : board) {
             if (t.getId() == blankId) {
                 return t;
