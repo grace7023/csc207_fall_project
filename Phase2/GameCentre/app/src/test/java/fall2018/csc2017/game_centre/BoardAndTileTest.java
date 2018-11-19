@@ -103,9 +103,9 @@ public class BoardAndTileTest {
     @Test
     public void testIsValidTap3() {
         setUpCorrect(3);
-        assertTrue(slidingTilesGame.isValidTap(5));
-        assertTrue(slidingTilesGame.isValidTap(7));
-        assertFalse(slidingTilesGame.isValidTap(3));
+        assertTrue(slidingTilesGame.isValidMove(5));
+        assertTrue(slidingTilesGame.isValidMove(7));
+        assertFalse(slidingTilesGame.isValidMove(3));
     }
 
     /**
@@ -140,9 +140,9 @@ public class BoardAndTileTest {
     @Test
     public void testIsValidTap4() {
         setUpCorrect(4);
-        assertTrue(slidingTilesGame.isValidTap(11));
-        assertTrue(slidingTilesGame.isValidTap(14));
-        assertFalse(slidingTilesGame.isValidTap(10));
+        assertTrue(slidingTilesGame.isValidMove(11));
+        assertTrue(slidingTilesGame.isValidMove(14));
+        assertFalse(slidingTilesGame.isValidMove(10));
     }
 
     /**
@@ -177,9 +177,9 @@ public class BoardAndTileTest {
     @Test
     public void testIsValidTap5() {
         setUpCorrect(5);
-        assertTrue(slidingTilesGame.isValidTap(23));
-        assertTrue(slidingTilesGame.isValidTap(19));
-        assertFalse(slidingTilesGame.isValidTap(18));
+        assertTrue(slidingTilesGame.isValidMove(23));
+        assertTrue(slidingTilesGame.isValidMove(19));
+        assertFalse(slidingTilesGame.isValidMove(18));
     }
 }
 

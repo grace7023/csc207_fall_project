@@ -20,6 +20,10 @@ public class Tile implements Serializable {
      */
     private int id;
 
+    private final static int EMPTY = 0;
+    private final static int BOMB = 9;
+    private final static int FLAGGED = 10;
+    private final static int UNREVEALED = 11;
     /**
      * An array of all tile backgrounds.
      */
@@ -33,33 +37,7 @@ public class Tile implements Serializable {
             R.drawable.tile_6,
             R.drawable.tile_7,
             R.drawable.tile_8,
-            R.drawable.tile_9,
-            R.drawable.tile_10,
-            R.drawable.tile_11,
-            R.drawable.tile_12,
-            R.drawable.tile_13,
-            R.drawable.tile_14,
-            R.drawable.tile_15,
-            R.drawable.tile_16,
-            R.drawable.tile_17,
-            R.drawable.tile_18,
-            R.drawable.tile_19,
-            R.drawable.tile_20,
-            R.drawable.tile_21,
-            R.drawable.tile_22,
-            R.drawable.tile_23,
-            R.drawable.tile_24,
-            R.drawable.tile_25,
     };
-
-    /**
-     * Return the background id.
-     *
-     * @return the background id
-     */
-    public int getBackground() {
-        return background;
-    }
 
     /**
      * Return the tile id.
@@ -72,15 +50,16 @@ public class Tile implements Serializable {
 
     /**
      * Constructor for tile
-     * @param backgroundId background ID
-     * @param gameSize size of game
      */
-    public Tile(int backgroundId, int gameSize) {
-        id = backgroundId + 1;
-        if (id == gameSize * gameSize) {
-            background = TILE_BACKGROUNDS[0];
-        } else {
-            background = TILE_BACKGROUNDS[id];
-        }
+    public Tile() {
+        background = TILE_BACKGROUNDS[UNREVEALED];
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public void reveal() {
+        background = TILE_BACKGROUNDS[id];
     }
 }
