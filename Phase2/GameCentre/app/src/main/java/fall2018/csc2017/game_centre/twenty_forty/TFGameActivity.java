@@ -177,40 +177,40 @@ public class TFGameActivity extends GameActivity implements Observer {
         }
     }
 
-        /**
-         * Save the board manager to fileName.
-         *
-         * @param fileName the name of the file
-         */
-        public void saveToFile (String fileName){
-            try {
-                ObjectOutputStream outputStream = new ObjectOutputStream(
-                        this.openFileOutput(fileName, MODE_PRIVATE));
+    /**
+     * Save the board manager to fileName.
+     *
+     * @param fileName the name of the file
+     */
+    public void saveToFile(String fileName) {
+        try {
+            ObjectOutputStream outputStream = new ObjectOutputStream(
+                    this.openFileOutput(fileName, MODE_PRIVATE));
 //            outputStream.writeObject(TwentyFortyGame); TODO: Implement TwentyFortyGame
-                outputStream.close();
-            } catch (IOException e) {
-                Log.e("Exception", "File write failed: " + e.toString());
-            }
+            outputStream.close();
+        } catch (IOException e) {
+            Log.e("Exception", "File write failed: " + e.toString());
         }
+    }
 
-        @Override
-        public void update (Observable o, Object arg){
-            display();
-        }
+    @Override
+    public void update(Observable o, Object arg) {
+        display();
+    }
 
-        /**
-         * Auto save function that saves Game after each move.
-         */
-        public void autoSave () {
-            saveToFile(GameMenuActivity.filename);
-        }
+    /**
+     * Auto save function that saves Game after each move.
+     */
+    public void autoSave() {
+        saveToFile(GameMenuActivity.filename);
+    }
 
-        /**
-         * Add undo button listener.
-         */
+    /**
+     * Add undo button listener.
+     */
 
-        public void addUndoButton () {
-            Button undoButton = findViewById(R.id.undoButton);
+    public void addUndoButton() {
+        Button undoButton = findViewById(R.id.undoButton);
 //            TODO: JIMOTHY (undoButton)
 //            undoButton.setOnClickListener(new View.OnClickListener() {
 //                @Override
@@ -222,15 +222,15 @@ public class TFGameActivity extends GameActivity implements Observer {
 //                    }
 //                }
 //            });
-        }
+    }
 
-        public void addCurrentScore () {
-            currentScore = findViewById(R.id.currentScore);
-        }
+    public void addCurrentScore() {
+        currentScore = findViewById(R.id.currentScore);
+    }
 
-        private void updateScore () {
+    private void updateScore() {
 //            TODO: fix UpdateScore for 2048
 //            String newScore = "Score: " + String.valueOf(TwentyFortyGame.getScore());
 //            currentScore.setText(newScore);
-        }
     }
+}
