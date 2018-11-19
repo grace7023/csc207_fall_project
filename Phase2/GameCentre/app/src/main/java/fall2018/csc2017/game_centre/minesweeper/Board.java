@@ -15,9 +15,10 @@ import java.util.Observable;
 public class Board extends Observable implements Serializable, Iterable<Tile> {
 
     /**
-     * size of the board.
+     * size of the board. num_rows * num_cols
      */
-    private int boardSize;
+    private int num_rows;
+    private int num_cols;
 
     /**
      * The tiles on the board in row-major order.
@@ -30,26 +31,19 @@ public class Board extends Observable implements Serializable, Iterable<Tile> {
      * default values for NUM_ROWS and NUM_COLS used: 4.
      *
      * @param tiles     tiles for board
-     * @param boardSize size of the board
+     * @param num_rows number of rows of the board
+     * @param num_cols number of columns of the board
      */
-    public Board(List<Tile> tiles, int boardSize) {
-        this.boardSize = boardSize;
+    public Board(List<Tile> tiles, int num_rows, int num_cols) {
+        this.num_rows = num_rows;
+        this.num_cols = num_cols;
         Iterator<Tile> tileIterator = tiles.iterator();
-        this.tiles = new Tile[boardSize][boardSize];
-        for (int row = 0; row != boardSize; row++) {
-            for (int col = 0; col != boardSize; col++) {
+        this.tiles = new Tile[num_rows][num_cols];
+        for (int row = 0; row < num_rows; row++) {
+            for (int col = 0; col < num_cols; col++) {
                 this.tiles[row][col] = tileIterator.next();
             }
         }
-    }
-
-    /**
-     * Return the number of tiles on the board.
-     *
-     * @return the number of tiles on the board
-     */
-    int numTiles() {
-        return boardSize * boardSize;
     }
 
     /**
@@ -58,7 +52,7 @@ public class Board extends Observable implements Serializable, Iterable<Tile> {
      * @return boardSize
      */
     int getBoardSize() {
-        return boardSize;
+        return num_rows * num_cols;
     }
 
     /**
@@ -70,24 +64,6 @@ public class Board extends Observable implements Serializable, Iterable<Tile> {
      */
     public Tile getTile(int row, int col) {
         return tiles[row][col];
-    }
-
-    /**
-     * Swap the tiles at (row1, col1) and (row2, col2)
-     *
-     * @param row1 the first tile row
-     * @param col1 the first tile col
-     * @param row2 the second tile row
-     * @param col2 the second tile col
-     */
-    public void swapTiles(int row1, int col1, int row2, int col2) {
-
-        Tile temp = this.tiles[row1][col1];
-        this.tiles[row1][col1] = this.tiles[row2][col2];
-        this.tiles[row2][col2] = temp;
-
-        setChanged();
-        notifyObservers();
     }
 
     /**
@@ -133,7 +109,7 @@ public class Board extends Observable implements Serializable, Iterable<Tile> {
          */
         @Override
         public boolean hasNext() {
-            return this.cursor < (boardSize * boardSize);
+            return this.cursor < (num_rows * num_cols);
         }
 
         /**
@@ -145,8 +121,8 @@ public class Board extends Observable implements Serializable, Iterable<Tile> {
         public Tile next() {
             if (this.hasNext()) {
                 int current = cursor;
-                int row = current / boardSize;
-                int col = current % boardSize;
+                int row = current / num_rows;
+                int col = current % num_cols;
                 cursor++;
                 return tiles[row][col];
             }
