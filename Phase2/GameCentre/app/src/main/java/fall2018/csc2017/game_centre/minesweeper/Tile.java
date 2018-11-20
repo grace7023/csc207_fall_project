@@ -20,23 +20,23 @@ public class Tile implements Serializable {
      */
     private int id;
 
-    private final static int EMPTY = 0;
-    private final static int BOMB = 9;
-    private final static int FLAGGED = 10;
-    private final static int UNREVEALED = 11;
+    public final static int EMPTY = 0;
+    public final static int BOMB = 9;
+    public final static int FLAGGED = 10;
+    public final static int UNREVEALED = 11;
     /**
      * An array of all tile backgrounds.
      */
     private final static int[] TILE_BACKGROUNDS = {
-            R.drawable.tile_0,
-            R.drawable.tile_1,
-            R.drawable.tile_2,
-            R.drawable.tile_3,
-            R.drawable.tile_4,
-            R.drawable.tile_5,
-            R.drawable.tile_6,
-            R.drawable.tile_7,
-            R.drawable.tile_8,
+            R.drawable.mine_0,
+            R.drawable.mine_1,
+            R.drawable.mine_2,
+            R.drawable.mine_3,
+            R.drawable.mine_4,
+            R.drawable.mine_5,
+            R.drawable.mine_6,
+            R.drawable.mine_7,
+            R.drawable.mine_8,
     };
 
     /**
@@ -50,8 +50,11 @@ public class Tile implements Serializable {
 
     /**
      * Constructor for tile
+     *
+     * @param id The id of this tile
      */
-    public Tile() {
+    public Tile(int id) {
+        this.id = id;
         background = TILE_BACKGROUNDS[UNREVEALED];
     }
 

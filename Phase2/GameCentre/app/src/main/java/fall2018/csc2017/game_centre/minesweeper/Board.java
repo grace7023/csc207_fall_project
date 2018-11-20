@@ -15,10 +15,10 @@ import java.util.Observable;
 public class Board extends Observable implements Serializable, Iterable<Tile> {
 
     /**
-     * size of the board. num_rows * num_cols
+     * size of the board. numRows * numCols
      */
-    private int num_rows;
-    private int num_cols;
+    private int numRows;
+    private int numCols;
 
     /**
      * The tiles on the board in row-major order.
@@ -31,16 +31,16 @@ public class Board extends Observable implements Serializable, Iterable<Tile> {
      * default values for NUM_ROWS and NUM_COLS used: 4.
      *
      * @param tiles     tiles for board
-     * @param num_rows number of rows of the board
-     * @param num_cols number of columns of the board
+     * @param numRows number of rows of the board
+     * @param numCols number of columns of the board
      */
-    public Board(List<Tile> tiles, int num_rows, int num_cols) {
-        this.num_rows = num_rows;
-        this.num_cols = num_cols;
+    public Board(List<Tile> tiles, int numRows, int numCols) {
+        this.numRows = numRows;
+        this.numCols = numCols;
         Iterator<Tile> tileIterator = tiles.iterator();
-        this.tiles = new Tile[num_rows][num_cols];
-        for (int row = 0; row < num_rows; row++) {
-            for (int col = 0; col < num_cols; col++) {
+        this.tiles = new Tile[this.numRows][this.numCols];
+        for (int row = 0; row < this.numRows; row++) {
+            for (int col = 0; col < this.numCols; col++) {
                 this.tiles[row][col] = tileIterator.next();
             }
         }
@@ -52,7 +52,7 @@ public class Board extends Observable implements Serializable, Iterable<Tile> {
      * @return boardSize
      */
     int getBoardSize() {
-        return num_rows * num_cols;
+        return numRows * numCols;
     }
 
     /**
@@ -109,7 +109,7 @@ public class Board extends Observable implements Serializable, Iterable<Tile> {
          */
         @Override
         public boolean hasNext() {
-            return this.cursor < (num_rows * num_cols);
+            return this.cursor < (numRows * numCols);
         }
 
         /**
@@ -121,8 +121,8 @@ public class Board extends Observable implements Serializable, Iterable<Tile> {
         public Tile next() {
             if (this.hasNext()) {
                 int current = cursor;
-                int row = current / num_rows;
-                int col = current % num_cols;
+                int row = current / numRows;
+                int col = current % numCols;
                 cursor++;
                 return tiles[row][col];
             }

@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import java.util.Random;
 
@@ -18,22 +19,24 @@ import fall2018.csc2017.game_centre.Game;
 public class MinesweeperGame extends Game implements Serializable {
 
     /**
-     * The size of the board.
+     * The number of rows of the board.
      */
-    private int boardSize;
+    private int numRows;
+
+    /**
+     * The number of columns of the board.
+     */
+    private int numCols;
+
+    /**
+     * The number of columns of the board.
+     */
+    private int numBombs;
+
     /**
      * The board being managed.
      */
     private Board board;
-
-    /**
-     * Temporary board for proper shuffling
-     */
-    private Board tempBoard;
-    /**
-     * The moves made since the start of the game
-     */
-    private ArrayList<Integer> moves;
 
     /**
      * The score of the current game
@@ -58,30 +61,62 @@ public class MinesweeperGame extends Game implements Serializable {
      *
      * @param board the board
      */
+
+    /** TODO: figure out if we need this
     public MinesweeperGame(Board board) {
-        this.boardSize = board.getBoardSize();
+        this.numRows = board.getBoardSize();
         this.board = board;
         this.score = 0;
     }
+    */
 
     /**
      * Manage a board given the size of the board.
      *
-     * @param boardSize the board size
+     * @param numRows the number of rows of this board
+     * @param numCols the number of columns of this board
+     * @param numBombs the number of bombs of this board
      */
 
-    public MinesweeperGame(int boardSize) {
-        this.boardSize = boardSize;
+    public MinesweeperGame(int numRows, int numCols, int numBombs) {
+        this.numRows = numRows;
+        this.numCols = numCols;
+        this.numBombs = numBombs;
         this.score = 0;
+
+        generateBoard();
+    }
+
+    /**
+     * Creates the board with the specified rows, columns and number of bombs
+     */
+    private void generateBoard() {
         List<Tile> tiles = new ArrayList<>();
-        moves = new ArrayList<>();
-        final int numTiles = this.boardSize * this.boardSize;
-        for (int tileNum = 0; tileNum != numTiles; tileNum++) {
-            tiles.add(new Tile(tileNum, boardSize));
+        int bombs = 0;
+        for (int i = 0; i < tiles.size(); i++) {
+            if (bombs < numBombs) {
+                tiles.add(new Tile(Tile.BOMB));
+                bombs++;
+            } else {
+                tiles.add(new Tile(Tile.EMPTY));
+            }
         }
-        tempBoard = new Board(tiles, boardSize);
-        shuffleTiles();
-        this.board = tempBoard;
+        Collections.shuffle(tiles);
+        board = new Board(tiles, numRows, numCols);
+        for (int i = 0; i < numRows; i++) {
+            for (int j = 0; j < numCols; j++) {
+                int position = i * numRows + j;
+                if (board.getTile(i, j).getId() != Tile.BOMB) {
+                    int adjacentBombs = 0;
+                    for (Tile neighbor : adjacentTiles(position, board)) {
+                        if (neighbor.getId() == Tile.BOMB) {
+                            adjacentBombs++;
+                        }
+                    }
+                    board.getTile(i, j).setId(adjacentBombs);
+                }
+            }
+        }
     }
 
     /**
@@ -90,7 +125,7 @@ public class MinesweeperGame extends Game implements Serializable {
      * @return boardSize
      */
     public int getScreenSize() {
-        return boardSize;
+        return numRows * numCols;
     }
 
     /**
@@ -98,62 +133,6 @@ public class MinesweeperGame extends Game implements Serializable {
      */
     public Board getBoard() {
         return board;
-    }
-
-    /**
-     * Return the position of the blank tile.
-     *
-     * @param board the board which the blank tile is from.
-     * @return position of the blank tile
-     */
-    private int returnTilePosition(Board board, int tileId) {
-//        int id = board.numTiles();
-        int counter = 0;
-        for (int row = 0; row != this.boardSize; row++) {
-            for (int col = 0; col != this.boardSize; col++) {
-                Tile cur = board.getTile(row, col);
-                if (cur.getId() != tileId)
-                    counter++;
-                else {
-                    return counter;
-                }
-            }
-        }
-        return -1;
-    }
-
-    /**
-     * Shuffle tiles to make sure game is solvable
-     */
-    private void shuffleTiles() {
-        Random rand = new Random();
-        for (int i = 0; i < Math.pow(this.boardSize, 4); i++) {
-            int blankTilePosition = returnTilePosition(tempBoard, tempBoard.numTiles());
-            int randomNumber = rand.nextInt(4);
-            randomSwap(randomNumber, blankTilePosition);
-        }
-
-    }
-
-    /**
-     * Swap to random tiles
-     *
-     * @param randomNumber      a randomly generated number
-     * @param blankTilePosition the position of the blank tile
-     */
-
-    private void randomSwap(int randomNumber, int blankTilePosition) {
-        List<Tile> adjacentTiles = adjacentTiles(blankTilePosition, tempBoard);
-        Tile swappingTile = adjacentTiles.get(randomNumber);
-        if (!(swappingTile == null)) {
-            int swappingTilePos = returnTilePosition(tempBoard, swappingTile.getId());
-            int row1 = blankTilePosition / boardSize;
-            int col1 = blankTilePosition % boardSize;
-            int row2 = swappingTilePos / boardSize;
-            int col2 = swappingTilePos % boardSize;
-            tempBoard.swapTiles(row1, col1, row2, col2);
-        }
-
     }
 
     /**
@@ -183,16 +162,20 @@ public class MinesweeperGame extends Game implements Serializable {
         return puzzleSolved();
     }
 
+    // TODO: How to undo what cannot be undone but need to implement anyways, help
+    public void undo() {
+
+    }
+
     /**
      * Return whether any of the four surrounding tiles is the blank tile.
      *
      * @param arg the tile to check
      * @return whether the tile at position is surrounded by a blank tile
      */
+    // TODO: implement the isValidMove method in MinesweeperGame
     public boolean isValidMove(int arg) {
-        List<Tile> surroundings = adjacentTiles(arg, this.board);
-        Tile blank = returnBlankTile();
-        return surroundings.contains(blank);
+        return true;
     }
 
     /**
@@ -200,82 +183,33 @@ public class MinesweeperGame extends Game implements Serializable {
      *
      * @param arg the position
      */
+    // TODO: implement the move method in MinesweeperGame
     public void move(int arg) {
-        int row = arg / this.boardSize;
-        int col = arg % this.boardSize;
-        List<Tile> adjacent_tiles = adjacentTiles(arg, this.board);
-        Tile blank = returnBlankTile();
-        int indBlank = adjacent_tiles.indexOf(blank);
-        int row2 = row + MOVE_ADJUSTMENT_VALUES[indBlank][0];
-        int col2 = col + MOVE_ADJUSTMENT_VALUES[indBlank][1];
+        int row = arg / numRows;
+        int col = arg % numCols;
         score++;
-        board.swapTiles(row, col, row2, col2);
-        addMove(indBlank, arg);
     }
-
-    /**
-     * Add the position to moves that would perform the opposite of the previous move.
-     * if indBlank = 0, then the previous move was the moving up.
-     * * if indBlank = 1, then the previous move was moving down.
-     * * if indBlank = 2, then the previous move was moving left.
-     * * if indBlank = 3, then the previous move was moving right.
-     *
-     * @param indBlank whether the blank tile was above, below, left or right of the tile.
-     * @param position position of non-blank tile
-     */
-
-    private void addMove(int indBlank, int position) {
-        int[] moveAdjustment = {-this.boardSize, this.boardSize, -1, 1};
-        moves.add(0, position + moveAdjustment[indBlank]);
-    }
-
-    /**
-     * Return the blank tile.
-     *
-     * @return the blank tile
-     */
-
-    private Tile returnBlankTile() {
-        int blankId = board.numTiles();
-        for (Tile t : board) {
-            if (t.getId() == blankId) {
-                return t;
-            }
-        }
-        // The code will not reach here, since there always exists a blank tile in this.board.tiles
-        return null;
-    }
-
 
     /**
      * Return a ArrayList of the adjacent tiles of the given tile. The adjacent tiles are
-     * given in this order: above, below, left, right.
+     * given in this order: upLeft, above, upRight, below, left, right, downLeft, downRight.
      *
      * @param position the position of the tile
      * @return ArrayList of adjacent tiles
      */
 
     private List<Tile> adjacentTiles(int position, Board board) {
-        int row = position / this.boardSize;
-        int col = position % this.boardSize;
+        int row = position / this.numRows;
+        int col = position % this.numCols;
+        Tile upLeft = row == 0 && col == 0 ? null : board.getTile(row - 1, col - 1);
         Tile above = row == 0 ? null : board.getTile(row - 1, col);
-        Tile below = row == this.boardSize - 1 ? null : board.getTile(row + 1, col);
+        Tile upRight = row == 0 && col == this.numCols - 1 ? null : board.getTile(row - 1, col + 1);
+        Tile below = row == this.numRows - 1 ? null : board.getTile(row + 1, col);
         Tile left = col == 0 ? null : board.getTile(row, col - 1);
-        Tile right = col == this.boardSize - 1 ? null : board.getTile(row, col + 1);
-        return Arrays.asList(above, below, left, right);
-    }
-
-    /**
-     * Undoes the latest move made
-     */
-    public void undo() {
-        int undoPosition = moves.get(0);
-        move(undoPosition);
-        // remove undo move just performed
-        moves.remove(0);
-        if (moves.get(0) == undoPosition) {
-            moves.remove(0);
-        }
+        Tile right = col == this.numCols - 1 ? null : board.getTile(row, col + 1);
+        Tile downLeft = row == this.numRows - 1 && col == 0? null : board.getTile(row + 1, col - 1);
+        Tile downRight = row == this.numRows - 1 && col == this.numCols - 1 ? null : board.getTile(row + 1, col + 1);
+        return Arrays.asList(upLeft, above, upRight, below, left, right, downLeft, downRight);
     }
 
     /**
@@ -285,15 +219,6 @@ public class MinesweeperGame extends Game implements Serializable {
      */
     int getScore() {
         return score;
-    }
-
-    /**
-     * Return whether the undo function is valid based on the current state.
-     *
-     * @return whether the game can undo a move
-     */
-    boolean canUndoMove() {
-        return moves.size() > 0;
     }
 
     /**
