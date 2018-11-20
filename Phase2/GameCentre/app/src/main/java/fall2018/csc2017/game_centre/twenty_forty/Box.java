@@ -34,6 +34,10 @@ public class Box {
         return exponent;
     }
 
+    public void setExponent(int newExponent) {
+        this.exponent = newExponent;
+    }
+
     public int getBackground() {
         return background;
     }

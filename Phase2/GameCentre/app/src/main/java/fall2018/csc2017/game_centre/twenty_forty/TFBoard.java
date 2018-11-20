@@ -2,13 +2,12 @@ package fall2018.csc2017.game_centre.twenty_forty;
 
 import android.support.annotation.NonNull;
 
+import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Observable;
 import java.io.Serializable;
-import java.util.Spliterator;
-import java.util.function.Consumer;
 
 public class TFBoard extends Observable implements Serializable, Iterable<Box> {
 
@@ -16,6 +15,7 @@ public class TFBoard extends Observable implements Serializable, Iterable<Box> {
     private Box[][] boxes;
 
     public TFBoard (List<Box> boxesList, int boardSize) {
+
         this.boardSize = boardSize;
         Iterator<Box> boxIterator = boxesList.iterator();
         this.boxes = new Box[boardSize][boardSize];
@@ -26,10 +26,34 @@ public class TFBoard extends Observable implements Serializable, Iterable<Box> {
         }
     }
 
+    public Box getBox(int row, int col) {
+        return this.boxes[row][col];
+    }
+
+    /**
+     * Combines the Box at (row1, col1) with the Box at (row2, col2) in boxes
+     * @param row1 the row of the Box which stays in place
+     * @param col1 the col of the Box which stays in place
+     * @param row2 the row of the Box which moves into the position of the other
+     * @param col2 the row of the Box which moves into the position of the other
+     */
+    private void combineTiles (int row1, int col1, int row2, int col2) {
+        int newExponent = boxes[row1][col1].getExponent() + 1;
+        boxes[row1][col1].setExponent(newExponent);
+        boxes[row2][col2].setExponent(0);
+    }
+
     @NonNull
     @Override
     public Iterator<Box> iterator() {
         return new TFBoardIterator();
+    }
+
+    @Override
+    public String toString() {
+        return "TFBoard{" +
+                "boxes=" + Arrays.toString(boxes) +
+                '}';
     }
 
     private int getBoardSize() {
