@@ -28,15 +28,15 @@ public class Tile implements Serializable {
      * An array of all tile backgrounds.
      */
     private final static int[] TILE_BACKGROUNDS = {
-            R.drawable.tile_0,
-            R.drawable.tile_1,
-            R.drawable.tile_2,
-            R.drawable.tile_3,
-            R.drawable.tile_4,
-            R.drawable.tile_5,
-            R.drawable.tile_6,
-            R.drawable.tile_7,
-            R.drawable.tile_8,
+            R.drawable.mine_0,
+            R.drawable.mine_1,
+            R.drawable.mine_2,
+            R.drawable.mine_3,
+            R.drawable.mine_4,
+            R.drawable.mine_5,
+            R.drawable.mine_6,
+            R.drawable.mine_7,
+            R.drawable.mine_8,
     };
 
     /**
