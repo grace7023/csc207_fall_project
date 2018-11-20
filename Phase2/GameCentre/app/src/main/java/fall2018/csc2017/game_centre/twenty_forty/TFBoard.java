@@ -37,10 +37,40 @@ public class TFBoard extends Observable implements Serializable, Iterable<Box> {
      * @param row2 the row of the Box which moves into the position of the other
      * @param col2 the row of the Box which moves into the position of the other
      */
-    private void combineTiles (int row1, int col1, int row2, int col2) {
+    private void combineBoxes (int row1, int col1, int row2, int col2) {
         int newExponent = boxes[row1][col1].getExponent() + 1;
         boxes[row1][col1].setExponent(newExponent);
         boxes[row2][col2].setExponent(0);
+    }
+
+    private void swapBoxes (int row1, int col1, int row2, int col2) {
+        Box temp = boxes[row1][col1];
+        boxes[row1][col1] = boxes[row2][col2];
+        boxes[row2][col2] = temp;
+    }
+
+    private void moveBoxesUp() {
+        // Skips the top row since it can't go up any further
+        for (int row = 1; row < boardSize; row++) {
+            for (int col = 0; col < boardSize; col++) {
+                int curRow = row;
+                while (curRow > 0) {
+                    if (boxes[curRow - 1][col].getExponent() == 0) {
+                        // There's space for this box to freely move
+                        swapBoxes(curRow, col, curRow - 1, col);
+                        curRow -= 1;
+                    }
+                    else {
+                        // This box has another in its way!
+                        if (boxes[curRow][col].getExponent() ==
+                                boxes[curRow - 1][col].getExponent()) {
+                            combineBoxes(curRow - 1, col, curRow, col);
+                        }
+                        break;
+                    }
+                }
+            }
+        }
     }
 
     @NonNull
