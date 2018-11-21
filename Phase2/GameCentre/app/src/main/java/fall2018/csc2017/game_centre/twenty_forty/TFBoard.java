@@ -73,6 +73,78 @@ public class TFBoard extends Observable implements Serializable, Iterable<Box> {
         }
     }
 
+    private void moveBoxesDown() {
+        // Skips the bottom row since it can't go down any further
+        for (int row = boardSize - 2; 0 <= row; row--) {
+            for (int col = 0; col < boardSize; col++) {
+                int curRow = row;
+                while (boardSize + 1 < curRow) {
+                    if (boxes[curRow + 1][col].getExponent() == 0) {
+                        // There's space for this box to freely move
+                        swapBoxes(curRow, col, curRow + 1, col);
+                        curRow -= 1;
+                    }
+                    else {
+                        // This box has another in its way!
+                        if (boxes[curRow][col].getExponent() ==
+                                boxes[curRow + 1][col].getExponent()) {
+                            combineBoxes(curRow + 1, col, curRow, col);
+                        }
+                        break;
+                    }
+                }
+            }
+        }
+    }
+
+    private void moveBoxesLeft() {
+        // Skips the left column since it can't go left any further
+        for (int col = 1; col < boardSize; col++) {
+            for (int row = 0; row < boardSize; row++) {
+                int curCol = col;
+                while (0 < curCol) {
+                    if (boxes[row][curCol - 1].getExponent() == 0) {
+                        // There's space for this box to freely move
+                        swapBoxes(row, curCol, row, curCol - 1);
+                        curCol -= 1;
+                    }
+                    else {
+                        // This box has another in its way!
+                        if (boxes[row][curCol].getExponent() ==
+                                boxes[row][curCol - 1].getExponent()) {
+                            combineBoxes(row, curCol - 1, row, curCol);
+                        }
+                        break;
+                    }
+                }
+            }
+        }
+    }
+
+    private void moveBoxesRight() {
+        // Skips the left column since it can't go left any further
+        for (int col = boardSize - 2; 0 <= col; col--) {
+            for (int row = 0; row < boardSize; row++) {
+                int curCol = col;
+                while (curCol < boardSize - 1) {
+                    if (boxes[row][curCol + 1].getExponent() == 0) {
+                        // There's space for this box to freely move
+                        swapBoxes(row, curCol, row, curCol + 1);
+                        curCol += 1;
+                    }
+                    else {
+                        // This box has another in its way!
+                        if (boxes[row][curCol].getExponent() ==
+                                boxes[row][curCol + 1].getExponent()) {
+                            combineBoxes(row, curCol + 1, row, curCol);
+                        }
+                        break;
+                    }
+                }
+            }
+        }
+    }
+
     @NonNull
     @Override
     public Iterator<Box> iterator() {
