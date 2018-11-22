@@ -123,7 +123,7 @@ public class MinesweeperGameActivity extends GameActivity implements Observer {
         for (int row = 0; row != minesweeperGame.getScreenSize(); row++) {
             for (int col = 0; col != minesweeperGame.getScreenSize(); col++) {
                 Button tmp = new Button(context);
-                tmp.setBackgroundResource(board.getTile(row, col).getBackground());
+//                tmp.setBackgroundResource(board.getTile(row, col).getBackground()); TODO: Fix this
                 this.tileButtons.add(tmp);
             }
         }
@@ -138,7 +138,7 @@ public class MinesweeperGameActivity extends GameActivity implements Observer {
         for (Button b : tileButtons) {
             int row = nextPos / minesweeperGame.getScreenSize();
             int col = nextPos % minesweeperGame.getScreenSize();
-            b.setBackgroundResource(board.getTile(row, col).getBackground());
+//            b.setBackgroundResource(board.getTile(row, col).getBackground()); TODO: Fix this
             nextPos++;
         }
     }
@@ -212,11 +212,11 @@ public class MinesweeperGameActivity extends GameActivity implements Observer {
         undoButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (minesweeperGame.canUndoMove()) {
-                    minesweeperGame.undo();
-                } else {
-                    Toast.makeText(MinesweeperGameActivity.this, "No more undo's", Toast.LENGTH_LONG).show();
-                }
+//                if (minesweeperGame.canUndoMove()) { TODO: FIX THIS
+//                    minesweeperGame.undo();
+//                } else {
+//                    Toast.makeText(MinesweeperGameActivity.this, "No more undo's", Toast.LENGTH_LONG).show();
+//                }
             }
         });
     }
