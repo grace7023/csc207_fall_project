@@ -1,5 +1,7 @@
 package fall2018.csc2017.game_centre;
 import fall2018.csc2017.game_centre.sliding_tiles.*;
+import fall2018.csc2017.game_centre.twenty_forty.*;
+import fall2018.csc2017.game_centre.minesweeper.*;
 
 
 import android.content.Intent;
@@ -50,7 +52,7 @@ public class GameManager extends AppCompatActivity {
             public void onClick(View v) {
                 GameMenuActivity.GAME_DESC = ""; //TODO: Fill Game Desc for Minesweeper
                 GameMenuActivity.filename = LogInScreen.currentUsername + "_" + "Minesweeper";
-//                GameMenuActivity.GAME = new MinesweeperGame(); TODO: Implement MinesweeperGame
+//                GameMenuActivity.GAME = new MinesweeperGame(); //TODO: fill in param
                 startActivity(new Intent(GameManager.this, GameMenuActivity.class));
             }
         });
@@ -63,9 +65,11 @@ public class GameManager extends AppCompatActivity {
         mTwentyFortyBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                GameMenuActivity.GAME_DESC = ""; //TODO: Fill Game Desc out for 2048
+                GameMenuActivity.GAME_DESC = "Welcome To 2048 \n Join the numbers" +
+                        " and get to the 2048 tile! \n\n  Swipe to move all tiles. " +
+                        "When two tiles with the same number touch, they merge into one.";
                 GameMenuActivity.filename = LogInScreen.currentUsername + "_" + "TwentyForty";
-//                GameMenuActivity.GAME = new TwentyFortyGame(); TODO: Implement TwentyFortyGame
+                GameMenuActivity.GAME = new TFGame(0);
                 startActivity(new Intent(GameManager.this, GameMenuActivity.class));
             }
         });
