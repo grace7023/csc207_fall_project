@@ -20,6 +20,8 @@ public class Tile implements Serializable {
      */
     private int id;
 
+    private boolean revealed;
+
     public final static int EMPTY = 0;
     public final static int BOMB = 9;
     public final static int FLAGGED = 10;
@@ -64,5 +66,10 @@ public class Tile implements Serializable {
 
     public void reveal() {
         background = TILE_BACKGROUNDS[id];
+        revealed = true;
+    }
+
+    public boolean isRevealed() {
+        return revealed;
     }
 }

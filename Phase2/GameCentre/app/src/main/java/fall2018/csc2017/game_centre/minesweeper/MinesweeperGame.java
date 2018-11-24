@@ -43,6 +43,7 @@ public class MinesweeperGame extends Game implements Serializable {
      */
     private int score;
 
+    private boolean flagging;
     /**
      * Given the row and column of a tile, this list indicates how to adjust those two numbers
      * to obtain the row and column of an adjacent tile.
@@ -83,6 +84,7 @@ public class MinesweeperGame extends Game implements Serializable {
         this.numCols = numCols;
         this.numBombs = numBombs;
         this.score = 0;
+        this.flagging = false;
 
         generateBoard();
     }
@@ -171,7 +173,16 @@ public class MinesweeperGame extends Game implements Serializable {
      */
     // TODO: implement the isValidMove method in MinesweeperGame
     public boolean isValidMove(int arg) {
-        return true;
+        int row = arg / numRows;
+        int col = arg % numCols;
+        return !board.getTile(row, col).isRevealed();
+    }
+
+    /**
+     * Turns the current move to either placing a flag or revealing a tile
+     */
+    public void toggleFlagging() {
+        flagging = !flagging;
     }
 
     /**
