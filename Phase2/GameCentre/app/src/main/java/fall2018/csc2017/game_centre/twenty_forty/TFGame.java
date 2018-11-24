@@ -58,6 +58,10 @@ public class TFGame extends Game implements Serializable {
 
     public TFBoard getBoard() { return board; }
 
+    public int getScore() {
+        return score;
+    }
+
 
     /**
      * Return whether a move with parameter arg is valid
@@ -105,8 +109,12 @@ public class TFGame extends Game implements Serializable {
     /**
      * Undo function that reverses the most recent move.
      */
-    public void undo() {
+    void undo() {
         this.board = pastBoards.remove(0); //TODO: check if getting first board is the previous save
+    }
+
+    boolean canUndoMove() {
+        return this.pastBoards.size() != 0;
     }
 
     /**
