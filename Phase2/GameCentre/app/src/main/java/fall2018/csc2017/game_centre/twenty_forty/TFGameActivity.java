@@ -27,7 +27,7 @@ public class TFGameActivity extends GameActivity implements Observer {
     /**
      * The board manager for SlidingTiles.
      */
-    // private SlidingTilesGame slidingTilesGame; TODO: Replicate. Create "TFGame"
+     private TFGame tfGame;
 
 
     /**
@@ -213,10 +213,10 @@ public class TFGameActivity extends GameActivity implements Observer {
             undoButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    if (TFGame.canUndoMove()) {
-                        slidingTilesGame.undo();
+                    if (tfGame.canUndoMove()) {
+                        tfGame.undo();
                     } else {
-                        Toast.makeText(SlidingTilesGameActivity.this, "No more undo's", Toast.LENGTH_LONG).show();
+                        Toast.makeText(TFGameActivity.this, "No more undo's", Toast.LENGTH_LONG).show();
                     }
                 }
             });
