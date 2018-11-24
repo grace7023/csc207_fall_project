@@ -22,6 +22,8 @@ public class Tile implements Serializable {
 
     private boolean revealed;
 
+    private boolean flagged;
+
     public final static int EMPTY = 0;
     public final static int BOMB = 9;
     public final static int FLAGGED = 10;
@@ -57,6 +59,8 @@ public class Tile implements Serializable {
      */
     public Tile(int id) {
         this.id = id;
+        revealed = false;
+        flagged = false;
         background = TILE_BACKGROUNDS[UNREVEALED];
     }
 
@@ -71,5 +75,19 @@ public class Tile implements Serializable {
 
     public boolean isRevealed() {
         return revealed;
+    }
+
+    public void toggleFlag() {
+        if (!flagged) {
+            background = TILE_BACKGROUNDS[FLAGGED];
+            flagged = true;
+        } else {
+            background = TILE_BACKGROUNDS[UNREVEALED];
+            flagged = false;
+        }
+    }
+
+    public boolean isFlagged() {
+        return flagged;
     }
 }

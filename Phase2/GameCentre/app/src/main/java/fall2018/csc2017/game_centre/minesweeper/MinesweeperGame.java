@@ -49,6 +49,8 @@ public class MinesweeperGame extends Game implements Serializable {
     private int score;
 
     private boolean flagging;
+
+    private boolean bombClicked;
     /**
      * Given the row and column of a tile, this list indicates how to adjust those two numbers
      * to obtain the row and column of an adjacent tile.
@@ -88,9 +90,10 @@ public class MinesweeperGame extends Game implements Serializable {
         this.numRows = numRows;
         this.numCols = numCols;
         this.numBombs = numBombs;
-        this.bombsLeft = numBombs;
-        this.score = 0;
-        this.flagging = false;
+        bombsLeft = numBombs;
+        score = 0;
+        flagging = false;
+        bombClicked = false;
 
         generateBoard();
     }
@@ -159,7 +162,7 @@ public class MinesweeperGame extends Game implements Serializable {
      */
 
     public boolean isOver() {
-        return puzzleSolved();
+        return puzzleSolved() || bombClicked;
     }
 
 
@@ -200,6 +203,11 @@ public class MinesweeperGame extends Game implements Serializable {
             }
         } else {
             board.getTile(row,col).reveal();
+            if (board.getTile(row,col).getId() == Tile.BOMB) {
+                bombClicked = true;
+            } else {
+                board.addNumRevealed();
+            }
         }
     }
 
