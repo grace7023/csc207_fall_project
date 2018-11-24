@@ -17,7 +17,7 @@ import fall2018.csc2017.game_centre.Game;
  * Manage a board, including swapping tiles, checking for a win, and managing taps.
  */
 public class MinesweeperGame extends Game implements Serializable {
-
+    //TODO: figure out how to count score as time passed
     /**
      * The number of rows of the board.
      */
@@ -143,15 +143,7 @@ public class MinesweeperGame extends Game implements Serializable {
      * @return True iff the tiles of board are in ascending row-major order
      */
     public boolean puzzleSolved() {
-        int trackingId = 1;
-        for (Tile cur : board) {
-            if (cur.getId() != trackingId) {
-                return false;
-            }
-            trackingId++;
-        }
-        // No out-of-order tiles found
-        return true;
+        return board.getNumRevealed() >= getScreenSize() - numBombs;
     }
 
     /**

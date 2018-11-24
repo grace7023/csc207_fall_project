@@ -25,6 +25,7 @@ public class Board extends Observable implements Serializable, Iterable<Tile> {
      */
     private Tile[][] tiles;
 
+    private int numRevealed;
     /**
      * A new board of tiles in row-major order.
      * Precondition: len(tiles) == boardSize * boardSize
@@ -37,6 +38,7 @@ public class Board extends Observable implements Serializable, Iterable<Tile> {
     public Board(List<Tile> tiles, int numRows, int numCols) {
         this.numRows = numRows;
         this.numCols = numCols;
+        numRevealed = 0;
         Iterator<Tile> tileIterator = tiles.iterator();
         this.tiles = new Tile[this.numRows][this.numCols];
         for (int row = 0; row < this.numRows; row++) {
@@ -44,6 +46,14 @@ public class Board extends Observable implements Serializable, Iterable<Tile> {
                 this.tiles[row][col] = tileIterator.next();
             }
         }
+    }
+
+    public int getNumRevealed() {
+        return numRevealed;
+    }
+
+    public void addNumRevealed() {
+        numRevealed = numRevealed++;
     }
 
     /**
