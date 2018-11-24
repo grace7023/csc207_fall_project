@@ -34,6 +34,11 @@ public class MinesweeperGame extends Game implements Serializable {
     private int numBombs;
 
     /**
+     * The number of bombs left on the board.
+     */
+    private int bombsLeft;
+
+    /**
      * The board being managed.
      */
     private Board board;
@@ -83,6 +88,7 @@ public class MinesweeperGame extends Game implements Serializable {
         this.numRows = numRows;
         this.numCols = numCols;
         this.numBombs = numBombs;
+        this.bombsLeft = numBombs;
         this.score = 0;
         this.flagging = false;
 
@@ -182,11 +188,19 @@ public class MinesweeperGame extends Game implements Serializable {
      *
      * @param arg the position
      */
-    // TODO: implement the move method in MinesweeperGame
     public void move(int arg) {
         int row = arg / numRows;
         int col = arg % numCols;
-        score++;
+        if (flagging) {
+            board.getTile(row,col).toggleFlag();
+            if (board.getTile(row,col).isFlagged()) {
+                bombsLeft--;
+            } else {
+                bombsLeft++;
+            }
+        } else {
+            board.getTile(row,col).reveal();
+        }
     }
 
     /**
