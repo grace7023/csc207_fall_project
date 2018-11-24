@@ -39,8 +39,8 @@ public class GameManager extends AppCompatActivity {
 //        mMinesweeperBtn = findViewById(R.id.Minesweeper); TODO: Create Minesweeper button in activity_game_manager.xml
 
         addSlidingTilesListener();
-        addTFListener();
-        addMinesweeperListener();
+//        addTFListener();
+//        addMinesweeperListener();
     }
 
     /**
