@@ -3,11 +3,9 @@ package fall2018.csc2017.game_centre.twenty_forty;
 import fall2018.csc2017.game_centre.*;
 
 import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.view.ViewTreeObserver;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -35,7 +33,7 @@ public class TFGameActivity extends GameActivity implements Observer {
     /**
      * The buttons to display.
      */
-    private ArrayList<Button> tileButtons; //TODO: TileButtons ? Need to change this to fit 2048
+    private ArrayList<Button> boxButtons; //TODO: TileButtons ? Need to change this to fit 2048
 
 
     /**
@@ -57,8 +55,8 @@ public class TFGameActivity extends GameActivity implements Observer {
      */
     public void display() {
         updateScore();
-        updateTileButtons();
-        gridView.setAdapter(new CustomAdapter(tileButtons, columnWidth, columnHeight));
+        updateBoxButtons();
+        gridView.setAdapter(new CustomAdapter(boxButtons, columnWidth, columnHeight));
         autoSave();
         // TODO: replicate this for 2048
 //        if (slidingTilesGame.isOver()) {
@@ -83,7 +81,7 @@ public class TFGameActivity extends GameActivity implements Observer {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         loadFromFile(GameMenuActivity.filename);
-        createTileButtons(this);
+        createBoxButtons(this);
         setContentView(R.layout.activity_main);
         addUndoButton();
         addCurrentScore();
@@ -116,15 +114,15 @@ public class TFGameActivity extends GameActivity implements Observer {
      *
      * @param context the context
      */
-    private void createTileButtons(Context context) {
-//        TODO: MUMBOJUMBO (createTileButtons)
+    private void createBoxButtons(Context context) {
+//        TODO: MUMBOJUMBO (createBoxButtons)
 //        Board board = slidingTilesGame.getBoard();
-//        tileButtons = new ArrayList<>();
+//        boxButtons = new ArrayList<>();
 //        for (int row = 0; row != slidingTilesGame.getScreenSize(); row++) {
 //            for (int col = 0; col != slidingTilesGame.getScreenSize(); col++) {
 //                Button tmp = new Button(context);
 //                tmp.setBackgroundResource(board.getTile(row, col).getBackground());
-//                this.tileButtons.add(tmp);
+//                this.boxButtons.add(tmp);
 //            }
 //        }
     }
@@ -132,11 +130,11 @@ public class TFGameActivity extends GameActivity implements Observer {
     /**
      * Update the backgrounds on the buttons to match the tiles.
      */
-    private void updateTileButtons() {
-//        TODO: JUMBO (updateTileButtons)
+    private void updateBoxButtons() {
+//        TODO: JUMBO (updateBoxButtons)
 //        Board board = slidingTilesGame.getBoard();
 //        int nextPos = 0;
-//        for (Button b : tileButtons) {
+//        for (Button b : boxButtons) {
 //            int row = nextPos / slidingTilesGame.getScreenSize();
 //            int col = nextPos % slidingTilesGame.getScreenSize();
 //            b.setBackgroundResource(board.getTile(row, col).getBackground());
@@ -212,16 +210,16 @@ public class TFGameActivity extends GameActivity implements Observer {
     public void addUndoButton() {
         Button undoButton = findViewById(R.id.undoButton);
 //            TODO: JIMOTHY (undoButton)
-//            undoButton.setOnClickListener(new View.OnClickListener() {
-//                @Override
-//                public void onClick(View v) {
-//                    if (slidingTilesGame.canUndoMove()) {
-//                        slidingTilesGame.undo();
-//                    } else {
-//                        Toast.makeText(SlidingTilesGameActivity.this, "No more undo's", Toast.LENGTH_LONG).show();
-//                    }
-//                }
-//            });
+            undoButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (TFGame.canUndoMove()) {
+                        slidingTilesGame.undo();
+                    } else {
+                        Toast.makeText(SlidingTilesGameActivity.this, "No more undo's", Toast.LENGTH_LONG).show();
+                    }
+                }
+            });
     }
 
     public void addCurrentScore() {
