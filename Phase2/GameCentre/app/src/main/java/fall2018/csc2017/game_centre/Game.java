@@ -32,11 +32,6 @@ public abstract class Game {
     public abstract boolean isOver();
 
     /**
-     * Undo function that reverses the most recent move.
-     */
-    public abstract void undo();
-
-    /**
      * Size of the relevant screen real estate for game.
      */
     public abstract int getScreenSize();

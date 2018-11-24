@@ -162,10 +162,6 @@ public class MinesweeperGame extends Game implements Serializable {
         return puzzleSolved();
     }
 
-    // TODO: How to undo what cannot be undone but need to implement anyways, help
-    public void undo() {
-
-    }
 
     /**
      * Return whether any of the four surrounding tiles is the blank tile.
