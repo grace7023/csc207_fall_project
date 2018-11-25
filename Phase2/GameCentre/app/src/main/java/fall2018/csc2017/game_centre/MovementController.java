@@ -14,14 +14,14 @@ class MovementController<T extends Game> {
         this.game = game;
     }
 
-    void processGameTapMovement(Context context, int position) {
-        if (game.isValidMove(position)) {
-            game.move(position);
+    void processGameTapMovement(Context context, int arg) {
+        if (game.isValidMove(arg)) {
+            game.move(arg);
             if (game.isOver()) {
                 Toast.makeText(context, "YOU WIN!", Toast.LENGTH_SHORT).show();
             }
         } else {
-            Toast.makeText(context, "Invalid Tap", Toast.LENGTH_SHORT).show();
+            Toast.makeText(context, "Invalid Move", Toast.LENGTH_SHORT).show();
         }
     }
 }
