@@ -83,7 +83,7 @@ public class TFGameActivity extends GameActivity implements Observer {
         super.onCreate(savedInstanceState);
         loadFromFile(GameMenuActivity.filename);
         createBoxButtons(this);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_slidingtiles_game);
         addUndoButton();
         addCurrentScore();
         // Add View to activity
