@@ -90,4 +90,6 @@ public class Tile implements Serializable {
     public boolean isFlagged() {
         return flagged;
     }
+
+    public int getBackground() { return background; }
 }
