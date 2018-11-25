@@ -81,9 +81,23 @@ public class TFGame extends Game implements Serializable {
      */
     @Override
     public void move(int arg) {
-        TFBoard save = this.board;
-        pastBoards.add(save);
+        ArrayList<Box> boxesSave = GetBoxList(board);
+        pastBoards.add(new TFBoard(boxesSave, this.board.getBoardSize()));
 
+        switch (arg) {
+            case 1:
+                board.moveBoxesUp();
+                break;
+            case 2:
+                board.moveBoxesDown();
+                break;
+            case 3:
+                board.moveBoxesLeft();
+                break;
+            case 4:
+                board.moveBoxesRight();
+                break;
+        }
     }
 
     /**
@@ -123,5 +137,13 @@ public class TFGame extends Game implements Serializable {
     @Override
     public int getScreenSize() {
         return boardSize;
+    }
+
+    private ArrayList<Box> GetBoxList(TFBoard board) {
+        ArrayList<Box> boxes = new ArrayList<>();
+        for (Box box : board) {
+            boxes.add(box);
+        }
+        return boxes;
     }
 }
