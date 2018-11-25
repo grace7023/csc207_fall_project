@@ -2,7 +2,11 @@ package fall2018.csc2017.game_centre.twenty_forty;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Random;
 
 import fall2018.csc2017.game_centre.Game;
@@ -16,6 +20,20 @@ public class TFGame extends Game implements Serializable {
     private ArrayList<TFBoard> pastBoards;
 
     private int score;
+
+    /**
+     * HashMap which lets the code associate the arg in TFGame.move(arg) with an actual move rather
+     * than a magic number
+      */
+    static final HashMap<String, Integer> MOVE_ARG;
+    static {
+        HashMap<String, Integer> map = new HashMap<>();
+        map.put("Up", 1);
+        map.put("Down", 2);
+        map.put("Left", 3);
+        map.put("Right", 4);
+        MOVE_ARG = map;
+    }
 
 
     public TFGame(TFBoard board) {
