@@ -25,7 +25,7 @@ public class Tile implements Serializable {
     private boolean flagged;
 
     public final static int EMPTY = 0;
-    public final static int BOMB = 9;
+    public final static int MINE = 9;
     public final static int FLAGGED = 10;
     public final static int UNREVEALED = 11;
     /**
@@ -41,6 +41,9 @@ public class Tile implements Serializable {
             R.drawable.mine_6,
             R.drawable.mine_7,
             R.drawable.mine_8,
+            R.drawable.mine_mine,
+            R.drawable.mine_flagged,
+            R.drawable.mine_revealed
     };
 
     /**
