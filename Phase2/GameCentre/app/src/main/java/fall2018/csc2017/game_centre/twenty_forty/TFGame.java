@@ -86,16 +86,16 @@ public class TFGame extends Game implements Serializable {
 
         switch (arg) {
             case 1:
-                board.moveBoxesUp();
+                board.MoveBoxesUp();
                 break;
             case 2:
-                board.moveBoxesDown();
+                board.MoveBoxesDown();
                 break;
             case 3:
-                board.moveBoxesLeft();
+                board.MoveBoxesLeft();
                 break;
             case 4:
-                board.moveBoxesRight();
+                board.MoveBoxesRight();
                 break;
         }
     }
