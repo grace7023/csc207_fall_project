@@ -116,13 +116,13 @@ public class TFGameActivity extends GameActivity implements Observer {
     private void createBoxButtons(Context context) {
         TFBoard board = tfGame.getBoard();
         boxButtons = new ArrayList<>();
-//        for (int row = 0; row != tfGame.getScreenSize(); row++) { TODO: look into this
-//            for (int col = 0; col != tfGame.getScreenSize(); col++) {
-//                Button tmp = new Button(context);
-//                tmp.setBackgroundResource(board.getBox(row, col).getBackground());
-//                this.boxButtons.add(tmp);
-//            }
-//        }
+        for (int row = 0; row != tfGame.getScreenSize(); row++) {
+            for (int col = 0; col != tfGame.getScreenSize(); col++) {
+                Button tmp = new Button(context);
+                tmp.setBackgroundResource(board.getBox(row, col).getBackground());
+                this.boxButtons.add(tmp);
+            }
+        }
     }
 
     /**
@@ -131,12 +131,12 @@ public class TFGameActivity extends GameActivity implements Observer {
     private void updateBoxButtons() {
         TFBoard board = tfGame.getBoard();
         int nextPos = 0;
-//        for (Button b : boxButtons) { TODO: fix this
-//            int row = nextPos / tfGame.getScreenSize();
-//            int col = nextPos % tfGame.getScreenSize();
-//            b.setBackgroundResource(board.getBox(row, col).getBackground());
-//            nextPos++;
-//        }
+        for (Button b : boxButtons) {
+            int row = nextPos / tfGame.getScreenSize();
+            int col = nextPos % tfGame.getScreenSize();
+            b.setBackgroundResource(board.getBox(row, col).getBackground());
+            nextPos++;
+        }
     }
 
     /**
