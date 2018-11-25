@@ -43,7 +43,7 @@ public class Tile implements Serializable {
             R.drawable.mine_8,
             R.drawable.mine_mine,
             R.drawable.mine_flagged,
-            R.drawable.mine_revealed
+            R.drawable.mine_unrevealed
     };
 
     /**

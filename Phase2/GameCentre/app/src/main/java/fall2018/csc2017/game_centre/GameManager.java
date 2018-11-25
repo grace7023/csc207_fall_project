@@ -23,7 +23,7 @@ public class GameManager extends AppCompatActivity {
 
     private ImageButton mTwentyFortyBtn;
 
-    private ImageButton mMinesweeperBtm;
+    private ImageButton mMinesweeperBtn;
 
     /**
      * Creates the UI elements
@@ -36,18 +36,18 @@ public class GameManager extends AppCompatActivity {
 
         mSlidingTilesBtn = findViewById(R.id.SlidingTiles);
 //        mTwentyFortyBtn = findViewById(R.id.TwentyForty); TODO: Create 2048 button in activity_game_manager.xml
-//        mMinesweeperBtn = findViewById(R.id.Minesweeper); TODO: Create Minesweeper button in activity_game_manager.xml
+        mMinesweeperBtn = findViewById(R.id.Minesweeper);
 
         addSlidingTilesListener();
 //        addTFListener();
-//        addMinesweeperListener();
+        addMinesweeperListener();
     }
 
     /**
      * Provides functionality to the Minesweeper icon button
      */
     private void addMinesweeperListener() {
-        mMinesweeperBtm.setOnClickListener(new View.OnClickListener() {
+        mMinesweeperBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 GameMenuActivity.GAME_DESC = ""; //TODO: Fill Game Desc for Minesweeper

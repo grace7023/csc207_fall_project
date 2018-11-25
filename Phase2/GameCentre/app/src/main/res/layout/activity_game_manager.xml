@@ -46,6 +46,23 @@
         app:srcCompat="@drawable/sliding_tiles_icon"
         tools:srcCompat="@drawable/sliding_tiles_icon" />
 
+    <ImageButton
+        android:id="@+id/Minesweeper"
+        android:layout_width="118dp"
+        android:layout_height="148dp"
+        android:layout_marginTop="8dp"
+        android:background="@color/colorPrimaryDark"
+        android:padding="10dp"
+        android:scaleType="centerInside"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.747"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.21"
+        app:srcCompat="@drawable/mine_flagged"
+        tools:srcCompat="@drawable/mine_flagged" />
+
     <TextView
         android:id="@+id/SlidingTilesHeading"
         android:layout_width="123dp"
@@ -56,5 +73,17 @@
         android:textAppearance="@style/TextAppearance.AppCompat.Caption"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/SlidingTiles" />
+
+    <TextView
+        android:id="@+id/minesweeperHeading"
+        android:layout_width="123dp"
+        android:layout_height="23dp"
+        android:layout_marginStart="216dp"
+        android:layout_marginTop="8dp"
+        android:text="Minesweeper"
+        android:textAlignment="center"
+        android:textAppearance="@style/TextAppearance.AppCompat.Caption"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/Minesweeper" />
 
 </android.support.constraint.ConstraintLayout>
