@@ -19,11 +19,15 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".sliding_tiles.SlidingTilesGameActivity" />
         <activity android:name=".GameManager"></activity>
-        <activity android:name=".sliding_tiles.SlidingTilesSettings"></activity>
         <activity android:name=".GameMenuActivity"></activity>
         <activity android:name=".ScoreboardActivity"></activity>
+        <activity android:name=".sliding_tiles.SlidingTilesSettings"></activity>
+        <activity android:name=".sliding_tiles.SlidingTilesGameActivity" />
+        <activity android:name=".minesweeper.MinesweeperSettings"></activity>
+        <activity android:name=".minesweeper.MinesweeperGameActivity"></activity>
+        <activity android:name=".twenty_forty.TFSettings"></activity>
+        <activity android:name=".twenty_forty.TFGameActivity"></activity>
     </application>
 
 </manifest>

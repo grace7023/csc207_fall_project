@@ -52,7 +52,7 @@ public class GameManager extends AppCompatActivity {
             public void onClick(View v) {
                 GameMenuActivity.GAME_DESC = ""; //TODO: Fill Game Desc for Minesweeper
                 GameMenuActivity.filename = LogInScreen.currentUsername + "_" + "Minesweeper";
-//                GameMenuActivity.GAME = new MinesweeperGame(); //TODO: fill in param
+                GameMenuActivity.GAME = new MinesweeperGame(0,0,0);
                 startActivity(new Intent(GameManager.this, GameMenuActivity.class));
             }
         });

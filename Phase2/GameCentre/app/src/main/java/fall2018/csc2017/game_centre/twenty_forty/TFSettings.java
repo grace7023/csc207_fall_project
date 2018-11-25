@@ -15,8 +15,6 @@ import java.io.ObjectOutputStream;
 
 import fall2018.csc2017.game_centre.GameMenuActivity;
 import fall2018.csc2017.game_centre.R;
-import fall2018.csc2017.game_centre.sliding_tiles.SlidingTilesGame;
-import fall2018.csc2017.game_centre.sliding_tiles.SlidingTilesGameActivity;
 
 public class TFSettings extends AppCompatActivity {
 
@@ -37,7 +35,7 @@ public class TFSettings extends AppCompatActivity {
      */
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.settings);
+        setContentView(R.layout.settings_slidingtiles);
         addStartButtonListener();
         setupSpinner();
     }

@@ -35,7 +35,7 @@ public class MinesweeperSettings extends AppCompatActivity {
      */
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.settings);
+        setContentView(R.layout.settings_slidingtiles);
         addStartButtonListener();
         setupSpinner();
     }
@@ -73,7 +73,7 @@ public class MinesweeperSettings extends AppCompatActivity {
         startButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                minesweeperGame = new MinesweeperGame(gameSize); TODO: FIX THIS
+                minesweeperGame = new MinesweeperGame(gameSize, gameSize, 10); //TODO: change this
                 switchToGame();
                 finish();
             }
