@@ -4,11 +4,9 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.View;
 import android.view.ViewTreeObserver;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -86,7 +84,7 @@ public class MinesweeperGameActivity extends GameActivity implements Observer {
         super.onCreate(savedInstanceState);
         loadFromFile(GameMenuActivity.filename);
         createTileButtons(this);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_slidingtiles_game);
         addCurrentScore();
         // Add View to activity
         gridView = findViewById(R.id.grid);
