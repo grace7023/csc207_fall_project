@@ -86,7 +86,7 @@ public class SlidingTilesGameActivity extends GameActivity implements Observer {
         // Add View to activity
         gridView = findViewById(R.id.grid);
         gridView.setNumColumns(slidingTilesGame.getScreenSize());
-        gridView.setSlidingTilesGame(slidingTilesGame);
+        gridView.setGame(slidingTilesGame);
         slidingTilesGame.getBoard().addObserver(this);
         // Observer sets up desired dimensions as well as calls our display function
         gridView.getViewTreeObserver().addOnGlobalLayoutListener(
