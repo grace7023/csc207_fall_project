@@ -39,7 +39,7 @@ public class SlidingTilesGameActivity extends GameActivity implements Observer {
     /**
      * Grid View and calculated column height and width based on device size
      */
-    private GestureDetectGridView gridView;
+    private GestureDetectGridView<SlidingTilesGame> gridView;
     private static int columnWidth, columnHeight;
 
     /**
