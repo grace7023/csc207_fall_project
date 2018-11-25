@@ -14,7 +14,7 @@ public class TFBoard extends Observable implements Serializable, Iterable<Box> {
     private int boardSize;
     private Box[][] boxes;
 
-    public TFBoard (List<Box> boxesList, int boardSize) {
+    TFBoard (List<Box> boxesList, int boardSize) {
 
         this.boardSize = boardSize;
         Iterator<Box> boxIterator = boxesList.iterator();
@@ -26,7 +26,7 @@ public class TFBoard extends Observable implements Serializable, Iterable<Box> {
         }
     }
 
-    public Box getBox(int row, int col) {
+    Box getBox(int row, int col) {
         return this.boxes[row][col];
     }
 
@@ -49,7 +49,7 @@ public class TFBoard extends Observable implements Serializable, Iterable<Box> {
         boxes[row2][col2] = temp;
     }
 
-    private void moveBoxesUp() {
+    void MoveBoxesUp() {
         // Skips the top row since it can't go up any further
         for (int row = 1; row < boardSize; row++) {
             for (int col = 0; col < boardSize; col++) {
@@ -73,7 +73,7 @@ public class TFBoard extends Observable implements Serializable, Iterable<Box> {
         }
     }
 
-    private void moveBoxesDown() {
+    void MoveBoxesDown() {
         // Skips the bottom row since it can't go down any further
         for (int row = boardSize - 2; 0 <= row; row--) {
             for (int col = 0; col < boardSize; col++) {
@@ -97,7 +97,7 @@ public class TFBoard extends Observable implements Serializable, Iterable<Box> {
         }
     }
 
-    private void moveBoxesLeft() {
+    void MoveBoxesLeft() {
         // Skips the left column since it can't go left any further
         for (int col = 1; col < boardSize; col++) {
             for (int row = 0; row < boardSize; row++) {
@@ -121,7 +121,7 @@ public class TFBoard extends Observable implements Serializable, Iterable<Box> {
         }
     }
 
-    private void moveBoxesRight() {
+    void MoveBoxesRight() {
         // Skips the left column since it can't go left any further
         for (int col = boardSize - 2; 0 <= col; col--) {
             for (int row = 0; row < boardSize; row++) {

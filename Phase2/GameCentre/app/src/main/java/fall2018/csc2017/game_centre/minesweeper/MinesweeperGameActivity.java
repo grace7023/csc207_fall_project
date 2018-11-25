@@ -45,7 +45,7 @@ public class MinesweeperGameActivity extends GameActivity implements Observer {
     /**
      * Grid View and calculated column height and width based on device size
      */
-    private GestureDetectGridView gridView;
+    private GestureDetectGridView<MinesweeperGame> gridView;
     private static int columnWidth, columnHeight;
 
     /**
@@ -87,7 +87,6 @@ public class MinesweeperGameActivity extends GameActivity implements Observer {
         loadFromFile(GameMenuActivity.filename);
         createTileButtons(this);
         setContentView(R.layout.activity_main);
-        addUndoButton();
         addCurrentScore();
         // Add View to activity
         gridView = findViewById(R.id.grid);
@@ -138,7 +137,7 @@ public class MinesweeperGameActivity extends GameActivity implements Observer {
         for (Button b : tileButtons) {
             int row = nextPos / minesweeperGame.getScreenSize();
             int col = nextPos % minesweeperGame.getScreenSize();
-//            b.setBackgroundResource(board.getTile(row, col).getBackground()); TODO: Fix this
+            b.setBackgroundResource(board.getTile(row, col).getBackground());
             nextPos++;
         }
     }
@@ -201,24 +200,6 @@ public class MinesweeperGameActivity extends GameActivity implements Observer {
      */
     public void autoSave() {
         saveToFile(GameMenuActivity.filename);
-    }
-
-    /**
-     * Add undo button listener.
-     */
-
-    public void addUndoButton() {
-        Button undoButton = findViewById(R.id.undoButton);
-        undoButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-//                if (minesweeperGame.canUndoMove()) { TODO: FIX THIS
-//                    minesweeperGame.undo();
-//                } else {
-//                    Toast.makeText(MinesweeperGameActivity.this, "No more undo's", Toast.LENGTH_LONG).show();
-//                }
-            }
-        });
     }
 
     public void addCurrentScore() {

@@ -1,5 +1,4 @@
 package fall2018.csc2017.game_centre;
-import fall2018.csc2017.game_centre.sliding_tiles.*;
 
 /*
 Adapted from:
@@ -13,16 +12,14 @@ import android.util.AttributeSet;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.widget.GridView;
-import android.widget.Toast;
 
-public class GestureDetectGridView extends GridView {
+public class GestureDetectGridView<T extends Game> extends GridView {
     public static final int SWIPE_MIN_DISTANCE = 100;
     private GestureDetector gDetector;
-    private MovementController mController;
+    private MovementController<T> mController;
     private boolean mFlingConfirmed = false;
     private float mTouchX;
     private float mTouchY;
-    private SlidingTilesGame slidingTilesGame;
 
     public GestureDetectGridView(Context context) {
         super(context);
@@ -40,7 +37,7 @@ public class GestureDetectGridView extends GridView {
     }
 
     private void init(final Context context) {
-        mController = new MovementController();
+        mController = new MovementController<>();
         gDetector = new GestureDetector(context, new GestureDetector.SimpleOnGestureListener() {
 
             @Override
@@ -93,8 +90,7 @@ public class GestureDetectGridView extends GridView {
         return gDetector.onTouchEvent(ev);
     }
 
-    public void setSlidingTilesGame(SlidingTilesGame slidingTilesGame) {
-        this.slidingTilesGame = slidingTilesGame;
-        mController.setSlidingTilesGame(slidingTilesGame);
+    public void setGame(T game) {
+        mController.setGame(game);
     }
 }

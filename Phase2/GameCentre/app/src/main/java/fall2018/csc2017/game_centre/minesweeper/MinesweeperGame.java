@@ -8,7 +8,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
-import java.util.Random;
 
 import fall2018.csc2017.game_centre.Game;
 
@@ -106,7 +105,7 @@ public class MinesweeperGame extends Game implements Serializable {
         int bombs = 0;
         for (int i = 0; i < tiles.size(); i++) {
             if (bombs < numBombs) {
-                tiles.add(new Tile(Tile.BOMB));
+                tiles.add(new Tile(Tile.MINE));
                 bombs++;
             } else {
                 tiles.add(new Tile(Tile.EMPTY));
@@ -117,10 +116,10 @@ public class MinesweeperGame extends Game implements Serializable {
         for (int i = 0; i < numRows; i++) {
             for (int j = 0; j < numCols; j++) {
                 int position = i * numRows + j;
-                if (board.getTile(i, j).getId() != Tile.BOMB) {
+                if (board.getTile(i, j).getId() != Tile.MINE) {
                     int adjacentBombs = 0;
                     for (Tile neighbor : adjacentTiles(position, board)) {
-                        if (neighbor.getId() == Tile.BOMB) {
+                        if (neighbor.getId() == Tile.MINE) {
                             adjacentBombs++;
                         }
                     }
@@ -203,7 +202,7 @@ public class MinesweeperGame extends Game implements Serializable {
             }
         } else {
             board.getTile(row,col).reveal();
-            if (board.getTile(row,col).getId() == Tile.BOMB) {
+            if (board.getTile(row,col).getId() == Tile.MINE) {
                 bombClicked = true;
             } else {
                 board.addNumRevealed();
