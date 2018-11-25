@@ -80,7 +80,7 @@ public class SlidingTilesGameActivity extends GameActivity implements Observer {
         super.onCreate(savedInstanceState);
         loadFromFile(GameMenuActivity.filename);
         createTileButtons(this);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_slidingtiles_game);
         addUndoButton();
         addCurrentScore();
         // Add View to activity
