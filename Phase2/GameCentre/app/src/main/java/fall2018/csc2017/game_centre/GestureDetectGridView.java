@@ -1,4 +1,5 @@
 package fall2018.csc2017.game_centre;
+import fall2018.csc2017.game_centre.minesweeper.MinesweeperGame;
 import fall2018.csc2017.game_centre.sliding_tiles.*;
 
 /*
@@ -23,6 +24,8 @@ public class GestureDetectGridView extends GridView {
     private float mTouchX;
     private float mTouchY;
     private SlidingTilesGame slidingTilesGame;
+    private MinesweeperGame minesweeperGame;
+    private Game game;
 
     public GestureDetectGridView(Context context) {
         super(context);
@@ -93,8 +96,8 @@ public class GestureDetectGridView extends GridView {
         return gDetector.onTouchEvent(ev);
     }
 
-    public void setSlidingTilesGame(SlidingTilesGame slidingTilesGame) {
-        this.slidingTilesGame = slidingTilesGame;
-        mController.setSlidingTilesGame(slidingTilesGame);
+    public void setGame(Game game){
+        this.game = game;
+        mController.setGame(game);
     }
 }
