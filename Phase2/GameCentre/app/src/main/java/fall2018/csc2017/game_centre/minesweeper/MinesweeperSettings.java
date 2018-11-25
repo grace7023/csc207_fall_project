@@ -35,7 +35,7 @@ public class MinesweeperSettings extends AppCompatActivity {
      */
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.settings);
+        setContentView(R.layout.settings_slidingtiles);
         addStartButtonListener();
         setupSpinner();
     }
