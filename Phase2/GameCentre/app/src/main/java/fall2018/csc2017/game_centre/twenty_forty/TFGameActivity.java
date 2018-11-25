@@ -6,9 +6,11 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.view.ViewTreeObserver;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -114,13 +116,13 @@ public class TFGameActivity extends GameActivity implements Observer {
     private void createBoxButtons(Context context) {
         TFBoard board = tfGame.getBoard();
         boxButtons = new ArrayList<>();
-        for (int row = 0; row != tfGame.getScreenSize(); row++) {
-            for (int col = 0; col != tfGame.getScreenSize(); col++) {
-                Button tmp = new Button(context);
-                tmp.setBackgroundResource(board.getBox(row, col).getBackground());
-                this.boxButtons.add(tmp);
-            }
-        }
+//        for (int row = 0; row != tfGame.getScreenSize(); row++) { TODO: look into this
+//            for (int col = 0; col != tfGame.getScreenSize(); col++) {
+//                Button tmp = new Button(context);
+//                tmp.setBackgroundResource(board.getBox(row, col).getBackground());
+//                this.boxButtons.add(tmp);
+//            }
+//        }
     }
 
     /**
@@ -203,17 +205,16 @@ public class TFGameActivity extends GameActivity implements Observer {
 
     public void addUndoButton() {
         Button undoButton = findViewById(R.id.undoButton);
-//            TODO: JIMOTHY (undoButton)
-//            undoButton.setOnClickListener(new View.OnClickListener() {
-//                @Override
-//                public void onClick(View v) {
-//                    if (tfGame.canUndoMove()) {
-//                        tfGame.undo();
-//                    } else {
-//                        Toast.makeText(TFGameActivity.this, "No more undo's", Toast.LENGTH_LONG).show();
-//                    }
-//                }
-//            });
+            undoButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (tfGame.canUndoMove()) {
+                        tfGame.undo();
+                    } else {
+                        Toast.makeText(TFGameActivity.this, "No more undo's", Toast.LENGTH_LONG).show();
+                    }
+                }
+            });
     }
 
     public void addCurrentScore() {
@@ -221,8 +222,7 @@ public class TFGameActivity extends GameActivity implements Observer {
     }
 
     private void updateScore() {
-//            TODO: fix UpdateScore for 2048
-//            String newScore = "Score: " + String.valueOf(TwentyFortyGame.getScore());
-//            currentScore.setText(newScore);
+            String newScore = "Score: " + String.valueOf(tfGame.getScore());
+            currentScore.setText(newScore);
     }
 }
