@@ -158,7 +158,7 @@ public class TFBoard extends Observable implements Serializable, Iterable<Box> {
                 '}';
     }
 
-    private int getBoardSize() {
+    int getBoardSize() {
         return this.boardSize * this.boardSize;
     }
 

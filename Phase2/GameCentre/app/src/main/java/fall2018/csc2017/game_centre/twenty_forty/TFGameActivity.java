@@ -3,9 +3,11 @@ package fall2018.csc2017.game_centre.twenty_forty;
 import fall2018.csc2017.game_centre.*;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.ViewTreeObserver;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -33,7 +35,7 @@ public class TFGameActivity extends GameActivity implements Observer {
     /**
      * The buttons to display.
      */
-    private ArrayList<Button> boxButtons; //TODO: TileButtons ? Need to change this to fit 2048
+    private ArrayList<Button> boxButtons;
 
 
     /**
@@ -58,17 +60,16 @@ public class TFGameActivity extends GameActivity implements Observer {
         updateBoxButtons();
         gridView.setAdapter(new CustomAdapter(boxButtons, columnWidth, columnHeight));
         autoSave();
-        // TODO: replicate this for 2048
-//        if (slidingTilesGame.isOver()) {
-//            Scoreboard scoreboard = Scoreboard.loadFromFile();
-//            if (scoreboard == null) {
-//                scoreboard = new Scoreboard();
-//            }
-//            scoreboard.addScore(LogInScreen.currentUsername, slidingTilesGame.getScore());
-//            scoreboard.saveToFile();
-//
-//            startActivity(new Intent(this, GameMenuActivity.class));
-//        }
+        if (tfGame.isOver()) {
+            Scoreboard scoreboard = Scoreboard.loadFromFile();
+            if (scoreboard == null) {
+                scoreboard = new Scoreboard();
+            }
+            scoreboard.addScore(LogInScreen.currentUsername, tfGame.getScore());
+            scoreboard.saveToFile();
+
+            startActivity(new Intent(this, GameMenuActivity.class));
+        }
     }
 
     /**
@@ -86,27 +87,25 @@ public class TFGameActivity extends GameActivity implements Observer {
         addUndoButton();
         addCurrentScore();
         // Add View to activity
-        //TODO: fix this mumbojumbo
-//        gridView = findViewById(R.id.grid);
-//        gridView.setNumColumns(slidingTilesGame.getScreenSize());
-//        gridView.setSlidingTilesGame(slidingTilesGame);
-//        slidingTilesGame.getBoard().addObserver(this);
-//        // Observer sets up desired dimensions as well as calls our display function
-//        gridView.getViewTreeObserver().addOnGlobalLayoutListener(
-//                new ViewTreeObserver.OnGlobalLayoutListener() {
-//                    @Override
-//                    public void onGlobalLayout() {
-//                        gridView.getViewTreeObserver().removeOnGlobalLayoutListener(
-//                                this);
-//                        int displayWidth = gridView.getMeasuredWidth();
-//                        int displayHeight = gridView.getMeasuredHeight();
-//
-//                        columnWidth = displayWidth / slidingTilesGame.getScreenSize();
-//                        columnHeight = (displayHeight - 200) / slidingTilesGame.getScreenSize();
-//
-//                        display();
-//                    }
-//                });
+        gridView = findViewById(R.id.grid);
+        gridView.setNumColumns(tfGame.getScreenSize());
+//        gridView.setTFGame(tfGame); TODO: create setTFGame in GestureDetect
+        tfGame.getBoard().addObserver(this);
+        // Observer sets up desired dimensions as well as calls our display function
+        gridView.getViewTreeObserver().addOnGlobalLayoutListener(
+                new ViewTreeObserver.OnGlobalLayoutListener() {
+                    @Override
+                    public void onGlobalLayout() {
+                        gridView.getViewTreeObserver().removeOnGlobalLayoutListener(this);
+                        int displayWidth = gridView.getMeasuredWidth();
+                        int displayHeight = gridView.getMeasuredHeight();
+
+                        columnWidth = displayWidth / tfGame.getScreenSize();
+                        columnHeight = (displayHeight - 200) / tfGame.getScreenSize();
+
+                        display();
+                    }
+                });
     }
 
     /**
@@ -115,29 +114,27 @@ public class TFGameActivity extends GameActivity implements Observer {
      * @param context the context
      */
     private void createBoxButtons(Context context) {
-//        TODO: MUMBOJUMBO (createBoxButtons)
-//        Board board = slidingTilesGame.getBoard();
-//        boxButtons = new ArrayList<>();
-//        for (int row = 0; row != slidingTilesGame.getScreenSize(); row++) {
-//            for (int col = 0; col != slidingTilesGame.getScreenSize(); col++) {
-//                Button tmp = new Button(context);
-//                tmp.setBackgroundResource(board.getTile(row, col).getBackground());
-//                this.boxButtons.add(tmp);
-//            }
-//        }
+        TFBoard board = tfGame.getBoard();
+        boxButtons = new ArrayList<>();
+        for (int row = 0; row != tfGame.getScreenSize(); row++) {
+            for (int col = 0; col != tfGame.getScreenSize(); col++) {
+                Button tmp = new Button(context);
+                tmp.setBackgroundResource(board.getBox(row, col).getBackground());
+                this.boxButtons.add(tmp);
+            }
+        }
     }
 
     /**
      * Update the backgrounds on the buttons to match the tiles.
      */
     private void updateBoxButtons() {
-//        TODO: JUMBO (updateBoxButtons)
-//        Board board = slidingTilesGame.getBoard();
-//        int nextPos = 0;
-//        for (Button b : boxButtons) {
-//            int row = nextPos / slidingTilesGame.getScreenSize();
-//            int col = nextPos % slidingTilesGame.getScreenSize();
-//            b.setBackgroundResource(board.getTile(row, col).getBackground());
+        TFBoard board = tfGame.getBoard();
+        int nextPos = 0;
+//        for (Button b : boxButtons) { TODO: fix this
+//            int row = nextPos / tfGame.getScreenSize();
+//            int col = nextPos % tfGame.getScreenSize();
+//            b.setBackgroundResource(board.getBox(row, col).getBackground());
 //            nextPos++;
 //        }
     }
@@ -162,16 +159,15 @@ public class TFGameActivity extends GameActivity implements Observer {
             InputStream inputStream = this.openFileInput(fileName);
             if (inputStream != null) {
                 ObjectInputStream input = new ObjectInputStream(inputStream);
-//                TwentyFortyGame = (TwentyFortyGame) input.readObject(); TODO: Implement TwentyFortyGame
+                tfGame = (TFGame) input.readObject();
                 inputStream.close();
             }
         } catch (FileNotFoundException e) {
             Log.e("login activity", "File not found: " + e.toString());
         } catch (IOException e) {
             Log.e("login activity", "Can not read file: " + e.toString());
-//        } catch (ClassNotFoundException e) {
-//            Log.e("login activity", "File contained unexpected data type: " + e.toString());
-//        }
+        } catch (ClassNotFoundException e) {
+            Log.e("login activity", "File contained unexpected data type: " + e.toString());
         }
     }
 
@@ -184,7 +180,7 @@ public class TFGameActivity extends GameActivity implements Observer {
         try {
             ObjectOutputStream outputStream = new ObjectOutputStream(
                     this.openFileOutput(fileName, MODE_PRIVATE));
-//            outputStream.writeObject(TwentyFortyGame); TODO: Implement TwentyFortyGame
+            outputStream.writeObject(tfGame);
             outputStream.close();
         } catch (IOException e) {
             Log.e("Exception", "File write failed: " + e.toString());
@@ -210,16 +206,16 @@ public class TFGameActivity extends GameActivity implements Observer {
     public void addUndoButton() {
         Button undoButton = findViewById(R.id.undoButton);
 //            TODO: JIMOTHY (undoButton)
-            undoButton.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    if (tfGame.canUndoMove()) {
-                        tfGame.undo();
-                    } else {
-                        Toast.makeText(TFGameActivity.this, "No more undo's", Toast.LENGTH_LONG).show();
-                    }
-                }
-            });
+//            undoButton.setOnClickListener(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View v) {
+//                    if (tfGame.canUndoMove()) {
+//                        tfGame.undo();
+//                    } else {
+//                        Toast.makeText(TFGameActivity.this, "No more undo's", Toast.LENGTH_LONG).show();
+//                    }
+//                }
+//            });
     }
 
     public void addCurrentScore() {
