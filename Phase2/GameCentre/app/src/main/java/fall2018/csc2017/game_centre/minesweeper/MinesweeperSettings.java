@@ -73,7 +73,7 @@ public class MinesweeperSettings extends AppCompatActivity {
         startButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                minesweeperGame = new MinesweeperGame(gameSize); TODO: FIX THIS
+                minesweeperGame = new MinesweeperGame(gameSize, gameSize, 10); //TODO: change this
                 switchToGame();
                 finish();
             }
