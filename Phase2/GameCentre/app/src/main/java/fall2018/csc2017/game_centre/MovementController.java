@@ -3,24 +3,21 @@ package fall2018.csc2017.game_centre;
 import android.content.Context;
 import android.widget.Toast;
 
-import fall2018.csc2017.game_centre.sliding_tiles.SlidingTilesGame;
+class MovementController<T extends Game> {
 
-
-class MovementController {
-
-    private SlidingTilesGame slidingTilesGame = null;
+    private T game = null;
 
     MovementController() {
     }
 
-    void setSlidingTilesGame(SlidingTilesGame slidingTilesGame) {
-        this.slidingTilesGame = slidingTilesGame;
+    void setGame(T game) {
+        this.game = game;
     }
 
     void processGameTapMovement(Context context, int position) {
-        if (slidingTilesGame.isValidMove(position)) {
-            slidingTilesGame.move(position);
-            if (slidingTilesGame.puzzleSolved()) {
+        if (game.isValidMove(position)) {
+            game.move(position);
+            if (game.isOver()) {
                 Toast.makeText(context, "YOU WIN!", Toast.LENGTH_SHORT).show();
             }
         } else {
