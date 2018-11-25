@@ -3,8 +3,6 @@ package fall2018.csc2017.game_centre;
 import android.content.Context;
 import android.widget.Toast;
 
-import fall2018.csc2017.game_centre.sliding_tiles.SlidingTilesGame;
-
 
 class MovementController<T extends Game> {
 
