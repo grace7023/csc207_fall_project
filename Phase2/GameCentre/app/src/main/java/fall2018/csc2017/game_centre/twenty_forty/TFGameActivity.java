@@ -41,7 +41,7 @@ public class TFGameActivity extends GameActivity implements Observer {
     /**
      * Grid View and calculated column height and width based on device size
      */
-    private GestureDetectGridView gridView; //TODO: add functions for GestureDetecting Class to fit 2048: Swiping (OnFling)
+    private GestureDetectGridView<TFGame> gridView; //TODO: add functions for GestureDetecting Class to fit 2048: Swiping (OnFling)
 
     private static int columnWidth, columnHeight;
 
