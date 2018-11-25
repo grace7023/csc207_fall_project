@@ -35,11 +35,11 @@ public class GameManager extends AppCompatActivity {
         setContentView(R.layout.activity_game_manager);
 
         mSlidingTilesBtn = findViewById(R.id.SlidingTiles);
-//        mTwentyFortyBtn = findViewById(R.id.TwentyForty); TODO: Create 2048 button in activity_game_manager.xml
+        mTwentyFortyBtn = findViewById(R.id.TwentyForty);
         mMinesweeperBtn = findViewById(R.id.Minesweeper);
 
         addSlidingTilesListener();
-//        addTFListener();
+        addTFListener();
         addMinesweeperListener();
     }
 
@@ -69,7 +69,7 @@ public class GameManager extends AppCompatActivity {
                         " and get to the 2048 tile! \n\n  Swipe to move all tiles. " +
                         "When two tiles with the same number touch, they merge into one.";
                 GameMenuActivity.filename = LogInScreen.currentUsername + "_" + "TwentyForty";
-                GameMenuActivity.GAME = new TFGame(0);
+                GameMenuActivity.GAME = new TFGame(4);
                 startActivity(new Intent(GameManager.this, GameMenuActivity.class));
             }
         });
