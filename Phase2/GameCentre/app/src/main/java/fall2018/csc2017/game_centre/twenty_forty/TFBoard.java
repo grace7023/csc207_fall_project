@@ -14,7 +14,7 @@ public class TFBoard extends Observable implements Serializable, Iterable<Box> {
     private int boardSize;
     private Box[][] boxes;
 
-    public TFBoard (List<Box> boxesList, int boardSize) {
+    TFBoard (List<Box> boxesList, int boardSize) {
 
         this.boardSize = boardSize;
         Iterator<Box> boxIterator = boxesList.iterator();
@@ -26,7 +26,7 @@ public class TFBoard extends Observable implements Serializable, Iterable<Box> {
         }
     }
 
-    public Box getBox(int row, int col) {
+    Box getBox(int row, int col) {
         return this.boxes[row][col];
     }
 
