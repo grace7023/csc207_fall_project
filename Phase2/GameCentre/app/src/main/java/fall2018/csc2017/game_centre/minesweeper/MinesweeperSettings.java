@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.Spinner;
 
 import java.io.IOException;
@@ -35,7 +36,7 @@ public class MinesweeperSettings extends AppCompatActivity {
      */
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.settings_slidingtiles);
+        setContentView(R.layout.settings_minesweeper);
         addStartButtonListener();
         setupSpinner();
     }
@@ -45,24 +46,9 @@ public class MinesweeperSettings extends AppCompatActivity {
      * Code adapted from https://stackoverflow.com/questions/13377361/how-to-create-a-drop-down-list
      */
     private void setupSpinner() {
-        Spinner boardSize;
+        EditText boardSize;
         ArrayAdapter<CharSequence> adapter;
 
-        boardSize = findViewById(R.id.sizeSpinner);
-        adapter = ArrayAdapter.createFromResource(this, R.array.GameSize,
-                android.R.layout.simple_spinner_item);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        boardSize.setAdapter(adapter);
-        boardSize.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                gameSize = Integer.valueOf(adapterView.getItemAtPosition(i).toString());
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> adapterView) {
-            }
-        });
     }
 
     /**
