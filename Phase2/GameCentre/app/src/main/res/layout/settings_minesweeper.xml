@@ -35,7 +35,7 @@
         app:layout_constraintTop_toBottomOf="@+id/bombNumberText" />
 
     <EditText
-        android:id="@+id/msBoardSize"
+        android:id="@+id/msNumberBombs"
         android:layout_width="48dp"
         android:layout_height="38dp"
         android:layout_marginTop="44dp"
@@ -43,7 +43,7 @@
         android:ems="10"
         android:inputType="number"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/MSSettingsHeading" />
+        app:layout_constraintTop_toBottomOf="@+id/msSettingsHeading" />
 
     <TextView
         android:id="@+id/bombNumberText"
@@ -55,7 +55,7 @@
         android:layout_marginTop="56dp"
         android:text="Choose Number of Bombs"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/MSSettingsHeading" />
+        app:layout_constraintTop_toBottomOf="@+id/msSettingsHeading" />
 
     <Spinner
         android:id="@+id/msBoardSizeSpinner"
@@ -70,7 +70,7 @@
         app:layout_constraintTop_toBottomOf="@+id/bombNumberText" />
 
     <TextView
-        android:id="@+id/MSSettingsHeading"
+        android:id="@+id/msSettingsHeading"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
@@ -82,4 +82,5 @@
         app:layout_constraintHorizontal_bias="0.461"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
 </android.support.constraint.ConstraintLayout>
