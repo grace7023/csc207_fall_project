@@ -54,7 +54,6 @@ public class MinesweeperGameActivity extends GameActivity implements Observer {
     private GestureDetectGridView<MinesweeperGame> gridView;
     private static int columnWidth, columnHeight;
 
-    private Date startTime;
 
     /**
      * TextView for currentScore
@@ -95,13 +94,13 @@ public class MinesweeperGameActivity extends GameActivity implements Observer {
         super.onCreate(savedInstanceState);
         loadFromFile(GameMenuActivity.filename);
         createTileButtons(this);
-        addFlagButton();
+//        addFlagButton();
         setContentView(R.layout.activity_minesweeper_game);
         addTimer();
         addBombCounter();
         // Add View to activity
         gridView = findViewById(R.id.grid);
-        gridView.setNumColumns(minesweeperGame.getScreenSize());
+        gridView.setNumColumns(minesweeperGame.getNumCols());
         gridView.setGame(minesweeperGame);
         minesweeperGame.getBoard().addObserver(this);
         // Observer sets up desired dimensions as well as calls our display function
@@ -114,31 +113,35 @@ public class MinesweeperGameActivity extends GameActivity implements Observer {
                         int displayWidth = gridView.getMeasuredWidth();
                         int displayHeight = gridView.getMeasuredHeight();
 
-                        columnWidth = displayWidth / minesweeperGame.getScreenSize();
-                        columnHeight = (displayHeight - 200) / minesweeperGame.getScreenSize();
+                        columnWidth = displayWidth / minesweeperGame.getNumCols();
+                        columnHeight = (displayHeight - 200) / minesweeperGame.getNumRows();
 
                         display();
                     }
                 });
     }
 
-    private void addFlagButton() {
-        ImageButton flagButton = findViewById(R.id.flagButton);
-        flagButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                minesweeperGame.toggleFlagging();
-            }
-        });
-    }
+//    private void addFlagButton() {
+//        Button flagButton = findViewById(R.id.flagButton);
+//        flagButton.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                minesweeperGame.toggleFlagging();
+//            }
+//        });
+//    }
 
+
+//    intent@5786
+//    bundle@5783 outside intent
+//    bundle@5803 inside intent
     private void addTimer(){
         timer = findViewById(R.id.timer);
     }
 
     private void addBombCounter(){
         bombCounter = findViewById(R.id.bombCounter);
-        bombCounter.setText(minesweeperGame.getNumBombs());
+        bombCounter.setText(String.valueOf(minesweeperGame.getNumBombs()));
     }
 
     /**
@@ -149,10 +152,10 @@ public class MinesweeperGameActivity extends GameActivity implements Observer {
     private void createTileButtons(Context context) {
         Board board = minesweeperGame.getBoard();
         tileButtons = new ArrayList<>();
-        for (int row = 0; row != minesweeperGame.getScreenSize(); row++) {
-            for (int col = 0; col != minesweeperGame.getScreenSize(); col++) {
+        for (int row = 0; row != minesweeperGame.getNumRows(); row++) {
+            for (int col = 0; col != minesweeperGame.getNumCols(); col++) {
                 Button tmp = new Button(context);
-//                tmp.setBackgroundResource(board.getTile(row, col).getBackground()); TODO: Fix this
+                tmp.setBackgroundResource(board.getTile(row, col).getBackground());
                 this.tileButtons.add(tmp);
             }
         }
@@ -165,8 +168,11 @@ public class MinesweeperGameActivity extends GameActivity implements Observer {
         Board board = minesweeperGame.getBoard();
         int nextPos = 0;
         for (Button b : tileButtons) {
-            int row = nextPos / minesweeperGame.getScreenSize();
-            int col = nextPos % minesweeperGame.getScreenSize();
+            if (nextPos == 9){
+                System.out.println();
+            }
+            int row = nextPos / minesweeperGame.getNumRows();
+            int col = nextPos % minesweeperGame.getNumCols();
             b.setBackgroundResource(board.getTile(row, col).getBackground());
             nextPos++;
         }

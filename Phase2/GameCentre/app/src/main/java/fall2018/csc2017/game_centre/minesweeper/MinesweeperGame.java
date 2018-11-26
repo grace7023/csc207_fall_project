@@ -108,9 +108,9 @@ public class MinesweeperGame extends Game implements Serializable {
      * Creates the board with the specified rows, columns and number of bombs
      */
     private void generateBoard() {
-        List<Tile> tiles = new ArrayList<>();
+        List<Tile> tiles = new ArrayList<>(numRows*numCols);
         int bombs = 0;
-        for (int i = 0; i < tiles.size(); i++) {
+        for (int i = 0; i < getScreenSize(); i++) {
             if (bombs < numBombs) {
                 tiles.add(new Tile(Tile.MINE));
                 bombs++;
@@ -226,16 +226,19 @@ public class MinesweeperGame extends Game implements Serializable {
      */
 
     private List<Tile> adjacentTiles(int position, Board board) {
+        if (numCols == 10){
+            System.out.println("Break point");
+        }
         int row = position / this.numRows;
         int col = position % this.numCols;
-        Tile upLeft = row == 0 && col == 0 ? null : board.getTile(row - 1, col - 1);
+        Tile upLeft = row == 0 || col == 0 ? null : board.getTile(row - 1, col - 1);
         Tile above = row == 0 ? null : board.getTile(row - 1, col);
-        Tile upRight = row == 0 && col == this.numCols - 1 ? null : board.getTile(row - 1, col + 1);
+        Tile upRight = row == 0 || col == this.numCols - 1 ? null: board.getTile(row-1, col+1);
         Tile below = row == this.numRows - 1 ? null : board.getTile(row + 1, col);
         Tile left = col == 0 ? null : board.getTile(row, col - 1);
         Tile right = col == this.numCols - 1 ? null : board.getTile(row, col + 1);
-        Tile downLeft = row == this.numRows - 1 && col == 0? null : board.getTile(row + 1, col - 1);
-        Tile downRight = row == this.numRows - 1 && col == this.numCols - 1 ? null : board.getTile(row + 1, col + 1);
+        Tile downLeft = row == this.numRows - 1 || col == 0? null : board.getTile(row + 1, col - 1);
+        Tile downRight = row == this.numRows - 1 || col == this.numCols - 1 ? null : board.getTile(row + 1, col + 1);
         return Arrays.asList(upLeft, above, upRight, below, left, right, downLeft, downRight);
     }
 
@@ -266,4 +269,7 @@ public class MinesweeperGame extends Game implements Serializable {
     }
 
     public int getNumBombs(){ return bombsLeft; }
+
+    public int getNumRows() { return numRows; }
+    public int getNumCols() { return numCols; }
 }

@@ -65,6 +65,7 @@ public class MinesweeperSettings extends AppCompatActivity {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 numRows = Integer.valueOf(adapterView.getItemAtPosition(i).toString());
+//                numCols = Integer.valueOf(adapterView.getItemAtPosition(i).toString());
             }
 
             @Override
