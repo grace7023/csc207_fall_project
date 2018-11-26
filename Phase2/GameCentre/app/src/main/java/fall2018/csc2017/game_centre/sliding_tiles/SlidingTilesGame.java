@@ -53,6 +53,9 @@ public class SlidingTilesGame extends Game implements Serializable {
      */
     private final static int[][] MOVE_ADJUSTMENT_VALUES = new int[][]{{-1, 0}, {1, 0}, {0, -1}, {0, 1}};
 
+    public final static String GAME_DESC = "Welcome To Sliding Tiles \n A Puzzle Game where you" +
+                        " must arrange the numbers in the correct order";
+
     /**
      * Manage a board that has been pre-populated.
      *

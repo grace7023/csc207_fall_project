@@ -21,6 +21,10 @@ public class TFGame extends Game implements Serializable {
 
     private int score;
 
+    public final static String GAME_DESC = "Welcome To 2048 \n Join the numbers" +
+            " and get to the 2048 tile! \n\n  Swipe to move all tiles. " +
+            "When two tiles with the same number touch, they merge into one.";
+
     /**
      * HashMap which lets the code associate the arg in TFGame.move(arg) with an actual move rather
      * than a magic number

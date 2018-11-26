@@ -51,18 +51,9 @@ public class MinesweeperGame extends Game implements Serializable {
     private boolean flagging;
 
     private boolean bombClicked;
-    /**
-     * Given the row and column of a tile, this list indicates how to adjust those two numbers
-     * to obtain the row and column of an adjacent tile.
-     * MOVE_ADJUSTMENT_VALUES[0] - adjustment for tile above
-     * MOVE_ADJUSTMENT_VALUES[1] - adjustment for tile below
-     * MOVE_ADJUSTMENT_VALUES[2] - adjustment for tile left
-     * MOVE_ADJUSTMENT_VALUES[3] - adjustment for tile right
-     * each internal array is of the format {row adjustment, column adjustment}. For example, given
-     * row and column of a tile, to get the row and column of the tile above, row would add -1 and
-     * column would add 0.
-     */
-    private final static int[][] MOVE_ADJUSTMENT_VALUES = new int[][]{{-1, 0}, {1, 0}, {0, -1}, {0, 1}};
+
+    // TODO: add game description
+    public final static String GAME_DESC = "";
 
     private Date startTime;
 
