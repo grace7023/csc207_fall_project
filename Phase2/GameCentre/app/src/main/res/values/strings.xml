@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">GameCentre</string>
     <string name="CurrentScore">Score: 0</string>
+    <string name="Timer">Time: 0:00</string>
 
     <string-array name="STGameSize">
         <item>3</item>
