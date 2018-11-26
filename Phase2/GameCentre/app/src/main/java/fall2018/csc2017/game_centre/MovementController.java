@@ -14,7 +14,7 @@ class MovementController<T extends Game> {
         this.game = game;
     }
 
-    void processGameTapMovement(Context context, int arg) {
+    void processGameMovement(Context context, int arg) {
         if (game.isValidMove(arg)) {
             game.move(arg);
             if (game.isOver()) {

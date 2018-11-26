@@ -10,6 +10,7 @@ import java.util.Map;
 import java.util.Random;
 
 import fall2018.csc2017.game_centre.Game;
+import fall2018.csc2017.game_centre.GestureDetectGridView;
 
 public class TFGame extends Game implements Serializable {
 
@@ -40,7 +41,6 @@ public class TFGame extends Game implements Serializable {
         MOVE_ARG = map;
     }
 
-
     public TFGame(TFBoard board) {
 //        this.boardSize = TFBoard.getBoardSize(); TODO: static ???
         this.board = board;
@@ -50,6 +50,7 @@ public class TFGame extends Game implements Serializable {
     public TFGame(int boardSize) {
         this.boardSize = boardSize;
         this.score = 0;
+        GestureDetectGridView.detectFling = true;
         //TODO: moves ?
         List<Box> boxes = new ArrayList<>();
 
@@ -97,8 +98,10 @@ public class TFGame extends Game implements Serializable {
      */
     @Override
     public boolean isValidMove(int arg) {
+        // if no block can be moved then return false
+
         return false;
-    }
+    } //TODO: implement isValidMove
 
     /**
      * Perform a move identified by arg.
@@ -109,20 +112,14 @@ public class TFGame extends Game implements Serializable {
     public void move(int arg) {
         ArrayList<Box> boxesSave = GetBoxList(board);
         pastBoards.add(new TFBoard(boxesSave, this.board.getBoardSize()));
-
-        switch (arg) {
-            case 1:
-                board.MoveBoxesUp();
-                break;
-            case 2:
-                board.MoveBoxesDown();
-                break;
-            case 3:
-                board.MoveBoxesLeft();
-                break;
-            case 4:
-                board.MoveBoxesRight();
-                break;
+        if (arg == GestureDetectGridView.MOVE_ARG.get("Up")) {
+            board.MoveBoxesUp();
+        } else if (arg == GestureDetectGridView.MOVE_ARG.get("Down")) {
+            board.MoveBoxesDown();
+        } else if (arg == GestureDetectGridView.MOVE_ARG.get("Left")) {
+            board.MoveBoxesLeft();
+        } else if (arg == GestureDetectGridView.MOVE_ARG.get("Right")) {
+            board.MoveBoxesRight();
         }
     }
 

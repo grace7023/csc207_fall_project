@@ -140,12 +140,20 @@ public class LogInScreen extends AppCompatActivity {
         String email = emailField.getText().toString();
         String password = passwordField.getText().toString();
 
-        if (trySignUp(email, password)) {
-            Toast.makeText(LogInScreen.this, "Successfully signed in!", Toast.LENGTH_LONG).show();
-            switchToGameManager(email);
-        }
-        else {
-            Toast.makeText(LogInScreen.this, "Username already exists", Toast.LENGTH_LONG).show();
+        if (TextUtils.isEmpty(email) || TextUtils.isEmpty(password)) {
+            Toast.makeText(LogInScreen.this, "Fields are empty", Toast.LENGTH_LONG).show();
+        } else {
+            if (email.contains(":") || password.contains(":")) {
+                Toast.makeText(LogInScreen.this, "Invalid character input " +
+                        "(char \":\" is not allowed ", Toast.LENGTH_LONG).show();
+            } else {
+                if (trySignUp(email, password)) {
+                    Toast.makeText(LogInScreen.this, "Successfully signed in!", Toast.LENGTH_LONG).show();
+                    switchToGameManager(email);
+                } else {
+                    Toast.makeText(LogInScreen.this, "Username already exists", Toast.LENGTH_LONG).show();
+                }
+            }
         }
     }
 
@@ -160,10 +168,15 @@ public class LogInScreen extends AppCompatActivity {
         if (TextUtils.isEmpty(email) || TextUtils.isEmpty(password)) {
             Toast.makeText(LogInScreen.this, "Fields are empty", Toast.LENGTH_LONG).show();
         } else {
-            if (!tryLogIn(email, password)){
-                Toast.makeText(LogInScreen.this, "Invalid login", Toast.LENGTH_LONG).show();
+            if (email.contains(":") || password.contains(":")){
+                Toast.makeText(LogInScreen.this, "Invalid character input " +
+                        "(char \":\" is not allowed ", Toast.LENGTH_LONG).show();
             } else {
-                switchToGameManager(email);
+                if (!tryLogIn(email, password)) {
+                    Toast.makeText(LogInScreen.this, "Invalid login", Toast.LENGTH_LONG).show();
+                } else {
+                    switchToGameManager(email);
+                }
             }
         }
     }
