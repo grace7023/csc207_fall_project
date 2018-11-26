@@ -28,8 +28,6 @@ public class ScoreboardActivity extends AppCompatActivity {
      */
     public ArrayList<Score> playerScores = new ArrayList<>();
 
-    private String currentUsername;
-
     /**
      * Creates the UI elements
      *
@@ -39,7 +37,7 @@ public class ScoreboardActivity extends AppCompatActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_scoreboard);
-        currentUsername = getIntent().getStringExtra("USERNAME");
+        String currentUsername = getIntent().getStringExtra("USERNAME");
         scoreboard = Scoreboard.loadFromFile();
         scores = scoreboard.getScores();
         playerScores = scoreboard.getScores(currentUsername);
