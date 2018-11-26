@@ -176,9 +176,7 @@ public class GameMenuActivity extends AppCompatActivity {
 
     protected void switchToScoreboard() {
         Intent scoreboardIntent = new Intent(this, ScoreboardActivity.class);
-        Bundle bundle = new Bundle();
-        bundle.putString("USERNAME", currentUsername);
-        scoreboardIntent.putExtras(bundle);
+        scoreboardIntent.putExtra("USERNAME", currentUsername);
         startActivity(scoreboardIntent);
     }
 

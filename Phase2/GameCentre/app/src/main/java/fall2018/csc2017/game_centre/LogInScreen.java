@@ -28,7 +28,7 @@ public class LogInScreen extends AppCompatActivity {
     /**
      * The username of the player
      */
-    public static String currentUsername = null;
+//    public static String currentUsername = null;
 
     /**
      * The file holding the usernames
@@ -288,7 +288,6 @@ public class LogInScreen extends AppCompatActivity {
      * Switch to the GameManager view to launch game centre.
      */
     private void switchToGameManager(String sessionUsername) {
-        currentUsername = sessionUsername;
         Intent gmIntent = new Intent(LogInScreen.this, GameManager.class);
         gmIntent.putExtra("USERNAME", sessionUsername);
         startActivity(gmIntent);

@@ -39,11 +39,9 @@ public class ScoreboardActivity extends AppCompatActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_scoreboard);
-        assert getIntent().getExtras() != null;
-        currentUsername = getIntent().getExtras().getString("USERNAME");
+        currentUsername = getIntent().getStringExtra("USERNAME");
         scoreboard = Scoreboard.loadFromFile();
         scores = scoreboard.getScores();
-        //TODO: fix this
         playerScores = scoreboard.getScores(currentUsername);
 
         /* This code adapted from

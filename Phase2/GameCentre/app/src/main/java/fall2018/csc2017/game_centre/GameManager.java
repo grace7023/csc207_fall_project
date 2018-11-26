@@ -58,6 +58,7 @@ public class GameManager extends AppCompatActivity {
                 gameBundle.putSerializable("GAME", new MinesweeperGame(0, 0, 0));
                 gameBundle.putString("GAME_DESC", MinesweeperGame.GAME_DESC);
                 gameBundle.putString("GAME_FILENAME", currentUsername + "_" + "Minesweeper");
+                gameBundle.putString("USERNAME", currentUsername);
                 stGameIntent.putExtras(gameBundle);
                 startActivity(stGameIntent);
             }
