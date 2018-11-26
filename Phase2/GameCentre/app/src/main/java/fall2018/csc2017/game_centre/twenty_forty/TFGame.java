@@ -22,21 +22,6 @@ public class TFGame extends Game implements Serializable {
 
     private int score;
 
-    /**
-     * HashMap which lets the code associate the arg in TFGame.move(arg) with an actual move rather
-     * than a magic number
-     */
-    static final HashMap<String, Integer> MOVE_ARG;
-
-    static {
-        HashMap<String, Integer> map = new HashMap<>();
-        map.put("Up", 1);
-        map.put("Down", 2);
-        map.put("Left", 3);
-        map.put("Right", 4);
-        MOVE_ARG = map;
-    }
-
 
     public TFGame(TFBoard board) {
 //        this.boardSize = TFBoard.getBoardSize(); TODO: static ???
@@ -107,20 +92,14 @@ public class TFGame extends Game implements Serializable {
     public void move(int arg) {
         ArrayList<Box> boxesSave = GetBoxList(board);
         pastBoards.add(new TFBoard(boxesSave, this.board.getBoardSize()));
-
-        switch (arg) {
-            case 1:
-                board.MoveBoxesUp();
-                break;
-            case 2:
-                board.MoveBoxesDown();
-                break;
-            case 3:
-                board.MoveBoxesLeft();
-                break;
-            case 4:
-                board.MoveBoxesRight();
-                break;
+        if (arg == GestureDetectGridView.MOVE_ARG.get("Up")) {
+            board.MoveBoxesUp();
+        } else if (arg == GestureDetectGridView.MOVE_ARG.get("Down")) {
+            board.MoveBoxesDown();
+        } else if (arg == GestureDetectGridView.MOVE_ARG.get("Left")) {
+            board.MoveBoxesLeft();
+        } else if (arg == GestureDetectGridView.MOVE_ARG.get("Right")) {
+            board.MoveBoxesRight();
         }
     }
 
