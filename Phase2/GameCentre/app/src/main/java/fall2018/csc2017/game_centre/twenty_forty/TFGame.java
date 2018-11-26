@@ -80,8 +80,10 @@ public class TFGame extends Game implements Serializable {
      */
     @Override
     public boolean isValidMove(int arg) {
+        // if no block can be moved then return false
+
         return false;
-    }
+    } //TODO: implement isValidMove
 
     /**
      * Perform a move identified by arg.
