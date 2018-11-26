@@ -47,6 +47,8 @@ public class SlidingTilesGameActivity extends GameActivity implements Observer {
      */
     private TextView currentScore;
 
+    private String currentUsername;
+
     /**
      * Set up the background image for each button based on the master list
      * of positions, and then call the adapter to set the view.
@@ -61,15 +63,15 @@ public class SlidingTilesGameActivity extends GameActivity implements Observer {
             if (scoreboard == null) {
                 scoreboard = new Scoreboard();
             }
-            scoreboard.addScore(LogInScreen.currentUsername, String.valueOf(slidingTilesGame.getScore()));
+            scoreboard.addScore(currentUsername, String.valueOf(slidingTilesGame.getScore()));
             scoreboard.saveToFile();
 
             Intent stGameIntent = new Intent(getApplicationContext(), GameMenuActivity.class);
             Bundle gameBundle = new Bundle();
             gameBundle.putSerializable("GAME", new SlidingTilesGame(0));
             gameBundle.putString("GAME_DESC", SlidingTilesGame.GAME_DESC);
-            gameBundle.putString("GAME_FILENAME", LogInScreen.currentUsername + "_" + "SlidingTiles");
-            gameBundle.putString("USERNAME", LogInScreen.currentUsername);
+            gameBundle.putString("GAME_FILENAME", currentUsername + "_" + "SlidingTiles");
+            gameBundle.putString("USERNAME", currentUsername);
             stGameIntent.putExtras(gameBundle);
             startActivity(stGameIntent);
             finish();
@@ -86,6 +88,7 @@ public class SlidingTilesGameActivity extends GameActivity implements Observer {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         loadFromFile(GameMenuActivity.gameFileName);
+        currentUsername = getIntent().getStringExtra("USERNAME");
         createTileButtons(this);
         setContentView(R.layout.activity_slidingtiles_game);
         addUndoButton();
