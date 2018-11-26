@@ -140,7 +140,7 @@ public class LogInScreen extends AppCompatActivity {
         String email = emailField.getText().toString();
         String password = passwordField.getText().toString();
 
-        if (TrySignUp(email, password)) {
+        if (trySignUp(email, password)) {
             Toast.makeText(LogInScreen.this, "Successfully signed in!", Toast.LENGTH_LONG).show();
             switchToGameManager(email);
         }
@@ -204,7 +204,7 @@ public class LogInScreen extends AppCompatActivity {
      * @return whether log in was successful
      */
 
-    private boolean TrySignUp(String username, String password) {
+    private boolean trySignUp(String username, String password) {
         BufferedReader br;
         try {
             br = new BufferedReader(new FileReader(userFile));
