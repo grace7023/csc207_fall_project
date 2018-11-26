@@ -6,7 +6,9 @@ import android.support.v7.app.AppCompatActivity;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Calendar;
 import java.util.Collections;
+import java.util.Date;
 import java.util.List;
 
 import fall2018.csc2017.game_centre.Game;
@@ -45,7 +47,6 @@ public class MinesweeperGame extends Game implements Serializable {
     /**
      * The score of the current game
      */
-    private int score;
 
     private boolean flagging;
 
@@ -69,6 +70,8 @@ public class MinesweeperGame extends Game implements Serializable {
      * @param board the board
      */
 
+    private Date startTime;
+
     /** TODO: figure out if we need this
     public MinesweeperGame(Board board) {
         this.numRows = board.getBoardSize();
@@ -90,11 +93,9 @@ public class MinesweeperGame extends Game implements Serializable {
         this.numCols = numCols;
         this.numBombs = numBombs;
         bombsLeft = numBombs;
-        score = 0;
         flagging = false;
         bombClicked = false;
-        System.out.println("AAAA");
-        System.out.println("AAAABFpadjsapodjs");
+        startTime = Calendar.getInstance().getTime();
 
         generateBoard();
     }
@@ -234,14 +235,6 @@ public class MinesweeperGame extends Game implements Serializable {
         return Arrays.asList(upLeft, above, upRight, below, left, right, downLeft, downRight);
     }
 
-    /**
-     * Return the score
-     *
-     * @return The score of the current game
-     */
-    int getScore() {
-        return score;
-    }
 
     /**
      * Changes activity from game to settings
@@ -258,5 +251,13 @@ public class MinesweeperGame extends Game implements Serializable {
     @Override
     public Intent getGameActivityIntent(AppCompatActivity PackageContext) {
         return new Intent(PackageContext, MinesweeperGameActivity.class);
+    }
+
+    public String getTime(){
+
+        int currentTimeSeconds = Calendar.getInstance().getTime().getSeconds() - startTime.getSeconds();
+        int currentTimeMinutes = Calendar.getInstance().getTime().getMinutes() - startTime.getMinutes();
+        String newTime = "Time: " + String.valueOf(currentTimeMinutes) + ":" + String.valueOf(currentTimeSeconds);
+        return newTime;
     }
 }
