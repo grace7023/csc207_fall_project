@@ -93,6 +93,8 @@ public class MinesweeperGame extends Game implements Serializable {
         score = 0;
         flagging = false;
         bombClicked = false;
+        System.out.println("AAAA");
+        System.out.println("AAAABFpadjsapodjs");
 
         generateBoard();
     }

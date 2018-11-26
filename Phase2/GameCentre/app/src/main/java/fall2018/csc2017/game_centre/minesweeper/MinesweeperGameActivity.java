@@ -84,12 +84,13 @@ public class MinesweeperGameActivity extends GameActivity implements Observer {
         super.onCreate(savedInstanceState);
         loadFromFile(GameMenuActivity.filename);
         createTileButtons(this);
-        setContentView(R.layout.activity_slidingtiles_game);
+        addFlagButton();
+        setContentView(R.layout.activity_minesweeper_game);
         addCurrentScore();
         // Add View to activity
         gridView = findViewById(R.id.grid);
         gridView.setNumColumns(minesweeperGame.getScreenSize());
-        //gridView.setSlidingTilesGame(minesweeperGame); TODO: Make GestureDetectGridView see minesweeperGame
+        gridView.setGame(minesweeperGame);
         minesweeperGame.getBoard().addObserver(this);
         // Observer sets up desired dimensions as well as calls our display function
         gridView.getViewTreeObserver().addOnGlobalLayoutListener(
@@ -107,6 +108,11 @@ public class MinesweeperGameActivity extends GameActivity implements Observer {
                         display();
                     }
                 });
+    }
+
+    private void addFlagButton() {
+        Button flagButton = findViewById(R.id.flagButton);
+
     }
 
     /**
