@@ -119,7 +119,7 @@ public class MinesweeperGame extends Game implements Serializable {
                 if (board.getTile(i, j).getId() != Tile.MINE) {
                     int adjacentBombs = 0;
                     for (Tile neighbor : adjacentTiles(position, board)) {
-                        if (neighbor.getId() == Tile.MINE) {
+                        if (neighbor != null && neighbor.getId() == Tile.MINE) {
                             adjacentBombs++;
                         }
                     }
