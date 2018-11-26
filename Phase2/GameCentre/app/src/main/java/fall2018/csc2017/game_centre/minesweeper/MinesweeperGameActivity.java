@@ -4,18 +4,24 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.view.ViewTreeObserver;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.sql.Time;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Observable;
 import java.util.Observer;
+import java.util.Calendar;
+import java.util.Timer;
 
 import fall2018.csc2017.game_centre.CustomAdapter;
 import fall2018.csc2017.game_centre.GameActivity;
@@ -24,6 +30,7 @@ import fall2018.csc2017.game_centre.GestureDetectGridView;
 import fall2018.csc2017.game_centre.LogInScreen;
 import fall2018.csc2017.game_centre.R;
 import fall2018.csc2017.game_centre.Scoreboard;
+import fall2018.csc2017.game_centre.sliding_tiles.SlidingTilesGameActivity;
 
 /**
  * The game activity for SlidingTiles.
@@ -46,17 +53,19 @@ public class MinesweeperGameActivity extends GameActivity implements Observer {
     private GestureDetectGridView<MinesweeperGame> gridView;
     private static int columnWidth, columnHeight;
 
+    private Date startTime;
+
     /**
      * TextView for currentScore
      */
-    private TextView currentScore;
+    private TextView timer;
 
     /**
      * Set up the background image for each button based on the master list
      * of positions, and then call the adapter to set the view.
      */
     public void display() {
-        updateScore();
+        updateTimer();
         updateTileButtons();
         gridView.setAdapter(new CustomAdapter(tileButtons, columnWidth, columnHeight));
         autoSave();
@@ -65,7 +74,7 @@ public class MinesweeperGameActivity extends GameActivity implements Observer {
             if (scoreboard == null) {
                 scoreboard = new Scoreboard();
             }
-            scoreboard.addScore(LogInScreen.currentUsername, minesweeperGame.getScore());
+            scoreboard.addScore(LogInScreen.currentUsername, minesweeperGame.getTime());
             scoreboard.saveToFile();
 
             startActivity(new Intent(this, GameMenuActivity.class));
@@ -84,12 +93,13 @@ public class MinesweeperGameActivity extends GameActivity implements Observer {
         super.onCreate(savedInstanceState);
         loadFromFile(GameMenuActivity.filename);
         createTileButtons(this);
-        setContentView(R.layout.activity_slidingtiles_game);
-        addCurrentScore();
+        addFlagButton();
+        setContentView(R.layout.activity_minesweeper_game);
+        addTimer();
         // Add View to activity
         gridView = findViewById(R.id.grid);
         gridView.setNumColumns(minesweeperGame.getScreenSize());
-        //gridView.setSlidingTilesGame(minesweeperGame); TODO: Make GestureDetectGridView see minesweeperGame
+        gridView.setGame(minesweeperGame);
         minesweeperGame.getBoard().addObserver(this);
         // Observer sets up desired dimensions as well as calls our display function
         gridView.getViewTreeObserver().addOnGlobalLayoutListener(
@@ -107,6 +117,20 @@ public class MinesweeperGameActivity extends GameActivity implements Observer {
                         display();
                     }
                 });
+    }
+
+    private void addFlagButton() {
+        Button flagButton = findViewById(R.id.flagButton);
+        flagButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                minesweeperGame.toggleFlagging();
+            }
+        });
+    }
+
+    private void addTimer(){
+        timer = findViewById(R.id.timer);
     }
 
     /**
@@ -200,12 +224,8 @@ public class MinesweeperGameActivity extends GameActivity implements Observer {
         saveToFile(GameMenuActivity.filename);
     }
 
-    public void addCurrentScore() {
-        currentScore = findViewById(R.id.currentScore);
-    }
-
-    private void updateScore() {
-        String newScore = "Score: " + String.valueOf(minesweeperGame.getScore());
-        currentScore.setText(newScore);
+    private void updateTimer() {
+        String newTime = minesweeperGame.getTime();
+        timer.setText(newTime);
     }
 }

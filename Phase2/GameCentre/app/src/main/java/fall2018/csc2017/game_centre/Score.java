@@ -12,7 +12,7 @@ public class Score implements Comparable<Score>, Serializable {
     /**
      * The numerical value of the score
      */
-    public int value;
+    public String value;
 
     /**
      * The player who achieved this score
@@ -25,7 +25,7 @@ public class Score implements Comparable<Score>, Serializable {
      * @param value value of score
      */
 
-     Score(String player, int value) {
+     Score(String player, String value) {
         this.player = player;
         this.value = value;
     }
@@ -36,7 +36,8 @@ public class Score implements Comparable<Score>, Serializable {
     */
     @Override
     public int compareTo(@NonNull Score o) {
-        return Integer.compare(this.value, o.value);
+//        return Integer.compare(this.value, o.value);
+        return this.value.compareTo(o.value);
     }
 
     /**

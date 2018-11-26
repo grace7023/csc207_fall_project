@@ -45,7 +45,7 @@ public class Scoreboard implements Serializable {
      * @param player the current player
      * @param score the score they just achieved
      */
-    public void addScore(String player, int score) {
+    public void addScore(String player, String score) {
         scores.add(new Score(player, score));
     }
 

@@ -61,7 +61,7 @@ public class SlidingTilesGameActivity extends GameActivity implements Observer {
             if (scoreboard == null) {
                 scoreboard = new Scoreboard();
             }
-            scoreboard.addScore(LogInScreen.currentUsername, slidingTilesGame.getScore());
+            scoreboard.addScore(LogInScreen.currentUsername, String.valueOf(slidingTilesGame.getScore()));
             scoreboard.saveToFile();
 
             startActivity(new Intent(this, GameMenuActivity.class));
