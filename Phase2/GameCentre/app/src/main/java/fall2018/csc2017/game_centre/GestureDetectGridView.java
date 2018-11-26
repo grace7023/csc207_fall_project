@@ -13,6 +13,10 @@ import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.widget.GridView;
 
+import java.util.HashMap;
+
+import fall2018.csc2017.game_centre.twenty_forty.TFGame;
+
 public class GestureDetectGridView<T extends Game> extends GridView {
     public static final int SWIPE_MIN_DISTANCE = 100;
     public static boolean detectFling = false;
@@ -21,6 +25,21 @@ public class GestureDetectGridView<T extends Game> extends GridView {
     private boolean mFlingConfirmed = false;
     private float mTouchX;
     private float mTouchY;
+
+
+    /**
+     * HashMap which lets the code associate the arg with an actual move rather
+     * than a magic number
+     */
+    public static final HashMap<String, Integer> MOVE_ARG;
+    static {
+        HashMap<String, Integer> map = new HashMap<>();
+        map.put("Up", 1);
+        map.put("Down", 2);
+        map.put("Left", 3);
+        map.put("Right", 4);
+        MOVE_ARG = map;
+    }
 
     public GestureDetectGridView(Context context) {
         super(context);
@@ -56,6 +75,32 @@ public class GestureDetectGridView<T extends Game> extends GridView {
                 return true;
             }
 
+            @Override
+            public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX, float velocityY) {
+                if (detectFling) {
+                    int minX = 100;
+                    int minY = 100;
+                    int moveArg = 0;
+                    if (velocityX >= minX || velocityY >= minY) {
+                        if (Math.abs(velocityY) > Math.abs(velocityX)) {
+                            moveArg = MOVE_ARG.get("Up");
+                            if (velocityY > 0) {
+                                moveArg = MOVE_ARG.get("Down");
+                            }
+                        }
+                        else {
+                            moveArg = MOVE_ARG.get("Right");
+                            if (velocityX < 0) {
+                                moveArg = MOVE_ARG.get("Left");
+                            }
+                        }
+                        mController.processGameTapMovement(context, moveArg);
+                        return true;
+                    }
+                }
+                return false;
+                // return super.onFling(e1, e2, velocityX, velocityY);
+            }
         });
     }
 
