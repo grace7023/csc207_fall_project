@@ -84,7 +84,7 @@ public class SlidingTilesSettings extends AppCompatActivity {
      */
     private void switchToGame() {
         Intent tmp = new Intent(this, SlidingTilesGameActivity.class);
-        saveToFile(GameMenuActivity.filename);
+        saveToFile(GameMenuActivity.gameFileName);
         startActivity(tmp);
     }
 

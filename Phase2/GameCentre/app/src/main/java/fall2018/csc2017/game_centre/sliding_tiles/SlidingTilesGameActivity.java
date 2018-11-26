@@ -78,7 +78,7 @@ public class SlidingTilesGameActivity extends GameActivity implements Observer {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        loadFromFile(GameMenuActivity.filename);
+        loadFromFile(GameMenuActivity.gameFileName);
         createTileButtons(this);
         setContentView(R.layout.activity_slidingtiles_game);
         addUndoButton();
@@ -194,7 +194,7 @@ public class SlidingTilesGameActivity extends GameActivity implements Observer {
      * Auto save function that saves Game after each move.
      */
     public void autoSave() {
-        saveToFile(GameMenuActivity.filename);
+        saveToFile(GameMenuActivity.gameFileName);
     }
 
     /**

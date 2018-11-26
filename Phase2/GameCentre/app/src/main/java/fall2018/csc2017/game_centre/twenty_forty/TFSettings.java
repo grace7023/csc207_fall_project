@@ -85,7 +85,7 @@ public class TFSettings extends AppCompatActivity {
      */
     private void switchToGame() {
         Intent tmp = new Intent(this, TFGameActivity.class);
-        saveToFile(GameMenuActivity.filename);
+        saveToFile(GameMenuActivity.gameFileName);
         startActivity(tmp);
     }
 

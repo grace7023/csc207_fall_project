@@ -98,7 +98,7 @@ public class MinesweeperSettings extends AppCompatActivity {
             Toast.makeText(MinesweeperSettings.this, "Invalid number of bombs", Toast.LENGTH_SHORT).show();
         }  else {
             Intent tmp = new Intent(this, MinesweeperGameActivity.class);
-            saveToFile(GameMenuActivity.filename);
+            saveToFile(GameMenuActivity.gameFileName);
             startActivity(tmp);
         }
     }

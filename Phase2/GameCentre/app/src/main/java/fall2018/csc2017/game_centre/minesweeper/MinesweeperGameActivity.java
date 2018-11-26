@@ -9,20 +9,16 @@ import android.view.ViewTreeObserver;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-import java.sql.Time;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Observable;
 import java.util.Observer;
-import java.util.Calendar;
-import java.util.Timer;
 
 import fall2018.csc2017.game_centre.CustomAdapter;
 import fall2018.csc2017.game_centre.GameActivity;
@@ -31,7 +27,6 @@ import fall2018.csc2017.game_centre.GestureDetectGridView;
 import fall2018.csc2017.game_centre.LogInScreen;
 import fall2018.csc2017.game_centre.R;
 import fall2018.csc2017.game_centre.Scoreboard;
-import fall2018.csc2017.game_centre.sliding_tiles.SlidingTilesGameActivity;
 
 /**
  * The game activity for SlidingTiles.
@@ -93,7 +88,7 @@ public class MinesweeperGameActivity extends GameActivity implements Observer {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        loadFromFile(GameMenuActivity.filename);
+        loadFromFile(GameMenuActivity.gameFileName);
         createTileButtons(this);
         addFlagButton();
         setContentView(R.layout.activity_minesweeper_game);
@@ -229,7 +224,7 @@ public class MinesweeperGameActivity extends GameActivity implements Observer {
      * Auto save function that saves Game after each move.
      */
     public void autoSave() {
-        saveToFile(GameMenuActivity.filename);
+        saveToFile(GameMenuActivity.gameFileName);
     }
 
     private void updateTimer() {
