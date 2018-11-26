@@ -56,6 +56,8 @@ public class MinesweeperGameActivity extends GameActivity implements Observer {
     private TextView timer;
     private TextView bombCounter;
 
+    private String currentUsername;
+
     /**
      * Set up the background image for each button based on the master list
      * of positions, and then call the adapter to set the view.
@@ -88,6 +90,7 @@ public class MinesweeperGameActivity extends GameActivity implements Observer {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         loadFromFile(GameMenuActivity.gameFileName);
+        currentUsername = getIntent().getStringExtra("USERNAME");
         createTileButtons(this);
 //        addFlagButton();
         setContentView(R.layout.activity_minesweeper_game);

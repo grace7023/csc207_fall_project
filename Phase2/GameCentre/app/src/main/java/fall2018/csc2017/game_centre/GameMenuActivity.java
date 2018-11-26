@@ -146,6 +146,7 @@ public class GameMenuActivity extends AppCompatActivity {
     protected void switchToGame() {
         saveToFile(gameFileName);
         Intent tmp = game.getGameActivityIntent(this);
+        tmp.putExtra("USERNAME", currentUsername);
         startActivity(tmp);
     }
 
@@ -164,8 +165,9 @@ public class GameMenuActivity extends AppCompatActivity {
 
     protected void switchToMainMenu() {
         saveToFile(gameFileName);
-        Intent tmp = new Intent(this, GameManager.class);
-        startActivity(tmp);
+        Intent mainMenuIntent = new Intent(this, GameManager.class);
+        mainMenuIntent.putExtra("USERNAME", currentUsername);
+        startActivity(mainMenuIntent);
     }
 
     /**

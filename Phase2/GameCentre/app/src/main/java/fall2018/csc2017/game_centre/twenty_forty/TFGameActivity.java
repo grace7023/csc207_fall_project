@@ -45,6 +45,8 @@ public class TFGameActivity extends GameActivity implements Observer {
 
     private static int columnWidth, columnHeight;
 
+    private String currentUsername;
+
     /**
      * TextView for currentScore
      */
@@ -82,6 +84,7 @@ public class TFGameActivity extends GameActivity implements Observer {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         loadFromFile(GameMenuActivity.gameFileName);
+        currentUsername = getIntent().getStringExtra("USERNAME");
         createBoxButtons(this);
         setContentView(R.layout.activity_slidingtiles_game);
         addUndoButton();
