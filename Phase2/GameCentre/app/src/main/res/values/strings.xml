@@ -7,4 +7,10 @@
         <item>4</item>
         <item>5</item>
     </string-array>
+
+    <string-array name="MSGameSize">
+        <item>10</item>
+        <item>11</item>
+        <item>12</item>
+    </string-array>
 </resources>

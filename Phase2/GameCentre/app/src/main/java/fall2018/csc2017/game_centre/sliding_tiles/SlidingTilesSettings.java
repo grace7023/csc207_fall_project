@@ -47,7 +47,7 @@ public class SlidingTilesSettings extends AppCompatActivity {
         Spinner boardSize;
         ArrayAdapter<CharSequence> adapter;
 
-        boardSize = findViewById(R.id.sizeSpinner);
+        boardSize = findViewById(R.id.stBoardSizeSpinner);
         adapter = ArrayAdapter.createFromResource(this, R.array.STGameSize,
                 android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
