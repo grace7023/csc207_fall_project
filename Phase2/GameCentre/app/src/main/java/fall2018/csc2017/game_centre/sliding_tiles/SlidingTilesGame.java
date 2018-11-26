@@ -269,7 +269,7 @@ public class SlidingTilesGame extends Game implements Serializable {
     /**
      * Undoes the latest move made
      */
-    public void undo() {
+    void undo() {
         int undoPosition = moves.get(0);
         move(undoPosition);
         // remove undo move just performed
