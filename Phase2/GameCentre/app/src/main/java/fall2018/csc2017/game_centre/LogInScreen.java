@@ -276,7 +276,9 @@ public class LogInScreen extends AppCompatActivity {
      */
     private void switchToGameManager(String sessionUsername) {
         currentUsername = sessionUsername;
-        startActivity(new Intent(LogInScreen.this, GameManager.class));
+        Intent gmIntent = new Intent(LogInScreen.this, GameManager.class);
+        gmIntent.putExtra("USERNAME", sessionUsername);
+        startActivity(gmIntent);
         finish();
     }
 }

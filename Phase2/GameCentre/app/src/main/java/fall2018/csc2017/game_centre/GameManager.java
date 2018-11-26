@@ -7,7 +7,6 @@ import fall2018.csc2017.game_centre.minesweeper.*;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
 
@@ -25,6 +24,8 @@ public class GameManager extends AppCompatActivity {
 
     private ImageButton mMinesweeperBtn;
 
+    private String currentUsername;
+
     /**
      * Creates the UI elements
      * @param savedInstanceState A bundle
@@ -38,6 +39,8 @@ public class GameManager extends AppCompatActivity {
         mTwentyFortyBtn = findViewById(R.id.TwentyForty);
         mMinesweeperBtn = findViewById(R.id.Minesweeper);
 
+        currentUsername = getIntent().getStringExtra("USERNAME");
+
         addSlidingTilesListener();
         addTFListener();
         addMinesweeperListener();
@@ -50,10 +53,13 @@ public class GameManager extends AppCompatActivity {
         mMinesweeperBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                GameMenuActivity.GAME_DESC = ""; //TODO: Fill Game Desc for Minesweeper
-//                GameMenuActivity.gameFileName = LogInScreen.currentUsername + "_" + "Minesweeper";
-//                GameMenuActivity.GAME = new MinesweeperGame(0,0,0);
-//                startActivity(new Intent(GameManager.this, GameMenuActivity.class));
+                Intent stGameIntent = new Intent(getApplicationContext(), GameMenuActivity.class);
+                Bundle gameBundle = new Bundle();
+                gameBundle.putSerializable("GAME", new MinesweeperGame(0, 0, 0));
+                gameBundle.putString("GAME_DESC", MinesweeperGame.GAME_DESC);
+                gameBundle.putString("GAME_FILENAME", currentUsername + "_" + "Minesweeper");
+                stGameIntent.putExtras(gameBundle);
+                startActivity(stGameIntent);
             }
         });
     }
@@ -65,12 +71,14 @@ public class GameManager extends AppCompatActivity {
         mTwentyFortyBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                GameMenuActivity.GAME_DESC = "Welcome To 2048 \n Join the numbers" +
-//                        " and get to the 2048 tile! \n\n  Swipe to move all tiles. " +
-//                        "When two tiles with the same number touch, they merge into one.";
-//                GameMenuActivity.gameFileName = LogInScreen.currentUsername + "_" + "TwentyForty";
-//                GameMenuActivity.GAME = new TFGame(4);
-//                startActivity(new Intent(GameManager.this, GameMenuActivity.class));
+                Intent stGameIntent = new Intent(getApplicationContext(), GameMenuActivity.class);
+                Bundle gameBundle = new Bundle();
+                gameBundle.putSerializable("GAME", new TFGame(0));
+                gameBundle.putString("GAME_DESC", TFGame.GAME_DESC);
+                gameBundle.putString("GAME_FILENAME", currentUsername + "_" + "TwentyForty");
+                gameBundle.putString("USERNAME", currentUsername);
+                stGameIntent.putExtras(gameBundle);
+                startActivity(stGameIntent);
             }
         });
     }
@@ -86,7 +94,8 @@ public class GameManager extends AppCompatActivity {
                 Bundle gameBundle = new Bundle();
                 gameBundle.putSerializable("GAME", new SlidingTilesGame(0));
                 gameBundle.putString("GAME_DESC", SlidingTilesGame.GAME_DESC);
-                gameBundle.putString("GAME_FILENAME", LogInScreen.currentUsername + "_" + "SlidingTiles");
+                gameBundle.putString("GAME_FILENAME", currentUsername + "_" + "SlidingTiles");
+                gameBundle.putString("USERNAME", currentUsername);
                 stGameIntent.putExtras(gameBundle);
                 startActivity(stGameIntent);
             }

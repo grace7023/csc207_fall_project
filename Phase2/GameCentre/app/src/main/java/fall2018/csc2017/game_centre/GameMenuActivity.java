@@ -23,6 +23,8 @@ public class GameMenuActivity extends AppCompatActivity {
     // TODO: make this not static
     public static String gameFileName;
 
+    private String currentUsername;
+
     /**
      * Thus menu's game
      */
@@ -40,6 +42,7 @@ public class GameMenuActivity extends AppCompatActivity {
         Bundle gameBundle = getIntent().getExtras();
         assert gameBundle != null;
         game = (Game) gameBundle.getSerializable("GAME");
+        currentUsername = gameBundle.getString("USERNAME");
         gameFileName = gameBundle.getString("GAME_FILENAME");
 
         TextView textView = findViewById(R.id.GameText);
@@ -170,8 +173,11 @@ public class GameMenuActivity extends AppCompatActivity {
      */
 
     protected void switchToScoreboard() {
-        Intent tmp = new Intent(this, ScoreboardActivity.class);
-        startActivity(tmp);
+        Intent scoreboardIntent = new Intent(this, ScoreboardActivity.class);
+        Bundle bundle = new Bundle();
+        bundle.putString("USERNAME", currentUsername);
+        scoreboardIntent.putExtras(bundle);
+        startActivity(scoreboardIntent);
     }
 
     /**
