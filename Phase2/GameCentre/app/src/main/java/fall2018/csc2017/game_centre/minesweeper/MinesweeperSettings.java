@@ -35,6 +35,10 @@ public class MinesweeperSettings extends AppCompatActivity {
 
     private EditText numBombsField;
 
+    private String currentUsername;
+
+    private String gameFilename;
+
     /**
      * Set up UI interface for SlidingTilesSettings.
      *
@@ -43,6 +47,10 @@ public class MinesweeperSettings extends AppCompatActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.settings_minesweeper);
+
+        currentUsername = getIntent().getStringExtra("USERNAME");
+        gameFilename = getIntent().getStringExtra("GAME_FILENAME");
+
         addStartButtonListener();
         setupBoardSizeSpinner();
         numBombsField = findViewById(R.id.msNumberBombs);
@@ -97,10 +105,12 @@ public class MinesweeperSettings extends AppCompatActivity {
             Toast.makeText(MinesweeperSettings.this, "Fields are empty", Toast.LENGTH_SHORT).show();
         } else if (invalidUserInput()) {
             Toast.makeText(MinesweeperSettings.this, "Invalid number of bombs", Toast.LENGTH_SHORT).show();
-        }  else {
-            Intent tmp = new Intent(this, MinesweeperGameActivity.class);
-            saveToFile(GameMenuActivity.gameFileName);
-            startActivity(tmp);
+        } else {
+            saveToFile(gameFilename);
+            Intent gameIntent = new Intent(this, MinesweeperGameActivity.class);
+            gameIntent.putExtra("USERNAME", currentUsername);
+            gameIntent.putExtra("GAME_FILENAME", gameFilename);
+            startActivity(gameIntent);
         }
     }
 
@@ -110,6 +120,7 @@ public class MinesweeperSettings extends AppCompatActivity {
 
     /**
      * Saves game to file.
+     *
      * @param fileName path to save file
      */
 

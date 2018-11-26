@@ -28,6 +28,10 @@ public class TFSettings extends AppCompatActivity {
      */
     private TFGame TFGame;
 
+    private String currentUsername;
+
+    private String gameFilename;
+
     /**
      * Set up UI interface for TFSettings.
      *
@@ -36,6 +40,10 @@ public class TFSettings extends AppCompatActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.settings_slidingtiles);
+
+        currentUsername = getIntent().getStringExtra("USERNAME");
+        gameFilename = getIntent().getStringExtra("GAME_FILENAME");
+
         addStartButtonListener();
         setupSpinner();
     }
@@ -84,13 +92,16 @@ public class TFSettings extends AppCompatActivity {
      * Initiates a new game and switches the activity.
      */
     private void switchToGame() {
-        Intent tmp = new Intent(this, TFGameActivity.class);
-        saveToFile(GameMenuActivity.gameFileName);
-        startActivity(tmp);
+        saveToFile(gameFilename);
+        Intent gameIntent = new Intent(this, TFGameActivity.class);
+        gameIntent.putExtra("USERNAME", currentUsername);
+        gameIntent.putExtra("GAME_FILENAME", gameFilename);
+        startActivity(gameIntent);
     }
 
     /**
      * Saves game to file.
+     *
      * @param fileName path to save file
      */
 
