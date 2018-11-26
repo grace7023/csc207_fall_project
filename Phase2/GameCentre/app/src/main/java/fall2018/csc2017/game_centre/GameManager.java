@@ -50,10 +50,10 @@ public class GameManager extends AppCompatActivity {
         mMinesweeperBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                GameMenuActivity.GAME_DESC = ""; //TODO: Fill Game Desc for Minesweeper
-                GameMenuActivity.filename = LogInScreen.currentUsername + "_" + "Minesweeper";
-                GameMenuActivity.GAME = new MinesweeperGame(0,0,0);
-                startActivity(new Intent(GameManager.this, GameMenuActivity.class));
+//                GameMenuActivity.GAME_DESC = ""; //TODO: Fill Game Desc for Minesweeper
+//                GameMenuActivity.gameFileName = LogInScreen.currentUsername + "_" + "Minesweeper";
+//                GameMenuActivity.GAME = new MinesweeperGame(0,0,0);
+//                startActivity(new Intent(GameManager.this, GameMenuActivity.class));
             }
         });
     }
@@ -65,12 +65,12 @@ public class GameManager extends AppCompatActivity {
         mTwentyFortyBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                GameMenuActivity.GAME_DESC = "Welcome To 2048 \n Join the numbers" +
-                        " and get to the 2048 tile! \n\n  Swipe to move all tiles. " +
-                        "When two tiles with the same number touch, they merge into one.";
-                GameMenuActivity.filename = LogInScreen.currentUsername + "_" + "TwentyForty";
-                GameMenuActivity.GAME = new TFGame(4);
-                startActivity(new Intent(GameManager.this, GameMenuActivity.class));
+//                GameMenuActivity.GAME_DESC = "Welcome To 2048 \n Join the numbers" +
+//                        " and get to the 2048 tile! \n\n  Swipe to move all tiles. " +
+//                        "When two tiles with the same number touch, they merge into one.";
+//                GameMenuActivity.gameFileName = LogInScreen.currentUsername + "_" + "TwentyForty";
+//                GameMenuActivity.GAME = new TFGame(4);
+//                startActivity(new Intent(GameManager.this, GameMenuActivity.class));
             }
         });
     }
@@ -82,11 +82,13 @@ public class GameManager extends AppCompatActivity {
         mSlidingTilesBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                GameMenuActivity.GAME_DESC = "Welcome To Sliding Tiles \n A Puzzle Game where you" +
-                        " must arrange the numbers in the correct order";
-                GameMenuActivity.filename = LogInScreen.currentUsername + "_" + "SlidingTiles";
-                GameMenuActivity.GAME = new SlidingTilesGame(0);
-                startActivity(new Intent(GameManager.this, GameMenuActivity.class));
+                Intent stGameIntent = new Intent(getApplicationContext(), GameMenuActivity.class);
+                Bundle gameBundle = new Bundle();
+                gameBundle.putSerializable("GAME", new SlidingTilesGame(0));
+                gameBundle.putString("GAME_DESC", SlidingTilesGame.GAME_DESC);
+                gameBundle.putString("GAME_FILENAME", LogInScreen.currentUsername + "_" + "SlidingTiles");
+                stGameIntent.putExtras(gameBundle);
+                startActivity(stGameIntent);
             }
         });
     }

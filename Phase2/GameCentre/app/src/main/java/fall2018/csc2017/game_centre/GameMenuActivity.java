@@ -20,17 +20,13 @@ public class GameMenuActivity extends AppCompatActivity {
     /**
      * File path for saving game
      */
-    public static String filename;
-
-    /**
-     * String version of name of game
-     */
-    public static String GAME_DESC;
+    // TODO: make this not static
+    public static String gameFileName;
 
     /**
      * Thus menu's game
      */
-    static Game GAME;
+    private Game game;
 
     /**
      * Create UI for a game menu
@@ -41,8 +37,13 @@ public class GameMenuActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game_menu);
+        Bundle gameBundle = getIntent().getExtras();
+        assert gameBundle != null;
+        game = (Game) gameBundle.getSerializable("GAME");
+        gameFileName = gameBundle.getString("GAME_FILENAME");
+
         TextView textView = findViewById(R.id.GameText);
-        textView.setText(GAME_DESC);
+        textView.setText(gameBundle.getString("GAME_DESC"));
 
         addStartButtonListener();
         addLoadButtonListener();
@@ -73,9 +74,9 @@ public class GameMenuActivity extends AppCompatActivity {
         loadButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (GAME.getScreenSize() != 0 && !GAME.isOver()) {
-                    loadFromFile(filename);
-                    saveToFile(filename);
+                if (game.getScreenSize() != 0 && !game.isOver()) {
+                    loadFromFile(gameFileName);
+                    saveToFile(gameFileName);
                     makeToastLoadedText();
                     switchToGame();
                 } else {
@@ -96,7 +97,7 @@ public class GameMenuActivity extends AppCompatActivity {
         returnButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                saveToFile(filename);
+                saveToFile(gameFileName);
                 switchToMainMenu();
             }
         });
@@ -111,7 +112,7 @@ public class GameMenuActivity extends AppCompatActivity {
         scoreButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                saveToFile(filename);
+                saveToFile(gameFileName);
                 switchToScoreboard();
             }
         });
@@ -132,7 +133,7 @@ public class GameMenuActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        loadFromFile(filename);
+        loadFromFile(gameFileName);
     }
 
     /**
@@ -140,8 +141,8 @@ public class GameMenuActivity extends AppCompatActivity {
      */
 
     protected void switchToGame() {
-        saveToFile(filename);
-        Intent tmp = GAME.getGameActivityIntent(this);
+        saveToFile(gameFileName);
+        Intent tmp = game.getGameActivityIntent(this);
         startActivity(tmp);
     }
 
@@ -150,7 +151,7 @@ public class GameMenuActivity extends AppCompatActivity {
      */
 
     protected void switchToSettings() {
-        Intent tmp = GAME.getSettingsIntent(this);
+        Intent tmp = game.getSettingsIntent(this);
         startActivity(tmp);
     }
 
@@ -159,7 +160,7 @@ public class GameMenuActivity extends AppCompatActivity {
      */
 
     protected void switchToMainMenu() {
-        saveToFile(filename);
+        saveToFile(gameFileName);
         Intent tmp = new Intent(this, GameManager.class);
         startActivity(tmp);
     }
@@ -185,7 +186,7 @@ public class GameMenuActivity extends AppCompatActivity {
             InputStream inputStream = this.openFileInput(filename);
             if (inputStream != null) {
                 ObjectInputStream input = new ObjectInputStream(inputStream);
-                GAME = (Game) input.readObject();
+                game = (Game) input.readObject();
                 inputStream.close();
             }
         } catch (FileNotFoundException e) {
@@ -208,7 +209,7 @@ public class GameMenuActivity extends AppCompatActivity {
         try {
             ObjectOutputStream outputStream = new ObjectOutputStream(
                     this.openFileOutput(fileName, MODE_PRIVATE));
-            outputStream.writeObject(GAME);
+            outputStream.writeObject(game);
             outputStream.close();
         } catch (IOException e) {
             Log.e("Exception", "File write failed: " + e.toString());
