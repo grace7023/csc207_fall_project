@@ -2,7 +2,7 @@
     <string name="app_name">GameCentre</string>
     <string name="CurrentScore">Score: 0</string>
 
-    <string-array name="GameSize">
+    <string-array name="STGameSize">
         <item>3</item>
         <item>4</item>
         <item>5</item>
