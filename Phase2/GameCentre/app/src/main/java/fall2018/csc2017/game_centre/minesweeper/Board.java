@@ -88,6 +88,22 @@ public class Board extends Observable implements Serializable, Iterable<Tile> {
                 '}';
     }
 
+    public void revealTile(int row, int col){
+
+        getTile(row, col).reveal();
+
+        setChanged();
+        notifyObservers();
+    }
+
+    public void toggleFlag(int row, int col){
+
+        getTile(row, col).toggleFlag();
+
+        setChanged();
+        notifyObservers();
+    }
+
     /**
      * Return an iterator of this Board
      *

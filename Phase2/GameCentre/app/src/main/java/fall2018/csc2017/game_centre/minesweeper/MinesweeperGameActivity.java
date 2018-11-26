@@ -64,6 +64,7 @@ public class MinesweeperGameActivity extends GameActivity implements Observer {
     public void display() {
         updateTimer();
         updateTileButtons();
+        updateBombCounter();
         gridView.setAdapter(new CustomAdapter(tileButtons, columnWidth, columnHeight));
         autoSave();
         if (minesweeperGame.isOver()) {
@@ -91,8 +92,8 @@ public class MinesweeperGameActivity extends GameActivity implements Observer {
         loadFromFile(GameMenuActivity.gameFileName);
         currentUsername = getIntent().getStringExtra("USERNAME");
         createTileButtons(this);
-//        addFlagButton();
         setContentView(R.layout.activity_minesweeper_game);
+        addFlagButton();
         addTimer();
         addBombCounter();
         // Add View to activity
@@ -118,15 +119,16 @@ public class MinesweeperGameActivity extends GameActivity implements Observer {
                 });
     }
 
-//    private void addFlagButton() {
-//        Button flagButton = findViewById(R.id.flagButton);
-//        flagButton.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                minesweeperGame.toggleFlagging();
-//            }
-//        });
-//    }
+    private void addFlagButton() {
+        int id = R.id.flagButton;
+        Button flagButton = findViewById(id);
+        flagButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                minesweeperGame.toggleFlagging();
+            }
+        });
+    }
 
 
 //    intent@5786
@@ -138,6 +140,9 @@ public class MinesweeperGameActivity extends GameActivity implements Observer {
 
     private void addBombCounter(){
         bombCounter = findViewById(R.id.bombCounter);
+    }
+
+    private void updateBombCounter(){
         bombCounter.setText(String.valueOf(minesweeperGame.getNumBombs()));
     }
 

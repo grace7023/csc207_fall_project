@@ -192,14 +192,14 @@ public class MinesweeperGame extends Game implements Serializable {
         int row = arg / numRows;
         int col = arg % numCols;
         if (flagging) {
-            board.getTile(row,col).toggleFlag();
+            board.toggleFlag(row, col);
             if (board.getTile(row,col).isFlagged()) {
                 bombsLeft--;
             } else {
                 bombsLeft++;
             }
         } else {
-            board.getTile(row,col).reveal();
+            board.revealTile(row, col);
             if (board.getTile(row,col).getId() == Tile.MINE) {
                 bombClicked = true;
             } else {
