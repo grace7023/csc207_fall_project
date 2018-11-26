@@ -24,8 +24,9 @@ public class TFGame extends Game implements Serializable {
     /**
      * HashMap which lets the code associate the arg in TFGame.move(arg) with an actual move rather
      * than a magic number
-      */
+     */
     static final HashMap<String, Integer> MOVE_ARG;
+
     static {
         HashMap<String, Integer> map = new HashMap<>();
         map.put("Up", 1);
@@ -55,7 +56,7 @@ public class TFGame extends Game implements Serializable {
         int coorX2 = initialBoxes.nextInt(boardSize);
         int coorY2 = initialBoxes.nextInt(boardSize);
 
-        while (coorX1 == coorX2 && coorY1 == coorY2){
+        while (coorX1 == coorX2 && coorY1 == coorY2) {
             coorX2 = initialBoxes.nextInt(boardSize);
             coorY2 = initialBoxes.nextInt(boardSize);
         }
@@ -64,17 +65,20 @@ public class TFGame extends Game implements Serializable {
             for (int coorY = 0; coorY != boardSize; coorY++) {
                 if (coorX == coorX1 && coorY == coorY1) {
                     boxes.add(new Box(2)); //TODO: 2 or 4. currently default 2
-                }
-                else if (coorX == coorX2 && coorY == coorY2) {
+                } else if (coorX == coorX2 && coorY == coorY2) {
                     boxes.add(new Box(2)); //TODO: 2 or 4. currently default 2
-                } else { boxes.add(new Box(0)); }
+                } else {
+                    boxes.add(new Box(0));
+                }
             }
         }
         this.board = new TFBoard(boxes, this.boardSize);
 
     }
 
-    public TFBoard getBoard() { return board; }
+    public TFBoard getBoard() {
+        return board;
+    }
 
     public int getScore() {
         return score;
