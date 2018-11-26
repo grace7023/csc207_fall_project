@@ -65,7 +65,7 @@ public class SlidingTilesGameActivity extends GameActivity implements Observer {
             scoreboard.saveToFile();
 
             startActivity(new Intent(this, GameMenuActivity.class));
-
+            finish();
         }
     }
 

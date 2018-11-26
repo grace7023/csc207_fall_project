@@ -7,6 +7,7 @@ import android.util.Log;
 import android.view.View;
 import android.view.ViewTreeObserver;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -59,6 +60,7 @@ public class MinesweeperGameActivity extends GameActivity implements Observer {
      * TextView for currentScore
      */
     private TextView timer;
+    private TextView bombCounter;
 
     /**
      * Set up the background image for each button based on the master list
@@ -96,6 +98,7 @@ public class MinesweeperGameActivity extends GameActivity implements Observer {
         addFlagButton();
         setContentView(R.layout.activity_minesweeper_game);
         addTimer();
+        addBombCounter();
         // Add View to activity
         gridView = findViewById(R.id.grid);
         gridView.setNumColumns(minesweeperGame.getScreenSize());
@@ -120,7 +123,7 @@ public class MinesweeperGameActivity extends GameActivity implements Observer {
     }
 
     private void addFlagButton() {
-        Button flagButton = findViewById(R.id.flagButton);
+        ImageButton flagButton = findViewById(R.id.flagButton);
         flagButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -131,6 +134,11 @@ public class MinesweeperGameActivity extends GameActivity implements Observer {
 
     private void addTimer(){
         timer = findViewById(R.id.timer);
+    }
+
+    private void addBombCounter(){
+        bombCounter = findViewById(R.id.bombCounter);
+        bombCounter.setText(minesweeperGame.getNumBombs());
     }
 
     /**

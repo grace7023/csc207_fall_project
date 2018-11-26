@@ -64,13 +64,15 @@ public class MinesweeperGame extends Game implements Serializable {
      */
     private final static int[][] MOVE_ADJUSTMENT_VALUES = new int[][]{{-1, 0}, {1, 0}, {0, -1}, {0, 1}};
 
+    private Date startTime;
+
+
     /**
      * Manage a board that has been pre-populated.
      *
      * @param board the board
      */
 
-    private Date startTime;
 
     /** TODO: figure out if we need this
     public MinesweeperGame(Board board) {
@@ -257,7 +259,9 @@ public class MinesweeperGame extends Game implements Serializable {
 
         int currentTimeSeconds = Calendar.getInstance().getTime().getSeconds() - startTime.getSeconds();
         int currentTimeMinutes = Calendar.getInstance().getTime().getMinutes() - startTime.getMinutes();
-        String newTime = "Time: " + String.valueOf(currentTimeMinutes) + ":" + String.valueOf(currentTimeSeconds);
-        return newTime;
+
+        return "Time: " + String.valueOf(currentTimeMinutes) + ":" + String.valueOf(currentTimeSeconds);
     }
+
+    public int getNumBombs(){ return bombsLeft; }
 }
