@@ -15,8 +15,6 @@ import android.widget.GridView;
 
 import java.util.HashMap;
 
-import fall2018.csc2017.game_centre.twenty_forty.TFGame;
-
 public class GestureDetectGridView<T extends Game> extends GridView {
     public static final int SWIPE_MIN_DISTANCE = 100;
     public static boolean detectFling = false;
@@ -65,7 +63,7 @@ public class GestureDetectGridView<T extends Game> extends GridView {
                 int position = GestureDetectGridView.this.pointToPosition
                         (Math.round(event.getX()), Math.round(event.getY()));
                 if (position >= 0) {
-                    mController.processGameTapMovement(context, position);
+                    mController.processGameMovement(context, position);
                 }
                 return true;
             }
@@ -94,7 +92,7 @@ public class GestureDetectGridView<T extends Game> extends GridView {
                                 moveArg = MOVE_ARG.get("Left");
                             }
                         }
-                        mController.processGameTapMovement(context, moveArg);
+                        mController.processGameMovement(context, moveArg);
                         return true;
                     }
                 }
