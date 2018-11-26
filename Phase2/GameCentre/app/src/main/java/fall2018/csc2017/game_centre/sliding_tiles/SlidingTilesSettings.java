@@ -36,14 +36,14 @@ public class SlidingTilesSettings extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.settings_slidingtiles);
         addStartButtonListener();
-        setupSpinner();
+        setupBoardSizeSpinner();
     }
 
     /**
      * Add drop-down menu to let user choose board size.
      * Code adapted from https://stackoverflow.com/questions/13377361/how-to-create-a-drop-down-list
      */
-    private void setupSpinner() {
+    private void setupBoardSizeSpinner() {
         Spinner boardSize;
         ArrayAdapter<CharSequence> adapter;
 
