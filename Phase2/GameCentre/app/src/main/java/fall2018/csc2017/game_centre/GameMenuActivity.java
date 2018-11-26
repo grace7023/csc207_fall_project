@@ -21,7 +21,7 @@ public class GameMenuActivity extends AppCompatActivity {
      * File path for saving game
      */
     // TODO: make this not static
-    public static String gameFileName;
+    private String gameFileName;
 
     private String currentUsername;
 
@@ -145,9 +145,10 @@ public class GameMenuActivity extends AppCompatActivity {
 
     protected void switchToGame() {
         saveToFile(gameFileName);
-        Intent tmp = game.getGameActivityIntent(this);
-        tmp.putExtra("USERNAME", currentUsername);
-        startActivity(tmp);
+        Intent gameIntent = game.getGameActivityIntent(this);
+        gameIntent.putExtra("USERNAME", currentUsername);
+        gameIntent.putExtra("GAME_FILENAME", gameFileName);
+        startActivity(gameIntent);
     }
 
     /**
@@ -155,8 +156,11 @@ public class GameMenuActivity extends AppCompatActivity {
      */
 
     protected void switchToSettings() {
-        Intent tmp = game.getSettingsIntent(this);
-        startActivity(tmp);
+        saveToFile(gameFileName);
+        Intent settingsIntent = game.getSettingsIntent(this);
+        settingsIntent.putExtra("USERNAME", currentUsername);
+        settingsIntent.putExtra("GAME_FILENAME", gameFileName);
+        startActivity(settingsIntent);
     }
 
     /**
