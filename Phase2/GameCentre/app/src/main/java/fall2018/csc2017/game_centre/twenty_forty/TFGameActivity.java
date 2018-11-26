@@ -67,7 +67,7 @@ public class TFGameActivity extends GameActivity implements Observer {
             if (scoreboard == null) {
                 scoreboard = new Scoreboard();
             }
-            scoreboard.addScore(LogInScreen.currentUsername, String.valueOf(tfGame.getScore()));
+            scoreboard.addScore(currentUsername, String.valueOf(tfGame.getScore()));
             scoreboard.saveToFile();
 
             startActivity(new Intent(this, GameMenuActivity.class));
