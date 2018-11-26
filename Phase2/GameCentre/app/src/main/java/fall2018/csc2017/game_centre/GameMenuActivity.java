@@ -20,7 +20,6 @@ public class GameMenuActivity extends AppCompatActivity {
     /**
      * File path for saving game
      */
-    // TODO: make this not static
     private String gameFileName;
 
     private String currentUsername;
