@@ -24,7 +24,6 @@ import fall2018.csc2017.game_centre.CustomAdapter;
 import fall2018.csc2017.game_centre.GameActivity;
 import fall2018.csc2017.game_centre.GameMenuActivity;
 import fall2018.csc2017.game_centre.GestureDetectGridView;
-import fall2018.csc2017.game_centre.LogInScreen;
 import fall2018.csc2017.game_centre.R;
 import fall2018.csc2017.game_centre.Scoreboard;
 
@@ -72,7 +71,7 @@ public class MinesweeperGameActivity extends GameActivity implements Observer {
             if (scoreboard == null) {
                 scoreboard = new Scoreboard();
             }
-            scoreboard.addScore(LogInScreen.currentUsername, minesweeperGame.getTime());
+            scoreboard.addScore(currentUsername, minesweeperGame.getTime());
             scoreboard.saveToFile();
 
             startActivity(new Intent(this, GameMenuActivity.class));
