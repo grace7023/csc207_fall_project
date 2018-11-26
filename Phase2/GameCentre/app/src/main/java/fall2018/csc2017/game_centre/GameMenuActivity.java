@@ -20,12 +20,12 @@ public class GameMenuActivity extends AppCompatActivity {
     /**
      * File path for saving game
      */
-    public static String filename = "null";
+    public static String filename;
 
     /**
      * String version of name of game
      */
-    public static String GAME_DESC = "Blank";
+    public static String GAME_DESC;
 
     /**
      * Thus menu's game
