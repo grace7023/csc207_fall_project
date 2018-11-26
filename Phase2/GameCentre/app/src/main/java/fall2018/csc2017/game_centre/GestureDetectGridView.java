@@ -15,6 +15,7 @@ import android.widget.GridView;
 
 public class GestureDetectGridView<T extends Game> extends GridView {
     public static final int SWIPE_MIN_DISTANCE = 100;
+    public static boolean detectFling = false;
     private GestureDetector gDetector;
     private MovementController<T> mController;
     private boolean mFlingConfirmed = false;

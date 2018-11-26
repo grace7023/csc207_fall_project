@@ -62,6 +62,7 @@ public class SlidingTilesGame extends Game implements Serializable {
         this.boardSize = board.getBoardSize();
         this.board = board;
         this.score = 0;
+        GestureDetectGridView.detectFling = false;
     }
 
     /**
@@ -73,6 +74,7 @@ public class SlidingTilesGame extends Game implements Serializable {
     public SlidingTilesGame(int boardSize) {
         this.boardSize = boardSize;
         this.score = 0;
+        GestureDetectGridView.detectFling = false;
         List<Tile> tiles = new ArrayList<>();
         moves = new ArrayList<>();
         final int numTiles = this.boardSize * this.boardSize;

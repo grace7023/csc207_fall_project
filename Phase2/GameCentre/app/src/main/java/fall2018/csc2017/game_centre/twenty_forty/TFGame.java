@@ -10,6 +10,7 @@ import java.util.Map;
 import java.util.Random;
 
 import fall2018.csc2017.game_centre.Game;
+import fall2018.csc2017.game_centre.GestureDetectGridView;
 
 public class TFGame extends Game implements Serializable {
 
@@ -46,6 +47,7 @@ public class TFGame extends Game implements Serializable {
     public TFGame(int boardSize) {
         this.boardSize = boardSize;
         this.score = 0;
+        GestureDetectGridView.detectFling = true;
         //TODO: moves ?
         List<Box> boxes = new ArrayList<>();
 

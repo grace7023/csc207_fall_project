@@ -12,6 +12,7 @@ import java.util.Date;
 import java.util.List;
 
 import fall2018.csc2017.game_centre.Game;
+import fall2018.csc2017.game_centre.GestureDetectGridView;
 
 
 /**
@@ -94,6 +95,7 @@ public class MinesweeperGame extends Game implements Serializable {
         this.numRows = numRows;
         this.numCols = numCols;
         this.numBombs = numBombs;
+        GestureDetectGridView.detectFling = false;
         bombsLeft = numBombs;
         flagging = false;
         bombClicked = false;
