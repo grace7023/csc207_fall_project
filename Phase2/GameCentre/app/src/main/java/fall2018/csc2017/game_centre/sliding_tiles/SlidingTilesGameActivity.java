@@ -64,7 +64,14 @@ public class SlidingTilesGameActivity extends GameActivity implements Observer {
             scoreboard.addScore(LogInScreen.currentUsername, String.valueOf(slidingTilesGame.getScore()));
             scoreboard.saveToFile();
 
-            startActivity(new Intent(this, GameMenuActivity.class));
+            Intent stGameIntent = new Intent(getApplicationContext(), GameMenuActivity.class);
+            Bundle gameBundle = new Bundle();
+            gameBundle.putSerializable("GAME", new SlidingTilesGame(0));
+            gameBundle.putString("GAME_DESC", SlidingTilesGame.GAME_DESC);
+            gameBundle.putString("GAME_FILENAME", LogInScreen.currentUsername + "_" + "SlidingTiles");
+            gameBundle.putString("USERNAME", LogInScreen.currentUsername);
+            stGameIntent.putExtras(gameBundle);
+            startActivity(stGameIntent);
             finish();
         }
     }

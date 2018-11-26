@@ -28,21 +28,26 @@ public class ScoreboardActivity extends AppCompatActivity {
      */
     public ArrayList<Score> playerScores = new ArrayList<>();
 
+    private String currentUsername;
+
     /**
      * Creates the UI elements
+     *
      * @param savedInstanceState A bundle
      */
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_scoreboard);
-
+        assert getIntent().getExtras() != null;
+        currentUsername = getIntent().getExtras().getString("USERNAME");
         scoreboard = Scoreboard.loadFromFile();
         scores = scoreboard.getScores();
-        playerScores = scoreboard.getScores(LogInScreen.currentUsername);
+        //TODO: fix this
+        playerScores = scoreboard.getScores(currentUsername);
 
-        /*This code adapted from
-        * https://stackoverflow.com/questions/4540754/dynamically-add-elements-to-a-listview-android
+        /* This code adapted from
+         * https://stackoverflow.com/questions/4540754/dynamically-add-elements-to-a-listview-android
          */
         ArrayAdapter<Score> scoreAdapter = new ArrayAdapter<>(
                 this, android.R.layout.simple_list_item_1, scores);
@@ -66,11 +71,12 @@ public class ScoreboardActivity extends AppCompatActivity {
 
     /**
      * increases the size of the text of the header for the score lists
+     *
      * @param textView the header view object
-     * @param text the text in the textView
+     * @param text     the text in the textView
      * @return the new modified textView
      */
-    public TextView formatText(TextView textView, String text){
+    public TextView formatText(TextView textView, String text) {
         textView.setText(text);
         textView.setHeight(300);
         textView.setTextSize(30);
