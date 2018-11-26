@@ -28,7 +28,7 @@
         android:layout_height="0dp"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
-        android:layout_marginStart="108dp"
+        android:layout_marginStart="92dp"
         android:layout_marginTop="36dp"
         android:text="Choose Board Size"
         app:layout_constraintStart_toStartOf="parent"
@@ -58,13 +58,13 @@
         app:layout_constraintTop_toBottomOf="@+id/MSSettingsHeading" />
 
     <Spinner
-        android:id="@+id/bombNumberSpinner"
+        android:id="@+id/msBoardSizeSpinner"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_alignParentEnd="true"
         android:layout_marginTop="36dp"
-        android:layout_marginEnd="120dp"
+        android:layout_marginEnd="100dp"
         android:text="Choose Number of Bombs"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/bombNumberText" />
