@@ -241,7 +241,8 @@ public class MinesweeperGame extends Game implements Serializable {
         int position = row * numCols + col;
         List<Tile> neighbors = adjacentTiles(position, board);
         for (Tile t : neighbors)
-            board.revealTile(t);
+            if (t != null)
+                board.revealTile(t);
     }
     /**
      * Return a ArrayList of the adjacent tiles of the given tile. The adjacent tiles are
