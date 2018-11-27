@@ -30,7 +30,7 @@ public class TFGame extends Game implements Serializable {
      * HashMap which lets the code associate the arg in TFGame.move(arg) with an actual move rather
      * than a magic number
      */
-    static final HashMap<String, Integer> MOVE_ARG;
+/*    static final HashMap<String, Integer> MOVE_ARG;
 
     static {
         HashMap<String, Integer> map = new HashMap<>();
@@ -39,7 +39,7 @@ public class TFGame extends Game implements Serializable {
         map.put("Left", 3);
         map.put("Right", 4);
         MOVE_ARG = map;
-    }
+    }*/
 
     public TFGame(TFBoard board) {
         this.boardSize = board.getBoardSize();
