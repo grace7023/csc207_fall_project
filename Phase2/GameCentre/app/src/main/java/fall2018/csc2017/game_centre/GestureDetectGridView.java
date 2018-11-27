@@ -29,14 +29,14 @@ public class GestureDetectGridView<T extends Game> extends GridView {
      * HashMap which lets the code associate the arg with an actual move rather
      * than a magic number
      */
-    public static final HashMap<String, Integer> MOVE_ARG;
+    public static final HashMap<String, Integer> SWIPE_DIRECTION_ARG;
     static {
         HashMap<String, Integer> map = new HashMap<>();
         map.put("Up", 1);
         map.put("Down", 2);
         map.put("Left", 3);
         map.put("Right", 4);
-        MOVE_ARG = map;
+        SWIPE_DIRECTION_ARG = map;
     }
 
     public GestureDetectGridView(Context context) {
@@ -81,15 +81,15 @@ public class GestureDetectGridView<T extends Game> extends GridView {
                     int moveArg = 0;
                     if (velocityX >= minX || velocityY >= minY) {
                         if (Math.abs(velocityY) > Math.abs(velocityX)) {
-                            moveArg = MOVE_ARG.get("Up");
+                            moveArg = SWIPE_DIRECTION_ARG.get("Up");
                             if (velocityY > 0) {
-                                moveArg = MOVE_ARG.get("Down");
+                                moveArg = SWIPE_DIRECTION_ARG.get("Down");
                             }
                         }
                         else {
-                            moveArg = MOVE_ARG.get("Right");
+                            moveArg = SWIPE_DIRECTION_ARG.get("Right");
                             if (velocityX < 0) {
-                                moveArg = MOVE_ARG.get("Left");
+                                moveArg = SWIPE_DIRECTION_ARG.get("Left");
                             }
                         }
                         mController.processGameMovement(context, moveArg);

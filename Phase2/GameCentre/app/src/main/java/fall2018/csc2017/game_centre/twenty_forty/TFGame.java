@@ -1,12 +1,10 @@
 package fall2018.csc2017.game_centre.twenty_forty;
 
 import android.content.Intent;
-import android.graphics.Point;
 import android.support.v7.app.AppCompatActivity;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Random;
 
@@ -87,13 +85,13 @@ public class TFGame extends Game implements Serializable {
         // Setting up movement direction to be checked
         int colMove = 0;
         int rowMove = 0;
-        if (arg == GestureDetectGridView.MOVE_ARG.get("Up")) {
+        if (arg == GestureDetectGridView.SWIPE_DIRECTION_ARG.get("Up")) {
             rowMove = -1;
-        } else if (arg == GestureDetectGridView.MOVE_ARG.get("Down")) {
+        } else if (arg == GestureDetectGridView.SWIPE_DIRECTION_ARG.get("Down")) {
             rowMove = 1;
-        } else if (arg == GestureDetectGridView.MOVE_ARG.get("Left")) {
+        } else if (arg == GestureDetectGridView.SWIPE_DIRECTION_ARG.get("Left")) {
             colMove = -1;
-        } else if (arg == GestureDetectGridView.MOVE_ARG.get("Right")) {
+        } else if (arg == GestureDetectGridView.SWIPE_DIRECTION_ARG.get("Right")) {
             colMove = 1;
         }
 
@@ -122,13 +120,13 @@ public class TFGame extends Game implements Serializable {
         int addedScore = 0;
         ArrayList<Box> boxesSave = GetBoxList(board);
         pastBoards.add(new TFBoard(boxesSave, this.board.getBoardSize()));
-        if (arg == GestureDetectGridView.MOVE_ARG.get("Up")) {
+        if (arg == GestureDetectGridView.SWIPE_DIRECTION_ARG.get("Up")) {
             addedScore = board.moveBoxesUp();
-        } else if (arg == GestureDetectGridView.MOVE_ARG.get("Down")) {
+        } else if (arg == GestureDetectGridView.SWIPE_DIRECTION_ARG.get("Down")) {
             addedScore = board.moveBoxesDown();
-        } else if (arg == GestureDetectGridView.MOVE_ARG.get("Left")) {
+        } else if (arg == GestureDetectGridView.SWIPE_DIRECTION_ARG.get("Left")) {
             addedScore = board.moveBoxesLeft();
-        } else if (arg == GestureDetectGridView.MOVE_ARG.get("Right")) {
+        } else if (arg == GestureDetectGridView.SWIPE_DIRECTION_ARG.get("Right")) {
             addedScore = board.moveBoxesRight();
         }
         score += addedScore;
