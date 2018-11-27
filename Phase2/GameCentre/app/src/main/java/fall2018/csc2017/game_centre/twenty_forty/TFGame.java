@@ -154,12 +154,12 @@ public class TFGame extends Game implements Serializable {
                 for (Box neighbor : getNeighboringBoxes(row, col)) {
                     int neighborExp = neighbor.getExponent();
                     if (curExp == neighborExp) {
-                        return true;
+                        return false;
                     }
                 }
             }
         }
-        return false;
+        return true;
     }
 
     private ArrayList<Box> getNeighboringBoxes(int row, int col) {
