@@ -55,7 +55,7 @@ public class TFGame extends Game implements Serializable {
             while (boxes.get(pos).getExponent() != 0) {
                 pos = rng.nextInt(boardSize * boardSize);
             }
-            int exponent = 2 * (rng.nextInt(2) + 1);
+            int exponent = rng.nextInt(2) + 1;
             boxes.set(pos, new Box(exponent));
         }
 
