@@ -85,7 +85,7 @@ public class TFGame extends Game implements Serializable {
         return board;
     }
 
-    public int getScore() {
+    public int getScore() { //TODO: Figure out score counting system, might need public static setScore()  also
         return score;
     }
 
@@ -99,9 +99,9 @@ public class TFGame extends Game implements Serializable {
     @Override
     public boolean isValidMove(int arg) {
         // if no block can be moved then return false
-
+        //TODO: implement isValidMove
         return false;
-    } //TODO: implement isValidMove
+    }
 
     /**
      * Perform a move identified by arg.
