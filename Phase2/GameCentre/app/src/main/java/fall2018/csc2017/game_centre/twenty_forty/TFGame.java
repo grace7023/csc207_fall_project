@@ -1,12 +1,13 @@
 package fall2018.csc2017.game_centre.twenty_forty;
 
+import android.content.Intent;
+import android.graphics.Point;
+import android.support.v7.app.AppCompatActivity;
+
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.Random;
 
 import fall2018.csc2017.game_centre.Game;
@@ -14,69 +15,53 @@ import fall2018.csc2017.game_centre.GestureDetectGridView;
 
 public class TFGame extends Game implements Serializable {
 
+    private final int INIT_BOX_NUM = 2;
+
     private int boardSize;
 
     private TFBoard board;
 
     private ArrayList<TFBoard> pastBoards;
+    private ArrayList<Integer> pastScoreIncreases;
 
     private int score;
 
-    public final static String GAME_DESC = "Welcome To 2048 \n Join the numbers" +
-            " and get to the 2048 tile! \n\n  Swipe to move all tiles. " +
-            "When two tiles with the same number touch, they merge into one.";
-
-    /**
-     * HashMap which lets the code associate the arg in TFGame.move(arg) with an actual move rather
-     * than a magic number
-     */
-    static final HashMap<String, Integer> MOVE_ARG;
-
-    static {
-        HashMap<String, Integer> map = new HashMap<>();
-        map.put("Up", 1);
-        map.put("Down", 2);
-        map.put("Left", 3);
-        map.put("Right", 4);
-        MOVE_ARG = map;
-    }
+    public final static String GAME_DESC = "Welcome To 2048\nSwipe the screen to slide the " +
+            "numbered tiles around. Merge like-numbered tiles to add their numbers together. " +
+            "Get the 2048 tile to win!";
 
     public TFGame(TFBoard board) {
         this.boardSize = board.getBoardSize();
         this.board = board;
+        this.pastBoards = new ArrayList<>();
+        this.pastScoreIncreases = new ArrayList<>();
         this.score = 0;
     }
 
     public TFGame(int boardSize) {
         this.boardSize = boardSize;
+        this.pastBoards = new ArrayList<>();
+        this.pastScoreIncreases = new ArrayList<>();
         this.score = 0;
         GestureDetectGridView.detectFling = true;
         //TODO: moves ?
+
         List<Box> boxes = new ArrayList<>();
-
-        // generate 2 random boxes
-        Random initialBoxes = new Random();
-        int coorX1 = initialBoxes.nextInt(boardSize);
-        int coorY1 = initialBoxes.nextInt(boardSize); //TODO: may need to make this look better
-        int coorX2 = initialBoxes.nextInt(boardSize);
-        int coorY2 = initialBoxes.nextInt(boardSize);
-
-        while (coorX1 == coorX2 && coorY1 == coorY2) {
-            coorX2 = initialBoxes.nextInt(boardSize);
-            coorY2 = initialBoxes.nextInt(boardSize);
+        for (int i = 0; i < this.boardSize * this.boardSize; i++) {
+            boxes.add(new Box(0));
         }
 
-        for (int coorX = 0; coorX != boardSize; coorX++) {
-            for (int coorY = 0; coorY != boardSize; coorY++) {
-                if (coorX == coorX1 && coorY == coorY1) {
-                    boxes.add(new Box(2)); //TODO: 2 or 4. currently default 2
-                } else if (coorX == coorX2 && coorY == coorY2) {
-                    boxes.add(new Box(2)); //TODO: 2 or 4. currently default 2
-                } else {
-                    boxes.add(new Box(0));
-                }
+        // Randomly inserting pre-existing items into boxes
+        Random rng = new Random();
+        for (int i = 0; i < INIT_BOX_NUM; i++) {
+            int pos = rng.nextInt(boardSize * boardSize);
+            while (boxes.get(pos).getExponent() != 0) {
+                pos = rng.nextInt(boardSize * boardSize);
             }
+            int exponent = 2 * (rng.nextInt(2) + 1);
+            boxes.set(pos, new Box(exponent));
         }
+
         this.board = new TFBoard(boxes, this.boardSize);
 
     }
@@ -110,17 +95,20 @@ public class TFGame extends Game implements Serializable {
      */
     @Override
     public void move(int arg) {
+        int addedScore = 0;
         ArrayList<Box> boxesSave = GetBoxList(board);
         pastBoards.add(new TFBoard(boxesSave, this.board.getBoardSize()));
         if (arg == GestureDetectGridView.MOVE_ARG.get("Up")) {
-            board.MoveBoxesUp();
+            addedScore = board.moveBoxesUp();
         } else if (arg == GestureDetectGridView.MOVE_ARG.get("Down")) {
-            board.MoveBoxesDown();
+            addedScore = board.moveBoxesDown();
         } else if (arg == GestureDetectGridView.MOVE_ARG.get("Left")) {
-            board.MoveBoxesLeft();
+            addedScore = board.moveBoxesLeft();
         } else if (arg == GestureDetectGridView.MOVE_ARG.get("Right")) {
-            board.MoveBoxesRight();
+            addedScore = board.moveBoxesRight();
         }
+        score += addedScore;
+        pastScoreIncreases.add(addedScore);
     }
 
     /**
@@ -147,7 +135,8 @@ public class TFGame extends Game implements Serializable {
      * Undo function that reverses the most recent move.
      */
     void undo() {
-        this.board = pastBoards.remove(0); //TODO: check if getting first board is the previous save
+        this.board = pastBoards.remove(pastBoards.size() - 1);
+        this.score -= pastScoreIncreases.remove(pastScoreIncreases.size() - 1);
     }
 
     boolean canUndoMove() {
@@ -168,5 +157,19 @@ public class TFGame extends Game implements Serializable {
             boxes.add(box);
         }
         return boxes;
+    }
+
+    public String gameOverText() {
+        return "GAME OVER!";
+    }
+
+    @Override
+    public Intent getSettingsIntent(AppCompatActivity PackageContext) {
+        return new Intent(PackageContext, TFSettings.class);
+    }
+
+    @Override
+    public Intent getGameActivityIntent(AppCompatActivity PackageContext) {
+        return new Intent(PackageContext, TFGameActivity.class);
     }
 }

@@ -213,7 +213,6 @@ public class MinesweeperGame extends Game implements Serializable {
 
     // TODO: implement expandEmpty either recursively or iteratively
     private void expandEmpty(int row, int col) {
-        // this doesn't work someone else fix it, how do you make it not loop endlessly
         Tile original = board.getTile(row, col);
         ArrayList<Tile> queue = new ArrayList<>();
 
@@ -295,4 +294,9 @@ public class MinesweeperGame extends Game implements Serializable {
     public int getNumRows() { return numRows; }
     public int getNumCols() { return numCols; }
     public boolean getFlagging() { return flagging; }
+
+    public String gameOverText() {
+        if (bombClicked) return "GAME OVER!";
+        else return "YOU WIN!";
+    }
 }

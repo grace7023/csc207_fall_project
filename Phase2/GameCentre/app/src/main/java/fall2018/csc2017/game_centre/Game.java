@@ -37,6 +37,8 @@ public abstract class Game implements Serializable {
      */
     public abstract int getScreenSize();
 
+    public abstract String gameOverText();
+
     public Intent getSettingsIntent(AppCompatActivity PackageContext) {
         throw new UnsupportedOperationException("Stub!");
     }
