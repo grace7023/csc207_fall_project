@@ -113,7 +113,7 @@ public class MinesweeperGame extends Game implements Serializable {
         board = new Board(tiles, numRows, numCols);
         for (int i = 0; i < numRows; i++) {
             for (int j = 0; j < numCols; j++) {
-                int position = i * numRows + j;
+                int position = i * numCols + j;
                 if (board.getTile(i, j).getId() != Tile.MINE) {
                     int adjacentBombs = 0;
                     for (Tile neighbor : adjacentTiles(position, board)) {
@@ -200,26 +200,65 @@ public class MinesweeperGame extends Game implements Serializable {
             board.toggleFlag(row, col);
         } else {
             if (board.getTile(row,col).getId() == Tile.MINE) {
-                bombClicked = true;
+                    bombClicked = true;
             } else {
                 board.addNumRevealed();
             }
+            if (board.getTile(row,col).getId() == Tile.EMPTY) {
+                expandEmpty(row, col);
+            }
             board.revealTile(row, col);
+
         }
     }
 
+    // TODO: implement expandEmpty either recursively or iteratively
+    private void expandEmpty(int row, int col) {
+        // this doesn't work someone else fix it, how do you make it not loop endlessly
+        int position = row * numCols + col;
+        List<Tile> neighbors = adjacentTiles(position, board);
+        for (int i = -1; i < 2; i++) {
+            for (int j = -1; j < 2; j++) {
+                if (i != 0 || j != 0) {
+                    Tile neighbor = neighbors.get((i+1)*3 + (j+1));
+                    if (neighbor != null && neighbor.getId() == Tile.EMPTY && !neighbor.isRevealed()) {
+                        revealAdjacent(row, col);
+                        expandEmpty(row+i, col+j);
+                    }
+                }
+            }
+        }
+
+    }
+
+    /**
+     * Reveals all adjacent tiles to the tile at row, col
+     *
+     * @param row The row where the tile is on the board
+     * @param col The column where the tile is on the board
+     */
+    private void revealAdjacent(int row, int col) {
+        int position = row * numCols + col;
+        List<Tile> neighbors = adjacentTiles(position, board);
+        for (int i = -1; i < 2; i++) {
+            for (int j = -1; j < 2; j++) {
+                if (i != 0 || j != 0) {
+                    if (neighbors.get((i+1)*3 + (j+1)) != null) {
+                        board.revealTile(row+i, col+j);
+                    }
+                }
+            }
+        }
+    }
     /**
      * Return a ArrayList of the adjacent tiles of the given tile. The adjacent tiles are
-     * given in this order: upLeft, above, upRight, below, left, right, downLeft, downRight.
+     * given in this order: upLeft, above, upRight, left, null, right, downLeft, below, downRight.
      *
      * @param position the position of the tile
      * @return ArrayList of adjacent tiles
      */
 
     private List<Tile> adjacentTiles(int position, Board board) {
-        if (numCols == 10){
-            System.out.println("Break point");
-        }
         int row = position / this.numRows;
         int col = position % this.numCols;
         Tile upLeft = row == 0 || col == 0 ? null : board.getTile(row - 1, col - 1);
@@ -230,7 +269,7 @@ public class MinesweeperGame extends Game implements Serializable {
         Tile right = col == this.numCols - 1 ? null : board.getTile(row, col + 1);
         Tile downLeft = row == this.numRows - 1 || col == 0? null : board.getTile(row + 1, col - 1);
         Tile downRight = row == this.numRows - 1 || col == this.numCols - 1 ? null : board.getTile(row + 1, col + 1);
-        return Arrays.asList(upLeft, above, upRight, below, left, right, downLeft, downRight);
+        return Arrays.asList(upLeft, above, upRight, left, null, right, downLeft, below, downRight);
     }
 
 
