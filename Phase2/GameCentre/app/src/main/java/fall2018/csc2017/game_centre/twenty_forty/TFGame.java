@@ -42,7 +42,7 @@ public class TFGame extends Game implements Serializable {
     }
 
     public TFGame(TFBoard board) {
-//        this.boardSize = TFBoard.getBoardSize(); TODO: static ???
+        this.boardSize = board.getBoardSize();
         this.board = board;
         this.score = 0;
     }

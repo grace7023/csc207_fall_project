@@ -41,7 +41,7 @@ public class TFGameActivity extends GameActivity implements Observer {
     /**
      * Grid View and calculated column height and width based on device size
      */
-    private GestureDetectGridView<TFGame> gridView; //TODO: add functions for GestureDetecting Class to fit 2048: Swiping (OnFling)
+    private GestureDetectGridView<TFGame> gridView;
 
     private static int columnWidth, columnHeight;
 
@@ -103,7 +103,7 @@ public class TFGameActivity extends GameActivity implements Observer {
         // Add View to activity
         gridView = findViewById(R.id.grid);
         gridView.setNumColumns(tfGame.getScreenSize());
-//        gridView.setTFGame(tfGame); TODO: create setTFGame in GestureDetect
+        gridView.setGame(tfGame);
         tfGame.getBoard().addObserver(this);
         // Observer sets up desired dimensions as well as calls our display function
         gridView.getViewTreeObserver().addOnGlobalLayoutListener(
