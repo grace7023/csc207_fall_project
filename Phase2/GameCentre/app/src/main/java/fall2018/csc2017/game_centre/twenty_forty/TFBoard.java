@@ -41,6 +41,7 @@ public class TFBoard extends Observable implements Serializable, Iterable<Box> {
         int newExponent = boxes[row1][col1].getExponent() + 1;
         boxes[row1][col1].setExponent(newExponent);
         boxes[row2][col2].setExponent(0);
+
         return newExponent;
     }
 
@@ -75,6 +76,9 @@ public class TFBoard extends Observable implements Serializable, Iterable<Box> {
             }
         }
 
+        setChanged();
+        notifyObservers();
+
         return addedBoxSum;
     }
 
@@ -102,6 +106,9 @@ public class TFBoard extends Observable implements Serializable, Iterable<Box> {
                 }
             }
         }
+
+        setChanged();
+        notifyObservers();
         return addedBoxSum;
     }
 
@@ -129,6 +136,9 @@ public class TFBoard extends Observable implements Serializable, Iterable<Box> {
                 }
             }
         }
+
+        setChanged();
+        notifyObservers();
         return addedBoxSum;
     }
 
@@ -156,6 +166,9 @@ public class TFBoard extends Observable implements Serializable, Iterable<Box> {
                 }
             }
         }
+
+        setChanged();
+        notifyObservers();
         return addedBoxSum;
     }
 

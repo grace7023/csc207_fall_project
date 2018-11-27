@@ -185,6 +185,8 @@ public class TFGame extends Game implements Serializable {
     void undo() {
         this.board = pastBoards.remove(pastBoards.size() - 1);
         this.score -= pastScoreIncreases.remove(pastScoreIncreases.size() - 1);
+
+        board.notifyObservers();
     }
 
     boolean canUndoMove() {
