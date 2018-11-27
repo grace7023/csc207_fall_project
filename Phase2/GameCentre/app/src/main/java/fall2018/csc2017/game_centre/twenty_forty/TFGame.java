@@ -29,7 +29,7 @@ public class TFGame extends Game implements Serializable {
             "Get the 2048 tile to win!";
 
     public TFGame(TFBoard board) {
-        this.boardSize = board.getBoardSize();
+        this.boardSize = board.getNumBoxes();
         this.board = board;
         this.pastBoards = new ArrayList<>();
         this.pastScoreIncreases = new ArrayList<>();
@@ -117,8 +117,8 @@ public class TFGame extends Game implements Serializable {
     @Override
     public void move(int arg) {
         int addedScore = 0;
-        ArrayList<Box> boxesSave = GetBoxList(board);
-        pastBoards.add(new TFBoard(boxesSave, this.board.getBoardSize()));
+        ArrayList<Box> boxesSave = getBoxList(board);
+        pastBoards.add(new TFBoard(boxesSave, this.board.getNumBoxes()));
         if (arg == GestureDetectGridView.SWIPE_DIRECTION_ARG.get("Up")) {
             addedScore = board.moveBoxesUp();
         } else if (arg == GestureDetectGridView.SWIPE_DIRECTION_ARG.get("Down")) {
@@ -199,7 +199,7 @@ public class TFGame extends Game implements Serializable {
         return boardSize;
     }
 
-    private ArrayList<Box> GetBoxList(TFBoard board) {
+    private ArrayList<Box> getBoxList(TFBoard board) {
         ArrayList<Box> boxes = new ArrayList<>();
         for (Box box : board) {
             boxes.add(box);

@@ -172,7 +172,7 @@ public class TFBoard extends Observable implements Serializable, Iterable<Box> {
                 '}';
     }
 
-    int getBoardSize() {
+    int getNumBoxes() {
         return this.boardSize * this.boardSize;
     }
 
@@ -184,7 +184,7 @@ public class TFBoard extends Observable implements Serializable, Iterable<Box> {
 
         @Override
         public boolean hasNext() {
-            return (cursor < getBoardSize());
+            return cursor + 1 < getNumBoxes();
         }
 
         @Override
