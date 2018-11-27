@@ -184,7 +184,7 @@ public class TFBoard extends Observable implements Serializable, Iterable<Box> {
 
         @Override
         public boolean hasNext() {
-            return cursor + 1 < getNumBoxes();
+            return cursor < getNumBoxes();
         }
 
         @Override
