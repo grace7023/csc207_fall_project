@@ -295,4 +295,5 @@ public class MinesweeperGame extends Game implements Serializable {
 
     public int getNumRows() { return numRows; }
     public int getNumCols() { return numCols; }
+    public boolean getFlagging() { return flagging; }
 }
