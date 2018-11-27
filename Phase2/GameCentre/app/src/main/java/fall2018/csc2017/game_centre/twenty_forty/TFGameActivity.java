@@ -72,15 +72,7 @@ public class TFGameActivity extends GameActivity implements Observer {
             scoreboard.addScore(currentUsername, String.valueOf(tfGame.getScore()));
             scoreboard.saveToFile();
 
-            Intent gmaIntent = new Intent(this, GameMenuActivity.class);
-            Bundle gmaBundle = new Bundle();
-            gmaBundle.putSerializable("GAME", new TFGame(0));
-            gmaBundle.putString("GAME_DESC", TFGame.GAME_DESC);
-            gmaBundle.putString("GAME_FILENAME", gameFilename);
-            gmaBundle.putString("USERNAME", currentUsername);
-            gmaIntent.putExtras(gmaBundle);
-            startActivity(gmaIntent);
-            finish();
+            switchToGMA();
         }
     }
 
@@ -238,5 +230,22 @@ public class TFGameActivity extends GameActivity implements Observer {
     private void updateScore() {
             String newScore = "Score: " + String.valueOf(tfGame.getScore());
             currentScore.setText(newScore);
+    }
+
+    private void switchToGMA() {
+        Intent tfGMAIntent = new Intent(getApplicationContext(), GameMenuActivity.class);
+        Bundle gmaBundle = new Bundle();
+        gmaBundle.putSerializable("GAME", new TFGame(0));
+        gmaBundle.putString("GAME_DESC", TFGame.GAME_DESC);
+        gmaBundle.putString("GAME_FILENAME", gameFilename);
+        gmaBundle.putString("USERNAME", currentUsername);
+        tfGMAIntent.putExtras(gmaBundle);
+        startActivity(tfGMAIntent);
+        finish();
+    }
+
+    @Override
+    public void onBackPressed() {
+        switchToGMA();
     }
 }

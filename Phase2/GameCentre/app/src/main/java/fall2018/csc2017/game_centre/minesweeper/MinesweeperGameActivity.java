@@ -77,15 +77,7 @@ public class MinesweeperGameActivity extends GameActivity implements Observer {
             scoreboard.addScore(currentUsername, minesweeperGame.getTime());
             scoreboard.saveToFile();
 
-            Intent gmaIntent = new Intent(this, GameMenuActivity.class);
-            Bundle gmaBundle = new Bundle();
-            gmaBundle.putSerializable("GAME", new MinesweeperGame(0, 0, 0));
-            gmaBundle.putString("GAME_DESC", MinesweeperGame.GAME_DESC);
-            gmaBundle.putString("GAME_FILENAME", gameFilename);
-            gmaBundle.putString("USERNAME", currentUsername);
-            gmaIntent.putExtras(gmaBundle);
-            startActivity(gmaIntent);
-            finish();
+            switchToGMA();
 
         }
     }
@@ -254,5 +246,22 @@ public class MinesweeperGameActivity extends GameActivity implements Observer {
     private void updateTimer() {
         String newTime = minesweeperGame.getTime();
         timer.setText(newTime);
+    }
+
+    private void switchToGMA() {
+        Intent msGMAIntent = new Intent(getApplicationContext(), GameMenuActivity.class);
+        Bundle gmaBundle = new Bundle();
+        gmaBundle.putSerializable("GAME", new MinesweeperGame(0, 0, 0));
+        gmaBundle.putString("GAME_DESC", MinesweeperGame.GAME_DESC);
+        gmaBundle.putString("GAME_FILENAME", gameFilename);
+        gmaBundle.putString("USERNAME", currentUsername);
+        msGMAIntent.putExtras(gmaBundle);
+        startActivity(msGMAIntent);
+        finish();
+    }
+
+    @Override
+    public void onBackPressed() {
+        switchToGMA();
     }
 }

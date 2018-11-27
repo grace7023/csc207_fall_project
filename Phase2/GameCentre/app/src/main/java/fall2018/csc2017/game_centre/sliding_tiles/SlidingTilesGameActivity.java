@@ -69,7 +69,6 @@ public class SlidingTilesGameActivity extends GameActivity implements Observer {
             scoreboard.saveToFile();
 
             switchToGMA();
-            finish();
         }
     }
 
@@ -230,7 +229,7 @@ public class SlidingTilesGameActivity extends GameActivity implements Observer {
         currentScore.setText(newScore);
     }
 
-    public void switchToGMA() {
+    private void switchToGMA() {
         Intent gmaIntent = new Intent(this, GameMenuActivity.class);
         Bundle gmaBundle = new Bundle();
         gmaBundle.putSerializable("GAME", new SlidingTilesGame(0));
@@ -239,5 +238,11 @@ public class SlidingTilesGameActivity extends GameActivity implements Observer {
         gmaBundle.putString("USERNAME", currentUsername);
         gmaIntent.putExtras(gmaBundle);
         startActivity(gmaIntent);
+        finish();
+    }
+
+    @Override
+    public void onBackPressed() {
+        switchToGMA();
     }
 }
