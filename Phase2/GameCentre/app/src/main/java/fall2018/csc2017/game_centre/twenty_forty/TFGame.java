@@ -42,7 +42,6 @@ public class TFGame extends Game implements Serializable {
         this.pastScoreIncreases = new ArrayList<>();
         this.score = 0;
         GestureDetectGridView.detectFling = true;
-        //TODO: moves ?
 
         List<Box> boxes = new ArrayList<>();
         for (int i = 0; i < this.boardSize * this.boardSize; i++) {
