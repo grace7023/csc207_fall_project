@@ -14,11 +14,12 @@ class MovementController<T extends Game> {
         this.game = game;
     }
 
+    // TODO: change game over text
     void processGameMovement(Context context, int arg) {
         if (game.isValidMove(arg)) {
             game.move(arg);
             if (game.isOver()) {
-                Toast.makeText(context, "YOU WIN!", Toast.LENGTH_SHORT).show();
+                Toast.makeText(context, game.gameOverText(), Toast.LENGTH_SHORT).show();
             }
         } else {
             Toast.makeText(context, "Invalid Move", Toast.LENGTH_SHORT).show();
