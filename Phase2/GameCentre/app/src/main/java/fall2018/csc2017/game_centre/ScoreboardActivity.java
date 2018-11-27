@@ -1,5 +1,6 @@
 package fall2018.csc2017.game_centre;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.ArrayAdapter;
@@ -78,4 +79,21 @@ public class ScoreboardActivity extends AppCompatActivity {
         textView.setTextSize(30);
         return textView;
     }
+//    TODO: implement this when Scoreboard is specific to a game
+//    private void switchToGMA() {
+//        Intent tfGMAIntent = new Intent(getApplicationContext(), GameMenuActivity.class);
+//        Bundle gmaBundle = new Bundle();
+//        gmaBundle.putSerializable("GAME", new TFGame(0));
+//        gmaBundle.putString("GAME_DESC", TFGame.GAME_DESC);
+//        gmaBundle.putString("GAME_FILENAME", currentUsername + "_" + "TwentyForty");
+//        gmaBundle.putString("USERNAME", currentUsername);
+//        tfGMAIntent.putExtras(gmaBundle);
+//        startActivity(tfGMAIntent);
+//        finish();
+//    }
+//
+//    @Override
+//    public void onBackPressed() {
+//        switchToGMA();
+//    }
 }
