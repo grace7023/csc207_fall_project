@@ -123,6 +123,7 @@ public class TFGame extends Game implements Serializable {
             addedScore = board.moveBoxesRight();
         }
         score += addedScore;
+        pastScoreIncreases.add(addedScore);
     }
 
     /**
@@ -149,7 +150,8 @@ public class TFGame extends Game implements Serializable {
      * Undo function that reverses the most recent move.
      */
     void undo() {
-        this.board = pastBoards.remove(0); //TODO: check if getting first board is the previous save
+        this.board = pastBoards.remove(pastBoards.size() - 1);
+        this.score -= pastScoreIncreases.remove(pastScoreIncreases.size() - 1);
     }
 
     boolean canUndoMove() {
