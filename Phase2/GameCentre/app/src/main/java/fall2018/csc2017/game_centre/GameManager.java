@@ -3,7 +3,6 @@ import fall2018.csc2017.game_centre.sliding_tiles.*;
 import fall2018.csc2017.game_centre.twenty_forty.*;
 import fall2018.csc2017.game_centre.minesweeper.*;
 
-
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -94,12 +93,12 @@ public class GameManager extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent stGMAIntent = new Intent(getApplicationContext(), GameMenuActivity.class);
-                Bundle gmaIntent = new Bundle();
-                gmaIntent.putSerializable("GAME", new SlidingTilesGame(0));
-                gmaIntent.putString("GAME_DESC", SlidingTilesGame.GAME_DESC);
-                gmaIntent.putString("GAME_FILENAME", currentUsername + "_" + "SlidingTiles");
-                gmaIntent.putString("USERNAME", currentUsername);
-                stGMAIntent.putExtras(gmaIntent);
+                Bundle gmaBundle = new Bundle();
+                gmaBundle.putSerializable("GAME", new SlidingTilesGame(0));
+                gmaBundle.putString("GAME_DESC", SlidingTilesGame.GAME_DESC);
+                gmaBundle.putString("GAME_FILENAME", currentUsername + "_" + "SlidingTiles");
+                gmaBundle.putString("USERNAME", currentUsername);
+                stGMAIntent.putExtras(gmaBundle);
                 startActivity(stGMAIntent);
                 finish();
             }
