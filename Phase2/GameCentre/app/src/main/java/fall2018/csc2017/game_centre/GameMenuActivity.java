@@ -150,6 +150,7 @@ public class GameMenuActivity extends AppCompatActivity {
         gameIntent.putExtra("USERNAME", currentUsername);
         gameIntent.putExtra("GAME_FILENAME", gameFilename);
         startActivity(gameIntent);
+        overridePendingTransition(R.anim.slide_from_right, R.anim.slide_to_left);
         finish();
     }
 
@@ -163,6 +164,7 @@ public class GameMenuActivity extends AppCompatActivity {
         settingsIntent.putExtra("USERNAME", currentUsername);
         settingsIntent.putExtra("GAME_FILENAME", gameFilename);
         startActivity(settingsIntent);
+        overridePendingTransition(R.anim.slide_from_right, R.anim.slide_to_left);
         finish();
     }
 
@@ -175,6 +177,7 @@ public class GameMenuActivity extends AppCompatActivity {
         Intent mainMenuIntent = new Intent(this, GameManager.class);
         mainMenuIntent.putExtra("USERNAME", currentUsername);
         startActivity(mainMenuIntent);
+        overridePendingTransition(R.anim.slide_from_left, R.anim.slide_to_right);
         finish();
     }
 
@@ -191,6 +194,7 @@ public class GameMenuActivity extends AppCompatActivity {
         scoreboardBundle.putString("USERNAME", currentUsername);
         scoreboardIntent.putExtras(scoreboardBundle);
         startActivity(scoreboardIntent);
+        overridePendingTransition(R.anim.slide_from_right, R.anim.slide_to_left);
         finish();
     }
 

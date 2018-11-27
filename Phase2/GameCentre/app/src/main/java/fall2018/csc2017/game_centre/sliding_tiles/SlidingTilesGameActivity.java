@@ -238,6 +238,7 @@ public class SlidingTilesGameActivity extends GameActivity implements Observer {
         gmaBundle.putString("USERNAME", currentUsername);
         gmaIntent.putExtras(gmaBundle);
         startActivity(gmaIntent);
+        overridePendingTransition(R.anim.slide_from_left, R.anim.slide_to_right);
         finish();
     }
 

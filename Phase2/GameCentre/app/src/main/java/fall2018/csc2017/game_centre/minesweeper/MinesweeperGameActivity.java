@@ -257,6 +257,7 @@ public class MinesweeperGameActivity extends GameActivity implements Observer {
         gmaBundle.putString("USERNAME", currentUsername);
         msGMAIntent.putExtras(gmaBundle);
         startActivity(msGMAIntent);
+        overridePendingTransition(R.anim.slide_from_left, R.anim.slide_to_right);
         finish();
     }
 

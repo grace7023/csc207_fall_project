@@ -97,6 +97,7 @@ public class TFSettings extends AppCompatActivity {
         gameIntent.putExtra("USERNAME", currentUsername);
         gameIntent.putExtra("GAME_FILENAME", gameFilename);
         startActivity(gameIntent);
+        overridePendingTransition(R.anim.slide_from_right, R.anim.slide_to_left);
         finish();
     }
 
@@ -126,6 +127,7 @@ public class TFSettings extends AppCompatActivity {
         gmaBundle.putString("USERNAME", currentUsername);
         tfGMAIntent.putExtras(gmaBundle);
         startActivity(tfGMAIntent);
+        overridePendingTransition(R.anim.slide_from_left, R.anim.slide_to_right);
         finish();
     }
 

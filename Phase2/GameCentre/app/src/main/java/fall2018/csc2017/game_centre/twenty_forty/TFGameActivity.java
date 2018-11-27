@@ -241,6 +241,7 @@ public class TFGameActivity extends GameActivity implements Observer {
         gmaBundle.putString("USERNAME", currentUsername);
         tfGMAIntent.putExtras(gmaBundle);
         startActivity(tfGMAIntent);
+        overridePendingTransition(R.anim.slide_from_left, R.anim.slide_to_right);
         finish();
     }
 

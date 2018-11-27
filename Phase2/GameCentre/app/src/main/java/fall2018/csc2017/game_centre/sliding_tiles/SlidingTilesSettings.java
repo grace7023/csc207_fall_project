@@ -95,6 +95,7 @@ public class SlidingTilesSettings extends AppCompatActivity {
         gameIntent.putExtra("USERNAME", currentUsername);
         gameIntent.putExtra("GAME_FILENAME", gameFilename);
         startActivity(gameIntent);
+        overridePendingTransition(R.anim.slide_from_right, R.anim.slide_to_left);
         finish();
     }
 
@@ -107,6 +108,7 @@ public class SlidingTilesSettings extends AppCompatActivity {
         gmaBundle.putString("USERNAME", currentUsername);
         gmaIntent.putExtras(gmaBundle);
         startActivity(gmaIntent);
+        overridePendingTransition(R.anim.slide_from_left, R.anim.slide_to_right);
         finish();
     }
 

@@ -291,6 +291,7 @@ public class LogInScreen extends AppCompatActivity {
         Intent gmIntent = new Intent(LogInScreen.this, GameManager.class);
         gmIntent.putExtra("USERNAME", sessionUsername);
         startActivity(gmIntent);
+        overridePendingTransition(R.anim.slide_from_right, R.anim.slide_to_left);
         finish();
     }
 }
