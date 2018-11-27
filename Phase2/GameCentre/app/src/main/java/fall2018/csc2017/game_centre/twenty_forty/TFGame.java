@@ -22,6 +22,7 @@ public class TFGame extends Game implements Serializable {
     private TFBoard board;
 
     private ArrayList<TFBoard> pastBoards;
+    private ArrayList<Integer> pastScoreIncreases;
 
     private int score;
 
@@ -47,11 +48,15 @@ public class TFGame extends Game implements Serializable {
     public TFGame(TFBoard board) {
         this.boardSize = board.getBoardSize();
         this.board = board;
+        this.pastBoards = new ArrayList<>();
+        this.pastScoreIncreases = new ArrayList<>();
         this.score = 0;
     }
 
     public TFGame(int boardSize) {
         this.boardSize = boardSize;
+        this.pastBoards = new ArrayList<>();
+        this.pastScoreIncreases = new ArrayList<>();
         this.score = 0;
         GestureDetectGridView.detectFling = true;
         //TODO: moves ?
