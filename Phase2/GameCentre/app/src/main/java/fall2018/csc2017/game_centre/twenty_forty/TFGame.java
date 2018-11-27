@@ -1,6 +1,7 @@
 package fall2018.csc2017.game_centre.twenty_forty;
 
 import android.content.Intent;
+import android.graphics.Point;
 import android.support.v7.app.AppCompatActivity;
 
 import java.io.Serializable;
@@ -13,6 +14,8 @@ import fall2018.csc2017.game_centre.Game;
 import fall2018.csc2017.game_centre.GestureDetectGridView;
 
 public class TFGame extends Game implements Serializable {
+
+    private final int INIT_BOX_NUM = 2;
 
     private int boardSize;
 
@@ -52,31 +55,23 @@ public class TFGame extends Game implements Serializable {
         this.score = 0;
         GestureDetectGridView.detectFling = true;
         //TODO: moves ?
+
         List<Box> boxes = new ArrayList<>();
-
-        // generate 2 random boxes
-        Random initialBoxes = new Random();
-        int coorX1 = initialBoxes.nextInt(boardSize);
-        int coorY1 = initialBoxes.nextInt(boardSize); //TODO: may need to make this look better
-        int coorX2 = initialBoxes.nextInt(boardSize);
-        int coorY2 = initialBoxes.nextInt(boardSize);
-
-        while (coorX1 == coorX2 && coorY1 == coorY2) {
-            coorX2 = initialBoxes.nextInt(boardSize);
-            coorY2 = initialBoxes.nextInt(boardSize);
+        for (int i = 0; i < this.boardSize * this.boardSize; i++) {
+            boxes.add(new Box(0));
         }
 
-        for (int coorX = 0; coorX != boardSize; coorX++) {
-            for (int coorY = 0; coorY != boardSize; coorY++) {
-                if (coorX == coorX1 && coorY == coorY1) {
-                    boxes.add(new Box(2)); //TODO: 2 or 4. currently default 2
-                } else if (coorX == coorX2 && coorY == coorY2) {
-                    boxes.add(new Box(2)); //TODO: 2 or 4. currently default 2
-                } else {
-                    boxes.add(new Box(0));
-                }
+        // Randomly inserting pre-existing items into boxes
+        Random rng = new Random();
+        for (int i = 0; i < INIT_BOX_NUM; i++) {
+            int pos = rng.nextInt(boardSize * boardSize);
+            while (boxes.get(pos).getExponent() != 0) {
+                pos = rng.nextInt(boardSize * boardSize);
             }
+            int exponent = 2 * (rng.nextInt(2) + 1);
+            boxes.set(pos, new Box(exponent));
         }
+
         this.board = new TFBoard(boxes, this.boardSize);
 
     }
