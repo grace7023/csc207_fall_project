@@ -35,15 +35,18 @@
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
         android:layout_alignParentBottom="true"
-        android:layout_marginStart="168dp"
-        android:layout_marginBottom="16dp"
+        android:layout_marginStart="241dp"
+        android:layout_marginBottom="7dp"
         android:textSize="20sp" />
 
     <TextView
-        android:id = "@+id/flagging"
+        android:id="@+id/flagging"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Revealing"/>
+        android:layout_alignBottom="@+id/timer"
+        android:layout_marginEnd="-168dp"
+        android:layout_toStartOf="@+id/bombCounter"
+        android:text="Revealing" />
 
     <fall2018.csc2017.game_centre.GestureDetectGridView xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
