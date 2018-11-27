@@ -208,27 +208,25 @@ public class MinesweeperGame extends Game implements Serializable {
                 expandEmpty(row, col);
             }
             board.revealTile(row, col);
-
         }
     }
 
     // TODO: implement expandEmpty either recursively or iteratively
     private void expandEmpty(int row, int col) {
         // this doesn't work someone else fix it, how do you make it not loop endlessly
-        int position = row * numCols + col;
-        List<Tile> neighbors = adjacentTiles(position, board);
-        for (int i = -1; i < 2; i++) {
-            for (int j = -1; j < 2; j++) {
-                if (i != 0 || j != 0) {
-                    Tile neighbor = neighbors.get((i+1)*3 + (j+1));
-                    if (neighbor != null && neighbor.getId() == Tile.EMPTY && !neighbor.isRevealed()) {
-                        revealAdjacent(row, col);
-                        expandEmpty(row+i, col+j);
-                    }
-                }
-            }
-        }
+        Tile original = board.getTile(row, col);
+        ArrayList<Tile> queue = new ArrayList<>();
 
+        queue.add(original);
+        while (!queue.isEmpty()){
+            Tile current = queue.remove(0);
+            List<Tile> neighbours = adjacentTiles(board.getPosition(current), board);
+            for (Tile t : neighbours) {
+                if (t != null && !t.isRevealed() && t.getId() == Tile.EMPTY)
+                    queue.add(t);
+            }
+            revealAdjacent(board.getPosition(current) / getNumRows(), board.getPosition(current) % getNumCols());
+        }
     }
 
     /**
@@ -241,7 +239,7 @@ public class MinesweeperGame extends Game implements Serializable {
         int position = row * numCols + col;
         List<Tile> neighbors = adjacentTiles(position, board);
         for (Tile t : neighbors)
-            if (t != null)
+            if (t != null && !t.isRevealed())
                 board.revealTile(t);
     }
     /**

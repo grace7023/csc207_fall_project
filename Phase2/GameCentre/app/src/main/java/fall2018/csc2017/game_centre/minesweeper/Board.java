@@ -111,6 +111,17 @@ public class Board extends Observable implements Serializable, Iterable<Tile> {
         notifyObservers();
     }
 
+    public int getPosition(Tile tile){
+        int counter = 0;
+        for (Tile t : this){
+            if (t != null && t == tile){
+                return counter;
+            }
+            counter ++;
+        }
+        return -5000;
+    }
+
     /**
      * Return an iterator of this Board
      *
