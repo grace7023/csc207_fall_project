@@ -183,10 +183,8 @@ public class TFGame extends Game implements Serializable {
      * Undo function that reverses the most recent move.
      */
     void undo() {
-        this.board = pastBoards.remove(pastBoards.size() - 1);
+        this.board.becomeBoard(pastBoards.remove(pastBoards.size() - 1));
         this.score -= pastScoreIncreases.remove(pastScoreIncreases.size() - 1);
-
-        board.notifyObservers();
     }
 
     boolean canUndoMove() {
