@@ -1,5 +1,8 @@
 package fall2018.csc2017.game_centre.twenty_forty;
 
+import android.content.Intent;
+import android.support.v7.app.AppCompatActivity;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -169,5 +172,15 @@ public class TFGame extends Game implements Serializable {
 
     public String gameOverText() {
         return "GAME OVER!";
+    }
+
+    @Override
+    public Intent getSettingsIntent(AppCompatActivity PackageContext) {
+        return new Intent(PackageContext, TFSettings.class);
+    }
+
+    @Override
+    public Intent getGameActivityIntent(AppCompatActivity PackageContext) {
+        return new Intent(PackageContext, TFGameActivity.class);
     }
 }
