@@ -2,12 +2,13 @@ package fall2018.csc2017.game_centre;
 
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
+import java.io.Serializable;
 
 /**
  * A Game abstract class.
  */
 
-public abstract class Game {
+public abstract class Game implements Serializable {
 
     /**
      * Return whether a move with parameter arg is valid
