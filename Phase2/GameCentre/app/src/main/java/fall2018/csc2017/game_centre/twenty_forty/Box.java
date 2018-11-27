@@ -1,9 +1,10 @@
 package fall2018.csc2017.game_centre.twenty_forty;
 
+import java.io.Serializable;
 import java.util.Objects;
 import fall2018.csc2017.game_centre.R;
 
-public class Box {
+public class Box implements Serializable {
     private int exponent;
     private int background;
     private final static int[] BOX_BACKGROUNDS = {
