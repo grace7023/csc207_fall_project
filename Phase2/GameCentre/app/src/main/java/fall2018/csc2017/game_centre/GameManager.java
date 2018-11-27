@@ -53,14 +53,14 @@ public class GameManager extends AppCompatActivity {
         mMinesweeperBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent stGameIntent = new Intent(getApplicationContext(), GameMenuActivity.class);
-                Bundle gameBundle = new Bundle();
-                gameBundle.putSerializable("GAME", new MinesweeperGame(0, 0, 0));
-                gameBundle.putString("GAME_DESC", MinesweeperGame.GAME_DESC);
-                gameBundle.putString("GAME_FILENAME", currentUsername + "_" + "Minesweeper");
-                gameBundle.putString("USERNAME", currentUsername);
-                stGameIntent.putExtras(gameBundle);
-                startActivity(stGameIntent);
+                Intent msGMAIntent = new Intent(getApplicationContext(), GameMenuActivity.class);
+                Bundle gmaBundle = new Bundle();
+                gmaBundle.putSerializable("GAME", new MinesweeperGame(0, 0, 0));
+                gmaBundle.putString("GAME_DESC", MinesweeperGame.GAME_DESC);
+                gmaBundle.putString("GAME_FILENAME", currentUsername + "_" + "Minesweeper");
+                gmaBundle.putString("USERNAME", currentUsername);
+                msGMAIntent.putExtras(gmaBundle);
+                startActivity(msGMAIntent);
             }
         });
     }
@@ -72,14 +72,14 @@ public class GameManager extends AppCompatActivity {
         mTwentyFortyBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent stGameIntent = new Intent(getApplicationContext(), GameMenuActivity.class);
-                Bundle gameBundle = new Bundle();
-                gameBundle.putSerializable("GAME", new TFGame(0));
-                gameBundle.putString("GAME_DESC", TFGame.GAME_DESC);
-                gameBundle.putString("GAME_FILENAME", currentUsername + "_" + "TwentyForty");
-                gameBundle.putString("USERNAME", currentUsername);
-                stGameIntent.putExtras(gameBundle);
-                startActivity(stGameIntent);
+                Intent tfGMAIntent = new Intent(getApplicationContext(), GameMenuActivity.class);
+                Bundle gmaBundle = new Bundle();
+                gmaBundle.putSerializable("GAME", new TFGame(0));
+                gmaBundle.putString("GAME_DESC", TFGame.GAME_DESC);
+                gmaBundle.putString("GAME_FILENAME", currentUsername + "_" + "TwentyForty");
+                gmaBundle.putString("USERNAME", currentUsername);
+                tfGMAIntent.putExtras(gmaBundle);
+                startActivity(tfGMAIntent);
             }
         });
     }
@@ -91,14 +91,14 @@ public class GameManager extends AppCompatActivity {
         mSlidingTilesBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent stGameIntent = new Intent(getApplicationContext(), GameMenuActivity.class);
-                Bundle gameBundle = new Bundle();
-                gameBundle.putSerializable("GAME", new SlidingTilesGame(0));
-                gameBundle.putString("GAME_DESC", SlidingTilesGame.GAME_DESC);
-                gameBundle.putString("GAME_FILENAME", currentUsername + "_" + "SlidingTiles");
-                gameBundle.putString("USERNAME", currentUsername);
-                stGameIntent.putExtras(gameBundle);
-                startActivity(stGameIntent);
+                Intent stGMAIntent = new Intent(getApplicationContext(), GameMenuActivity.class);
+                Bundle gmaIntent = new Bundle();
+                gmaIntent.putSerializable("GAME", new SlidingTilesGame(0));
+                gmaIntent.putString("GAME_DESC", SlidingTilesGame.GAME_DESC);
+                gmaIntent.putString("GAME_FILENAME", currentUsername + "_" + "SlidingTiles");
+                gmaIntent.putString("USERNAME", currentUsername);
+                stGMAIntent.putExtras(gmaIntent);
+                startActivity(stGMAIntent);
             }
         });
     }

@@ -57,6 +57,8 @@ public class MinesweeperGameActivity extends GameActivity implements Observer {
 
     private String currentUsername;
 
+    private String gameFilename;
+
     /**
      * Set up the background image for each button based on the master list
      * of positions, and then call the adapter to set the view.
@@ -75,7 +77,15 @@ public class MinesweeperGameActivity extends GameActivity implements Observer {
             scoreboard.addScore(currentUsername, minesweeperGame.getTime());
             scoreboard.saveToFile();
 
-            startActivity(new Intent(this, GameMenuActivity.class));
+            Intent gmaIntent = new Intent(this, GameMenuActivity.class);
+            Bundle gmaBundle = new Bundle();
+            gmaBundle.putSerializable("GAME", new MinesweeperGame(0, 0, 0));
+            gmaBundle.putString("GAME_DESC", MinesweeperGame.GAME_DESC);
+            gmaBundle.putString("GAME_FILENAME", gameFilename);
+            gmaBundle.putString("USERNAME", currentUsername);
+            gmaIntent.putExtras(gmaBundle);
+            startActivity(gmaIntent);
+            finish();
 
         }
     }
@@ -89,8 +99,9 @@ public class MinesweeperGameActivity extends GameActivity implements Observer {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        loadFromFile(GameMenuActivity.gameFileName);
         currentUsername = getIntent().getStringExtra("USERNAME");
+        gameFilename = getIntent().getStringExtra("GAME_FILENAME");
+        loadFromFile(gameFilename);
         createTileButtons(this);
         setContentView(R.layout.activity_minesweeper_game);
         addFlagButton();
@@ -237,7 +248,7 @@ public class MinesweeperGameActivity extends GameActivity implements Observer {
      * Auto save function that saves Game after each move.
      */
     public void autoSave() {
-        saveToFile(GameMenuActivity.gameFileName);
+        saveToFile(gameFilename);
     }
 
     private void updateTimer() {

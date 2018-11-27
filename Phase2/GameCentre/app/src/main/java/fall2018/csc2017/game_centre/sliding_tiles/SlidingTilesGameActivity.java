@@ -49,6 +49,8 @@ public class SlidingTilesGameActivity extends GameActivity implements Observer {
 
     private String currentUsername;
 
+    private String gameFilename;
+
     /**
      * Set up the background image for each button based on the master list
      * of positions, and then call the adapter to set the view.
@@ -66,14 +68,14 @@ public class SlidingTilesGameActivity extends GameActivity implements Observer {
             scoreboard.addScore(currentUsername, String.valueOf(slidingTilesGame.getScore()));
             scoreboard.saveToFile();
 
-            Intent stGameIntent = new Intent(getApplicationContext(), GameMenuActivity.class);
-            Bundle gameBundle = new Bundle();
-            gameBundle.putSerializable("GAME", new SlidingTilesGame(0));
-            gameBundle.putString("GAME_DESC", SlidingTilesGame.GAME_DESC);
-            gameBundle.putString("GAME_FILENAME", currentUsername + "_" + "SlidingTiles");
-            gameBundle.putString("USERNAME", currentUsername);
-            stGameIntent.putExtras(gameBundle);
-            startActivity(stGameIntent);
+            Intent gmaIntent = new Intent(this, GameMenuActivity.class);
+            Bundle gmaBundle = new Bundle();
+            gmaBundle.putSerializable("GAME", new SlidingTilesGame(0));
+            gmaBundle.putString("GAME_DESC", SlidingTilesGame.GAME_DESC);
+            gmaBundle.putString("GAME_FILENAME", gameFilename);
+            gmaBundle.putString("USERNAME", currentUsername);
+            gmaIntent.putExtras(gmaBundle);
+            startActivity(gmaIntent);
             finish();
         }
     }
@@ -87,8 +89,9 @@ public class SlidingTilesGameActivity extends GameActivity implements Observer {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        loadFromFile(GameMenuActivity.gameFileName);
         currentUsername = getIntent().getStringExtra("USERNAME");
+        gameFilename = getIntent().getStringExtra("GAME_FILENAME");
+        loadFromFile(gameFilename);
         createTileButtons(this);
         setContentView(R.layout.activity_slidingtiles_game);
         addUndoButton();
@@ -204,7 +207,7 @@ public class SlidingTilesGameActivity extends GameActivity implements Observer {
      * Auto save function that saves Game after each move.
      */
     public void autoSave() {
-        saveToFile(GameMenuActivity.gameFileName);
+        saveToFile(gameFilename);
     }
 
     /**
