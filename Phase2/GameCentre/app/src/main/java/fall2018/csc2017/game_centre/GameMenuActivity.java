@@ -20,7 +20,7 @@ public class GameMenuActivity extends AppCompatActivity {
     /**
      * File path for saving game
      */
-    private String gameFileName;
+    private String gameFilename;
 
     private String currentUsername;
 
@@ -28,6 +28,8 @@ public class GameMenuActivity extends AppCompatActivity {
      * Thus menu's game
      */
     private Game game;
+
+    private String gameDesc;
 
     /**
      * Create UI for a game menu
@@ -42,10 +44,10 @@ public class GameMenuActivity extends AppCompatActivity {
         assert gameBundle != null;
         game = (Game) gameBundle.getSerializable("GAME");
         currentUsername = gameBundle.getString("USERNAME");
-        gameFileName = gameBundle.getString("GAME_FILENAME");
-
+        gameFilename = gameBundle.getString("GAME_FILENAME");
+        gameDesc = gameBundle.getString("GAME_DESC");
         TextView textView = findViewById(R.id.GameText);
-        textView.setText(gameBundle.getString("GAME_DESC"));
+        textView.setText(gameDesc);
 
         addStartButtonListener();
         addLoadButtonListener();
@@ -77,8 +79,8 @@ public class GameMenuActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if (game.getScreenSize() != 0 && !game.isOver()) {
-                    loadFromFile(gameFileName);
-                    saveToFile(gameFileName);
+                    loadFromFile(gameFilename);
+                    saveToFile(gameFilename);
                     makeToastLoadedText();
                     switchToGame();
                 } else {
@@ -99,7 +101,7 @@ public class GameMenuActivity extends AppCompatActivity {
         returnButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                saveToFile(gameFileName);
+                saveToFile(gameFilename);
                 switchToMainMenu();
             }
         });
@@ -114,7 +116,7 @@ public class GameMenuActivity extends AppCompatActivity {
         scoreButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                saveToFile(gameFileName);
+                saveToFile(gameFilename);
                 switchToScoreboard();
             }
         });
@@ -135,7 +137,7 @@ public class GameMenuActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        loadFromFile(gameFileName);
+        loadFromFile(gameFilename);
     }
 
     /**
@@ -143,10 +145,10 @@ public class GameMenuActivity extends AppCompatActivity {
      */
 
     protected void switchToGame() {
-        saveToFile(gameFileName);
+        saveToFile(gameFilename);
         Intent gameIntent = game.getGameActivityIntent(this);
         gameIntent.putExtra("USERNAME", currentUsername);
-        gameIntent.putExtra("GAME_FILENAME", gameFileName);
+        gameIntent.putExtra("GAME_FILENAME", gameFilename);
         startActivity(gameIntent);
         finish();
     }
@@ -156,10 +158,10 @@ public class GameMenuActivity extends AppCompatActivity {
      */
 
     protected void switchToSettings() {
-        saveToFile(gameFileName);
+        saveToFile(gameFilename);
         Intent settingsIntent = game.getSettingsIntent(this);
         settingsIntent.putExtra("USERNAME", currentUsername);
-        settingsIntent.putExtra("GAME_FILENAME", gameFileName);
+        settingsIntent.putExtra("GAME_FILENAME", gameFilename);
         startActivity(settingsIntent);
         finish();
     }
@@ -169,7 +171,7 @@ public class GameMenuActivity extends AppCompatActivity {
      */
 
     protected void switchToMainMenu() {
-        saveToFile(gameFileName);
+        saveToFile(gameFilename);
         Intent mainMenuIntent = new Intent(this, GameManager.class);
         mainMenuIntent.putExtra("USERNAME", currentUsername);
         startActivity(mainMenuIntent);
@@ -181,8 +183,13 @@ public class GameMenuActivity extends AppCompatActivity {
      */
 
     protected void switchToScoreboard() {
-        Intent scoreboardIntent = new Intent(this, ScoreboardActivity.class);
-        scoreboardIntent.putExtra("USERNAME", currentUsername);
+        Intent scoreboardIntent = new Intent(getApplicationContext(), ScoreboardActivity.class);
+        Bundle scoreboardBundle = new Bundle();
+        scoreboardBundle.putSerializable("GAME", game);
+        scoreboardBundle.putString("GAME_DESC", gameDesc);
+        scoreboardBundle.putString("GAME_FILENAME", gameFilename);
+        scoreboardBundle.putString("USERNAME", currentUsername);
+        scoreboardIntent.putExtras(scoreboardBundle);
         startActivity(scoreboardIntent);
         finish();
     }

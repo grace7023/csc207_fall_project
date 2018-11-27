@@ -29,6 +29,14 @@ public class ScoreboardActivity extends AppCompatActivity {
      */
     public ArrayList<Score> playerScores = new ArrayList<>();
 
+    public Game game;
+
+    public String currentUsername;
+
+    public String gameFilename;
+
+    public String gameDesc;
+
     /**
      * Creates the UI elements
      *
@@ -38,7 +46,12 @@ public class ScoreboardActivity extends AppCompatActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_scoreboard);
-        String currentUsername = getIntent().getStringExtra("USERNAME");
+        Bundle gameBundle = getIntent().getExtras();
+        assert gameBundle != null;
+        game = (Game) gameBundle.getSerializable("GAME");
+        currentUsername = gameBundle.getString("USERNAME");
+        gameFilename = gameBundle.getString("GAME_FILENAME");
+        gameDesc = gameBundle.getString("GAME_DESC");
         scoreboard = Scoreboard.loadFromFile();
         scores = scoreboard.getScores();
         playerScores = scoreboard.getScores(currentUsername);
@@ -79,21 +92,21 @@ public class ScoreboardActivity extends AppCompatActivity {
         textView.setTextSize(30);
         return textView;
     }
-//    TODO: implement this when Scoreboard is specific to a game
-//    private void switchToGMA() {
-//        Intent tfGMAIntent = new Intent(getApplicationContext(), GameMenuActivity.class);
-//        Bundle gmaBundle = new Bundle();
-//        gmaBundle.putSerializable("GAME", new TFGame(0));
-//        gmaBundle.putString("GAME_DESC", TFGame.GAME_DESC);
-//        gmaBundle.putString("GAME_FILENAME", currentUsername + "_" + "TwentyForty");
-//        gmaBundle.putString("USERNAME", currentUsername);
-//        tfGMAIntent.putExtras(gmaBundle);
-//        startActivity(tfGMAIntent);
-//        finish();
-//    }
-//
-//    @Override
-//    public void onBackPressed() {
-//        switchToGMA();
-//    }
+
+    private void switchToGMA() {
+        Intent tfGMAIntent = new Intent(getApplicationContext(), GameMenuActivity.class);
+        Bundle gmaBundle = new Bundle();
+        gmaBundle.putSerializable("GAME", game);
+        gmaBundle.putString("GAME_DESC", gameDesc);
+        gmaBundle.putString("GAME_FILENAME", gameFilename);
+        gmaBundle.putString("USERNAME", currentUsername);
+        tfGMAIntent.putExtras(gmaBundle);
+        startActivity(tfGMAIntent);
+        finish();
+    }
+
+    @Override
+    public void onBackPressed() {
+        switchToGMA();
+    }
 }
