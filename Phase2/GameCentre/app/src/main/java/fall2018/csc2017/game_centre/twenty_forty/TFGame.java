@@ -67,7 +67,7 @@ public class TFGame extends Game implements Serializable {
         return board;
     }
 
-    public int getScore() { //TODO: Figure out score counting system, might need public static setScore()  also
+    public int getScore() {
         return score;
     }
 
