@@ -87,19 +87,14 @@ public class TFGame extends Game implements Serializable {
         // Setting up movement direction to be checked
         int colMove = 0;
         int rowMove = 0;
-        switch (arg) {
-            case 1:
-                rowMove = -1;
-                break;
-            case 2:
-                rowMove = 1;
-                break;
-            case 3:
-                colMove = -1;
-                break;
-            case 4:
-                colMove = 1;
-                break;
+        if (arg == GestureDetectGridView.MOVE_ARG.get("Up")) {
+            rowMove = -1;
+        } else if (arg == GestureDetectGridView.MOVE_ARG.get("Down")) {
+            rowMove = 1;
+        } else if (arg == GestureDetectGridView.MOVE_ARG.get("Left")) {
+            colMove = -1;
+        } else if (arg == GestureDetectGridView.MOVE_ARG.get("Right")) {
+            colMove = 1;
         }
 
         // Return true if a non-empty box is found that can be moved into an empty space
