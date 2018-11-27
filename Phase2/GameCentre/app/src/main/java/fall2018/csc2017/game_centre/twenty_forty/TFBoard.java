@@ -49,7 +49,7 @@ public class TFBoard extends Observable implements Serializable, Iterable<Box> {
         boxes[row2][col2] = temp;
     }
 
-    void MoveBoxesUp() {
+    void moveBoxesUp() {
         // Skips the top row since it can't go up any further
         for (int row = 1; row < boardSize; row++) {
             for (int col = 0; col < boardSize; col++) {
@@ -73,7 +73,7 @@ public class TFBoard extends Observable implements Serializable, Iterable<Box> {
         }
     }
 
-    void MoveBoxesDown() {
+    void moveBoxesDown() {
         // Skips the bottom row since it can't go down any further
         for (int row = boardSize - 2; 0 <= row; row--) {
             for (int col = 0; col < boardSize; col++) {
@@ -97,7 +97,7 @@ public class TFBoard extends Observable implements Serializable, Iterable<Box> {
         }
     }
 
-    void MoveBoxesLeft() {
+    void moveBoxesLeft() {
         // Skips the left column since it can't go left any further
         for (int col = 1; col < boardSize; col++) {
             for (int row = 0; row < boardSize; row++) {
@@ -121,7 +121,7 @@ public class TFBoard extends Observable implements Serializable, Iterable<Box> {
         }
     }
 
-    void MoveBoxesRight() {
+    void moveBoxesRight() {
         // Skips the left column since it can't go left any further
         for (int col = boardSize - 2; 0 <= col; col--) {
             for (int row = 0; row < boardSize; row++) {

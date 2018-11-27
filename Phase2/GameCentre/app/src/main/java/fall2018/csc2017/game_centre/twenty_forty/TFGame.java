@@ -2,11 +2,8 @@ package fall2018.csc2017.game_centre.twenty_forty;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.Random;
 
 import fall2018.csc2017.game_centre.Game;
@@ -113,13 +110,13 @@ public class TFGame extends Game implements Serializable {
         ArrayList<Box> boxesSave = GetBoxList(board);
         pastBoards.add(new TFBoard(boxesSave, this.board.getBoardSize()));
         if (arg == GestureDetectGridView.MOVE_ARG.get("Up")) {
-            board.MoveBoxesUp();
+            board.moveBoxesUp();
         } else if (arg == GestureDetectGridView.MOVE_ARG.get("Down")) {
-            board.MoveBoxesDown();
+            board.moveBoxesDown();
         } else if (arg == GestureDetectGridView.MOVE_ARG.get("Left")) {
-            board.MoveBoxesLeft();
+            board.moveBoxesLeft();
         } else if (arg == GestureDetectGridView.MOVE_ARG.get("Right")) {
-            board.MoveBoxesRight();
+            board.moveBoxesRight();
         }
     }
 
