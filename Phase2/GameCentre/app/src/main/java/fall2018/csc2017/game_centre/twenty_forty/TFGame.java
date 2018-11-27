@@ -149,8 +149,35 @@ public class TFGame extends Game implements Serializable {
      * @return True iff tiles are not movable
      */
     private boolean isStuck() {
-        //TODO: implement isStuck()
-        return true;
+        for (int row = 0; row < boardSize; row++) {
+            for (int col = 0; col < boardSize; col++) {
+                int curExp = board.getBox(row, col).getExponent();
+                for (Box neighbor : getNeighboringBoxes(row, col)) {
+                    int neighborExp = neighbor.getExponent();
+                    if (curExp == neighborExp) {
+                        return true;
+                    }
+                }
+            }
+        }
+        return false;
+    }
+
+    private ArrayList<Box> getNeighboringBoxes(int row, int col) {
+        ArrayList<Box> neighbors = new ArrayList<>();
+        if (row > 0) {
+            neighbors.add(board.getBox(row - 1, col));
+        }
+        if (row < boardSize - 1) {
+            neighbors.add(board.getBox(row + 1, col));
+        }
+        if (col > 0) {
+            neighbors.add(board.getBox(row, col - 1));
+        }
+        if (col < boardSize - 1) {
+            neighbors.add(board.getBox(row, col + 1));
+        }
+        return neighbors;
     }
 
     /**
