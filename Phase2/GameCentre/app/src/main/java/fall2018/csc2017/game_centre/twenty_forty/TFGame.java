@@ -26,7 +26,7 @@ public class TFGame extends Game implements Serializable {
 
     private int score;
 
-    public final static String GAME_DESC = "Welcome To 2048 \n Swipe the screen to slide the " +
+    public final static String GAME_DESC = "Welcome To 2048\nSwipe the screen to slide the " +
             "numbered tiles around. Merge like-numbered tiles to add their numbers together. " +
             "Get the 2048 tile to win!";
 
