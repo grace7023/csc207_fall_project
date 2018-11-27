@@ -96,6 +96,13 @@ public class Board extends Observable implements Serializable, Iterable<Tile> {
         notifyObservers();
     }
 
+    public void revealTile(Tile tile){
+        tile.reveal();
+
+        setChanged();
+        notifyObservers();
+    }
+
     public void toggleFlag(int row, int col){
 
         getTile(row, col).toggleFlag();

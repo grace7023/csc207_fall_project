@@ -240,15 +240,8 @@ public class MinesweeperGame extends Game implements Serializable {
     private void revealAdjacent(int row, int col) {
         int position = row * numCols + col;
         List<Tile> neighbors = adjacentTiles(position, board);
-        for (int i = -1; i < 2; i++) {
-            for (int j = -1; j < 2; j++) {
-                if (i != 0 || j != 0) {
-                    if (neighbors.get((i+1)*3 + (j+1)) != null) {
-                        board.revealTile(row+i, col+j);
-                    }
-                }
-            }
-        }
+        for (Tile t : neighbors)
+            board.revealTile(t);
     }
     /**
      * Return a ArrayList of the adjacent tiles of the given tile. The adjacent tiles are
