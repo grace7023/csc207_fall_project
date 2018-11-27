@@ -47,6 +47,8 @@ public class TFGameActivity extends GameActivity implements Observer {
 
     private String currentUsername;
 
+    private String gameFilename;
+
     /**
      * TextView for currentScore
      */
@@ -70,7 +72,15 @@ public class TFGameActivity extends GameActivity implements Observer {
             scoreboard.addScore(currentUsername, String.valueOf(tfGame.getScore()));
             scoreboard.saveToFile();
 
-            startActivity(new Intent(this, GameMenuActivity.class));
+            Intent gmaIntent = new Intent(this, GameMenuActivity.class);
+            Bundle gmaBundle = new Bundle();
+            gmaBundle.putSerializable("GAME", new TFGame(0));
+            gmaBundle.putString("GAME_DESC", TFGame.GAME_DESC);
+            gmaBundle.putString("GAME_FILENAME", gameFilename);
+            gmaBundle.putString("USERNAME", currentUsername);
+            gmaIntent.putExtras(gmaBundle);
+            startActivity(gmaIntent);
+            finish();
         }
     }
 
@@ -83,8 +93,9 @@ public class TFGameActivity extends GameActivity implements Observer {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        loadFromFile(GameMenuActivity.gameFileName);
         currentUsername = getIntent().getStringExtra("USERNAME");
+        gameFilename = getIntent().getStringExtra("GAME_FILENAME");
+        loadFromFile(gameFilename);
         createBoxButtons(this);
         setContentView(R.layout.activity_slidingtiles_game);
         addUndoButton();
@@ -199,7 +210,7 @@ public class TFGameActivity extends GameActivity implements Observer {
      * Auto save function that saves Game after each move.
      */
     public void autoSave() {
-        saveToFile(GameMenuActivity.gameFileName);
+        saveToFile(gameFilename);
     }
 
     /**
