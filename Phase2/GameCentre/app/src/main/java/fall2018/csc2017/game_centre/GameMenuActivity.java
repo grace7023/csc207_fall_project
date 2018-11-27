@@ -148,6 +148,7 @@ public class GameMenuActivity extends AppCompatActivity {
         gameIntent.putExtra("USERNAME", currentUsername);
         gameIntent.putExtra("GAME_FILENAME", gameFileName);
         startActivity(gameIntent);
+        finish();
     }
 
     /**
@@ -160,6 +161,7 @@ public class GameMenuActivity extends AppCompatActivity {
         settingsIntent.putExtra("USERNAME", currentUsername);
         settingsIntent.putExtra("GAME_FILENAME", gameFileName);
         startActivity(settingsIntent);
+        finish();
     }
 
     /**
@@ -171,6 +173,7 @@ public class GameMenuActivity extends AppCompatActivity {
         Intent mainMenuIntent = new Intent(this, GameManager.class);
         mainMenuIntent.putExtra("USERNAME", currentUsername);
         startActivity(mainMenuIntent);
+        finish();
     }
 
     /**
@@ -181,6 +184,7 @@ public class GameMenuActivity extends AppCompatActivity {
         Intent scoreboardIntent = new Intent(this, ScoreboardActivity.class);
         scoreboardIntent.putExtra("USERNAME", currentUsername);
         startActivity(scoreboardIntent);
+        finish();
     }
 
     /**
@@ -223,5 +227,10 @@ public class GameMenuActivity extends AppCompatActivity {
         } catch (IOException e) {
             Log.e("Exception", "File write failed: " + e.toString());
         }
+    }
+
+    @Override
+    public void onBackPressed() {
+        switchToMainMenu();
     }
 }
