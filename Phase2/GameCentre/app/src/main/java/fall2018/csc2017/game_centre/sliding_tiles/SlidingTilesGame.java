@@ -98,6 +98,10 @@ public class SlidingTilesGame extends Game implements Serializable {
         return boardSize;
     }
 
+    public String gameOverText() {
+        return "YOU WIN!";
+    }
+
     /**
      * Return the current board.
      */

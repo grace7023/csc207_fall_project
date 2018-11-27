@@ -169,4 +169,8 @@ public class TFGame extends Game implements Serializable {
         }
         return boxes;
     }
+
+    public String gameOverText() {
+        return "GAME OVER!";
+    }
 }
