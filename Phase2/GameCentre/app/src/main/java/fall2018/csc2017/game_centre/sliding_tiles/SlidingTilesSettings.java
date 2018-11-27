@@ -82,7 +82,6 @@ public class SlidingTilesSettings extends AppCompatActivity {
             public void onClick(View v) {
                 slidingTilesGame = new SlidingTilesGame(gameSize);
                 switchToGame();
-                finish();
             }
         });
     }
@@ -96,6 +95,19 @@ public class SlidingTilesSettings extends AppCompatActivity {
         gameIntent.putExtra("USERNAME", currentUsername);
         gameIntent.putExtra("GAME_FILENAME", gameFilename);
         startActivity(gameIntent);
+        finish();
+    }
+
+    private void switchToGMA() {
+        Intent gmaIntent = new Intent(this, GameMenuActivity.class);
+        Bundle gmaBundle = new Bundle();
+        gmaBundle.putSerializable("GAME", new SlidingTilesGame(0));
+        gmaBundle.putString("GAME_DESC", SlidingTilesGame.GAME_DESC);
+        gmaBundle.putString("GAME_FILENAME", gameFilename);
+        gmaBundle.putString("USERNAME", currentUsername);
+        gmaIntent.putExtras(gmaBundle);
+        startActivity(gmaIntent);
+        finish();
     }
 
     /**
@@ -113,5 +125,10 @@ public class SlidingTilesSettings extends AppCompatActivity {
         } catch (IOException e) {
             Log.e("Exception", "File write failed: " + e.toString());
         }
+    }
+
+    @Override
+    public void onBackPressed() {
+        switchToGMA();
     }
 }

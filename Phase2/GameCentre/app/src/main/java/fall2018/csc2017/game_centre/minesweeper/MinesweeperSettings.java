@@ -111,6 +111,7 @@ public class MinesweeperSettings extends AppCompatActivity {
             gameIntent.putExtra("USERNAME", currentUsername);
             gameIntent.putExtra("GAME_FILENAME", gameFilename);
             startActivity(gameIntent);
+            finish();
         }
     }
 
@@ -133,5 +134,22 @@ public class MinesweeperSettings extends AppCompatActivity {
         } catch (IOException e) {
             Log.e("Exception", "File write failed: " + e.toString());
         }
+    }
+
+    private void switchToGMA() {
+        Intent msGMAIntent = new Intent(getApplicationContext(), GameMenuActivity.class);
+        Bundle gmaBundle = new Bundle();
+        gmaBundle.putSerializable("GAME", new MinesweeperGame(0, 0, 0));
+        gmaBundle.putString("GAME_DESC", MinesweeperGame.GAME_DESC);
+        gmaBundle.putString("GAME_FILENAME", gameFilename);
+        gmaBundle.putString("USERNAME", currentUsername);
+        msGMAIntent.putExtras(gmaBundle);
+        startActivity(msGMAIntent);
+        finish();
+    }
+
+    @Override
+    public void onBackPressed() {
+        switchToGMA();
     }
 }

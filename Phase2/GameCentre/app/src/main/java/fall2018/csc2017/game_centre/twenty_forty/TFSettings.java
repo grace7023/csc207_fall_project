@@ -26,7 +26,7 @@ public class TFSettings extends AppCompatActivity {
     /**
      * TF Game in function.
      */
-    private TFGame TFGame;
+    private TFGame tfGame;
 
     private String currentUsername;
 
@@ -81,7 +81,7 @@ public class TFSettings extends AppCompatActivity {
         startButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                TFGame = new TFGame(gameSize);
+                tfGame = new TFGame(gameSize);
                 switchToGame();
                 finish();
             }
@@ -97,6 +97,7 @@ public class TFSettings extends AppCompatActivity {
         gameIntent.putExtra("USERNAME", currentUsername);
         gameIntent.putExtra("GAME_FILENAME", gameFilename);
         startActivity(gameIntent);
+        finish();
     }
 
     /**
@@ -109,10 +110,27 @@ public class TFSettings extends AppCompatActivity {
         try {
             ObjectOutputStream outputStream = new ObjectOutputStream(
                     this.openFileOutput(fileName, MODE_PRIVATE));
-            outputStream.writeObject(TFGame);
+            outputStream.writeObject(tfGame);
             outputStream.close();
         } catch (IOException e) {
             Log.e("Exception", "File write failed: " + e.toString());
         }
+    }
+
+    private void switchToGMA() {
+        Intent tfGMAIntent = new Intent(getApplicationContext(), GameMenuActivity.class);
+        Bundle gmaBundle = new Bundle();
+        gmaBundle.putSerializable("GAME", new TFGame(0));
+        gmaBundle.putString("GAME_DESC", TFGame.GAME_DESC);
+        gmaBundle.putString("GAME_FILENAME", gameFilename);
+        gmaBundle.putString("USERNAME", currentUsername);
+        tfGMAIntent.putExtras(gmaBundle);
+        startActivity(tfGMAIntent);
+        finish();
+    }
+
+    @Override
+    public void onBackPressed() {
+        switchToGMA();
     }
 }
