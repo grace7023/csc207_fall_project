@@ -48,7 +48,8 @@ public class MinesweeperGameActivity extends GameActivity implements Observer {
     private GestureDetectGridView<MinesweeperGame> gridView;
     private static int columnWidth, columnHeight;
 
-    private Button flagButton;
+    private TextView flagging;
+    private String flagText;
 
 
     /**
@@ -125,16 +126,21 @@ public class MinesweeperGameActivity extends GameActivity implements Observer {
     }
 
     private void addFlagButton() {
+        flagging = findViewById(R.id.flagging);
+
         int id = R.id.flagButton;
-        flagButton = findViewById(id);
+        Button flagButton = findViewById(id);
         flagButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 minesweeperGame.toggleFlagging();
-                if (minesweeperGame.getFlagging())
-                    flagButton.setText("Unflag");
-                else
-                    flagButton.setText("Flag");
+                if (minesweeperGame.getFlagging()){
+                    flagText = "Flagging";
+                    flagging.setText(flagText);
+                } else {
+                    flagText = "Revealing";
+                    flagging.setText(flagText);
+                }
 
 
             }
