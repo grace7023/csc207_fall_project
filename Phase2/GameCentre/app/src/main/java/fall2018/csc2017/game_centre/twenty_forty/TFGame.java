@@ -83,8 +83,37 @@ public class TFGame extends Game implements Serializable {
      */
     @Override
     public boolean isValidMove(int arg) {
-        // if no block can be moved then return false
-        //TODO: implement isValidMove
+
+        // Setting up movement direction to be checked
+        int colMove = 0;
+        int rowMove = 0;
+        switch (arg) {
+            case 1:
+                rowMove = -1;
+                break;
+            case 2:
+                rowMove = 1;
+                break;
+            case 3:
+                colMove = -1;
+                break;
+            case 4:
+                colMove = 1;
+                break;
+        }
+
+        // Return true if a non-empty box is found that can be moved into an empty space
+        for (int row = 0; row < boardSize; row++) {
+            for (int col = 0; col < boardSize; col++) {
+                if (0 < row + rowMove && row + rowMove < boardSize &&
+                        0 < col + colMove && col + colMove < boardSize) {
+                    if (board.getBox(row, col).getExponent() != 0 &&
+                            board.getBox(row + rowMove, col + colMove).getExponent() == 0) {
+                        return true;
+                    }
+                }
+            }
+        }
         return false;
     }
 
