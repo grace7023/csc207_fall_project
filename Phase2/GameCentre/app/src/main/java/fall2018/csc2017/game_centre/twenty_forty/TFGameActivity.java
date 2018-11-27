@@ -235,7 +235,7 @@ public class TFGameActivity extends GameActivity implements Observer {
     private void switchToGMA() {
         Intent tfGMAIntent = new Intent(getApplicationContext(), GameMenuActivity.class);
         Bundle gmaBundle = new Bundle();
-        gmaBundle.putSerializable("GAME", new TFGame(0));
+        gmaBundle.putSerializable("GAME", new TFGame(4));
         gmaBundle.putString("GAME_DESC", TFGame.GAME_DESC);
         gmaBundle.putString("GAME_FILENAME", gameFilename);
         gmaBundle.putString("USERNAME", currentUsername);
