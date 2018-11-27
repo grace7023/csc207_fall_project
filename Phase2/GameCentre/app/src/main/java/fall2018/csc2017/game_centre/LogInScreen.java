@@ -24,7 +24,7 @@ import com.google.firebase.storage.StorageReference;
  */
 
 public class LogInScreen extends AppCompatActivity {
-
+    // TODO: figure out whats wrong with the login
     /**
      * The username of the player
      */
