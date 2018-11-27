@@ -75,7 +75,7 @@ public class GameManager extends AppCompatActivity {
             public void onClick(View v) {
                 Intent tfGMAIntent = new Intent(getApplicationContext(), GameMenuActivity.class);
                 Bundle gmaBundle = new Bundle();
-                gmaBundle.putSerializable("GAME", new TFGame(0));
+                gmaBundle.putSerializable("GAME", new TFGame(4));
                 gmaBundle.putString("GAME_DESC", TFGame.GAME_DESC);
                 gmaBundle.putString("GAME_FILENAME", currentUsername + "_" + "TwentyForty");
                 gmaBundle.putString("USERNAME", currentUsername);
