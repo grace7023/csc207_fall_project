@@ -38,6 +38,10 @@ public class SlidingTilesSettings extends AppCompatActivity {
      */
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        currentUsername = getIntent().getStringExtra("USERNAME");
+        gameFilename = getIntent().getStringExtra("GAME_FILENAME");
+
         setContentView(R.layout.settings_slidingtiles);
         addStartButtonListener();
         setupBoardSizeSpinner();
