@@ -61,6 +61,7 @@ public class GameManager extends AppCompatActivity {
                 gmaBundle.putString("USERNAME", currentUsername);
                 msGMAIntent.putExtras(gmaBundle);
                 startActivity(msGMAIntent);
+                finish();
             }
         });
     }
@@ -80,6 +81,7 @@ public class GameManager extends AppCompatActivity {
                 gmaBundle.putString("USERNAME", currentUsername);
                 tfGMAIntent.putExtras(gmaBundle);
                 startActivity(tfGMAIntent);
+                finish();
             }
         });
     }
@@ -99,6 +101,7 @@ public class GameManager extends AppCompatActivity {
                 gmaIntent.putString("USERNAME", currentUsername);
                 stGMAIntent.putExtras(gmaIntent);
                 startActivity(stGMAIntent);
+                finish();
             }
         });
     }
