@@ -2,3 +2,4 @@
 <resources>
     <integer name="slide_animation_duration">1000</integer>
 </resources>
+<!--Adapted from: https://kylewbanks.com/blog/left-and-right-slide-animations-on-android-activity-or-view-->

@@ -4,3 +4,5 @@
         android:interpolator="@android:anim/accelerate_decelerate_interpolator"
         android:duration="@integer/slide_animation_duration"/>
 </set>
+
+<!--Adapted from: https://kylewbanks.com/blog/left-and-right-slide-animations-on-android-activity-or-view-->
