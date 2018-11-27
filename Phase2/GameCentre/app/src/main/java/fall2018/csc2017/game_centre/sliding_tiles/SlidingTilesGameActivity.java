@@ -68,14 +68,7 @@ public class SlidingTilesGameActivity extends GameActivity implements Observer {
             scoreboard.addScore(currentUsername, String.valueOf(slidingTilesGame.getScore()));
             scoreboard.saveToFile();
 
-            Intent gmaIntent = new Intent(this, GameMenuActivity.class);
-            Bundle gmaBundle = new Bundle();
-            gmaBundle.putSerializable("GAME", new SlidingTilesGame(0));
-            gmaBundle.putString("GAME_DESC", SlidingTilesGame.GAME_DESC);
-            gmaBundle.putString("GAME_FILENAME", gameFilename);
-            gmaBundle.putString("USERNAME", currentUsername);
-            gmaIntent.putExtras(gmaBundle);
-            startActivity(gmaIntent);
+            switchToGMA();
             finish();
         }
     }
@@ -235,5 +228,16 @@ public class SlidingTilesGameActivity extends GameActivity implements Observer {
     private void updateScore() {
         String newScore = "Score: " + String.valueOf(slidingTilesGame.getScore());
         currentScore.setText(newScore);
+    }
+
+    public void switchToGMA() {
+        Intent gmaIntent = new Intent(this, GameMenuActivity.class);
+        Bundle gmaBundle = new Bundle();
+        gmaBundle.putSerializable("GAME", new SlidingTilesGame(0));
+        gmaBundle.putString("GAME_DESC", SlidingTilesGame.GAME_DESC);
+        gmaBundle.putString("GAME_FILENAME", gameFilename);
+        gmaBundle.putString("USERNAME", currentUsername);
+        gmaIntent.putExtras(gmaBundle);
+        startActivity(gmaIntent);
     }
 }
