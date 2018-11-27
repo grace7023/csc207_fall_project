@@ -60,12 +60,14 @@ public class GestureDetectGridView<T extends Game> extends GridView {
 
             @Override
             public boolean onSingleTapConfirmed(MotionEvent event) {
-                int position = GestureDetectGridView.this.pointToPosition
-                        (Math.round(event.getX()), Math.round(event.getY()));
-                if (position >= 0) {
-                    mController.processGameMovement(context, position);
+                if (!detectFling) {
+                    int position = GestureDetectGridView.this.pointToPosition
+                            (Math.round(event.getX()), Math.round(event.getY()));
+                    if (position >= 0) {
+                        mController.processGameMovement(context, position);
+                    }
                 }
-                return true;
+                return !detectFling;
             }
 
             @Override
