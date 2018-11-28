@@ -109,11 +109,6 @@ public class TFGame extends Game implements Serializable {
         }
         return false;
     }
-    /** TODO: this doesnt merge Left
-     *  2 2 0
-     *  0 0 0
-     *  0 0 0
-     */
 
     /**
      * Perform a move identified by arg.
