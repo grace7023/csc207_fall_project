@@ -39,6 +39,11 @@ public abstract class Game implements Serializable {
 
     public abstract String gameOverText();
 
+    //TODO: add a function called gameOverFunction
+    // this function will do something once the game is over
+    // for TF and SlidingTiles, just wait 1 second before automatically exiting
+    // for minesweeper, reveal board, wait 1 second, and exit.
+
     public Intent getSettingsIntent(AppCompatActivity PackageContext) {
         throw new UnsupportedOperationException("Stub!");
     }

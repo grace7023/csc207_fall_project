@@ -159,7 +159,7 @@ public class MinesweeperGame extends Game implements Serializable {
 
     public boolean isOver() {
 //        return puzzleSolved() || bombClicked;
-        return bombsLeft == 0;
+        return (bombsLeft == 0) || bombClicked;
     }
 
 
@@ -206,10 +206,10 @@ public class MinesweeperGame extends Game implements Serializable {
         int currentTileId = currentTile.getId();
         if (flagging) {
             if (!currentTile.isRevealed()) {
-                if (currentTile.isFlagged()) {
-                    bombsLeft++;
-                } else {
-                    bombsLeft--;
+                if (currentTileId == Tile.MINE) {
+                    // if this tile is flagged, this move will unflag it and bombsLeft will increase
+                    // otherwise, it will decrease, since the user is flagging a bomb tile.
+                    bombsLeft = currentTile.isFlagged() ? bombsLeft + 1 : bombsLeft - 1;
                 }
                 board.toggleFlag(row, col);
             }
@@ -217,7 +217,7 @@ public class MinesweeperGame extends Game implements Serializable {
             if (currentTileId == Tile.MINE) {
                     bombClicked = true;
             }
-            if (currentTileId == Tile.EMPTY) {
+            else if (currentTileId == Tile.EMPTY) {
                 expandEmpty(currentTile);
             }
             board.revealTile(currentTile);
@@ -235,6 +235,7 @@ public class MinesweeperGame extends Game implements Serializable {
                 revealAdjacent(row, col);
             }
         }
+        System.out.println("THIS IS BUMS LEFT: " + bombsLeft);
     }
 
     private void expandEmpty(Tile original) {
