@@ -47,6 +47,7 @@ public class Scoreboard implements Serializable {
      */
     public void addScore(String player, String score) {
         scores.add(new Score(player, score));
+        Collections.sort(scores);
     }
 
     /**
@@ -54,7 +55,6 @@ public class Scoreboard implements Serializable {
      * @return scores for the game
      */
     ArrayList<Score> getScores() {
-        Collections.sort(scores);
         return scores;
     }
 
@@ -71,7 +71,6 @@ public class Scoreboard implements Serializable {
                 output.add(score);
             }
         }
-        Collections.sort(output);
         return output;
     }
 
