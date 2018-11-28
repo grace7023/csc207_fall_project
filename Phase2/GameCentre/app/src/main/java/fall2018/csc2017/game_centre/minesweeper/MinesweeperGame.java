@@ -59,20 +59,19 @@ public class MinesweeperGame extends Game implements Serializable {
     private Date startTime;
 
 
-    /**
-     * Manage a board that has been pre-populated.
-     *
-     * @param board the board
-     */
-
-
-    /** TODO: figure out if we need this
-    public MinesweeperGame(Board board) {
-        this.numRows = board.getBoardSize();
-        this.board = board;
-        this.score = 0;
-    }
-    */
+//    /**
+//     * Manage a board that has been pre-populated.
+//     *
+//     * @param board the board
+//     */
+//
+//
+//    TODO: figure out if we need this
+//    public MinesweeperGame(Board board) {
+//        this.numRows = board.getBoardSize();
+//        this.board = board;
+//        this.score = 0;
+//    }
 
     /**
      * Manage a board given the size of the board.
@@ -148,8 +147,8 @@ public class MinesweeperGame extends Game implements Serializable {
      *
      * @return True iff the tiles of board are in ascending row-major order
      */
-    public boolean puzzleSolved() {
-        return board.getNumRevealed() >= getScreenSize() - numBombs;
+    private boolean puzzleSolved() {
+        return board.getNumRevealed() == getScreenSize() - numBombs;
     }
 
     /**
@@ -159,7 +158,8 @@ public class MinesweeperGame extends Game implements Serializable {
      */
 
     public boolean isOver() {
-        return puzzleSolved() || bombClicked;
+//        return puzzleSolved() || bombClicked;
+        return (bombsLeft == 0) || bombClicked;
     }
 
 
@@ -190,7 +190,7 @@ public class MinesweeperGame extends Game implements Serializable {
     /**
      * Turns the current move to either placing a flag or revealing a tile
      */
-    public void toggleFlagging() {
+    void toggleFlagging() {
         flagging = !flagging;
     }
 
@@ -202,28 +202,44 @@ public class MinesweeperGame extends Game implements Serializable {
     public void move(int arg) {
         int row = arg / numRows;
         int col = arg % numCols;
+        Tile currentTile = board.getTile(row, col);
+        int currentTileId = currentTile.getId();
         if (flagging) {
-            if (board.getTile(row,col).isFlagged()) {
-                bombsLeft++;
-            } else {
-                bombsLeft--;
+            if (!currentTile.isRevealed()) {
+                if (currentTileId == Tile.MINE) {
+                    // if this tile is flagged, this move will unflag it and bombsLeft will increase
+                    // otherwise, it will decrease, since the user is flagging a bomb tile.
+                    bombsLeft = currentTile.isFlagged() ? bombsLeft + 1 : bombsLeft - 1;
+                }
+                board.toggleFlag(row, col);
             }
-            board.toggleFlag(row, col);
         } else {
-            if (board.getTile(row,col).getId() == Tile.MINE) {
+            if (currentTileId == Tile.MINE) {
                     bombClicked = true;
-            } else {
-                board.addNumRevealed();
             }
-            if (board.getTile(row,col).getId() == Tile.EMPTY) {
-                expandEmpty(row, col);
+            else if (currentTileId == Tile.EMPTY) {
+                expandEmpty(currentTile);
             }
-            board.revealTile(row, col);
+            board.revealTile(currentTile);
         }
+        // TODO: fix: can't expandEmpty on neighbour's neighbours when revealing tiles around a numbered tile
+        if (currentTileId != Tile.EMPTY && currentTile.isRevealed()) {
+            List<Tile> neighbours = adjacentTiles(arg, board);
+            int nearbyFlags = 0;
+            for (Tile neighbour : neighbours) {
+                if (neighbour != null && neighbour.isFlagged()) {
+                    nearbyFlags++;
+                }
+            }
+            if (nearbyFlags == currentTileId) {
+                revealAdjacent(row, col);
+            }
+        }
+        System.out.println("THIS IS BUMS LEFT: " + bombsLeft);
     }
 
-    private void expandEmpty(int row, int col) {
-        Tile original = board.getTile(row, col);
+    private void expandEmpty(Tile original) {
+        //Tile original = board.getTile(row, col);
         ArrayList<Tile> queue = new ArrayList<>();
 
         queue.add(original);
@@ -249,6 +265,9 @@ public class MinesweeperGame extends Game implements Serializable {
         List<Tile> neighbours = adjacentTiles(position, board);
         for (Tile t : neighbours)
             if (t != null && !t.isRevealed() && !t.isFlagged()) {
+                if (t.getId() == Tile.MINE) {
+                    bombClicked = true;
+                }
                 board.revealTile(t);
             }
     }
@@ -300,12 +319,10 @@ public class MinesweeperGame extends Game implements Serializable {
         return "Time: " + String.valueOf(currentTimeMinutes) + ":" + String.valueOf(currentTimeSeconds);
     }
 
-    public int getNumBombs(){ return bombsLeft; }
-
-    public int getNumRows() { return numRows; }
-    public int getNumCols() { return numCols; }
+    int getNumBombs(){ return bombsLeft; }
+    int getNumRows() { return numRows; }
+    int getNumCols() { return numCols; }
     public boolean getFlagging() { return flagging; }
-
     public String gameOverText() {
         if (bombClicked) return "GAME OVER!";
         else return "YOU WIN!";
