@@ -52,7 +52,7 @@ public class TFGameActivity extends GameActivity implements Observer {
     /**
      * TextView for currentScore
      */
-    private TextView currentScore; //TODO: Counting score for 2048
+    private TextView currentScore;
 
 
     /**

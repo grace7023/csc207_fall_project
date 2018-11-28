@@ -91,7 +91,7 @@ public class TFBoard extends Observable implements Serializable, Iterable<Box> {
                         // This box has another in its way!
                         if (boxes[curRow][col].getExponent() == boxes[curRow - 1][col].getExponent()) {
                             int combinedExponent = combineBoxes(curRow - 1, col, curRow, col);
-                            addedBoxSum += (int)(Math.pow(combinedExponent, 2));
+                            addedBoxSum += (int)(Math.pow(2, combinedExponent));
                         }
                         break;
                     }
@@ -122,7 +122,7 @@ public class TFBoard extends Observable implements Serializable, Iterable<Box> {
                         if (boxes[curRow][col].getExponent() ==
                                 boxes[curRow + 1][col].getExponent()) {
                             int combinedExponent = combineBoxes(curRow + 1, col, curRow, col);
-                            addedBoxSum += (int)(Math.pow(combinedExponent, 2));
+                            addedBoxSum += (int)(Math.pow(2, combinedExponent));
                         }
                         break;
                     }
@@ -152,7 +152,7 @@ public class TFBoard extends Observable implements Serializable, Iterable<Box> {
                         if (boxes[row][curCol].getExponent() ==
                                 boxes[row][curCol - 1].getExponent()) {
                             int combinedExponent = combineBoxes(row, curCol - 1, row, curCol);
-                            addedBoxSum += (int)(Math.pow(combinedExponent, 2));
+                            addedBoxSum += (int)(Math.pow(2, combinedExponent));
                         }
                         break;
                     }
@@ -182,7 +182,7 @@ public class TFBoard extends Observable implements Serializable, Iterable<Box> {
                         if (boxes[row][curCol].getExponent() ==
                                 boxes[row][curCol + 1].getExponent()) {
                             int combinedExponent = combineBoxes(row, curCol + 1, row, curCol);
-                            addedBoxSum += (int)(Math.pow(combinedExponent, 2));
+                            addedBoxSum += (int)(Math.pow(2, combinedExponent));
                         }
                         break;
                     }

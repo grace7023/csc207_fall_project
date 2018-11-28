@@ -22,7 +22,7 @@ public class TFGame extends Game implements Serializable {
     private ArrayList<TFBoard> pastBoards;
     private ArrayList<Integer> pastScoreIncreases;
 
-    private int score;
+    private int score; //TODO: score is not counting correctly
 
     public final static String GAME_DESC = "Welcome To 2048\nSwipe the screen to slide the " +
             "numbered tiles around. Merge like-numbered tiles to add their numbers together. " +
