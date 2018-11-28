@@ -156,7 +156,7 @@ public class MinesweeperGame extends Game implements Serializable {
 
     public boolean isOver() {
         if (bombClicked) return true;
-        else return bombsLeft == 0 && totalFlagged == numBombs;
+        else return bombsLeft == 0 && (numCols * numRows - board.getNumRevealed() == numBombs);
     }
 
 
@@ -245,14 +245,20 @@ public class MinesweeperGame extends Game implements Serializable {
         } else if (currentTileId != Tile.EMPTY){ // at this point, we know that the tile is revealed and not empty.
             int surroundingFlagged = 0;
             List<Tile> neighbours = adjacentTiles(currentTilePosition, board);
+            List<Tile> emptyNeighbours = new ArrayList<>();
             for (Tile t : neighbours) {
-                if (t != null && t.isFlagged())
-                    surroundingFlagged++;
+                if (t != null) {
+                    if (t.isFlagged())
+                        surroundingFlagged++;
+                    if (t.getId() == Tile.EMPTY)
+                        emptyNeighbours.add(t);
+                }
             }
-            System.out.println("SURROUNDING FLAGS COME ON: " + surroundingFlagged);
             if (surroundingFlagged >= currentTileId)
                 revealAdjacent(currentTilePosition / numRows, currentTilePosition % numCols);
-//                expandEmpty(currentTile);
+                for (Tile t : emptyNeighbours) {
+                    expandEmpty(t);
+                }
         }
     }
 
