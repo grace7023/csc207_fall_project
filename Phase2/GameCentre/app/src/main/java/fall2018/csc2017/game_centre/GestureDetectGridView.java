@@ -84,11 +84,11 @@ public class GestureDetectGridView<T extends Game> extends GridView {
                     if (Math.abs(e1.getY() - e2.getY()) >= SWIPE_MIN_DISTANCE ||
                             Math.abs(e1.getX() - e2.getX()) >= SWIPE_MIN_DISTANCE) {
                         if (Math.abs(e1.getY() - e2.getY()) > Math.abs(e1.getX() - e2.getX())) {
-                            moveArg = SWIPE_DIRECTION_ARG.get("Up");
-                            System.out.println("Grid says Up");
+                            moveArg = SWIPE_DIRECTION_ARG.get("Down");
+                            System.out.println("Grid says Down");
                             if (e1.getY() - e2.getY() > 0) {
-                                moveArg = SWIPE_DIRECTION_ARG.get("Down");
-                                System.out.println("Actually, it says Down");
+                                moveArg = SWIPE_DIRECTION_ARG.get("Up");
+                                System.out.println("Actually, it says Up");
                             }
 
                         }
