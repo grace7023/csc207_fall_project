@@ -53,8 +53,8 @@ public class MinesweeperGame extends Game implements Serializable {
 
     private boolean bombClicked;
 
-    // TODO: add game description
-    public final static String GAME_DESC = "";
+    public final static String GAME_DESC = "Welcome to Minesweeper!\nTap on tiles to reveal them\n" +
+            "Tap the flag button to flag bombs\nFlag all the bombs on the field to win!";
 
     private Date startTime;
 
@@ -169,7 +169,6 @@ public class MinesweeperGame extends Game implements Serializable {
      * @param arg the tile to check
      * @return whether the tile at position is surrounded by a blank tile
      */
-    // TODO: implement the isValidMove method in MinesweeperGame
     public boolean isValidMove(int arg) {
         int row = arg / numRows;
         int col = arg % numCols;
@@ -223,7 +222,6 @@ public class MinesweeperGame extends Game implements Serializable {
         }
     }
 
-    // TODO: implement expandEmpty either recursively or iteratively
     private void expandEmpty(int row, int col) {
         Tile original = board.getTile(row, col);
         ArrayList<Tile> queue = new ArrayList<>();
