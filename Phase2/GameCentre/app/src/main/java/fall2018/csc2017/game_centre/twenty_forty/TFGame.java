@@ -80,7 +80,7 @@ public class TFGame extends Game implements Serializable {
      */
     @Override
     public boolean isValidMove(int arg) {
-
+        ArrayList<Boolean> queueMoves = new ArrayList<>();
         // Setting up movement direction to be checked
         int colMove = 0;
         int rowMove = 0;
@@ -97,8 +97,8 @@ public class TFGame extends Game implements Serializable {
         // Return true if a non-empty box is found that can be moved into an empty space
         for (int row = 0; row < boardSize; row++) {
             for (int col = 0; col < boardSize; col++) {
-                if (0 < row + rowMove && row + rowMove < boardSize &&
-                        0 < col + colMove && col + colMove < boardSize) {
+                if (0 <= row + rowMove && row + rowMove < boardSize &&
+                        0 <= col + colMove && col + colMove < boardSize) {
                     if (board.getBox(row, col).getExponent() != 0 &&
                             board.getBox(row + rowMove, col + colMove).getExponent() == 0) {
                         return true;
@@ -108,6 +108,11 @@ public class TFGame extends Game implements Serializable {
         }
         return false;
     }
+    /** TODO: this doesnt merge Left
+     *  2 2 0
+     *  0 0 0
+     *  0 0 0
+     */
 
     /**
      * Perform a move identified by arg.
