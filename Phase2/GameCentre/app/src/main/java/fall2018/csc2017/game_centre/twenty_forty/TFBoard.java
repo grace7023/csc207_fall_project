@@ -175,8 +175,8 @@ public class TFBoard extends Observable implements Serializable, Iterable<Box> {
     public void becomeBoard(TFBoard newBoard) {
         int position = 0;
         for (Box box : newBoard) {
-            int x = position % boardSize;
-            int y = position / boardSize;
+            int x = position / boardSize;
+            int y = position % boardSize;
             boxes[x][y] = box;
             position++;
         }

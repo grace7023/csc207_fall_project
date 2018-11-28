@@ -78,20 +78,21 @@ public class GestureDetectGridView<T extends Game> extends GridView {
             @Override
             public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX, float velocityY) {
                 if (detectFling) {
-                    int minX = 100;
-                    int minY = 100;
+                    int minX = 50;
+                    int minY = 50;
                     int moveArg = 0;
-                    if (velocityX >= minX || velocityY >= minY) {
-                        if (Math.abs(velocityY) > Math.abs(velocityX)) {
+                    if (Math.abs(e1.getY() - e2.getY()) >= SWIPE_MIN_DISTANCE ||
+                            Math.abs(e1.getX() - e2.getX()) >= SWIPE_MIN_DISTANCE) {
+                        if (Math.abs(e1.getY() - e2.getY()) > Math.abs(e1.getX() - e2.getX())) {
                             moveArg = SWIPE_DIRECTION_ARG.get("Up");
-                            if (velocityY > 0) {
+                            if (e1.getY() - e2.getY() > 0) {
                                 moveArg = SWIPE_DIRECTION_ARG.get("Down");
                             }
                         }
                         else {
-                            moveArg = SWIPE_DIRECTION_ARG.get("Right");
-                            if (velocityX < 0) {
-                                moveArg = SWIPE_DIRECTION_ARG.get("Left");
+                            moveArg = SWIPE_DIRECTION_ARG.get("Left");
+                            if (e1.getX() - e2.getX() < 0) {
+                                moveArg = SWIPE_DIRECTION_ARG.get("Right");
                             }
                         }
                         mController.processGameMovement(context, moveArg);
