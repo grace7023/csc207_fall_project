@@ -98,8 +98,10 @@ public class TFGame extends Game implements Serializable {
             for (int col = 0; col < boardSize; col++) {
                 if (0 <= row + rowMove && row + rowMove < boardSize &&
                         0 <= col + colMove && col + colMove < boardSize) {
-                    if (board.getBox(row, col).getExponent() != 0 &&
-                            board.getBox(row + rowMove, col + colMove).getExponent() == 0) {
+                    if ((board.getBox(row, col).getExponent() != 0 &&
+                            board.getBox(row + rowMove, col + colMove).getExponent() == 0) ||
+                            (board.getBox(row, col).getExponent() ==
+                                    board.getBox(row + rowMove, col + colMove).getExponent())) {
                         return true;
                     }
                 }
