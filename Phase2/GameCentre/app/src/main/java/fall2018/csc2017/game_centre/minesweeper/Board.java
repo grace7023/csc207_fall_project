@@ -52,10 +52,6 @@ public class Board extends Observable implements Serializable, Iterable<Tile> {
         return numRevealed;
     }
 
-    public void addNumRevealed() {
-        numRevealed = numRevealed++;
-    }
-
     /**
      * return boardSize
      *
@@ -91,6 +87,7 @@ public class Board extends Observable implements Serializable, Iterable<Tile> {
     public void revealTile(int row, int col){
 
         getTile(row, col).reveal();
+        numRevealed++;
 
         setChanged();
         notifyObservers();
@@ -98,13 +95,13 @@ public class Board extends Observable implements Serializable, Iterable<Tile> {
 
     public void revealTile(Tile tile){
         tile.reveal();
+        numRevealed++;
 
         setChanged();
         notifyObservers();
     }
 
     public void toggleFlag(int row, int col){
-
         getTile(row, col).toggleFlag();
 
         setChanged();
