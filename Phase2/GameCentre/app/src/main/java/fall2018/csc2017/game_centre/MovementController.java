@@ -14,7 +14,6 @@ class MovementController<T extends Game> {
         this.game = game;
     }
 
-    // TODO: change game over text
     void processGameMovement(Context context, int arg) {
         if (game.isValidMove(arg)) {
             game.move(arg);
