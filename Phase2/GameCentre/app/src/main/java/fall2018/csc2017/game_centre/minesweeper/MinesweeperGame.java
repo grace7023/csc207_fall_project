@@ -254,11 +254,12 @@ public class MinesweeperGame extends Game implements Serializable {
                         emptyNeighbours.add(t);
                 }
             }
-            if (surroundingFlagged >= currentTileId)
+            if (surroundingFlagged >= currentTileId) {
                 revealAdjacent(currentTilePosition / numRows, currentTilePosition % numCols);
                 for (Tile t : emptyNeighbours) {
                     expandEmpty(t);
                 }
+            }
         }
     }
 
