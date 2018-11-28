@@ -41,6 +41,12 @@ public class MinesweeperGame extends Game implements Serializable {
     private int bombsLeft;
 
     /**
+     * The number of flagged tiles
+     */
+
+    private int totalFlagged;
+
+    /**
      * The board being managed.
      */
     private Board board;
@@ -143,23 +149,14 @@ public class MinesweeperGame extends Game implements Serializable {
     }
 
     /**
-     * Tells whether the tiles are in order.
-     *
-     * @return True iff the tiles of board are in ascending row-major order
-     */
-    private boolean puzzleSolved() {
-        return board.getNumRevealed() == getScreenSize() - numBombs;
-    }
-
-    /**
      * Return whether the current state of the game is over.
      *
      * @return whether the game is over
      */
 
     public boolean isOver() {
-//        return puzzleSolved() || bombClicked;
-        return (bombsLeft == 0) || bombClicked;
+        if (bombClicked) return true;
+        else return bombsLeft == 0 && totalFlagged == numBombs;
     }
 
 
@@ -205,37 +202,58 @@ public class MinesweeperGame extends Game implements Serializable {
         Tile currentTile = board.getTile(row, col);
         int currentTileId = currentTile.getId();
         if (flagging) {
-            if (!currentTile.isRevealed()) {
-                if (currentTileId == Tile.MINE) {
-                    // if this tile is flagged, this move will unflag it and bombsLeft will increase
-                    // otherwise, it will decrease, since the user is flagging a bomb tile.
-                    bombsLeft = currentTile.isFlagged() ? bombsLeft + 1 : bombsLeft - 1;
-                }
-                board.toggleFlag(row, col);
-            }
+            flaggingMove(currentTile, currentTileId, arg);
         } else {
+            revealingMove(currentTile, currentTileId, arg);
+        }
+//        // TODO: fix: can't expandEmpty on neighbour's neighbours when revealing tiles around a numbered tile
+//        if (currentTileId != Tile.EMPTY && currentTile.isRevealed()) {
+//            List<Tile> neighbours = adjacentTiles(arg, board);
+//            int nearbyFlags = 0;
+//            for (Tile neighbour : neighbours) {
+//                if (neighbour != null && neighbour.isFlagged()) {
+//                    nearbyFlags++;
+//                }
+//            }
+//            if (nearbyFlags == currentTileId) {
+//                revealAdjacent(row, col);
+//            }
+//        }
+    }
+
+    private void flaggingMove(Tile currentTile, int currentTileId, int currentTilePosition) {
+        if (!currentTile.isRevealed()) {
+            boolean currentTileFlagged = currentTile.isFlagged();
             if (currentTileId == Tile.MINE) {
-                    bombClicked = true;
+                // if this tile is flagged, this move will unflag it and bombsLeft will increase
+                // otherwise, it will decrease, since the user is flagging a bomb tile.
+                bombsLeft = currentTileFlagged ? bombsLeft + 1 : bombsLeft - 1;
             }
-            else if (currentTileId == Tile.EMPTY) {
+            totalFlagged = currentTileFlagged ? totalFlagged - 1 : totalFlagged + 1;
+            board.toggleFlag(currentTilePosition / numRows, currentTilePosition % numCols);
+        }
+    }
+
+    private void revealingMove(Tile currentTile, int currentTileId, int currentTilePosition) {
+        if (!currentTile.isRevealed()) {
+            if (currentTileId == Tile.MINE) {
+                bombClicked = true;
+            } else if (currentTileId == Tile.EMPTY) {
                 expandEmpty(currentTile);
             }
             board.revealTile(currentTile);
-        }
-        // TODO: fix: can't expandEmpty on neighbour's neighbours when revealing tiles around a numbered tile
-        if (currentTileId != Tile.EMPTY && currentTile.isRevealed()) {
-            List<Tile> neighbours = adjacentTiles(arg, board);
-            int nearbyFlags = 0;
-            for (Tile neighbour : neighbours) {
-                if (neighbour != null && neighbour.isFlagged()) {
-                    nearbyFlags++;
-                }
+        } else if (currentTileId != Tile.EMPTY){ // at this point, we know that the tile is revealed and not empty.
+            int surroundingFlagged = 0;
+            List<Tile> neighbours = adjacentTiles(currentTilePosition, board);
+            for (Tile t : neighbours) {
+                if (t != null && t.isFlagged())
+                    surroundingFlagged++;
             }
-            if (nearbyFlags == currentTileId) {
-                revealAdjacent(row, col);
-            }
+            System.out.println("SURROUNDING FLAGS COME ON: " + surroundingFlagged);
+            if (surroundingFlagged >= currentTileId)
+                revealAdjacent(currentTilePosition / numRows, currentTilePosition % numCols);
+//                expandEmpty(currentTile);
         }
-        System.out.println("THIS IS BUMS LEFT: " + bombsLeft);
     }
 
     private void expandEmpty(Tile original) {
@@ -271,6 +289,7 @@ public class MinesweeperGame extends Game implements Serializable {
                 board.revealTile(t);
             }
     }
+
     /**
      * Return a ArrayList of the adjacent tiles of the given tile. The adjacent tiles are
      * given in this order: upLeft, above, upRight, left, right, downLeft, below, downRight.
