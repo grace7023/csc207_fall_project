@@ -37,6 +37,7 @@ public class Box implements Serializable {
 
     public void setExponent(int newExponent) {
         this.exponent = newExponent;
+        this.background = BOX_BACKGROUNDS[newExponent];
     }
 
     public int getBackground() {
