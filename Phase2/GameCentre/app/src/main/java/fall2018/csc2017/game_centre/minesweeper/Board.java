@@ -48,22 +48,18 @@ public class Board extends Observable implements Serializable, Iterable<Tile> {
         }
     }
 
-    public int getNumRevealed() {
+    int getNumRevealed() {
         return numRevealed;
     }
 
-    public void addNumRevealed() {
-        numRevealed = numRevealed++;
-    }
-
-    /**
-     * return boardSize
-     *
-     * @return boardSize
-     */
-    int getBoardSize() {
-        return numRows * numCols;
-    }
+//    /**
+//     * return boardSize
+//     *
+//     * @return boardSize
+//     */
+//    int getBoardSize() {
+//        return numRows * numCols;
+//    }
 
     /**
      * Return the tile at (row, col)
@@ -72,7 +68,7 @@ public class Board extends Observable implements Serializable, Iterable<Tile> {
      * @param col the tile column
      * @return the tile at (row, col)
      */
-    public Tile getTile(int row, int col) {
+    Tile getTile(int row, int col) {
         return tiles[row][col];
     }
 
@@ -88,30 +84,22 @@ public class Board extends Observable implements Serializable, Iterable<Tile> {
                 '}';
     }
 
-    public void revealTile(int row, int col){
-
-        getTile(row, col).reveal();
-
-        setChanged();
-        notifyObservers();
-    }
-
-    public void revealTile(Tile tile){
+    void revealTile(Tile tile){
         tile.reveal();
+        numRevealed++;
 
         setChanged();
         notifyObservers();
     }
 
-    public void toggleFlag(int row, int col){
-
+    void toggleFlag(int row, int col){
         getTile(row, col).toggleFlag();
 
         setChanged();
         notifyObservers();
     }
 
-    public int getPosition(Tile tile){
+    int getPosition(Tile tile){
         int counter = 0;
         for (Tile t : this){
             if (t != null && t == tile){

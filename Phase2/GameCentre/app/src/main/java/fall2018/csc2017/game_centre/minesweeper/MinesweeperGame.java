@@ -59,20 +59,19 @@ public class MinesweeperGame extends Game implements Serializable {
     private Date startTime;
 
 
-    /**
-     * Manage a board that has been pre-populated.
-     *
-     * @param board the board
-     */
-
-
-    /** TODO: figure out if we need this
-    public MinesweeperGame(Board board) {
-        this.numRows = board.getBoardSize();
-        this.board = board;
-        this.score = 0;
-    }
-    */
+//    /**
+//     * Manage a board that has been pre-populated.
+//     *
+//     * @param board the board
+//     */
+//
+//
+//    TODO: figure out if we need this
+//    public MinesweeperGame(Board board) {
+//        this.numRows = board.getBoardSize();
+//        this.board = board;
+//        this.score = 0;
+//    }
 
     /**
      * Manage a board given the size of the board.
@@ -148,8 +147,8 @@ public class MinesweeperGame extends Game implements Serializable {
      *
      * @return True iff the tiles of board are in ascending row-major order
      */
-    public boolean puzzleSolved() {
-        return board.getNumRevealed() >= getScreenSize() - numBombs;
+    private boolean puzzleSolved() {
+        return board.getNumRevealed() == getScreenSize() - numBombs;
     }
 
     /**
@@ -159,7 +158,8 @@ public class MinesweeperGame extends Game implements Serializable {
      */
 
     public boolean isOver() {
-        return puzzleSolved() || bombClicked;
+//        return puzzleSolved() || bombClicked;
+        return bombsLeft == 0;
     }
 
 
@@ -190,7 +190,7 @@ public class MinesweeperGame extends Game implements Serializable {
     /**
      * Turns the current move to either placing a flag or revealing a tile
      */
-    public void toggleFlagging() {
+    void toggleFlagging() {
         flagging = !flagging;
     }
 
@@ -202,9 +202,11 @@ public class MinesweeperGame extends Game implements Serializable {
     public void move(int arg) {
         int row = arg / numRows;
         int col = arg % numCols;
+        Tile currentTile = board.getTile(row, col);
+        int currentTileId = currentTile.getId();
         if (flagging) {
-            if (!board.getTile(row,col).isRevealed()) {
-                if (board.getTile(row, col).isFlagged()) {
+            if (!currentTile.isRevealed()) {
+                if (currentTile.isFlagged()) {
                     bombsLeft++;
                 } else {
                     bombsLeft--;
@@ -212,18 +214,16 @@ public class MinesweeperGame extends Game implements Serializable {
                 board.toggleFlag(row, col);
             }
         } else {
-            if (board.getTile(row,col).getId() == Tile.MINE) {
+            if (currentTileId == Tile.MINE) {
                     bombClicked = true;
-            } else {
-                board.addNumRevealed();
             }
-            if (board.getTile(row,col).getId() == Tile.EMPTY) {
-                expandEmpty(board.getTile(row,col));
+            if (currentTileId == Tile.EMPTY) {
+                expandEmpty(currentTile);
             }
-            board.revealTile(row, col);
+            board.revealTile(currentTile);
         }
         // TODO: fix: can't expandEmpty on neighbour's neighbours when revealing tiles around a numbered tile
-        if (board.getTile(row, col).getId() != Tile.EMPTY && board.getTile(row, col).isRevealed()) {
+        if (currentTileId != Tile.EMPTY && currentTile.isRevealed()) {
             List<Tile> neighbours = adjacentTiles(arg, board);
             int nearbyFlags = 0;
             for (Tile neighbour : neighbours) {
@@ -231,7 +231,7 @@ public class MinesweeperGame extends Game implements Serializable {
                     nearbyFlags++;
                 }
             }
-            if (nearbyFlags == board.getTile(row, col).getId()) {
+            if (nearbyFlags == currentTileId) {
                 revealAdjacent(row, col);
             }
         }
@@ -318,12 +318,10 @@ public class MinesweeperGame extends Game implements Serializable {
         return "Time: " + String.valueOf(currentTimeMinutes) + ":" + String.valueOf(currentTimeSeconds);
     }
 
-    public int getNumBombs(){ return bombsLeft; }
-
-    public int getNumRows() { return numRows; }
-    public int getNumCols() { return numCols; }
+    int getNumBombs(){ return bombsLeft; }
+    int getNumRows() { return numRows; }
+    int getNumCols() { return numCols; }
     public boolean getFlagging() { return flagging; }
-
     public String gameOverText() {
         if (bombClicked) return "GAME OVER!";
         else return "YOU WIN!";
