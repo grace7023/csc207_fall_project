@@ -120,12 +120,16 @@ public class TFGame extends Game implements Serializable {
         ArrayList<Box> boxesSave = getBoxList(board);
         pastBoards.add(new TFBoard(boxesSave, boardSize));
         if (arg == GestureDetectGridView.SWIPE_DIRECTION_ARG.get("Up")) {
+            System.out.println("Up");
             addedScore = board.moveBoxesUp();
         } else if (arg == GestureDetectGridView.SWIPE_DIRECTION_ARG.get("Down")) {
+            System.out.println("Down");
             addedScore = board.moveBoxesDown();
         } else if (arg == GestureDetectGridView.SWIPE_DIRECTION_ARG.get("Left")) {
+            System.out.println("Left");
             addedScore = board.moveBoxesLeft();
         } else if (arg == GestureDetectGridView.SWIPE_DIRECTION_ARG.get("Right")) {
+            System.out.println("Right");
             addedScore = board.moveBoxesRight();
         }
         score += addedScore;
