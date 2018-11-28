@@ -60,7 +60,7 @@ public class MinesweeperGame extends Game implements Serializable {
     private boolean bombClicked;
 
     public final static String GAME_DESC = "Welcome to Minesweeper!\nTap on tiles to reveal them\n" +
-            "Tap the flag button to flag bombs\nFlag all the bombs on the field to win!";
+            "Tap the flag button to flag bombs\nReveal all the non-bomb tiles on the field to win!";
 
     private Date startTime;
 
@@ -206,19 +206,9 @@ public class MinesweeperGame extends Game implements Serializable {
         } else {
             revealingMove(currentTile, currentTileId, arg);
         }
-//        // TODO: fix: can't expandEmpty on neighbour's neighbours when revealing tiles around a numbered tile
-//        if (currentTileId != Tile.EMPTY && currentTile.isRevealed()) {
-//            List<Tile> neighbours = adjacentTiles(arg, board);
-//            int nearbyFlags = 0;
-//            for (Tile neighbour : neighbours) {
-//                if (neighbour != null && neighbour.isFlagged()) {
-//                    nearbyFlags++;
-//                }
-//            }
-//            if (nearbyFlags == currentTileId) {
-//                revealAdjacent(row, col);
-//            }
-//        }
+        if (currentTile.isRevealed() && currentTileId != Tile.EMPTY){
+            revealedTileMove(currentTileId, arg);
+        }
     }
 
     private void flaggingMove(Tile currentTile, int currentTileId, int currentTilePosition) {
@@ -242,26 +232,27 @@ public class MinesweeperGame extends Game implements Serializable {
                 expandEmpty(currentTile);
             }
             board.revealTile(currentTile);
-        } else if (currentTileId != Tile.EMPTY){ // at this point, we know that the tile is revealed and not empty.
-            int surroundingFlagged = 0;
-            List<Tile> neighbours = adjacentTiles(currentTilePosition, board);
-            List<Tile> emptyNeighbours = new ArrayList<>();
-            for (Tile t : neighbours) {
-                if (t != null) {
-                    if (t.isFlagged())
-                        surroundingFlagged++;
-                    if (t.getId() == Tile.EMPTY)
-                        emptyNeighbours.add(t);
-                }
-            }
-            if (surroundingFlagged >= currentTileId) {
-                revealAdjacent(currentTilePosition / numRows, currentTilePosition % numCols);
-                for (Tile t : emptyNeighbours) {
-                    expandEmpty(t);
-                }
-            }
         }
     }
+
+    private void revealedTileMove(int currentTileId, int currentTilePosition) {
+        int surroundingFlagged = 0;
+        List<Tile> neighbours = adjacentTiles(currentTilePosition, board);
+        List<Tile> emptyNeighbours = new ArrayList<>();
+        for (Tile t : neighbours) {
+            if (t != null) {
+                if (t.isFlagged())
+                    surroundingFlagged++;
+                if (t.getId() == Tile.EMPTY)
+                    emptyNeighbours.add(t);
+            }
+        }
+        if (surroundingFlagged >= currentTileId) {
+            revealAdjacent(currentTilePosition / numRows, currentTilePosition % numCols);
+            for (Tile t : emptyNeighbours) {
+                expandEmpty(t);
+            }
+        }}
 
     private void expandEmpty(Tile original) {
         //Tile original = board.getTile(row, col);
