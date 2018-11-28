@@ -203,12 +203,14 @@ public class MinesweeperGame extends Game implements Serializable {
         int row = arg / numRows;
         int col = arg % numCols;
         if (flagging) {
-            if (board.getTile(row,col).isFlagged()) {
-                bombsLeft++;
-            } else {
-                bombsLeft--;
+            if (!board.getTile(row,col).isRevealed()) {
+                if (board.getTile(row, col).isFlagged()) {
+                    bombsLeft++;
+                } else {
+                    bombsLeft--;
+                }
+                board.toggleFlag(row, col);
             }
-            board.toggleFlag(row, col);
         } else {
             if (board.getTile(row,col).getId() == Tile.MINE) {
                     bombClicked = true;
@@ -216,14 +218,27 @@ public class MinesweeperGame extends Game implements Serializable {
                 board.addNumRevealed();
             }
             if (board.getTile(row,col).getId() == Tile.EMPTY) {
-                expandEmpty(row, col);
+                expandEmpty(board.getTile(row,col));
             }
             board.revealTile(row, col);
         }
+        // TODO: fix: can't expandEmpty on neighbour's neighbours when revealing tiles around a numbered tile
+        if (board.getTile(row, col).getId() != Tile.EMPTY && board.getTile(row, col).isRevealed()) {
+            List<Tile> neighbours = adjacentTiles(arg, board);
+            int nearbyFlags = 0;
+            for (Tile neighbour : neighbours) {
+                if (neighbour != null && neighbour.isFlagged()) {
+                    nearbyFlags++;
+                }
+            }
+            if (nearbyFlags == board.getTile(row, col).getId()) {
+                revealAdjacent(row, col);
+            }
+        }
     }
 
-    private void expandEmpty(int row, int col) {
-        Tile original = board.getTile(row, col);
+    private void expandEmpty(Tile original) {
+        //Tile original = board.getTile(row, col);
         ArrayList<Tile> queue = new ArrayList<>();
 
         queue.add(original);
@@ -249,6 +264,9 @@ public class MinesweeperGame extends Game implements Serializable {
         List<Tile> neighbours = adjacentTiles(position, board);
         for (Tile t : neighbours)
             if (t != null && !t.isRevealed() && !t.isFlagged()) {
+                if (t.getId() == Tile.MINE) {
+                    bombClicked = true;
+                }
                 board.revealTile(t);
             }
     }
