@@ -98,8 +98,7 @@ public class TFBoard extends Observable implements Serializable, Iterable<Box> {
                 }
             }
         }
-        isFull();
-//        generateBox();
+        generateBox();
         setChanged();
         notifyObservers();
 
@@ -130,7 +129,7 @@ public class TFBoard extends Observable implements Serializable, Iterable<Box> {
                 }
             }
         }
-        isFull();
+        generateBox();
         setChanged();
         notifyObservers();
         return addedBoxSum;
@@ -160,7 +159,7 @@ public class TFBoard extends Observable implements Serializable, Iterable<Box> {
                 }
             }
         }
-        isFull();
+        generateBox();
         setChanged();
         notifyObservers();
         return addedBoxSum;
@@ -190,7 +189,7 @@ public class TFBoard extends Observable implements Serializable, Iterable<Box> {
                 }
             }
         }
-        isFull();
+        generateBox();
         setChanged();
         notifyObservers();
         return addedBoxSum;
