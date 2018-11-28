@@ -204,7 +204,7 @@ public class MinesweeperGame extends Game implements Serializable {
         if (flagging) {
             flaggingMove(currentTile, currentTileId, arg);
         } else {
-            revealingMove(currentTile, currentTileId, arg);
+            revealingMove(currentTile, currentTileId);
         }
         if (currentTile.isRevealed() && currentTileId != Tile.EMPTY){
             revealedTileMove(currentTileId, arg);
@@ -224,7 +224,7 @@ public class MinesweeperGame extends Game implements Serializable {
         }
     }
 
-    private void revealingMove(Tile currentTile, int currentTileId, int currentTilePosition) {
+    private void revealingMove(Tile currentTile, int currentTileId) {
         if (!currentTile.isRevealed()) {
             if (currentTileId == Tile.MINE) {
                 bombClicked = true;
