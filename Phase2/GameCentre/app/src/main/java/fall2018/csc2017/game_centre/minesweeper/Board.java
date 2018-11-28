@@ -87,7 +87,8 @@ public class Board extends Observable implements Serializable, Iterable<Tile> {
 
     void revealTile(Tile tile) {
         tile.reveal();
-        numRevealed++;
+        if (!tile.isRevealed())
+            numRevealed++;
 
         setChanged();
         notifyObservers();
