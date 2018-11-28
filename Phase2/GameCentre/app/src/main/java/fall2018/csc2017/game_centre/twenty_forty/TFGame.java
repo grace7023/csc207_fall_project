@@ -80,7 +80,6 @@ public class TFGame extends Game implements Serializable {
      */
     @Override
     public boolean isValidMove(int arg) {
-        ArrayList<Boolean> queueMoves = new ArrayList<>();
         // Setting up movement direction to be checked
         int colMove = 0;
         int rowMove = 0;
@@ -211,7 +210,8 @@ public class TFGame extends Game implements Serializable {
     private ArrayList<Box> getBoxList(TFBoard board) {
         ArrayList<Box> boxes = new ArrayList<>();
         for (Box box : board) {
-            boxes.add(box);
+            Box newBox = new Box(box.getExponent());
+            boxes.add(newBox);
         }
         return boxes;
     }

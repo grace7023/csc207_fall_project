@@ -61,8 +61,7 @@ public class TFBoard extends Observable implements Serializable, Iterable<Box> {
     private boolean isFull() {
         for (int i = 0; i < boardSize; i++) {
             for (int j = 0; j < boardSize; j++){
-                System.out.println(boxes[i][j].getExponent());
-//                if (boxes[i][j].getExponent() == 0) {return false;}
+                if (boxes[i][j].getExponent() == 0) {return false;}
             }
         }
         return true;
@@ -99,8 +98,7 @@ public class TFBoard extends Observable implements Serializable, Iterable<Box> {
                 }
             }
         }
-        isFull();
-//        generateBox();
+        generateBox();
         setChanged();
         notifyObservers();
 
@@ -131,7 +129,7 @@ public class TFBoard extends Observable implements Serializable, Iterable<Box> {
                 }
             }
         }
-        isFull();
+        generateBox();
         setChanged();
         notifyObservers();
         return addedBoxSum;
@@ -161,7 +159,7 @@ public class TFBoard extends Observable implements Serializable, Iterable<Box> {
                 }
             }
         }
-        isFull();
+        generateBox();
         setChanged();
         notifyObservers();
         return addedBoxSum;
@@ -191,23 +189,22 @@ public class TFBoard extends Observable implements Serializable, Iterable<Box> {
                 }
             }
         }
-        isFull();
+        generateBox();
         setChanged();
         notifyObservers();
         return addedBoxSum;
     }
 
-    public void becomeBoard(TFBoard newBoard) {
+    void becomeBoard(TFBoard newBoard) {
         int position = 0;
         for (Box box : newBoard) {
             int x = position / boardSize;
             int y = position % boardSize;
             boxes[x][y].setExponent(box.getExponent());
             position++;
+            setChanged();
+            notifyObservers();
         }
-
-        setChanged();
-        notifyObservers();
     }
 
     @NonNull
