@@ -26,12 +26,13 @@ public class Board extends Observable implements Serializable, Iterable<Tile> {
     private Tile[][] tiles;
 
     private int numRevealed;
+
     /**
      * A new board of tiles in row-major order.
      * Precondition: len(tiles) == boardSize * boardSize
      * default values for NUM_ROWS and NUM_COLS used: 4.
      *
-     * @param tiles     tiles for board
+     * @param tiles   tiles for board
      * @param numRows number of rows of the board
      * @param numCols number of columns of the board
      */
@@ -84,7 +85,7 @@ public class Board extends Observable implements Serializable, Iterable<Tile> {
                 '}';
     }
 
-    void revealTile(Tile tile){
+    void revealTile(Tile tile) {
         tile.reveal();
         numRevealed++;
 
@@ -92,20 +93,20 @@ public class Board extends Observable implements Serializable, Iterable<Tile> {
         notifyObservers();
     }
 
-    void toggleFlag(int row, int col){
+    void toggleFlag(int row, int col) {
         getTile(row, col).toggleFlag();
 
         setChanged();
         notifyObservers();
     }
 
-    int getPosition(Tile tile){
+    int getPosition(Tile tile) {
         int counter = 0;
-        for (Tile t : this){
-            if (t != null && t == tile){
+        for (Tile t : this) {
+            if (t != null && t == tile) {
                 return counter;
             }
-            counter ++;
+            counter++;
         }
         return -5000;
     }
