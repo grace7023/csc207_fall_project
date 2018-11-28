@@ -197,7 +197,11 @@ public class LogInScreen extends AppCompatActivity {
             br = new BufferedReader(new FileReader(userFile));
 
             while ((line = br.readLine()) != null){
-                if ((getUsernameFromLine(line).equals(username)) && getPasswordFromLine(line).equals(password)){
+//                if ((getUsernameFromLine(line).equals(username)) && getPasswordFromLine(line).equals(password)){
+//                    check = true;
+//                }
+                if ((getUsernameFromLine(line).equals(username)) &&
+                        (Addons.checkString(password, getPasswordFromLine(line)))){
                     check = true;
                 }
             }
@@ -230,7 +234,7 @@ public class LogInScreen extends AppCompatActivity {
             }
             FileWriter fw = new FileWriter(userFile,true);
             PrintWriter pw = new PrintWriter(fw);
-            pw.printf("\n" + username + ":" + password);
+            pw.printf("\n" + username + ":" + Addons.stringToSHA256(password));
 
             userRef.putFile(Uri.fromFile(userFile));
 
