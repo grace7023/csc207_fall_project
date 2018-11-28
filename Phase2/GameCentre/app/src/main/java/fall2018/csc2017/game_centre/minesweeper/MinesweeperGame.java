@@ -53,8 +53,8 @@ public class MinesweeperGame extends Game implements Serializable {
 
     private boolean bombClicked;
 
-    // TODO: add game description
-    public final static String GAME_DESC = "";
+    public final static String GAME_DESC = "Welcome to Minesweeper!\nTap on tiles to reveal them\n" +
+            "Tap the flag button to flag bombs\nFlag all the bombs on the field to win!";
 
     private Date startTime;
 
@@ -116,8 +116,8 @@ public class MinesweeperGame extends Game implements Serializable {
                 int position = i * numCols + j;
                 if (board.getTile(i, j).getId() != Tile.MINE) {
                     int adjacentBombs = 0;
-                    for (Tile neighbor : adjacentTiles(position, board)) {
-                        if (neighbor != null && neighbor.getId() == Tile.MINE) {
+                    for (Tile neighbour : adjacentTiles(position, board)) {
+                        if (neighbour != null && neighbour.getId() == Tile.MINE) {
                             adjacentBombs++;
                         }
                     }
@@ -169,11 +169,22 @@ public class MinesweeperGame extends Game implements Serializable {
      * @param arg the tile to check
      * @return whether the tile at position is surrounded by a blank tile
      */
-    // TODO: implement the isValidMove method in MinesweeperGame
     public boolean isValidMove(int arg) {
         int row = arg / numRows;
         int col = arg % numCols;
-        return !board.getTile(row, col).isRevealed();
+        int numRevealed = 0;
+        int numNeighbours = 8;
+        if (board.getTile(row, col).isRevealed()) {
+            List<Tile> neighbours = adjacentTiles(arg, board);
+            for (Tile neighbour : neighbours) {
+                if (neighbour == null) {
+                    numNeighbours--;
+                } else if (neighbour.isRevealed()) {
+                    numRevealed++;
+                }
+            }
+        }
+        return numRevealed != numNeighbours;
     }
 
     /**
@@ -211,7 +222,6 @@ public class MinesweeperGame extends Game implements Serializable {
         }
     }
 
-    // TODO: implement expandEmpty either recursively or iteratively
     private void expandEmpty(int row, int col) {
         Tile original = board.getTile(row, col);
         ArrayList<Tile> queue = new ArrayList<>();
@@ -236,14 +246,15 @@ public class MinesweeperGame extends Game implements Serializable {
      */
     private void revealAdjacent(int row, int col) {
         int position = row * numCols + col;
-        List<Tile> neighbors = adjacentTiles(position, board);
-        for (Tile t : neighbors)
-            if (t != null && !t.isRevealed())
+        List<Tile> neighbours = adjacentTiles(position, board);
+        for (Tile t : neighbours)
+            if (t != null && !t.isRevealed() && !t.isFlagged()) {
                 board.revealTile(t);
+            }
     }
     /**
      * Return a ArrayList of the adjacent tiles of the given tile. The adjacent tiles are
-     * given in this order: upLeft, above, upRight, left, null, right, downLeft, below, downRight.
+     * given in this order: upLeft, above, upRight, left, right, downLeft, below, downRight.
      *
      * @param position the position of the tile
      * @return ArrayList of adjacent tiles
@@ -260,7 +271,7 @@ public class MinesweeperGame extends Game implements Serializable {
         Tile right = col == this.numCols - 1 ? null : board.getTile(row, col + 1);
         Tile downLeft = row == this.numRows - 1 || col == 0? null : board.getTile(row + 1, col - 1);
         Tile downRight = row == this.numRows - 1 || col == this.numCols - 1 ? null : board.getTile(row + 1, col + 1);
-        return Arrays.asList(upLeft, above, upRight, left, null, right, downLeft, below, downRight);
+        return Arrays.asList(upLeft, above, upRight, left, right, downLeft, below, downRight);
     }
 
 
