@@ -158,7 +158,11 @@ public class MinesweeperGame extends Game implements Serializable {
         if (bombClicked)
             return true;
         else
-            return (numCols * numRows - board.getNumRevealed() == numBombs);
+            return puzzleSolved();
+    }
+
+    public boolean puzzleSolved() {
+        return numCols * numRows - board.getNumRevealed() == numBombs;
     }
 
 
