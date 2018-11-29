@@ -210,6 +210,8 @@ public class LogInScreen extends AppCompatActivity {
             e.printStackTrace();
         } catch (IOException e) {
             Log.e("Exception", "File not found: " + e.toString());
+        } catch (NullPointerException e) {
+            Toast.makeText(LogInScreen.this, "Unable to connect to Database", Toast.LENGTH_LONG).show();
         }
         return check;
     }
@@ -245,6 +247,8 @@ public class LogInScreen extends AppCompatActivity {
             e.printStackTrace();
         } catch (IOException e) {
             Log.e("Exception", "File not found: " + e.toString());
+        } catch (NullPointerException e) {
+            Toast.makeText(LogInScreen.this, "Unable to connect to Database", Toast.LENGTH_LONG).show();
         }
         return false; // SHOULD NEVER REACH.
     }

@@ -14,6 +14,7 @@ import fall2018.csc2017.game_centre.GestureDetectGridView;
 public class TFGame extends Game implements Serializable {
 
     private final int INIT_BOX_NUM = 2;
+    private final int WINNING_EXPONENT = 11;
 
     private int boardSize;
 
@@ -98,8 +99,9 @@ public class TFGame extends Game implements Serializable {
             for (int col = 0; col < boardSize; col++) {
                 if (0 <= row + rowMove && row + rowMove < boardSize &&
                         0 <= col + colMove && col + colMove < boardSize) {
-                    if (board.getBox(row, col).getExponent() != 0 &&
-                            board.getBox(row + rowMove, col + colMove).getExponent() == 0) {
+                    int curExponent = board.getBox(row, col).getExponent();
+                    int adjExponent = board.getBox(row + rowMove, col + colMove).getExponent();
+                    if (curExponent != 0 && (adjExponent == 0 || curExponent == adjExponent)) {
                         return true;
                     }
                 }
@@ -107,11 +109,6 @@ public class TFGame extends Game implements Serializable {
         }
         return false;
     }
-    /** TODO: this doesnt merge Left
-     *  2 2 0
-     *  0 0 0
-     *  0 0 0
-     */
 
     /**
      * Perform a move identified by arg.
@@ -147,6 +144,9 @@ public class TFGame extends Game implements Serializable {
      */
     @Override
     public boolean isOver() {
+        for (Box b : board) {
+            if (b.getExponent() == WINNING_EXPONENT) return true;
+        }
         return isStuck();
     }
 
@@ -159,11 +159,10 @@ public class TFGame extends Game implements Serializable {
         for (int row = 0; row < boardSize; row++) {
             for (int col = 0; col < boardSize; col++) {
                 int curExp = board.getBox(row, col).getExponent();
+                if (curExp == 0) return false;
                 for (Box neighbor : getNeighboringBoxes(row, col)) {
                     int neighborExp = neighbor.getExponent();
-                    if (curExp == neighborExp) {
-                        return false;
-                    }
+                    if (curExp == neighborExp) return false;
                 }
             }
         }
@@ -217,7 +216,8 @@ public class TFGame extends Game implements Serializable {
     }
 
     public String gameOverText() {
-        return "GAME OVER!";
+        if (isStuck()) return "GAME OVER!";
+        return "You won!";
     }
 
     @Override
