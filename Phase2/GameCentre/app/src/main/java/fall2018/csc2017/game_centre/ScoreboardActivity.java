@@ -51,12 +51,11 @@ public class ScoreboardActivity extends AppCompatActivity {
         game = (Game) gameBundle.getSerializable("GAME");
         currentUsername = gameBundle.getString("USERNAME");
         gameFilename = gameBundle.getString("GAME_FILENAME");
-        System.out.println(gameFilename);
         gameDesc = gameBundle.getString("GAME_DESC");
-        scoreboard = new Scoreboard(gameFilename);
+        String[] stringParts = gameFilename.split("_");
+        scoreboard = new Scoreboard(stringParts[0]);
         scoreboard.loadFromFile();
         scores = scoreboard.getScores();
-        System.out.println(scores);
         playerScores = scoreboard.getScores(currentUsername);
 
         /* This code adapted from
