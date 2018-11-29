@@ -48,7 +48,6 @@ public class ScoreboardActivity extends AppCompatActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_scoreboard);
-//        setUpScoreboardGameTitle();
         Bundle gameBundle = getIntent().getExtras();
         assert gameBundle != null;
         game = (Game) gameBundle.getSerializable("GAME");
@@ -60,6 +59,8 @@ public class ScoreboardActivity extends AppCompatActivity {
         scoreboard.loadFromFile();
         scores = scoreboard.getScores();
         playerScores = scoreboard.getScores(currentUsername);
+
+        setUpScoreboardGameTitle();
 
 
         /* This code adapted from
@@ -103,8 +104,9 @@ public class ScoreboardActivity extends AppCompatActivity {
     public void setUpScoreboardGameTitle(){
         scoreboardGameTitle = findViewById(R.id.scoreboardGameTitle);
         String classString = game.getClass().getSimpleName();
-        String titleText = classString.substring(0, classString.length()-4) + " Scoreboard:";
+        String titleText = classString.substring(0, classString.length()-4);
         scoreboardGameTitle.setText(titleText);
+        scoreboardGameTitle.setTextSize(35);
     }
 
     private void switchToGMA() {
