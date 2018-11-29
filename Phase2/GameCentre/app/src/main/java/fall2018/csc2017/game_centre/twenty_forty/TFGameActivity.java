@@ -64,6 +64,13 @@ public class TFGameActivity extends GameActivity implements Observer {
         updateBoxButtons();
         gridView.setAdapter(new CustomAdapter(boxButtons, columnWidth, columnHeight));
         autoSave();
+        checkIsOver();
+    }
+
+    /**
+     * If the game is over, save the score and return to the menu
+     */
+    private void checkIsOver() {
         if (tfGame.isOver()) {
             Scoreboard scoreboard = new Scoreboard("TwentyForty");
             scoreboard.loadFromFile();

@@ -73,6 +73,13 @@ public class MinesweeperGameActivity extends GameActivity implements Observer {
         updateBombCounter();
         gridView.setAdapter(new CustomAdapter(tileButtons, columnWidth, columnHeight));
         autoSave();
+        checkIsOver();
+    }
+
+    /**
+     * If the game is over, save the score and return to the menu
+     */
+    private void checkIsOver() {
         if (minesweeperGame.isOver()) {
             if (minesweeperGame.puzzleSolved()) {
                 Scoreboard scoreboard = new Scoreboard("Minesweeper");
