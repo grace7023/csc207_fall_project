@@ -55,7 +55,7 @@ public class Scoreboard implements Serializable {
      * returns all the scores for the game
      * @return scores for the game
      */
-    public ArrayList<Score> getScores() {
+    ArrayList<Score> getScores() {
         return scores;
     }
 
