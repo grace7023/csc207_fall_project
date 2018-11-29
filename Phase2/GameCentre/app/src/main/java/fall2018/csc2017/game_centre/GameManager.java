@@ -56,7 +56,7 @@ public class GameManager extends AppCompatActivity {
                 Bundle gmaBundle = new Bundle();
                 gmaBundle.putSerializable("GAME", new MinesweeperGame(0, 0, 0));
                 gmaBundle.putString("GAME_DESC", MinesweeperGame.GAME_DESC);
-                gmaBundle.putString("GAME_FILENAME", currentUsername + "_" + "Minesweeper");
+                gmaBundle.putString("GAME_FILENAME", "Minesweeper");
                 gmaBundle.putString("USERNAME", currentUsername);
                 msGMAIntent.putExtras(gmaBundle);
                 startActivity(msGMAIntent);
@@ -77,7 +77,7 @@ public class GameManager extends AppCompatActivity {
                 Bundle gmaBundle = new Bundle();
                 gmaBundle.putSerializable("GAME", new TFGame(4));
                 gmaBundle.putString("GAME_DESC", TFGame.GAME_DESC);
-                gmaBundle.putString("GAME_FILENAME", currentUsername + "_" + "TwentyForty");
+                gmaBundle.putString("GAME_FILENAME", "TwentyForty");
                 gmaBundle.putString("USERNAME", currentUsername);
                 tfGMAIntent.putExtras(gmaBundle);
                 startActivity(tfGMAIntent);
@@ -98,7 +98,7 @@ public class GameManager extends AppCompatActivity {
                 Bundle gmaBundle = new Bundle();
                 gmaBundle.putSerializable("GAME", new SlidingTilesGame(0));
                 gmaBundle.putString("GAME_DESC", SlidingTilesGame.GAME_DESC);
-                gmaBundle.putString("GAME_FILENAME", currentUsername + "_" + "SlidingTiles");
+                gmaBundle.putString("GAME_FILENAME", "SlidingTiles");
                 gmaBundle.putString("USERNAME", currentUsername);
                 stGMAIntent.putExtras(gmaBundle);
                 startActivity(stGMAIntent);

@@ -65,11 +65,11 @@ public class TFGameActivity extends GameActivity implements Observer {
         gridView.setAdapter(new CustomAdapter(boxButtons, columnWidth, columnHeight));
         autoSave();
         if (tfGame.isOver()) {
-            Scoreboard scoreboard = Scoreboard.loadFromFile();
-            if (scoreboard == null) {
-                scoreboard = new Scoreboard();
-            }
+            Scoreboard scoreboard = new Scoreboard("TwentyForty");
+            scoreboard.loadFromFile();
+            System.out.println(tfGame.getScore());
             scoreboard.addScore(currentUsername, String.valueOf(tfGame.getScore()));
+            System.out.println(scoreboard.getScores());
             scoreboard.saveToFile();
 
             switchToGMA();

@@ -73,15 +73,14 @@ public class MinesweeperGameActivity extends GameActivity implements Observer {
         gridView.setAdapter(new CustomAdapter(tileButtons, columnWidth, columnHeight));
         autoSave();
         if (minesweeperGame.isOver()) {
-            Scoreboard scoreboard = Scoreboard.loadFromFile();
-            if (scoreboard == null) {
-                scoreboard = new Scoreboard();
+            if (minesweeperGame.puzzleSolved()) {
+                Scoreboard scoreboard = new Scoreboard("Minesweeper");
+                scoreboard.loadFromFile();
+
+                scoreboard.addScore(currentUsername, minesweeperGame.getTime());
+                scoreboard.saveToFile();
             }
-            scoreboard.addScore(currentUsername, minesweeperGame.getTime());
-            scoreboard.saveToFile();
-
             switchToGMA();
-
         }
     }
 

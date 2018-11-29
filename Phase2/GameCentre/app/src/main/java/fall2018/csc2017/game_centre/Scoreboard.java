@@ -27,15 +27,16 @@ public class Scoreboard implements Serializable {
     /**
      * The directory to save the file to
      */
-    private static String dir = "data/data/fall2018.csc2017.slidingtiles/files/";
+    private final String dir = "data/data/fall2018.csc2017.slidingtiles/files/";
 
     /**
      * The name of the file being saved
      */
-    private static File scoreFile = new File(dir + "SlidingTiles.ser");
+    private File scoreFile;
 
 
-    public Scoreboard() {
+    public Scoreboard(String game) {
+        scoreFile = new File(dir + game + "Score.ser");
         scores = new ArrayList<>();
     }
 
@@ -54,7 +55,7 @@ public class Scoreboard implements Serializable {
      * returns all the scores for the game
      * @return scores for the game
      */
-    ArrayList<Score> getScores() {
+    public ArrayList<Score> getScores() {
         return scores;
     }
 
@@ -78,8 +79,8 @@ public class Scoreboard implements Serializable {
      * Loads the scoreboard from the file
      * @return the scoreboard for the game
      */
-    public static Scoreboard loadFromFile() {
-        Scoreboard file = new Scoreboard();
+    public void loadFromFile() {
+        Scoreboard file = new Scoreboard("");
         try {
             InputStream inputStream = new FileInputStream(scoreFile);
             ObjectInputStream input = new ObjectInputStream(inputStream);
@@ -88,13 +89,14 @@ public class Scoreboard implements Serializable {
             inputStream.close();
 
         } catch (FileNotFoundException e) {
+            saveToFile();
             Log.e("login activity", "File not found: " + e.toString());
         } catch (IOException e) {
             Log.e("login activity", "Can not read file: " + e.toString());
         } catch (ClassNotFoundException e) {
             Log.e("login activity", "File contained unexpected data type: " + e.toString());
         }
-        return file;
+        this.scores = file.getScores();
     }
 
     /**

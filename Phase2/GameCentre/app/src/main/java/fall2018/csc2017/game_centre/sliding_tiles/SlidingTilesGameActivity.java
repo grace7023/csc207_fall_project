@@ -61,10 +61,9 @@ public class SlidingTilesGameActivity extends GameActivity implements Observer {
         gridView.setAdapter(new CustomAdapter(tileButtons, columnWidth, columnHeight));
         autoSave();
         if (slidingTilesGame.isOver()) {
-            Scoreboard scoreboard = Scoreboard.loadFromFile();
-            if (scoreboard == null) {
-                scoreboard = new Scoreboard();
-            }
+            Scoreboard scoreboard = new Scoreboard("SlidingTiles");
+            scoreboard.loadFromFile();
+
             scoreboard.addScore(currentUsername, String.valueOf(slidingTilesGame.getScore()));
             scoreboard.saveToFile();
 
