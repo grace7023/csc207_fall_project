@@ -18,6 +18,7 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
 
@@ -41,7 +42,7 @@ public class MinesweeperGameActivity extends GameActivity implements Observer {
     /**
      * The buttons to display.
      */
-    private ArrayList<Button> tileButtons;
+    private List<Button> tileButtons = new ArrayList<>();
 
     /**
      * Grid View and calculated column height and width based on device size

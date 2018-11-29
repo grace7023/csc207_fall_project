@@ -33,7 +33,7 @@ public class SlidingTilesGame extends Game implements Serializable {
     /**
      * The moves made since the start of the game
      */
-    private ArrayList<Integer> moves;
+    private List<Integer> moves;
 
     /**
      * The score of the current game

@@ -64,6 +64,8 @@ public class MinesweeperGame extends Game implements Serializable {
 
     private long startTime;
 
+    private int saveTime;
+
 
 //    /**
 //     * Manage a board that has been pre-populated.
@@ -337,7 +339,7 @@ public class MinesweeperGame extends Game implements Serializable {
      */
     // code adapted from https://www.baeldung.com/java-measure-elapsed-time
     public String getTime(){
-        int timer = (int)((System.nanoTime() - startTime)/1000000000);
+        int timer = (int)(saveTime + (System.nanoTime() - startTime)/1000000000);
         String min = timer / 60 < 10 ? "0" + String.valueOf(timer/60) : String.valueOf(timer/60);
         String sec = timer % 60 < 10 ? "0" + String.valueOf(timer%60) : String.valueOf(timer%60);
         return min + ":" + sec;
