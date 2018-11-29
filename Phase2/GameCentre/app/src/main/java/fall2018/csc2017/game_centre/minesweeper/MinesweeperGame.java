@@ -31,20 +31,20 @@ public class MinesweeperGame extends Game implements Serializable {
     private int numCols;
 
     /**
-     * The number of columns of the board.
+     * The number of bombs on the board.
      */
     private int numBombs;
 
     /**
-     * The number of bombs left on the board.
+     * The number of bombs left on the board. Represents numBombs - number of Flagged tiles
      */
-    private int bombsLeft;
-
-    /**
-     * The number of flagged tiles
-     */
-
     private int totalFlagged;
+
+//    /**
+//     * The number of flagged tiles
+//     */
+//
+//    private int totalFlagged;
 
     /**
      * The board being managed.
@@ -92,7 +92,7 @@ public class MinesweeperGame extends Game implements Serializable {
         this.numCols = numCols;
         this.numBombs = numBombs;
         GestureDetectGridView.detectFling = false;
-        bombsLeft = numBombs;
+        totalFlagged = numBombs;
         flagging = false;
         bombClicked = false;
         startTime = Calendar.getInstance().getTime();
@@ -204,7 +204,7 @@ public class MinesweeperGame extends Game implements Serializable {
         Tile currentTile = board.getTile(row, col);
         int currentTileId = currentTile.getId();
         if (flagging) {
-            flaggingMove(currentTile, currentTileId, arg);
+            flaggingMove(currentTile, arg);
         } else {
             revealingMove(currentTile, currentTileId);
         }
@@ -213,15 +213,10 @@ public class MinesweeperGame extends Game implements Serializable {
         }
     }
 
-    private void flaggingMove(Tile currentTile, int currentTileId, int currentTilePosition) {
+    private void flaggingMove(Tile currentTile, int currentTilePosition) {
         if (!currentTile.isRevealed()) {
             boolean currentTileFlagged = currentTile.isFlagged();
-            if (currentTileId == Tile.MINE) {
-                // if this tile is flagged, this move will unflag it and bombsLeft will increase
-                // otherwise, it will decrease, since the user is flagging a bomb tile.
-                bombsLeft = currentTileFlagged ? bombsLeft + 1 : bombsLeft - 1;
-            }
-            totalFlagged = currentTileFlagged ? totalFlagged - 1 : totalFlagged + 1;
+            totalFlagged = currentTileFlagged ? totalFlagged + 1 : totalFlagged - 1;
             board.toggleFlag(currentTilePosition / numRows, currentTilePosition % numCols);
         }
     }
@@ -254,7 +249,8 @@ public class MinesweeperGame extends Game implements Serializable {
             for (Tile t : emptyNeighbours) {
                 expandEmpty(t);
             }
-        }}
+        }
+    }
 
     private void expandEmpty(Tile original) {
         //Tile original = board.getTile(row, col);
@@ -338,7 +334,7 @@ public class MinesweeperGame extends Game implements Serializable {
         return "Time: " + String.valueOf(currentTimeMinutes) + ":" + String.valueOf(currentTimeSeconds);
     }
 
-    int getNumBombs(){ return bombsLeft; }
+    int getNumBombs(){ return totalFlagged; }
     int getNumRows() { return numRows; }
     int getNumCols() { return numCols; }
     public boolean getFlagging() { return flagging; }
