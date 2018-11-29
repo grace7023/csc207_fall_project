@@ -8,7 +8,7 @@ import fall2018.csc2017.game_centre.R;
 /**
  * A Tile in a sliding tiles puzzle.
  */
-public class Tile implements Serializable {
+public class MSTile implements Serializable {
 
     /**
      * The background id to find the tile image.
@@ -60,7 +60,7 @@ public class Tile implements Serializable {
      *
      * @param id The id of this tile
      */
-    public Tile(int id) {
+    public MSTile(int id) {
         this.id = id;
         revealed = false;
         flagged = false;

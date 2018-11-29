@@ -24,12 +24,12 @@ public class SlidingTilesGame extends Game implements Serializable {
     /**
      * The board being managed.
      */
-    private Board board;
+    private STBoard board;
 
     /**
      * Temporary board for proper shuffling
      */
-    private Board tempBoard;
+    private STBoard tempBoard;
     /**
      * The moves made since the start of the game
      */
@@ -61,7 +61,7 @@ public class SlidingTilesGame extends Game implements Serializable {
      *
      * @param board the board
      */
-    public SlidingTilesGame(Board board) {
+    public SlidingTilesGame(STBoard board) {
         this.boardSize = board.getBoardSize();
         this.board = board;
         this.score = 0;
@@ -78,13 +78,13 @@ public class SlidingTilesGame extends Game implements Serializable {
         this.boardSize = boardSize;
         this.score = 0;
         GestureDetectGridView.detectFling = false;
-        List<Tile> tiles = new ArrayList<>();
+        List<STTile> tiles = new ArrayList<>();
         moves = new ArrayList<>();
         final int numTiles = this.boardSize * this.boardSize;
         for (int tileNum = 0; tileNum != numTiles; tileNum++) {
-            tiles.add(new Tile(tileNum, boardSize));
+            tiles.add(new STTile(tileNum, boardSize));
         }
-        tempBoard = new Board(tiles, boardSize);
+        tempBoard = new STBoard(tiles, boardSize);
         shuffleTiles();
         this.board = tempBoard;
     }
@@ -105,7 +105,7 @@ public class SlidingTilesGame extends Game implements Serializable {
     /**
      * Return the current board.
      */
-    public Board getBoard() {
+    public STBoard getBoard() {
         return board;
     }
 
@@ -115,12 +115,12 @@ public class SlidingTilesGame extends Game implements Serializable {
      * @param board the board which the blank tile is from.
      * @return position of the blank tile
      */
-    private int returnTilePosition(Board board, int tileId) {
+    private int returnTilePosition(STBoard board, int tileId) {
 //        int id = board.numTiles();
         int counter = 0;
         for (int row = 0; row != this.boardSize; row++) {
             for (int col = 0; col != this.boardSize; col++) {
-                Tile cur = board.getTile(row, col);
+                STTile cur = board.getTile(row, col);
                 if (cur.getId() != tileId)
                     counter++;
                 else {
@@ -153,8 +153,8 @@ public class SlidingTilesGame extends Game implements Serializable {
      */
 
     private void randomSwap(int randomNumber, int blankTilePosition) {
-        List<Tile> adjacentTiles = adjacentTiles(blankTilePosition, tempBoard);
-        Tile swappingTile = adjacentTiles.get(randomNumber);
+        List<STTile> adjacentTiles = adjacentTiles(blankTilePosition, tempBoard);
+        STTile swappingTile = adjacentTiles.get(randomNumber);
         if (!(swappingTile == null)) {
             int swappingTilePos = returnTilePosition(tempBoard, swappingTile.getId());
             int row1 = blankTilePosition / boardSize;
@@ -173,7 +173,7 @@ public class SlidingTilesGame extends Game implements Serializable {
      */
     public boolean puzzleSolved() {
         int trackingId = 1;
-        for (Tile cur : board) {
+        for (STTile cur : board) {
             if (cur.getId() != trackingId) {
                 return false;
             }
@@ -200,8 +200,8 @@ public class SlidingTilesGame extends Game implements Serializable {
      * @return whether the tile at position is surrounded by a blank tile
      */
     public boolean isValidMove(int arg) {
-        List<Tile> surroundings = adjacentTiles(arg, this.board);
-        Tile blank = returnBlankTile();
+        List<STTile> surroundings = adjacentTiles(arg, this.board);
+        STTile blank = returnBlankTile();
         return surroundings.contains(blank);
     }
 
@@ -213,8 +213,8 @@ public class SlidingTilesGame extends Game implements Serializable {
     public void move(int arg) {
         int row = arg / this.boardSize;
         int col = arg % this.boardSize;
-        List<Tile> adjacent_tiles = adjacentTiles(arg, this.board);
-        Tile blank = returnBlankTile();
+        List<STTile> adjacent_tiles = adjacentTiles(arg, this.board);
+        STTile blank = returnBlankTile();
         int indBlank = adjacent_tiles.indexOf(blank);
         int row2 = row + MOVE_ADJUSTMENT_VALUES[indBlank][0];
         int col2 = col + MOVE_ADJUSTMENT_VALUES[indBlank][1];
@@ -245,9 +245,9 @@ public class SlidingTilesGame extends Game implements Serializable {
      * @return the blank tile
      */
 
-    private Tile returnBlankTile() {
+    private STTile returnBlankTile() {
         int blankId = board.getBoardSize() * board.getBoardSize();
-        for (Tile t : board) {
+        for (STTile t : board) {
             if (t.getId() == blankId) {
                 return t;
             }
@@ -265,13 +265,13 @@ public class SlidingTilesGame extends Game implements Serializable {
      * @return ArrayList of adjacent tiles
      */
 
-    private List<Tile> adjacentTiles(int position, Board board) {
+    private List<STTile> adjacentTiles(int position, STBoard board) {
         int row = position / this.boardSize;
         int col = position % this.boardSize;
-        Tile above = row == 0 ? null : board.getTile(row - 1, col);
-        Tile below = row == this.boardSize - 1 ? null : board.getTile(row + 1, col);
-        Tile left = col == 0 ? null : board.getTile(row, col - 1);
-        Tile right = col == this.boardSize - 1 ? null : board.getTile(row, col + 1);
+        STTile above = row == 0 ? null : board.getTile(row - 1, col);
+        STTile below = row == this.boardSize - 1 ? null : board.getTile(row + 1, col);
+        STTile left = col == 0 ? null : board.getTile(row, col - 1);
+        STTile right = col == this.boardSize - 1 ? null : board.getTile(row, col + 1);
         return Arrays.asList(above, below, left, right);
     }
 

@@ -7,7 +7,7 @@ import java.io.Serializable;
 /**
  * A Tile in a sliding tiles puzzle.
  */
-public class Tile implements Serializable {
+public class STTile implements Serializable {
 
     /**
      * The background id to find the tile image.
@@ -74,7 +74,7 @@ public class Tile implements Serializable {
      * @param backgroundId background ID
      * @param gameSize size of game
      */
-    public Tile(int backgroundId, int gameSize) {
+    public STTile(int backgroundId, int gameSize) {
         id = backgroundId + 1;
         if (id == gameSize * gameSize) {
             background = TILE_BACKGROUNDS[0];

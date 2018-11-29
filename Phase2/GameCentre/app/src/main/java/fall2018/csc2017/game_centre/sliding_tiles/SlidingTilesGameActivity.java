@@ -123,7 +123,7 @@ public class SlidingTilesGameActivity extends GameActivity implements Observer {
      * @param context the context
      */
     private void createTileButtons(Context context) {
-        Board board = slidingTilesGame.getBoard();
+        STBoard board = slidingTilesGame.getBoard();
         tileButtons = new ArrayList<>();
         for (int row = 0; row != slidingTilesGame.getScreenSize(); row++) {
             for (int col = 0; col != slidingTilesGame.getScreenSize(); col++) {
@@ -138,7 +138,7 @@ public class SlidingTilesGameActivity extends GameActivity implements Observer {
      * Update the backgrounds on the buttons to match the tiles.
      */
     private void updateTileButtons() {
-        Board board = slidingTilesGame.getBoard();
+        STBoard board = slidingTilesGame.getBoard();
         int nextPos = 0;
         for (Button b : tileButtons) {
             int row = nextPos / slidingTilesGame.getScreenSize();

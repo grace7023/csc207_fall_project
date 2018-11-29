@@ -13,7 +13,7 @@ import java.util.List;
 /**
  * The sliding tiles board.
  */
-public class Board extends Observable implements Serializable, Iterable<Tile> {
+public class STBoard extends Observable implements Serializable, Iterable<STTile> {
 
     /**
      * size of the board.
@@ -23,7 +23,7 @@ public class Board extends Observable implements Serializable, Iterable<Tile> {
     /**
      * The tiles on the board in row-major order.
      */
-    private Tile[][] tiles;
+    private STTile[][] tiles;
 
     /**
      * A new board of tiles in row-major order.
@@ -33,10 +33,10 @@ public class Board extends Observable implements Serializable, Iterable<Tile> {
      * @param tiles     tiles for board
      * @param boardSize size of the board
      */
-    public Board(List<Tile> tiles, int boardSize) {
+    public STBoard(List<STTile> tiles, int boardSize) {
         this.boardSize = boardSize;
-        Iterator<Tile> tileIterator = tiles.iterator();
-        this.tiles = new Tile[boardSize][boardSize];
+        Iterator<STTile> tileIterator = tiles.iterator();
+        this.tiles = new STTile[boardSize][boardSize];
         for (int row = 0; row != boardSize; row++) {
             for (int col = 0; col != boardSize; col++) {
                 this.tiles[row][col] = tileIterator.next();
@@ -60,7 +60,7 @@ public class Board extends Observable implements Serializable, Iterable<Tile> {
      * @param col the tile column
      * @return the tile at (row, col)
      */
-    public Tile getTile(int row, int col) {
+    public STTile getTile(int row, int col) {
         return tiles[row][col];
     }
 
@@ -74,7 +74,7 @@ public class Board extends Observable implements Serializable, Iterable<Tile> {
      */
     public void swapTiles(int row1, int col1, int row2, int col2) {
 
-        Tile temp = this.tiles[row1][col1];
+        STTile temp = this.tiles[row1][col1];
         this.tiles[row1][col1] = this.tiles[row2][col2];
         this.tiles[row2][col2] = temp;
 
@@ -101,14 +101,14 @@ public class Board extends Observable implements Serializable, Iterable<Tile> {
      */
     @Override
     @NonNull
-    public Iterator<Tile> iterator() {
+    public Iterator<STTile> iterator() {
         return new BoardIterator();
     }
 
     /**
      * The Iterator subclass returned by Board.iterator()
      */
-    private class BoardIterator implements Iterator<Tile> {
+    private class BoardIterator implements Iterator<STTile> {
         private int cursor;
 
         /**
@@ -134,7 +134,7 @@ public class Board extends Observable implements Serializable, Iterable<Tile> {
          * @return The next Tile object, as long as there is one.
          */
         @Override
-        public Tile next() {
+        public STTile next() {
             if (this.hasNext()) {
                 int current = cursor;
                 int row = current / boardSize;

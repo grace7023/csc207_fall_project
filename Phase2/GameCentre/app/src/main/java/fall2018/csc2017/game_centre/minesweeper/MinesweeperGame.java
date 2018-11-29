@@ -6,9 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Calendar;
 import java.util.Collections;
-import java.util.Date;
 import java.util.List;
 
 import fall2018.csc2017.game_centre.Game;
@@ -49,7 +47,7 @@ public class MinesweeperGame extends Game implements Serializable {
     /**
      * The board being managed.
      */
-    private Board board;
+    private MSBoard board;
 
     /**
      * The score of the current game
@@ -106,25 +104,25 @@ public class MinesweeperGame extends Game implements Serializable {
      * Creates the board with the specified rows, columns and number of bombs
      */
     private void generateBoard() {
-        List<Tile> tiles = new ArrayList<>(numRows*numCols);
+        List<MSTile> tiles = new ArrayList<>(numRows*numCols);
         int bombs = 0;
         for (int i = 0; i < getScreenSize(); i++) {
             if (bombs < numBombs) {
-                tiles.add(new Tile(Tile.MINE));
+                tiles.add(new MSTile(MSTile.MINE));
                 bombs++;
             } else {
-                tiles.add(new Tile(Tile.EMPTY));
+                tiles.add(new MSTile(MSTile.EMPTY));
             }
         }
         Collections.shuffle(tiles);
-        board = new Board(tiles, numRows, numCols);
+        board = new MSBoard(tiles, numRows, numCols);
         for (int i = 0; i < numRows; i++) {
             for (int j = 0; j < numCols; j++) {
                 int position = i * numCols + j;
-                if (board.getTile(i, j).getId() != Tile.MINE) {
+                if (board.getTile(i, j).getId() != MSTile.MINE) {
                     int adjacentBombs = 0;
-                    for (Tile neighbour : adjacentTiles(position, board)) {
-                        if (neighbour != null && neighbour.getId() == Tile.MINE) {
+                    for (MSTile neighbour : adjacentTiles(position, board)) {
+                        if (neighbour != null && neighbour.getId() == MSTile.MINE) {
                             adjacentBombs++;
                         }
                     }
@@ -146,7 +144,7 @@ public class MinesweeperGame extends Game implements Serializable {
     /**
      * Return the current board.
      */
-    public Board getBoard() {
+    public MSBoard getBoard() {
         return board;
     }
 
@@ -180,8 +178,8 @@ public class MinesweeperGame extends Game implements Serializable {
         int numRevealed = 0;
         int numNeighbours = 8;
         if (board.getTile(row, col).isRevealed()) {
-            List<Tile> neighbours = adjacentTiles(arg, board);
-            for (Tile neighbour : neighbours) {
+            List<MSTile> neighbours = adjacentTiles(arg, board);
+            for (MSTile neighbour : neighbours) {
                 if (neighbour == null) {
                     numNeighbours--;
                 } else if (neighbour.isRevealed()) {
@@ -207,19 +205,19 @@ public class MinesweeperGame extends Game implements Serializable {
     public void move(int arg) {
         int row = arg / numRows;
         int col = arg % numCols;
-        Tile currentTile = board.getTile(row, col);
+        MSTile currentTile = board.getTile(row, col);
         int currentTileId = currentTile.getId();
         if (flagging) {
             flaggingMove(currentTile, arg);
         } else {
             revealingMove(currentTile, currentTileId);
         }
-        if (currentTile.isRevealed() && currentTileId != Tile.EMPTY){
+        if (currentTile.isRevealed() && currentTileId != MSTile.EMPTY){
             revealedTileMove(currentTileId, arg);
         }
     }
 
-    private void flaggingMove(Tile currentTile, int currentTilePosition) {
+    private void flaggingMove(MSTile currentTile, int currentTilePosition) {
         if (!currentTile.isRevealed()) {
             boolean currentTileFlagged = currentTile.isFlagged();
             totalFlagged = currentTileFlagged ? totalFlagged + 1 : totalFlagged - 1;
@@ -227,11 +225,11 @@ public class MinesweeperGame extends Game implements Serializable {
         }
     }
 
-    private void revealingMove(Tile currentTile, int currentTileId) {
+    private void revealingMove(MSTile currentTile, int currentTileId) {
         if (!currentTile.isRevealed()) {
-            if (currentTileId == Tile.MINE) {
+            if (currentTileId == MSTile.MINE) {
                 bombClicked = true;
-            } else if (currentTileId == Tile.EMPTY) {
+            } else if (currentTileId == MSTile.EMPTY) {
                 expandEmpty(currentTile);
             }
             board.revealTile(currentTile);
@@ -240,34 +238,34 @@ public class MinesweeperGame extends Game implements Serializable {
 
     private void revealedTileMove(int currentTileId, int currentTilePosition) {
         int surroundingFlagged = 0;
-        List<Tile> neighbours = adjacentTiles(currentTilePosition, board);
-        List<Tile> emptyNeighbours = new ArrayList<>();
-        for (Tile t : neighbours) {
+        List<MSTile> neighbours = adjacentTiles(currentTilePosition, board);
+        List<MSTile> emptyNeighbours = new ArrayList<>();
+        for (MSTile t : neighbours) {
             if (t != null) {
                 if (t.isFlagged())
                     surroundingFlagged++;
-                if (t.getId() == Tile.EMPTY)
+                if (t.getId() == MSTile.EMPTY)
                     emptyNeighbours.add(t);
             }
         }
         if (surroundingFlagged == currentTileId) {
             revealAdjacent(currentTilePosition / numRows, currentTilePosition % numCols);
-            for (Tile t : emptyNeighbours) {
+            for (MSTile t : emptyNeighbours) {
                 expandEmpty(t);
             }
         }
     }
 
-    private void expandEmpty(Tile original) {
+    private void expandEmpty(MSTile original) {
         //Tile original = board.getTile(row, col);
-        ArrayList<Tile> queue = new ArrayList<>();
+        ArrayList<MSTile> queue = new ArrayList<>();
 
         queue.add(original);
         while (!queue.isEmpty()){
-            Tile current = queue.remove(0);
-            List<Tile> neighbours = adjacentTiles(board.getPosition(current), board);
-            for (Tile t : neighbours) {
-                if (t != null && !t.isRevealed() && t.getId() == Tile.EMPTY)
+            MSTile current = queue.remove(0);
+            List<MSTile> neighbours = adjacentTiles(board.getPosition(current), board);
+            for (MSTile t : neighbours) {
+                if (t != null && !t.isRevealed() && t.getId() == MSTile.EMPTY)
                     queue.add(t);
             }
             revealAdjacent(board.getPosition(current) / getNumRows(), board.getPosition(current) % getNumCols());
@@ -282,10 +280,10 @@ public class MinesweeperGame extends Game implements Serializable {
      */
     private void revealAdjacent(int row, int col) {
         int position = row * numCols + col;
-        List<Tile> neighbours = adjacentTiles(position, board);
-        for (Tile t : neighbours)
+        List<MSTile> neighbours = adjacentTiles(position, board);
+        for (MSTile t : neighbours)
             if (t != null && !t.isRevealed() && !t.isFlagged()) {
-                if (t.getId() == Tile.MINE) {
+                if (t.getId() == MSTile.MINE) {
                     bombClicked = true;
                 }
                 board.revealTile(t);
@@ -300,17 +298,17 @@ public class MinesweeperGame extends Game implements Serializable {
      * @return ArrayList of adjacent tiles
      */
 
-    private List<Tile> adjacentTiles(int position, Board board) {
+    private List<MSTile> adjacentTiles(int position, MSBoard board) {
         int row = position / this.numRows;
         int col = position % this.numCols;
-        Tile upLeft = row == 0 || col == 0 ? null : board.getTile(row - 1, col - 1);
-        Tile above = row == 0 ? null : board.getTile(row - 1, col);
-        Tile upRight = row == 0 || col == this.numCols - 1 ? null: board.getTile(row-1, col+1);
-        Tile below = row == this.numRows - 1 ? null : board.getTile(row + 1, col);
-        Tile left = col == 0 ? null : board.getTile(row, col - 1);
-        Tile right = col == this.numCols - 1 ? null : board.getTile(row, col + 1);
-        Tile downLeft = row == this.numRows - 1 || col == 0? null : board.getTile(row + 1, col - 1);
-        Tile downRight = row == this.numRows - 1 || col == this.numCols - 1 ? null : board.getTile(row + 1, col + 1);
+        MSTile upLeft = row == 0 || col == 0 ? null : board.getTile(row - 1, col - 1);
+        MSTile above = row == 0 ? null : board.getTile(row - 1, col);
+        MSTile upRight = row == 0 || col == this.numCols - 1 ? null: board.getTile(row-1, col+1);
+        MSTile below = row == this.numRows - 1 ? null : board.getTile(row + 1, col);
+        MSTile left = col == 0 ? null : board.getTile(row, col - 1);
+        MSTile right = col == this.numCols - 1 ? null : board.getTile(row, col + 1);
+        MSTile downLeft = row == this.numRows - 1 || col == 0? null : board.getTile(row + 1, col - 1);
+        MSTile downRight = row == this.numRows - 1 || col == this.numCols - 1 ? null : board.getTile(row + 1, col + 1);
         return Arrays.asList(upLeft, above, upRight, left, right, downLeft, below, downRight);
     }
 

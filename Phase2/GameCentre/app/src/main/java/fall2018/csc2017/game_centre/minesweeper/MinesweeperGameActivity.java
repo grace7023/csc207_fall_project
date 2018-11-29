@@ -8,7 +8,6 @@ import android.util.Log;
 import android.view.View;
 import android.view.ViewTreeObserver;
 import android.widget.Button;
-import android.widget.ImageButton;
 import android.widget.TextView;
 
 import java.io.FileNotFoundException;
@@ -17,7 +16,6 @@ import java.io.InputStream;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
@@ -194,7 +192,7 @@ public class MinesweeperGameActivity extends GameActivity implements Observer {
      * @param context the context
      */
     private void createTileButtons(Context context) {
-        Board board = minesweeperGame.getBoard();
+        MSBoard board = minesweeperGame.getBoard();
         tileButtons = new ArrayList<>();
         for (int row = 0; row != minesweeperGame.getNumRows(); row++) {
             for (int col = 0; col != minesweeperGame.getNumCols(); col++) {
@@ -209,7 +207,7 @@ public class MinesweeperGameActivity extends GameActivity implements Observer {
      * Update the backgrounds on the buttons to match the tiles.
      */
     private void updateTileButtons() {
-        Board board = minesweeperGame.getBoard();
+        MSBoard board = minesweeperGame.getBoard();
         int nextPos = 0;
         for (Button b : tileButtons) {
             int row = nextPos / minesweeperGame.getNumRows();

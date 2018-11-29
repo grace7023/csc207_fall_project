@@ -12,7 +12,7 @@ import java.util.Observable;
 /**
  * The sliding tiles board.
  */
-public class Board extends Observable implements Serializable, Iterable<Tile> {
+public class MSBoard extends Observable implements Serializable, Iterable<MSTile> {
 
     /**
      * size of the board. numRows * numCols
@@ -23,7 +23,7 @@ public class Board extends Observable implements Serializable, Iterable<Tile> {
     /**
      * The tiles on the board in row-major order.
      */
-    private Tile[][] tiles;
+    private MSTile[][] tiles;
 
     private int numRevealed;
 
@@ -36,12 +36,12 @@ public class Board extends Observable implements Serializable, Iterable<Tile> {
      * @param numRows number of rows of the board
      * @param numCols number of columns of the board
      */
-    public Board(List<Tile> tiles, int numRows, int numCols) {
+    public MSBoard(List<MSTile> tiles, int numRows, int numCols) {
         this.numRows = numRows;
         this.numCols = numCols;
         numRevealed = 0;
-        Iterator<Tile> tileIterator = tiles.iterator();
-        this.tiles = new Tile[this.numRows][this.numCols];
+        Iterator<MSTile> tileIterator = tiles.iterator();
+        this.tiles = new MSTile[this.numRows][this.numCols];
         for (int row = 0; row < this.numRows; row++) {
             for (int col = 0; col < this.numCols; col++) {
                 this.tiles[row][col] = tileIterator.next();
@@ -69,7 +69,7 @@ public class Board extends Observable implements Serializable, Iterable<Tile> {
      * @param col the tile column
      * @return the tile at (row, col)
      */
-    Tile getTile(int row, int col) {
+    MSTile getTile(int row, int col) {
         return tiles[row][col];
     }
 
@@ -85,7 +85,7 @@ public class Board extends Observable implements Serializable, Iterable<Tile> {
                 '}';
     }
 
-    void revealTile(Tile tile) {
+    void revealTile(MSTile tile) {
         if (!tile.isRevealed())
             numRevealed++;
         tile.reveal();
@@ -100,9 +100,9 @@ public class Board extends Observable implements Serializable, Iterable<Tile> {
         notifyObservers();
     }
 
-    int getPosition(Tile tile) {
+    int getPosition(MSTile tile) {
         int counter = 0;
-        for (Tile t : this) {
+        for (MSTile t : this) {
             if (t != null && t == tile) {
                 return counter;
             }
@@ -118,14 +118,14 @@ public class Board extends Observable implements Serializable, Iterable<Tile> {
      */
     @Override
     @NonNull
-    public Iterator<Tile> iterator() {
+    public Iterator<MSTile> iterator() {
         return new BoardIterator();
     }
 
     /**
      * The Iterator subclass returned by Board.iterator()
      */
-    private class BoardIterator implements Iterator<Tile> {
+    private class BoardIterator implements Iterator<MSTile> {
         private int cursor;
 
         /**
@@ -151,7 +151,7 @@ public class Board extends Observable implements Serializable, Iterable<Tile> {
          * @return The next Tile object, as long as there is one.
          */
         @Override
-        public Tile next() {
+        public MSTile next() {
             if (this.hasNext()) {
                 int current = cursor;
                 int row = current / numRows;
