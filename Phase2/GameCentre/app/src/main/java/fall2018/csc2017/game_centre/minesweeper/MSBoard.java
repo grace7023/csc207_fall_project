@@ -53,14 +53,18 @@ public class MSBoard extends Observable implements Serializable, Iterable<MSTile
         return numRevealed;
     }
 
-//    /**
-//     * return boardSize
-//     *
-//     * @return boardSize
-//     */
-//    int getBoardSize() {
-//        return numRows * numCols;
-//    }
+    /**
+     * return boardSize
+     *
+     * @return boardSize
+     */
+    int getBoardSize() {
+        return numRows * numCols;
+    }
+
+    int getNumRows() {return numRows; }
+
+    int getNumCols() {return numCols; }
 
     /**
      * Return the tile at (row, col)
@@ -78,12 +82,12 @@ public class MSBoard extends Observable implements Serializable, Iterable<MSTile
      *
      * @return A string representation of the Tiles within this Board
      */
-    @Override
-    public String toString() {
-        return "Board{" +
-                "tiles=" + Arrays.toString(tiles) +
-                '}';
-    }
+//    @Override
+//    public String toString() {
+//        return "Board{" +
+//                "tiles=" + Arrays.toString(tiles) +
+//                '}';
+//    }
 
     void revealTile(MSTile tile) {
         if (!tile.isRevealed())
@@ -108,7 +112,7 @@ public class MSBoard extends Observable implements Serializable, Iterable<MSTile
             }
             counter++;
         }
-        return -5000;
+        return -1;
     }
 
     /**

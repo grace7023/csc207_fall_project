@@ -65,19 +65,22 @@ public class MinesweeperGame extends Game implements Serializable {
     private int saveTime;
 
 
-//    /**
-//     * Manage a board that has been pre-populated.
-//     *
-//     * @param board the board
-//     */
-//
-//
-//    TODO: figure out if we need this
-//    public MinesweeperGame(Board board) {
-//        this.numRows = board.getBoardSize();
-//        this.board = board;
-//        this.score = 0;
-//    }
+    /**
+     * Manage a board that has been pre-populated.
+     *
+     * @param board the board
+     */
+
+
+    public MinesweeperGame(MSBoard board, int numBombs) {
+        this.numRows = board.getNumRows();
+        this.numCols = board.getNumCols();
+        this.board = board;
+        this.numBombs = numBombs;
+        flagging = false;
+        bombClicked = false;
+        startTime = System.nanoTime();
+    }
 
     /**
      * Manage a board given the size of the board.
