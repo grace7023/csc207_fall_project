@@ -212,9 +212,6 @@ public class MinesweeperGameActivity extends GameActivity implements Observer {
         Board board = minesweeperGame.getBoard();
         int nextPos = 0;
         for (Button b : tileButtons) {
-            if (nextPos == 9){
-                System.out.println();
-            }
             int row = nextPos / minesweeperGame.getNumRows();
             int col = nextPos % minesweeperGame.getNumCols();
             b.setBackgroundResource(board.getTile(row, col).getBackground());
