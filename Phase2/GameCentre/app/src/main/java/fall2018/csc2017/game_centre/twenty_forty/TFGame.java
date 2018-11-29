@@ -20,8 +20,8 @@ public class TFGame extends Game implements Serializable {
 
     private TFBoard board;
 
-    private ArrayList<TFBoard> pastBoards;
-    private ArrayList<Integer> pastScoreIncreases;
+    private List<TFBoard> pastBoards;
+    private List<Integer> pastScoreIncreases;
 
     private int score; //TODO: score is not counting correctly
 

@@ -12,6 +12,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.util.List;
 
 
 /**
@@ -22,7 +23,7 @@ public class Scoreboard implements Serializable {
     /**
      * The scores of the game
      */
-    private ArrayList<Score> scores;
+    private List<Score> scores;
 
     /**
      * The directory to save the file to
@@ -55,7 +56,7 @@ public class Scoreboard implements Serializable {
      * returns all the scores for the game
      * @return scores for the game
      */
-    ArrayList<Score> getScores() {
+    List<Score> getScores() {
         return scores;
     }
 
@@ -65,7 +66,7 @@ public class Scoreboard implements Serializable {
      * @param player the current player
      * @return the player's scores
      */
-    ArrayList<Score> getScores(String player) {
+    List<Score> getScores(String player) {
         ArrayList<Score> output = new ArrayList<>();
         for (Score score : scores) {
             if (score.getPlayer().equals(player)) {

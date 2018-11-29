@@ -8,6 +8,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Displays the scoreboard for the user
@@ -22,12 +23,12 @@ public class ScoreboardActivity extends AppCompatActivity {
     /**
      * All the scores for the current game being played
      */
-    public ArrayList<Score> scores = new ArrayList<>();
+    public List<Score> scores = new ArrayList<>();
 
     /**
      * User specific scores for the current game
      */
-    public ArrayList<Score> playerScores = new ArrayList<>();
+    public List<Score> playerScores = new ArrayList<>();
 
     public Game game;
 
