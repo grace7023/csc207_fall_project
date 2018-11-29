@@ -115,7 +115,21 @@ public class MinesweeperGameActivity extends GameActivity implements Observer {
         gridView.setGame(minesweeperGame);
         timer = findViewById(R.id.timer);
 
+        // updates the timer for Minesweeper
+        // adapted from: https://stackoverflow.com/questions/9850594/why-handler-timer-only-run-once
+        final Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                String time = "Time: " + minesweeperGame.getTime();
+                timer.setText(time);
+                handler.postDelayed(this, 1000);
+            }
+        },1000);
+
         minesweeperGame.getBoard().addObserver(this);
+
+
         // Observer sets up desired dimensions as well as calls our display function
         gridView.getViewTreeObserver().addOnGlobalLayoutListener(
                 new ViewTreeObserver.OnGlobalLayoutListener() {
@@ -265,21 +279,9 @@ public class MinesweeperGameActivity extends GameActivity implements Observer {
     public void autoSave() {
         saveToFile(gameFilename);
     }
-
-    void start() {
-
-    }
     private void updateTimer() {
         //String newTime = minesweeperGame.getTime();
         //timer.setText(newTime);
-        // TODO: why doesn't this update in realtime help
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                //update textview here
-                timer.setText("Time:" + minesweeperGame.getTime());
-            }
-        },1000);
     }
 
     private void switchToGMA() {
