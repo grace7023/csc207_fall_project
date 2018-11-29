@@ -3,6 +3,7 @@ package fall2018.csc2017.game_centre.minesweeper;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewTreeObserver;
@@ -105,6 +106,8 @@ public class MinesweeperGameActivity extends GameActivity implements Observer {
         gridView = findViewById(R.id.grid);
         gridView.setNumColumns(minesweeperGame.getNumCols());
         gridView.setGame(minesweeperGame);
+        timer = findViewById(R.id.timer);
+
         minesweeperGame.getBoard().addObserver(this);
         // Observer sets up desired dimensions as well as calls our display function
         gridView.getViewTreeObserver().addOnGlobalLayoutListener(
@@ -256,9 +259,20 @@ public class MinesweeperGameActivity extends GameActivity implements Observer {
         saveToFile(gameFilename);
     }
 
+    void start() {
+
+    }
     private void updateTimer() {
-        String newTime = minesweeperGame.getTime();
-        timer.setText(newTime);
+        //String newTime = minesweeperGame.getTime();
+        //timer.setText(newTime);
+        // TODO: why doesn't this update in realtime help
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                //update textview here
+                timer.setText("Time:" + minesweeperGame.getTime());
+            }
+        },1000);
     }
 
     private void switchToGMA() {

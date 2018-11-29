@@ -62,7 +62,7 @@ public class MinesweeperGame extends Game implements Serializable {
     public final static String GAME_DESC = "Welcome to Minesweeper!\nTap on tiles to reveal them\n" +
             "Tap the flag button to flag bombs\nReveal all the non-bomb tiles on the field to win!";
 
-    private Date startTime;
+    private long startTime;
 
 
 //    /**
@@ -95,9 +95,9 @@ public class MinesweeperGame extends Game implements Serializable {
         totalFlagged = numBombs;
         flagging = false;
         bombClicked = false;
-        startTime = Calendar.getInstance().getTime();
 
         generateBoard();
+        startTime = System.nanoTime();
     }
 
     /**
@@ -330,12 +330,15 @@ public class MinesweeperGame extends Game implements Serializable {
         return new Intent(PackageContext, MinesweeperGameActivity.class);
     }
 
+    /**
+     * Returns the amount of time since the start of the game
+     *
+     * @return The elapsed time as a string in the format "mm/ss"
+     */
+    // code adapted from https://www.baeldung.com/java-measure-elapsed-time
     public String getTime(){
-
-        int currentTimeSeconds = Calendar.getInstance().getTime().getSeconds() - startTime.getSeconds();
-        int currentTimeMinutes = Calendar.getInstance().getTime().getMinutes() - startTime.getMinutes();
-
-        return "Time: " + String.valueOf(currentTimeMinutes) + ":" + String.valueOf(currentTimeSeconds);
+        int timer = (int)((System.nanoTime() - startTime)/1000000000);
+        return String.valueOf(timer/60) + ":" + String.valueOf(timer%60);
     }
 
     int getNumBombs(){ return totalFlagged; }
