@@ -337,7 +337,8 @@ public class MinesweeperGame extends Game implements Serializable {
      *
      * @return The elapsed time as a string in the format "mm/ss"
      */
-    // code adapted from https://www.baeldung.com/java-measure-elapsed-time
+    // This code was adapted from an article by bealdung on 2018/11/28
+    // URL: https://www.baeldung.com/java-measure-elapsed-time
     public String getTime(){
         int timer = (int)(saveTime + (System.nanoTime() - startTime)/1000000000);
         String min = timer / 60 < 10 ? "0" + String.valueOf(timer/60) : String.valueOf(timer/60);

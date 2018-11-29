@@ -117,7 +117,8 @@ public class MinesweeperGameActivity extends GameActivity implements Observer {
         timer = findViewById(R.id.timer);
 
         // updates the timer for Minesweeper
-        // adapted from: https://stackoverflow.com/questions/9850594/why-handler-timer-only-run-once
+        // This code was adapted from a post by waqaslam on 2018/11/29
+        // Forum link: https://stackoverflow.com/questions/9850594/why-handler-timer-only-run-once
         final Handler handler = new Handler();
         handler.postDelayed(new Runnable() {
             @Override
