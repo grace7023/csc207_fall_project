@@ -67,7 +67,7 @@ public class Scoreboard implements Serializable {
     ArrayList<Score> getScores(String player) {
         ArrayList<Score> output = new ArrayList<>();
         for (Score score : scores) {
-            if (score.player.equals(player)) {
+            if (score.getPlayer().equals(player)) {
                 output.add(score);
             }
         }
