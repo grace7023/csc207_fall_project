@@ -2,6 +2,7 @@ package fall2018.csc2017.game_centre;
 
 import android.support.annotation.NonNull;
 import java.io.Serializable;
+import java.util.regex.Pattern;
 
 /**
  * A score to be shown in the scoreboard
@@ -40,9 +41,10 @@ public class Score implements Comparable<Score>, Serializable {
     */
     @Override
     public int compareTo(@NonNull Score o) {
-//        return Integer.compare(this.value, o.value);
+        if (Pattern.matches("\\d+", this.value) && Pattern.matches("\\d+", o.value)) {
+            return Integer.valueOf(this.value).compareTo(Integer.valueOf(o.value));
+        }
         return this.value.compareTo(o.value);
-//        Integer.valueOf(numStr)
     }
 
     /**
