@@ -11,16 +11,18 @@ tools:context="fall2018.csc2017.game_centre.GameMenuActivity">
         android:id="@+id/scoreList"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_weight="0.5"/>
+        android:layout_weight="0.5" />
+
+    <TextView
+        android:id="@+id/scoreboardGameTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
 
     <ListView
         android:id="@+id/scoreList2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_weight="0.5"/>
-
-
-
 
 
     <!--<ListView-->

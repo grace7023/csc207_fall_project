@@ -36,6 +36,7 @@ public class ScoreboardActivity extends AppCompatActivity {
     public String gameFilename;
 
     public String gameDesc;
+    private TextView scoreboardGameTitle;
 
     /**
      * Creates the UI elements
@@ -46,6 +47,7 @@ public class ScoreboardActivity extends AppCompatActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_scoreboard);
+//        setUpScoreboardGameTitle();
         Bundle gameBundle = getIntent().getExtras();
         assert gameBundle != null;
         game = (Game) gameBundle.getSerializable("GAME");
@@ -57,6 +59,7 @@ public class ScoreboardActivity extends AppCompatActivity {
         scoreboard.loadFromFile();
         scores = scoreboard.getScores();
         playerScores = scoreboard.getScores(currentUsername);
+
 
         /* This code adapted from
          * https://stackoverflow.com/questions/4540754/dynamically-add-elements-to-a-listview-android
@@ -93,6 +96,14 @@ public class ScoreboardActivity extends AppCompatActivity {
         textView.setHeight(300);
         textView.setTextSize(30);
         return textView;
+    }
+
+
+    public void setUpScoreboardGameTitle(){
+        scoreboardGameTitle = findViewById(R.id.scoreboardGameTitle);
+        String classString = game.getClass().getSimpleName();
+        String titleText = classString.substring(0, classString.length()-4) + " Scoreboard:";
+        scoreboardGameTitle.setText(titleText);
     }
 
     private void switchToGMA() {
