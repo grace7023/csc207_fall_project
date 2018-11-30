@@ -52,6 +52,17 @@ public class BoardAndTileTest {
         slidingTilesGame.getBoard().swapTiles(0, 0, 0, 1);
     }
 
+    private void makeTwoMoves() {
+        slidingTilesGame.move(slidingTilesGame.getScreenSize() * slidingTilesGame.getScreenSize() - 2);
+        slidingTilesGame.move(slidingTilesGame.getScreenSize() * slidingTilesGame.getScreenSize() - 3);
+    }
+
+    private void makeTwoUndos() {
+        for (int i = 0; i < 2; i++) {
+            slidingTilesGame.undo();
+        }
+    }
+
     /**
      * Test whether swapping two tiles makes a solved board unsolved.
      */
@@ -180,6 +191,50 @@ public class BoardAndTileTest {
         assertTrue(slidingTilesGame.isValidMove(23));
         assertTrue(slidingTilesGame.isValidMove(19));
         assertFalse(slidingTilesGame.isValidMove(18));
+    }
+
+    /**
+     * Test whether no undos can be done at the beginning of the game
+     */
+    @Test
+    public void testCanUndoAtStart() {
+        for (int i = 3; i <= 5; i++) {
+            setUpCorrect(i);
+            assertTrue(!slidingTilesGame.canUndoMove());
+        }
+    }
+
+    /**
+     * Test whether the correct number of undos happen before no more can be done
+     */
+    @Test
+    public void testCanUndo3() {
+        setUpCorrect(3);
+        makeTwoMoves();
+        makeTwoUndos();
+        assertTrue(!slidingTilesGame.canUndoMove());
+    }
+
+    /**
+     * Test whether the correct number of undos happen before no more can be done
+     */
+    @Test
+    public void testCanUndo4() {
+        setUpCorrect(4);
+        makeTwoMoves();
+        makeTwoUndos();
+        assertTrue(!slidingTilesGame.canUndoMove());
+    }
+
+    /**
+     * Test whether the correct number of undos happen before no more can be done
+     */
+    @Test
+    public void testCanUndo5() {
+        setUpCorrect(5);
+        makeTwoMoves();
+        makeTwoUndos();
+        assertTrue(!slidingTilesGame.canUndoMove());
     }
 }
 
