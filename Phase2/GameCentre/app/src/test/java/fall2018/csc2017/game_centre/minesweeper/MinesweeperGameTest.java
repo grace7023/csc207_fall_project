@@ -44,15 +44,32 @@ public class MinesweeperGameTest {
      */
     @Test
     public void testGenerateBoard() {
-        MinesweeperGame msGame = setUpRandomBoard(3, 3, 3);
-        assertEquals(3, msGame.getNumBombs());
+        MinesweeperGame msGame = setUpRandomBoard(4, 4, 3);
+        assertEquals(3, msGame.getBombsLeft());
+        // get the id for the tile at position 5
+        int tId = msGame.getBoard().getTile(1, 1).getId();
+        // seeing if there is only one bomb in surround tiles of tile1
+        if (tId != MSTile.MINE) {
+            int[] surroundingPositions = {0, 1, 2, 4, 6, 8, 9, 10};
+            int numSurroundingBombs = 0;
+            for (int i : surroundingPositions) {
+                MSTile t = msGame.getBoard().getTile(i / 4, i % 4);
+                if (t.getId() == MSTile.MINE)
+                    numSurroundingBombs++;
+            }
+            assertEquals(tId, numSurroundingBombs);
+        } else {
+            msGame.move(5);
+            assertTrue(msGame.isOver());
+        }
     }
+
     /**
      * Tests whether the game is over when all tiles are revealed
      */
     @Test
-    public void isOverReveal() {
-        MinesweeperGame msGame = setUpBoard(0,3, 3, 0);
+    public void testIsOverReveal() {
+        MinesweeperGame msGame = setUpBoard(0, 3, 3, 0);
         assertFalse(msGame.isOver());
         msGame.move(0);
         assertTrue(msGame.isOver());
@@ -62,8 +79,8 @@ public class MinesweeperGameTest {
      * Tests whether the game is over when a bomb is clicked
      */
     @Test
-    public void isOverBombClicked() {
-        MinesweeperGame msGame = setUpBoard(0,3,3,3);
+    public void testIsOverBombClicked() {
+        MinesweeperGame msGame = setUpBoard(0, 3, 3, 3);
         assertFalse(msGame.isOver());
         msGame.move(0);
         assertTrue(msGame.isOver());
@@ -73,8 +90,8 @@ public class MinesweeperGameTest {
      * Tests whether all the revealable tiles are revealed
      */
     @Test
-    public void puzzleSolved() {
-        MinesweeperGame msGame = setUpBoard(0,3, 3, 0);
+    public void testPuzzleSolved() {
+        MinesweeperGame msGame = setUpBoard(0, 3, 3, 0);
         assertFalse(msGame.puzzleSolved());
         msGame.move(0);
         assertTrue(msGame.puzzleSolved());
@@ -84,8 +101,8 @@ public class MinesweeperGameTest {
      * Tests whether the move made is valid or not
      */
     @Test
-    public void isValidMove() {
-        MinesweeperGame msGame = setUpBoard(1,3,3,5);
+    public void testIsValidMove() {
+        MinesweeperGame msGame = setUpBoard(1, 3, 3, 5);
         assertTrue(msGame.isValidMove(5));
         msGame.move(5);
 
@@ -109,13 +126,13 @@ public class MinesweeperGameTest {
      * Tests whether the game correctly returns whether you won or you lose
      */
     @Test
-    public void gameOverText() {
-        MinesweeperGame msGame1 = setUpBoard(1,1,1,1);
+    public void testGameOverText() {
+        MinesweeperGame msGame1 = setUpBoard(1, 1, 1, 1);
         msGame1.move(0);
 
         assertEquals("GAME OVER!", msGame1.gameOverText());
 
-        MinesweeperGame msGame2 = setUpBoard(0,3,3,0);
+        MinesweeperGame msGame2 = setUpBoard(0, 3, 3, 0);
         msGame1.move(0);
 
         assertEquals("YOU WIN!", msGame2.gameOverText());
@@ -125,7 +142,7 @@ public class MinesweeperGameTest {
      * Tests whether making a move on a revealed tile properly reveals its adjacent tiles
      */
     @Test
-    public void revealedTileMove() {
+    public void testRevealedTileMove() {
         List<MSTile> tiles = new ArrayList<>();
         tiles.add(new MSTile(MSTile.MINE));
         for (int i = 0; i < 3; i++) tiles.add(new MSTile(MSTile.EMPTY));
