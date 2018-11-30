@@ -14,7 +14,7 @@ class Addons {
 
     /**
      * Hash string to SHA256 for security
-     * @param input
+     * @param input string that is to be hashed
      * @return hash of string
      *
      * Inspired from https://stackoverflow.com/questions/3103652/hash-string-via-sha-256-in-java
