@@ -43,10 +43,19 @@ public class TFGameActivity extends GameActivity implements Observer {
      */
     private GestureDetectGridView<TFGame> gridView;
 
-    private static int columnWidth, columnHeight;
+    /**
+     * Column width and column height
+     */
+    private int columnWidth, columnHeight;
 
+    /**
+     * Name of current user
+     */
     private String currentUsername;
 
+    /**
+     * Name of current FileName
+     */
     private String gameFilename;
 
     /**
@@ -198,6 +207,11 @@ public class TFGameActivity extends GameActivity implements Observer {
         }
     }
 
+    /**
+     * updating the display and autosave the game
+     * @param o Observable
+     * @param arg Object
+     */
     @Override
     public void update(Observable o, Object arg) {
         updateScore();
@@ -217,7 +231,6 @@ public class TFGameActivity extends GameActivity implements Observer {
     /**
      * Add undo button listener.
      */
-
     public void addUndoButton() {
         Button undoButton = findViewById(R.id.undoButton);
             undoButton.setOnClickListener(new View.OnClickListener() {
@@ -232,15 +245,24 @@ public class TFGameActivity extends GameActivity implements Observer {
             });
     }
 
+    /**
+     * Add currentScore field
+     */
     public void addCurrentScore() {
         currentScore = findViewById(R.id.currentScore);
     }
 
+    /**
+     * Update score from current game state
+     */
     private void updateScore() {
             String newScore = "Score: " + String.valueOf(tfGame.getScore());
             currentScore.setText(newScore);
     }
 
+    /**
+     * Switch to GameOver Activity
+     */
     private void switchToGameover() {
         Intent gameoverIntent = new Intent(getApplicationContext(), GameoverActivity.class);
         Bundle gmaBundle = new Bundle();
@@ -254,6 +276,10 @@ public class TFGameActivity extends GameActivity implements Observer {
         overridePendingTransition(R.anim.slide_from_left, R.anim.slide_to_right);
         finish();
     }
+
+    /**
+     * Switch to GameMenuActivity
+     */
     private void switchToGMA() {
         Intent tfGMAIntent = new Intent(getApplicationContext(), GameMenuActivity.class);
         Bundle gmaBundle = new Bundle();
@@ -268,6 +294,9 @@ public class TFGameActivity extends GameActivity implements Observer {
         finish();
     }
 
+    /**
+     * Listens if back button is pressed
+     */
     @Override
     public void onBackPressed() {
         switchToGMA();
