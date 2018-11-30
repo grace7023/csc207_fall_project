@@ -25,6 +25,10 @@ public class SlidingTilesSettings extends AppCompatActivity {
      */
     private int gameSize;
 
+    /**
+     * Whether this activity is in darkView mode or not.
+     */
+
     private boolean darkView;
 
     /**
@@ -32,7 +36,15 @@ public class SlidingTilesSettings extends AppCompatActivity {
      */
     private SlidingTilesGame slidingTilesGame;
 
+    /**
+     * the current user's username
+     */
+
     private String currentUsername;
+
+    /**
+     * save file path for game
+     */
 
     private String gameFilename;
 
@@ -66,10 +78,10 @@ public class SlidingTilesSettings extends AppCompatActivity {
         boardSize = findViewById(R.id.stBoardSizeSpinner);
         if (darkView)
             adapter = ArrayAdapter.createFromResource(this, R.array.STGameSize,
-                                            R.layout.white_spinner_item);
+                    R.layout.white_spinner_item);
         else
             adapter = ArrayAdapter.createFromResource(this, R.array.STGameSize,
-                             android.R.layout.simple_spinner_item);
+                    android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         boardSize.setAdapter(adapter);
         boardSize.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -148,13 +160,20 @@ public class SlidingTilesSettings extends AppCompatActivity {
         }
     }
 
+    /**
+     * When the back button is pressed, switch to the GameMenuActivity
+     */
     @Override
     public void onBackPressed() {
         switchToGMA();
     }
 
-    private void setUpDarkView(){
-        if (darkView){
+    /**
+     * Setting up the activity to be in darkView mode.
+     */
+
+    private void setUpDarkView() {
+        if (darkView) {
             ConstraintLayout constraintLayout = findViewById(R.id.slidingTilesSettingsActivity);
             constraintLayout.setBackgroundColor(Color.DKGRAY);
             TextView settingsHeading = findViewById(R.id.SlidingTilesSettingsHeading);

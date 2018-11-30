@@ -74,7 +74,7 @@ public class STTile implements Serializable {
      * @param backgroundId background ID
      * @param gameSize size of game
      */
-    public STTile(int backgroundId, int gameSize) {
+    STTile(int backgroundId, int gameSize) {
         id = backgroundId + 1;
         if (id == gameSize * gameSize) {
             background = TILE_BACKGROUNDS[0];
