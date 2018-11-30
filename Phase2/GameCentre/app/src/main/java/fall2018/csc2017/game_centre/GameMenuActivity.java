@@ -177,6 +177,7 @@ public class GameMenuActivity extends AppCompatActivity {
         gameIntent.putExtra("USERNAME", currentUsername);
         gameIntent.putExtra("GAME_FILENAME", gameFilename);
         gameIntent.putExtra("FROM_LOAD", true);
+        gameIntent.putExtra("DARKVIEW", darkView);
         startActivity(gameIntent);
         overridePendingTransition(R.anim.slide_from_right, R.anim.slide_to_left);
         finish();
