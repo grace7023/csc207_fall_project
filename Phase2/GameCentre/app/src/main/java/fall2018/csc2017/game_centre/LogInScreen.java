@@ -285,6 +285,7 @@ public class LogInScreen extends AppCompatActivity {
 
     /**
      * Switch to the GameManager view to launch game centre.
+     * Adapted from: https://zocada.com/using-intents-extras-pass-data-activities-android-beginners-guide/
      */
     private void switchToGM(String sessionUsername) {
         Intent gmIntent = new Intent(LogInScreen.this, GameManager.class);

@@ -5,6 +5,7 @@ import android.widget.Button;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.widget.TextView;
 
 
 public class GameOverActivity extends AppCompatActivity {
@@ -28,6 +29,7 @@ public class GameOverActivity extends AppCompatActivity {
      * Current Game
      */
     private Game game;
+    private TextView gameOverText;
 
     /**
      * Create UI for Game Over
@@ -41,6 +43,8 @@ public class GameOverActivity extends AppCompatActivity {
         gameFilename = getIntent().getStringExtra("GAME_FILENAME");
         currentUsername = getIntent().getStringExtra("USERNAME");
         game = (Game) getIntent().getSerializableExtra("GAME");
+        gameOverText = findViewById(R.id.gameoverText);
+        gameOverText.setText(game.gameOverText());
     }
 
     /**
