@@ -1,5 +1,7 @@
 package fall2018.csc2017.game_centre;
 
+import android.graphics.Color;
+import android.support.constraint.ConstraintLayout;
 import android.view.View;
 import android.widget.Button;
 import android.content.Intent;
@@ -77,6 +79,7 @@ public class GameOverActivity extends AppCompatActivity {
         gmaBundle.putString("GAME_FILENAME", gameFilename);
         gmaBundle.putString("USERNAME", currentUsername);
         gmaBundle.putString("GAME_NAME", getIntent().getExtras().getString("GAME_NAME"));
+        gmaBundle.putBoolean("DARKVIEW", DarkView);
         GMAIntent.putExtras(gmaBundle);
         startActivity(GMAIntent);
         overridePendingTransition(R.anim.slide_from_left, R.anim.slide_to_right);
@@ -85,7 +88,10 @@ public class GameOverActivity extends AppCompatActivity {
 
     private void setUpDarkview(){
         if (DarkView){
-
+            ConstraintLayout constraintLayout = findViewById(R.id.gameOverActivity);
+            constraintLayout.setBackgroundColor(Color.DKGRAY);
+            TextView gameOverText = findViewById(R.id.gameOverText);
+            gameOverText.setTextColor(Color.WHITE);
         }
     }
 }
