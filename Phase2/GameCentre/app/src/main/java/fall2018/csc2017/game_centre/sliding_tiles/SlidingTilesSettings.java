@@ -168,10 +168,6 @@ public class SlidingTilesSettings extends AppCompatActivity {
         switchToGMA();
     }
 
-    /**
-     * Setting up the activity to be in darkView mode.
-     */
-
     private void setUpDarkView() {
         if (darkView) {
             ConstraintLayout constraintLayout = findViewById(R.id.slidingTilesSettingsActivity);

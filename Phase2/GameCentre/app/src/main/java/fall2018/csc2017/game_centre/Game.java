@@ -2,6 +2,7 @@ package fall2018.csc2017.game_centre;
 
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
+
 import java.io.Serializable;
 
 /**
@@ -39,6 +40,7 @@ public abstract class Game implements Serializable {
 
     /**
      * returns game over text depends on the outcome of the game
+     *
      * @return Win or lose
      */
     public abstract String gameOverText();
@@ -55,6 +57,7 @@ public abstract class Game implements Serializable {
 
     /**
      * Return GameActivity intent
+     *
      * @param PackageContext game activity context
      * @return Intent of Game Activity
      */

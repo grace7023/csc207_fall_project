@@ -76,8 +76,8 @@ public class GameMenuActivity extends AppCompatActivity {
      * Puts the app into dark mode by setting the background colour
      * to dark grey and the text colour to white
      */
-    private void setDarkView(){
-        if (darkView){
+    private void setDarkView() {
+        if (darkView) {
             RelativeLayout relativeLayout = findViewById(R.id.gameMenuActivity);
             relativeLayout.setBackgroundColor(Color.DKGRAY);
             TextView gameText = findViewById(R.id.GameText);

@@ -27,6 +27,9 @@ public class GameOverActivity extends AppCompatActivity {
      */
     private String gameFilename;
 
+    /**
+     * Boolean value corresponding to whether the game is in dark mode or not
+     */
     private boolean darkView;
     /**
      * Current Game
@@ -86,6 +89,10 @@ public class GameOverActivity extends AppCompatActivity {
         finish();
     }
 
+    /**
+     * Puts the app into dark mode by setting background colour to dark grey
+     * and text to white
+     */
     private void setUpDarkview(){
         if (darkView){
             ConstraintLayout constraintLayout = findViewById(R.id.gameOverActivity);

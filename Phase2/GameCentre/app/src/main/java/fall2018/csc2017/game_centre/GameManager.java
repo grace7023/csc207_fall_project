@@ -1,4 +1,5 @@
 package fall2018.csc2017.game_centre;
+
 import fall2018.csc2017.game_centre.sliding_tiles.*;
 import fall2018.csc2017.game_centre.twenty_forty.*;
 import fall2018.csc2017.game_centre.minesweeper.*;
@@ -35,8 +36,10 @@ public class GameManager extends AppCompatActivity {
      * Boolean value corresponding to whether the game is in dark mode or not"
      */
     private boolean darkView;
+
     /**
      * Creates the UI elements
+     *
      * @param savedInstanceState A bundle
      */
     @Override
@@ -149,7 +152,7 @@ public class GameManager extends AppCompatActivity {
      * colour to dark grey and the text colour to white. This applies to all
      * other screens of the app, not specifically this one.
      */
-    private void setUpDarkView(){
+    private void setUpDarkView() {
         if (darkView) {
             gameManagerLayout.setBackgroundColor(Color.DKGRAY);
             TextView slidingTilesHeading = findViewById(R.id.SlidingTilesHeading);

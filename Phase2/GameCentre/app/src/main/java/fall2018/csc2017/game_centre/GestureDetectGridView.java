@@ -30,6 +30,7 @@ public class GestureDetectGridView<T extends Game> extends GridView {
      * than a magic number
      */
     public static final HashMap<String, Integer> SWIPE_DIRECTION_ARG;
+
     static {
         HashMap<String, Integer> map = new HashMap<>();
         map.put("Up", 1);
@@ -98,8 +99,7 @@ public class GestureDetectGridView<T extends Game> extends GridView {
                                 moveArg = SWIPE_DIRECTION_ARG.get("Up");
                             }
 
-                        }
-                        else {
+                        } else {
                             moveArg = SWIPE_DIRECTION_ARG.get("Left");
                             if (e1.getX() - e2.getX() < 0) {
                                 moveArg = SWIPE_DIRECTION_ARG.get("Right");
