@@ -46,7 +46,7 @@ public class Box implements Serializable {
      * Tells if the Box is the empty Box
      * @return True iff exponent == 0
      */
-    public boolean isEmptyBox() {
+    boolean isEmptyBox() {
         return exponent == 0;
     }
 
@@ -54,7 +54,7 @@ public class Box implements Serializable {
      * Gets the exponent contained in this Box
      * @return the exponent which was set to this Box at construction
      */
-    public int getExponent() {
+    int getExponent() {
         return exponent;
     }
 
@@ -62,7 +62,7 @@ public class Box implements Serializable {
      * Sets the exponent of this Box
      * @param newExponent 0 represents the empty Box, otherwise sets to a new exponent as normal
      */
-    public void setExponent(int newExponent) {
+    void setExponent(int newExponent) {
         this.exponent = newExponent;
         this.background = BOX_BACKGROUNDS[newExponent];
     }

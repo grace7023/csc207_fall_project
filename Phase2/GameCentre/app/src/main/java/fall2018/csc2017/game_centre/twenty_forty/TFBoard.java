@@ -2,7 +2,6 @@ package fall2018.csc2017.game_centre.twenty_forty;
 
 import android.support.annotation.NonNull;
 
-import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
 import java.util.NoSuchElementException;
@@ -47,7 +46,7 @@ public class TFBoard extends Observable implements Serializable, Iterable<Box> {
     /**
      *
      */
-    public void update() {
+    void update() {
         setChanged();
         notifyObservers();
     }

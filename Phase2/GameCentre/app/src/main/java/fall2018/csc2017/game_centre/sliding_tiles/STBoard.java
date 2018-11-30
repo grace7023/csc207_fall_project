@@ -33,7 +33,7 @@ public class STBoard extends Observable implements Serializable, Iterable<STTile
      * @param tiles     tiles for board
      * @param boardSize size of the board
      */
-    public STBoard(List<STTile> tiles, int boardSize) {
+    STBoard(List<STTile> tiles, int boardSize) {
         this.boardSize = boardSize;
         Iterator<STTile> tileIterator = tiles.iterator();
         this.tiles = new STTile[boardSize][boardSize];
@@ -60,7 +60,7 @@ public class STBoard extends Observable implements Serializable, Iterable<STTile
      * @param col the tile column
      * @return the tile at (row, col)
      */
-    public STTile getTile(int row, int col) {
+    STTile getTile(int row, int col) {
         return tiles[row][col];
     }
 
@@ -72,7 +72,7 @@ public class STBoard extends Observable implements Serializable, Iterable<STTile
      * @param row2 the second tile row
      * @param col2 the second tile col
      */
-    public void swapTiles(int row1, int col1, int row2, int col2) {
+    void swapTiles(int row1, int col1, int row2, int col2) {
 
         STTile temp = this.tiles[row1][col1];
         this.tiles[row1][col1] = this.tiles[row2][col2];

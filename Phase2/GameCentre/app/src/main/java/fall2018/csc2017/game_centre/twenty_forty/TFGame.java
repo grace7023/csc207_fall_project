@@ -19,12 +19,12 @@ public class TFGame extends Game implements Serializable {
     /**
      * Maximum number of boxes being randomly set
      */
-    private final int INIT_BOX_NUM = 2;
+    private static final int INIT_BOX_NUM = 2;
 
     /**
      * The exponent that lead to victory
      */
-    private final int WINNING_EXPONENT = 11;
+    private static final int WINNING_EXPONENT = 11;
 
     /**
      * The size of the board
@@ -63,7 +63,7 @@ public class TFGame extends Game implements Serializable {
      * Manage a board that has been pre-populated
      * @param board the board
      */
-    public TFGame(TFBoard board) {
+    TFGame(TFBoard board) {
         this.boardSize = (int) Math.sqrt(board.getNumBoxes());
         this.board = board;
         this.pastBoards = new ArrayList<>();
@@ -74,7 +74,7 @@ public class TFGame extends Game implements Serializable {
 
     /**
      * Manage a board with given boardSize
-     * @param boardSize
+     * @param boardSize the side length of the board
      */
     public TFGame(int boardSize) {
         this.boardSize = boardSize;
@@ -109,7 +109,7 @@ public class TFGame extends Game implements Serializable {
 
     /**
      * Return current score
-     * @return
+     * @return score
      */
     public int getScore() {
         return score;
@@ -192,7 +192,7 @@ public class TFGame extends Game implements Serializable {
      *
      * @return True iff tiles are not movable
      */
-    public boolean isStuck() {
+    private boolean isStuck() {
         for (int row = 0; row < boardSize; row++) {
             for (int col = 0; col < boardSize; col++) {
                 int curExp = board.getBox(row, col).getExponent();
@@ -255,8 +255,8 @@ public class TFGame extends Game implements Serializable {
 
     /**
      * Get the list of all of the Boxes in order
-     * @param board
-     * @return
+     * @param board the TFGame board
+     * @return a list of all the boxes
      */
     private ArrayList<Box> getBoxList(TFBoard board) {
         ArrayList<Box> boxes = new ArrayList<>();

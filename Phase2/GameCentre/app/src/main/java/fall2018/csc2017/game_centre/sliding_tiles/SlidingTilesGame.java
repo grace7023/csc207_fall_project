@@ -64,7 +64,7 @@ public class SlidingTilesGame extends Game implements Serializable {
      *
      * @param board the board
      */
-    public SlidingTilesGame(STBoard board) {
+    SlidingTilesGame(STBoard board) {
         this.boardSize = board.getBoardSize();
         this.board = board;
         this.score = 0;
@@ -179,7 +179,7 @@ public class SlidingTilesGame extends Game implements Serializable {
      *
      * @return True iff the tiles of board are in ascending row-major order
      */
-    public boolean puzzleSolved() {
+    boolean puzzleSolved() {
         int trackingId = 1;
         for (STTile cur : board) {
             if (cur.getId() != trackingId) {
