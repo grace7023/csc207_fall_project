@@ -90,7 +90,7 @@ public class MSBoard extends Observable implements Serializable, Iterable<MSTile
 //    }
 
     void revealTile(MSTile tile) {
-        if (!tile.isRevealed())
+        if (!tile.isRevealed() && tile.getId() != MSTile.MINE)
             numRevealed++;
         tile.reveal();
         setChanged();

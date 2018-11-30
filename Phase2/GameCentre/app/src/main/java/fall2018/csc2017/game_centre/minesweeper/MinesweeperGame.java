@@ -21,17 +21,17 @@ public class MinesweeperGame extends Game implements Serializable {
     /**
      * The number of rows of the board.
      */
-    private int numRows;
+    public int numRows;
 
     /**
      * The number of columns of the board.
      */
-    private int numCols;
+    public int numCols;
 
     /**
      * The number of bombs on the board.
      */
-    private int numBombs;
+    public int numBombs;
 
     /**
      * The number of bombs left on the board. Represents numBombs - number of Flagged tiles
