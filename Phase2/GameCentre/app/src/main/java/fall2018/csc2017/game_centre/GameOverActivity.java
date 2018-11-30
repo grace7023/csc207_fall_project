@@ -9,11 +9,31 @@ import android.support.v7.app.AppCompatActivity;
 
 public class GameOverActivity extends AppCompatActivity {
 
+    /**
+     * Create Button to be connected with GameOverButton
+     */
     Button GameOverButton;
+
+    /**
+     * Name of current user
+     */
     private String currentUsername;
+
+    /**
+     * Current game file name
+     */
     private String gameFilename;
+
+    /**
+     * Current Game
+     */
     private Game game;
 
+    /**
+     * Create UI for Game Over
+     *
+     * @param savedInstanceState a bundle
+     */
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_gameover);
@@ -23,6 +43,9 @@ public class GameOverActivity extends AppCompatActivity {
         game = (Game) getIntent().getSerializableExtra("GAME");
     }
 
+    /**
+     * Connect GameOverButton to actual button in activity
+     */
     public void addGameOverButton() {
         GameOverButton = findViewById(R.id.gameoverButton);
         GameOverButton.setOnClickListener(new View.OnClickListener() {
@@ -33,6 +56,9 @@ public class GameOverActivity extends AppCompatActivity {
         });
     }
 
+    /**
+     * Switch to Game Menu Activity
+     */
     public void switchToGMA() {
         Intent GMAIntent = new Intent(getApplicationContext(), GameMenuActivity.class);
         Bundle gmaBundle = new Bundle();
