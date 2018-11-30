@@ -94,4 +94,9 @@ public class GameOverActivity extends AppCompatActivity {
             gameOverText.setTextColor(Color.WHITE);
         }
     }
+
+    @Override
+    public void onBackPressed() {
+        switchToGMA();
+    }
 }
