@@ -28,7 +28,7 @@
         <activity android:name=".minesweeper.MinesweeperGameActivity" />
         <activity android:name=".twenty_forty.TFSettings" />
         <activity android:name=".twenty_forty.TFGameActivity" />
-        <activity android:name=".GameoverActivity"></activity>
+        <activity android:name=".GameOverActivity"></activity>
     </application>
 
 </manifest>
