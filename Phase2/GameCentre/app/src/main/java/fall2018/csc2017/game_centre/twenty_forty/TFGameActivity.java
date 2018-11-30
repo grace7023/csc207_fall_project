@@ -29,7 +29,7 @@ public class TFGameActivity extends GameActivity implements Observer {
     /**
      * The board manager for SlidingTiles.
      */
-     private TFGame tfGame;
+    private TFGame tfGame;
 
 
     /**
@@ -84,8 +84,7 @@ public class TFGameActivity extends GameActivity implements Observer {
             scoreboard.saveToFile();
             if (tfGame.isStuck()) {
                 switchToGameover();
-            }
-            else
+            } else
                 switchToGMA();
         }
     }
@@ -208,7 +207,8 @@ public class TFGameActivity extends GameActivity implements Observer {
 
     /**
      * updating the display and autosave the game
-     * @param o Observable
+     *
+     * @param o   Observable
      * @param arg Object
      */
     @Override
@@ -232,16 +232,16 @@ public class TFGameActivity extends GameActivity implements Observer {
      */
     public void addUndoButton() {
         Button undoButton = findViewById(R.id.undoButton);
-            undoButton.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    if (tfGame.canUndoMove()) {
-                        tfGame.undo();
-                    } else {
-                        Toast.makeText(TFGameActivity.this, "No more undo's", Toast.LENGTH_LONG).show();
-                    }
+        undoButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (tfGame.canUndoMove()) {
+                    tfGame.undo();
+                } else {
+                    Toast.makeText(TFGameActivity.this, "No more undo's", Toast.LENGTH_LONG).show();
                 }
-            });
+            }
+        });
     }
 
     /**
@@ -255,8 +255,8 @@ public class TFGameActivity extends GameActivity implements Observer {
      * Update score from current game state
      */
     private void updateScore() {
-            String newScore = "Score: " + String.valueOf(tfGame.getScore());
-            currentScore.setText(newScore);
+        String newScore = "Score: " + String.valueOf(tfGame.getScore());
+        currentScore.setText(newScore);
     }
 
     /**
@@ -277,7 +277,8 @@ public class TFGameActivity extends GameActivity implements Observer {
     }
 
     /**
-     * Switch to GameMenuActivity
+     * Switch to GameMenuActivity for Minesweeper. Pass the game, game description, game file name,
+     * current username, and game name into the intent.
      */
     private void switchToGMA() {
         Intent tfGMAIntent = new Intent(getApplicationContext(), GameMenuActivity.class);
