@@ -75,11 +75,20 @@ public class GestureDetectGridView<T extends Game> extends GridView {
                 return true;
             }
 
+            /**
+             * Detect swiping movement
+             *
+             * Inspired from Section: Bonus: Detecting Swipe/Fling Direction section
+             * http://codetheory.in/android-gesturedetector/
+             * @param e1 Initial motion (started swiping)
+             * @param e2 Final motion (stopped swiping)
+             * @param velocityX velocity in x direction
+             * @param velocityY velocity in y direction
+             * @return true if swipe was successfully detected
+             */
             @Override
             public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX, float velocityY) {
                 if (detectFling) {
-                    int minX = 50;
-                    int minY = 50;
                     int moveArg = 0;
                     if (Math.abs(e1.getY() - e2.getY()) >= SWIPE_MIN_DISTANCE ||
                             Math.abs(e1.getX() - e2.getX()) >= SWIPE_MIN_DISTANCE) {
