@@ -172,6 +172,7 @@ public class MinesweeperSettings extends AppCompatActivity {
         gmaBundle.putString("GAME_DESC", MinesweeperGame.GAME_DESC);
         gmaBundle.putString("GAME_FILENAME", gameFilename);
         gmaBundle.putString("USERNAME", currentUsername);
+        gmaBundle.putString("GAME_NAME", "MINESWEEPER");
         msGMAIntent.putExtras(gmaBundle);
         startActivity(msGMAIntent);
         overridePendingTransition(R.anim.slide_from_left, R.anim.slide_to_right);
