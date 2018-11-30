@@ -3,7 +3,9 @@ package fall2018.csc2017.game_centre.twenty_forty;
 import org.junit.Test;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
+import java.util.NoSuchElementException;
 
 import static org.junit.Assert.*;
 
@@ -297,6 +299,24 @@ public class TFBoardTest {
         game.getBoard().getBox(0,0 ).setExponent(0);
         game.getBoard().getBox(2,2 ).setExponent(0);
         game.move(1);
-        assertEquals(0,game.getBoard().getBox(2,2 ).getExponent());
+        assertEquals(5,game.getBoard().getBox(1,1 ).getExponent());
+    }
+
+    /**
+     *  Tests whether the iterator throws a NoSuchElementException if given bad tiles
+     */
+    @Test(expected = NoSuchElementException.class)
+    public void testIterator() {
+        setUpGame(makeTwoBoxes());
+        TFBoard board = game.getBoard();
+
+        List<Box> boxes = new ArrayList<>();
+        TFBoard emptyBoard = new TFBoard(boxes, 4);
+        Iterator<Box> tileIterator = board.iterator();
+        for (int row = 0; row < 99; row++) {
+            for (int col = 0; col < 99; col++) {
+                emptyBoard.getBox(row,col).setExponent(tileIterator.next().getExponent());
+            }
+        }
     }
 }

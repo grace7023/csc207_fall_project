@@ -3,7 +3,6 @@ package fall2018.csc2017.game_centre.minesweeper;
 import android.support.annotation.NonNull;
 
 import java.io.Serializable;
-import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
 import java.util.NoSuchElementException;
@@ -21,10 +20,13 @@ public class MSBoard extends Observable implements Serializable, Iterable<MSTile
     private int numCols;
 
     /**
-     * The tiles on the board in row-major order.
+     * The tiles on the board
      */
     private MSTile[][] tiles;
 
+    /**
+     * The number of revealed tiles currently on the board
+     */
     private int numRevealed;
 
     /**
@@ -36,7 +38,7 @@ public class MSBoard extends Observable implements Serializable, Iterable<MSTile
      * @param numRows number of rows of the board
      * @param numCols number of columns of the board
      */
-    public MSBoard(List<MSTile> tiles, int numRows, int numCols) {
+    MSBoard(List<MSTile> tiles, int numRows, int numCols) {
         this.numRows = numRows;
         this.numCols = numCols;
         numRevealed = 0;
@@ -49,21 +51,36 @@ public class MSBoard extends Observable implements Serializable, Iterable<MSTile
         }
     }
 
+    /**
+     * Returns the number of revealed tiles currently on this board
+     *
+     * @return number of revealed tiles
+     */
     int getNumRevealed() {
         return numRevealed;
     }
 
     /**
-     * return boardSize
+     * Returns the board's dimensions, which is its numRows * numCols
      *
-     * @return boardSize
+     * @return the boardSize
      */
     int getBoardSize() {
         return numRows * numCols;
     }
 
+    /**
+     * Returns the number of rows of this board
+     *
+     * @return number of rows
+     */
     int getNumRows() {return numRows; }
 
+    /**
+     * Returns the number of columns of this board
+     *
+     * @return number of columns
+     */
     int getNumCols() {return numCols; }
 
     /**
@@ -78,17 +95,10 @@ public class MSBoard extends Observable implements Serializable, Iterable<MSTile
     }
 
     /**
-     * Return a string representation of this Board
+     * Reveals the tile given and notifies the observers
      *
-     * @return A string representation of the Tiles within this Board
+     * @param tile the tile being revealed
      */
-//    @Override
-//    public String toString() {
-//        return "Board{" +
-//                "tiles=" + Arrays.toString(tiles) +
-//                '}';
-//    }
-
     void revealTile(MSTile tile) {
         if (!tile.isRevealed() && tile.getId() != MSTile.MINE)
             numRevealed++;
@@ -97,6 +107,12 @@ public class MSBoard extends Observable implements Serializable, Iterable<MSTile
         notifyObservers();
     }
 
+    /**
+     * Sets the tile at row, col to be flagged and notifies the observers
+     *
+     * @param row the row of the tile on the board
+     * @param col the column of the tile on the board
+     */
     void toggleFlag(int row, int col) {
         getTile(row, col).toggleFlag();
 
@@ -104,6 +120,12 @@ public class MSBoard extends Observable implements Serializable, Iterable<MSTile
         notifyObservers();
     }
 
+    /**
+     * Gets the position of the selected MSTile object on this board
+     *
+     * @param tile the MSTile object that gives its position
+     * @return the position of the tile, -1 if the tile is not on this board
+     */
     int getPosition(MSTile tile) {
         int counter = 0;
         for (MSTile t : this) {
@@ -118,7 +140,7 @@ public class MSBoard extends Observable implements Serializable, Iterable<MSTile
     /**
      * Return an iterator of this Board
      *
-     * @return A BoardIterator which contains all Tiles within this board, in row-major order.
+     * @return A BoardIterator which contains all Tiles within this board
      */
     @Override
     @NonNull

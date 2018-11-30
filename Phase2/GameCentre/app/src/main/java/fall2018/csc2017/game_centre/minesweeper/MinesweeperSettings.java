@@ -23,26 +23,42 @@ import fall2018.csc2017.game_centre.R;
 public class MinesweeperSettings extends AppCompatActivity {
 
     /**
-     * number of rows of the Minesweeper board.
+     * the number of rows to be inputted into MinesweeperGame.
      */
     private int numRows;
-    private int numCols;
-    private int numBombs;
-//    private final int numCols = 10;
 
     /**
-     * SlidingTiles Game in function.
+     * the number of columns to be inputted into MinesweeperGame.
+     */
+    private int numCols;
+
+    /**
+     * the number of bombs to be inputted into MinesweeperGame.
+     */
+    private int numBombs;
+
+    /**
+     * the MinesweeperGame object that will be instantiated with the user inputted settings
      */
     private MinesweeperGame minesweeperGame;
 
+    /**
+     * the text space for the user to input the number of bombs
+     */
     private EditText numBombsField;
 
+    /**
+     * the current logged in user's username as a String
+     */
     private String currentUsername;
 
+    /**
+     * the file name for saving and loading
+     */
     private String gameFilename;
 
     /**
-     * Set up UI interface for SlidingTilesSettings.
+     * Set up UI interface for MinesweeperSettings.
      *
      * @param savedInstanceState a bundle
      */
@@ -100,6 +116,9 @@ public class MinesweeperSettings extends AppCompatActivity {
         });
     }
 
+    /**
+     * Gets the input for the number of bombs from the player
+     */
     private void setupNumBombs() {
         numBombsField = findViewById(R.id.msNumberBombs);
         if (!(numBombsField.getText().toString().equals(""))) {
@@ -108,7 +127,7 @@ public class MinesweeperSettings extends AppCompatActivity {
     }
 
     /**
-     * Add start game button listener
+     * Adds the start game button with onclick to instantiate the MinesweeperGame with the previously inputted values
      */
     private void addStartButtonListener() {
         Button startButton = findViewById(R.id.StartButton);
@@ -122,7 +141,7 @@ public class MinesweeperSettings extends AppCompatActivity {
     }
 
     /**
-     * Initiates a new game and switches the activity.
+     * Initiates a new game and switches to the game activity.
      */
     private void switchToGame() {
         if (TextUtils.isEmpty(numBombsField.getText().toString())) {
@@ -141,6 +160,11 @@ public class MinesweeperSettings extends AppCompatActivity {
         }
     }
 
+    /**
+     * Returns true if the user inputted number of bombs is more than the number of tiles on the selected board
+     *
+     * @return true if inputted number of bombs is invalid, false if valid
+     */
     private boolean invalidUserInput() {
         return numBombs >= numRows * numCols;
     }
@@ -150,7 +174,6 @@ public class MinesweeperSettings extends AppCompatActivity {
      *
      * @param fileName path to save file
      */
-
     public void saveToFile(String fileName) {
         try {
             ObjectOutputStream outputStream = new ObjectOutputStream(

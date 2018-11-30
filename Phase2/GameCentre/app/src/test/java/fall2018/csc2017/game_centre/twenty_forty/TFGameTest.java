@@ -216,4 +216,12 @@ public class TFGameTest {
         game.getBoard().getBox(0,0 ).setExponent(11);
         assertEquals("You won!", game.gameOverText());
     }
+
+    /**
+     * Test to see if getexponent == 0
+     */
+    @Test
+    public void rng(){
+        game = new TFGame(2);
+    }
 }
