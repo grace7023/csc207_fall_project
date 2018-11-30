@@ -90,7 +90,7 @@ public class GestureDetectGridView<T extends Game> extends GridView {
             @Override
             public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX, float velocityY) {
                 if (detectFling) {
-                    int moveArg = 0;
+                    int moveArg;
                     if (Math.abs(e1.getY() - e2.getY()) >= SWIPE_MIN_DISTANCE ||
                             Math.abs(e1.getX() - e2.getX()) >= SWIPE_MIN_DISTANCE) {
                         if (Math.abs(e1.getY() - e2.getY()) > Math.abs(e1.getX() - e2.getX())) {
