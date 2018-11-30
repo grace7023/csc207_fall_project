@@ -105,6 +105,7 @@ public class MinesweeperGameActivity extends GameActivity implements Observer {
         currentUsername = getIntent().getStringExtra("USERNAME");
         gameFilename = getIntent().getStringExtra("GAME_FILENAME");
         loadFromFile(gameFilename);
+        minesweeperGame.setLoadTime();
         createTileButtons(this);
         setContentView(R.layout.activity_minesweeper_game);
         addFlagButton();
@@ -116,7 +117,6 @@ public class MinesweeperGameActivity extends GameActivity implements Observer {
         gridView.setNumColumns(minesweeperGame.getNumCols());
         gridView.setGame(minesweeperGame);
         timer = findViewById(R.id.timer);
-        minesweeperGame.setLoadTime();
 
         // updates the timer for Minesweeper
         // This code was adapted from a post by waqaslam on 2018/11/29
@@ -301,7 +301,7 @@ public class MinesweeperGameActivity extends GameActivity implements Observer {
 
     @Override
     public void onBackPressed() {
-        switchToGMA();
         minesweeperGame.setSaveTime();
+        switchToGMA();
     }
 }

@@ -49,6 +49,7 @@ public class TFGame extends Game implements Serializable {
     /**
      * The score of the current game
      */
+
     private int score;
 
     /**

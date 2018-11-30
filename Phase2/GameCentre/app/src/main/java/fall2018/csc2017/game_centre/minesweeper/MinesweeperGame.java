@@ -349,13 +349,22 @@ public class MinesweeperGame extends Game implements Serializable {
         System.out.println("Start: " + startTime/1000000000);
         System.out.println("Load: " + loadTime/1000000000);
         System.out.println("Save: " + saveTime/1000000000);
-        System.out.println("Pre-save time: " + (saveTime - startTime)/1000000000);
+//        System.out.println("Pre-save time: " + (saveTime - startTime)/1000000000);
         System.out.println("During-save time: " + (loadTime - saveTime)/1000000000);
-        System.out.println("Post-save time: " + (System.nanoTime() - loadTime)/1000000000);
+//        System.out.println("Post-save time: " + (System.nanoTime() - loadTime)/1000000000);
         System.out.println("Nano time: " + System.nanoTime()/1000000000);
         return min + ":" + sec;
     }
 
+    void setSaveTime(){
+        saveTime = System.nanoTime();
+        System.out.println("SAVE TIME IS BEING CALLED BBBBBBBBBBBBBB");
+    }
+
+    void setLoadTime(){
+        loadTime = System.nanoTime();
+        System.out.println("LOAD TIME IS BEING CALLED AAAAAAAAAAA");
+    }
     int getNumBombs(){ return totalFlagged; }
     int getNumRows() { return numRows; }
     int getNumCols() { return numCols; }
@@ -365,12 +374,4 @@ public class MinesweeperGame extends Game implements Serializable {
         else return "YOU WIN!";
     }
 
-    public void setSaveTime(){
-        saveTime = System.nanoTime() - startTime;
-        System.out.println("Save time is: " + saveTime);
-    }
-
-    public void setLoadTime(){
-        loadTime = (System.nanoTime() - startTime)/1000000000;
-    }
 }
