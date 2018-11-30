@@ -24,6 +24,9 @@ public class GameMenuActivity extends AppCompatActivity {
      */
     private String gameFilename;
 
+    /**
+     * Name of current user
+     */
     private String currentUsername;
 
     /**
@@ -31,8 +34,14 @@ public class GameMenuActivity extends AppCompatActivity {
      */
     private Game game;
 
+    /**
+     * Game description
+     */
     private String gameDesc;
 
+    /**
+     * true if Darkmode Enabled
+     */
     private boolean DarkView;
 
     /**
@@ -40,7 +49,6 @@ public class GameMenuActivity extends AppCompatActivity {
      *
      * @param savedInstanceState a bundle
      */
-
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game_menu);
