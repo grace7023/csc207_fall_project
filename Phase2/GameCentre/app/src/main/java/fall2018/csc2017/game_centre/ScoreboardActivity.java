@@ -30,17 +30,23 @@ public class ScoreboardActivity extends AppCompatActivity {
      */
     public List<Score> playerScores = new ArrayList<>();
 
+    /** the game that the scoreboard is currently displaying scores for */
     private Game game;
 
+    /** the username of the current logged in user */
     private String currentUsername;
 
+    /** the save file directory of the game */
     private String gameFilename;
 
+    /** the description of the game */
     private String gameDesc;
 
+    /** name of the game */
     private String gameName;
 
-    private TextView scoreboardGameTitle;
+    /** the textview object that displays the title of the game in scoreboard */
+    TextView scoreboardGameTitle;
 
     /**
      * Creates the UI elements
@@ -104,7 +110,9 @@ public class ScoreboardActivity extends AppCompatActivity {
         return textView;
     }
 
-
+    /**
+     * Displays the title of the scoreboard
+     */
     public void setUpScoreboardGameTitle(){
         scoreboardGameTitle = findViewById(R.id.scoreboardGameTitle);
         scoreboardGameTitle.setText(gameName);
