@@ -3,7 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="fall2018.csc2017.game_centre.GameMenuActivity">
+    tools:context="fall2018.csc2017.game_centre.GameMenuActivity"
+    android:id="@+id/gameMenuActivity">
 
     <TextView
         android:id="@+id/GameText"

@@ -11,6 +11,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 /**
@@ -29,7 +30,9 @@ public class GameManager extends AppCompatActivity {
 
     private String currentUsername;
 
-    private ConstraintLayout relativeLayout;
+    private ConstraintLayout gameManagerLayout;
+
+    private boolean DarkView;
     /**
      * Creates the UI elements
      * @param savedInstanceState A bundle
@@ -45,12 +48,14 @@ public class GameManager extends AppCompatActivity {
 
         currentUsername = getIntent().getStringExtra("USERNAME");
 
-        relativeLayout = findViewById(R.id.gameManagerActivity);
+        gameManagerLayout = findViewById(R.id.gameManagerActivity);
 
         addSlidingTilesListener();
         addTFListener();
         addMinesweeperListener();
         addDarkButton();
+
+        DarkView = false;
     }
 
     /**
@@ -67,6 +72,7 @@ public class GameManager extends AppCompatActivity {
                 gmaBundle.putString("GAME_FILENAME", "Minesweeper_" + currentUsername);
                 gmaBundle.putString("USERNAME", currentUsername);
                 gmaBundle.putString("GAME_NAME", "MINESWEEPER");
+                gmaBundle.putBoolean("DARKVIEW", DarkView);
                 msGMAIntent.putExtras(gmaBundle);
                 startActivity(msGMAIntent);
                 overridePendingTransition(R.anim.slide_from_right, R.anim.slide_to_left);
@@ -89,6 +95,7 @@ public class GameManager extends AppCompatActivity {
                 gmaBundle.putString("GAME_FILENAME", "TwentyForty_" + currentUsername);
                 gmaBundle.putString("USERNAME", currentUsername);
                 gmaBundle.putString("GAME_NAME", "2048");
+                gmaBundle.putBoolean("DARKVIEW", DarkView);
                 tfGMAIntent.putExtras(gmaBundle);
                 startActivity(tfGMAIntent);
                 overridePendingTransition(R.anim.slide_from_right, R.anim.slide_to_left);
@@ -111,6 +118,7 @@ public class GameManager extends AppCompatActivity {
                 gmaBundle.putString("GAME_FILENAME", "SlidingTiles_" + currentUsername);
                 gmaBundle.putString("USERNAME", currentUsername);
                 gmaBundle.putString("GAME_NAME", "SLIDING TILES");
+                gmaBundle.putBoolean("DARKVIEW", DarkView);
                 stGMAIntent.putExtras(gmaBundle);
                 startActivity(stGMAIntent);
                 overridePendingTransition(R.anim.slide_from_right, R.anim.slide_to_left);
@@ -124,16 +132,46 @@ public class GameManager extends AppCompatActivity {
         darkButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                relativeLayout.setBackgroundColor(Color.DKGRAY);
-                TextView slidingTilesHeading = findViewById(R.id.SlidingTilesHeading);
-                slidingTilesHeading.setTextColor(Color.WHITE);
-                TextView minesweeperHeading = findViewById(R.id.minesweeperHeading);
-                minesweeperHeading.setTextColor(Color.WHITE);
-                TextView twentyfourtyHeading = findViewById(R.id.TwentyFortyHeading);
-                twentyfourtyHeading.setTextColor(Color.WHITE);
-                TextView title = findViewById(R.id.GameCentreTitle);
-                title.setTextColor(Color.WHITE);
+                if (!DarkView) {
+                    setGameManagerDark();
+                    DarkView = true;
+                } else {
+                    setGameManagerLight();
+                    DarkView = false;
+                }
+//                setGameMenuDark();
             }
         });
     }
+
+    private void setGameManagerDark(){
+        gameManagerLayout.setBackgroundColor(Color.DKGRAY);
+        TextView slidingTilesHeading = findViewById(R.id.SlidingTilesHeading);
+        slidingTilesHeading.setTextColor(Color.WHITE);
+        TextView minesweeperHeading = findViewById(R.id.minesweeperHeading);
+        minesweeperHeading.setTextColor(Color.WHITE);
+        TextView twentyfourtyHeading = findViewById(R.id.TwentyFortyHeading);
+        twentyfourtyHeading.setTextColor(Color.WHITE);
+        TextView title = findViewById(R.id.GameCentreTitle);
+        title.setTextColor(Color.WHITE);
+    }
+
+    private void setGameManagerLight(){
+        gameManagerLayout.setBackgroundColor(Color.WHITE);
+        TextView slidingTilesHeading = findViewById(R.id.SlidingTilesHeading);
+        slidingTilesHeading.setTextColor(Color.BLACK);
+        TextView minesweeperHeading = findViewById(R.id.minesweeperHeading);
+        minesweeperHeading.setTextColor(Color.BLACK);
+        TextView twentyfourtyHeading = findViewById(R.id.TwentyFortyHeading);
+        twentyfourtyHeading.setTextColor(Color.BLACK);
+        TextView title = findViewById(R.id.GameCentreTitle);
+        title.setTextColor(Color.BLACK);
+    }
+
+//    private void setGameMenuDark(){
+//        gameMenuLayout.setBackgroundColor(Color.DKGRAY);
+//        TextView gameText = findViewById(R.layout.activity_game_menu);
+//        gameText.setTextColor(Color.WHITE);
+//
+//    }
 }
