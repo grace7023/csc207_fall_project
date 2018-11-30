@@ -24,11 +24,27 @@ public class GameManager extends AppCompatActivity {
      */
     private ImageButton mSlidingTilesBtn;
 
+    /**
+     * Image button for 2048 game
+     */
+
     private ImageButton mTwentyFortyBtn;
+
+    /**
+     * Image button for Minesweeper
+     */
 
     private ImageButton mMinesweeperBtn;
 
+    /**
+     * Current user's username
+     */
+
     private String currentUsername;
+
+    /**
+     * Layout for Game Manager
+     */
 
     private ConstraintLayout gameManagerLayout;
 
