@@ -2,6 +2,7 @@ package fall2018.csc2017.game_centre.minesweeper;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.util.Log;
@@ -25,8 +26,9 @@ public class MinesweeperSettings extends AppCompatActivity {
      * number of rows of the Minesweeper board.
      */
     private int numRows;
-
-    private final int numCols = 10;
+    private int numCols;
+    private int numBombs;
+//    private final int numCols = 10;
 
     /**
      * SlidingTiles Game in function.
@@ -53,7 +55,16 @@ public class MinesweeperSettings extends AppCompatActivity {
 
         addStartButtonListener();
         setupBoardSizeSpinner();
-        numBombsField = findViewById(R.id.msNumberBombs);
+
+        final Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                setupNumBombs();
+                handler.postDelayed(this, 100);
+            }
+        }, 100);
+        //setupNumBombs();
     }
 
     /**
@@ -72,14 +83,29 @@ public class MinesweeperSettings extends AppCompatActivity {
         boardSize.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                numRows = Integer.valueOf(adapterView.getItemAtPosition(i).toString());
-//                numCols = Integer.valueOf(adapterView.getItemAtPosition(i).toString());
+                if (i == 0) {
+                    numRows = 10;
+                    numCols = 10;
+                } else if (i == 1) {
+                    numRows = 13;
+                    numCols = 13;
+                } else if (i == 2) {
+                    numRows = 15;
+                    numCols = 11;
+                }
             }
 
             @Override
             public void onNothingSelected(AdapterView<?> adapterView) {
             }
         });
+    }
+
+    private void setupNumBombs() {
+        numBombsField = findViewById(R.id.msNumberBombs);
+        if (!(numBombsField.getText().toString().equals(""))) {
+            numBombs = Integer.valueOf(numBombsField.getText().toString());
+        }
     }
 
     /**
@@ -90,7 +116,8 @@ public class MinesweeperSettings extends AppCompatActivity {
         startButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                minesweeperGame = new MinesweeperGame(numRows, numCols, 10);
+                minesweeperGame = new MinesweeperGame(numRows, numCols, numBombs);
+                System.out.println(numBombs);
                 switchToGame();
                 finish();
             }
@@ -117,7 +144,7 @@ public class MinesweeperSettings extends AppCompatActivity {
     }
 
     private boolean invalidUserInput() {
-        return Integer.valueOf(numBombsField.getText().toString()) >= numRows * numCols;
+        return numBombs >= numRows * numCols;
     }
 
     /**
