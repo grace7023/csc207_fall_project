@@ -11,6 +11,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
+
 import java.io.*;
 
 import com.google.android.gms.tasks.OnFailureListener;
@@ -87,7 +88,7 @@ public class LogInScreen extends AppCompatActivity {
 
     private void initializeUserFile() {
         try {
-            final File localFile = File.createTempFile("users","txt");
+            final File localFile = File.createTempFile("users", "txt");
             userRef.getFile(localFile).addOnSuccessListener(new OnSuccessListener<FileDownloadTask.TaskSnapshot>() {
                 @Override
                 public void onSuccess(FileDownloadTask.TaskSnapshot taskSnapshot) {
@@ -150,14 +151,14 @@ public class LogInScreen extends AppCompatActivity {
      * Perform log in function
      */
 
-    private void startLogIn(){
+    private void startLogIn() {
         String email = emailField.getText().toString();
         String password = passwordField.getText().toString();
 
         if (TextUtils.isEmpty(email) || TextUtils.isEmpty(password)) {
             Toast.makeText(LogInScreen.this, "Fields are empty", Toast.LENGTH_LONG).show();
         } else {
-            if (email.contains(":") || password.contains(":")){
+            if (email.contains(":") || password.contains(":")) {
                 Toast.makeText(LogInScreen.this, "Invalid character input " +
                         "(char \":\" is not allowed ", Toast.LENGTH_LONG).show();
             } else {
@@ -172,6 +173,7 @@ public class LogInScreen extends AppCompatActivity {
 
     /**
      * Attempt a log in with username and password
+     *
      * @param username user's inputted username
      * @param password user's inputted password
      * @return whether log in was successful
@@ -185,9 +187,9 @@ public class LogInScreen extends AppCompatActivity {
         try {
             br = new BufferedReader(new FileReader(userFile));
 
-            while ((line = br.readLine()) != null){
+            while ((line = br.readLine()) != null) {
                 if ((getUsernameFromLine(line).equals(username)) &&
-                        (Addons.checkString(password, getPasswordFromLine(line)))){
+                        (Addons.checkString(password, getPasswordFromLine(line)))) {
                     check = true;
                 }
             }
@@ -204,6 +206,7 @@ public class LogInScreen extends AppCompatActivity {
 
     /**
      * Attempt a sign up with email and password
+     *
      * @param username user's inputted email
      * @param password user's inputted password
      * @return whether log in was successful
@@ -215,12 +218,12 @@ public class LogInScreen extends AppCompatActivity {
             br = new BufferedReader(new FileReader(userFile));
 
             String line;
-            while ((line = br.readLine()) != null){
-                if (getUsernameFromLine(line).equals(username)){
+            while ((line = br.readLine()) != null) {
+                if (getUsernameFromLine(line).equals(username)) {
                     return false;
                 }
             }
-            FileWriter fw = new FileWriter(userFile,true);
+            FileWriter fw = new FileWriter(userFile, true);
             PrintWriter pw = new PrintWriter(fw);
             pw.printf("\n" + username + ":" + Addons.stringToSHA256(password));
 
@@ -241,6 +244,7 @@ public class LogInScreen extends AppCompatActivity {
 
     /**
      * Retrieve username from save file
+     *
      * @param line line from file with user credentials
      * @return user's username
      */
@@ -255,6 +259,7 @@ public class LogInScreen extends AppCompatActivity {
 
     /**
      * Retrieve password from the save file
+     *
      * @param line line from file with user password
      * @return user's inputted password
      */
