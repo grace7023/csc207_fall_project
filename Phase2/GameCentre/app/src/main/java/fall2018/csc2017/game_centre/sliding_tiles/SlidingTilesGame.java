@@ -53,6 +53,9 @@ public class SlidingTilesGame extends Game implements Serializable {
      */
     private final static int[][] MOVE_ADJUSTMENT_VALUES = new int[][]{{-1, 0}, {1, 0}, {0, -1}, {0, 1}};
 
+    /**
+     * Game description
+     */
     public final static String GAME_DESC = "Welcome To Sliding Tiles \n A Puzzle Game where you" +
                         " must arrange the numbers in the correct order";
 
@@ -99,6 +102,10 @@ public class SlidingTilesGame extends Game implements Serializable {
         return boardSize;
     }
 
+    /**
+     * Return game over text according winning or losing
+     * @return "YOU WIN!"
+     */
     public String gameOverText() {
         return "YOU WIN!";
     }
@@ -319,6 +326,11 @@ public class SlidingTilesGame extends Game implements Serializable {
         return new Intent(PackageContext, SlidingTilesSettings.class);
     }
 
+    /**
+     * Return GameActivity intent
+     * @param PackageContext game activity context
+     * @return Intent of Game Activity
+     */
     @Override
     public Intent getGameActivityIntent(AppCompatActivity PackageContext) {
         return new Intent(PackageContext, SlidingTilesGameActivity.class);
