@@ -41,7 +41,7 @@ public class MSBoardTest {
      * Tests whether the board returns the correct number of revealed tiles
      */
     @Test
-    public void getNumRevealed() {
+    public void testGetNumRevealed() {
         setUpBoard(3, 3, 0);
         MSBoard board = minesweeperGame.getBoard();
 
@@ -62,7 +62,7 @@ public class MSBoardTest {
      * Tests whether a tile is correctly flagged
      */
     @Test
-    public void toggleFlag() {
+    public void testToggleFlag() {
         setUpBoard(2, 3, 3);
         MSBoard board = minesweeperGame.getBoard();
 
@@ -80,7 +80,7 @@ public class MSBoardTest {
      * Tests whether the position of any tile on the board is correctly returned
      */
     @Test
-    public void getPosition() {
+    public void testGetPosition() {
         setUpBoard(3, 3, 3);
         MSBoard board = minesweeperGame.getBoard();
 
