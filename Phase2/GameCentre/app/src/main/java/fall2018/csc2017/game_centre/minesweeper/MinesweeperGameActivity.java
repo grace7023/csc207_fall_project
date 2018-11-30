@@ -68,6 +68,9 @@ public class MinesweeperGameActivity extends GameActivity implements Observer {
      */
     private boolean gameOver = false;
 
+    /**
+     * Whether this activity is in darkView mode or not.
+     */
 
     private boolean darkView;
     /**

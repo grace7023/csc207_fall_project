@@ -81,7 +81,6 @@ public class MinesweeperSettings extends AppCompatActivity {
         setupBoardSizeSpinner();
 
 
-
         final Handler handler = new Handler();
         handler.postDelayed(new Runnable() {
             @Override
@@ -106,7 +105,7 @@ public class MinesweeperSettings extends AppCompatActivity {
                     R.layout.white_spinner_item);
         else
             adapter = ArrayAdapter.createFromResource(this, R.array.MSGameSize,
-                                                    android.R.layout.simple_spinner_dropdown_item);
+                    android.R.layout.simple_spinner_dropdown_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         boardSize.setAdapter(adapter);
         boardSize.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -129,8 +128,13 @@ public class MinesweeperSettings extends AppCompatActivity {
             }
         });
     }
-    private void setUpDarkView(){
-        if (darkView){
+
+    /**
+     * Setting up the activity to be in darkView mode.
+     */
+
+    private void setUpDarkView() {
+        if (darkView) {
             ConstraintLayout constraintLayout = findViewById(R.id.MSsettingsActivity);
             constraintLayout.setBackgroundColor(Color.DKGRAY);
             TextView gameSettings = findViewById(R.id.msSettingsHeading);
@@ -143,6 +147,7 @@ public class MinesweeperSettings extends AppCompatActivity {
             msNumberBombs.setTextColor(Color.WHITE);
         }
     }
+
     /**
      * Gets the input for the number of bombs from the player
      */
@@ -231,6 +236,10 @@ public class MinesweeperSettings extends AppCompatActivity {
         overridePendingTransition(R.anim.slide_from_left, R.anim.slide_to_right);
         finish();
     }
+
+    /**
+     * Switch to GameMenuAcitivity when back button is pressed.
+     */
 
     @Override
     public void onBackPressed() {
