@@ -17,7 +17,6 @@ import fall2018.csc2017.game_centre.minesweeper.MinesweeperGame;
 
 public class GameoverActivity extends AppCompatActivity{
 
-    private TextView gameoverText;
     private Button gameoverButton;
     private String currentUsername;
     private String gameFilename;
@@ -25,18 +24,12 @@ public class GameoverActivity extends AppCompatActivity{
     public void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_gameover);
-        addGameoverText();
         addGameoverButton();
 
         gameFilename = getIntent().getStringExtra("GAME_FILENAME");
         currentUsername = getIntent().getStringExtra("USERNAME");
     }
 
-    public void addGameoverText(){
-        gameoverText = findViewById(R.id.gameoverText);
-        gameoverText.setTextSize(40);
-
-    }
     public void addGameoverButton(){
         gameoverButton = findViewById(R.id.gameoverButton);
         gameoverButton.setOnClickListener(new View.OnClickListener() {
