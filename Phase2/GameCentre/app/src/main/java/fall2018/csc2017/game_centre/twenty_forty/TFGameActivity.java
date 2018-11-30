@@ -95,7 +95,6 @@ public class TFGameActivity extends GameActivity implements Observer {
      *
      * @param savedInstanceState a bundle
      */
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

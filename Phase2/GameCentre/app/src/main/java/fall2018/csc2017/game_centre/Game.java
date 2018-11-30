@@ -37,17 +37,27 @@ public abstract class Game implements Serializable {
      */
     public abstract int getScreenSize();
 
+    /**
+     * returns game over text depends on the outcome of the game
+     * @return Win or lose
+     */
     public abstract String gameOverText();
 
-    //TODO: add a function called gameOverFunction
-    // this function will do something once the game is over
-    // for TF and SlidingTiles, just wait 1 second before automatically exiting
-    // for minesweeper, reveal board, wait 1 second, and exit.
-
+    /**
+     * Changes activity from game to settings
+     *
+     * @param PackageContext game activity context
+     * @return SlidingTilesSettings a
+     */
     public Intent getSettingsIntent(AppCompatActivity PackageContext) {
         throw new UnsupportedOperationException("Stub!");
     }
 
+    /**
+     * Return GameActivity intent
+     * @param PackageContext game activity context
+     * @return Intent of Game Activity
+     */
     public Intent getGameActivityIntent(AppCompatActivity PackageContext) {
         throw new UnsupportedOperationException("Stub!");
     }

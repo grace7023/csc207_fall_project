@@ -32,6 +32,11 @@ public class Score implements Comparable<Score>, Serializable {
         this.value = value;
     }
 
+    /**
+     * Returns the player who made this score
+     *
+     * @return the name of the player
+     */
     String getPlayer() {
         return player;
     }
