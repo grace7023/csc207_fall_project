@@ -10,16 +10,16 @@ import java.security.NoSuchAlgorithmException;
  * TO BE OF USE FOR PHASE 2
  * Idea: complicated passwords, SHA-512,
  */
-public class Addons {
+class Addons {
 
     /**
      * Hash string to SHA256 for security
-     * @param input
+     * @param input string that is to be hashed
      * @return hash of string
      *
      * Inspired from https://stackoverflow.com/questions/3103652/hash-string-via-sha-256-in-java
      */
-    public static String stringToSHA256(String input) {
+    static String stringToSHA256(String input) {
         String toReturn = null;
         MessageDigest digest;
         try {
@@ -32,7 +32,7 @@ public class Addons {
         }
         return toReturn;
     }
-    public static boolean checkString(String input, String password) {
+    static boolean checkString(String input, String password) {
         return stringToSHA256(input).equals(password);
     }
 }
