@@ -50,6 +50,7 @@ public class MinesweeperGameActivity extends GameActivity implements Observer {
 
     private TextView flagging;
     private String flagText;
+    private int startTime;
 
 
     /**
@@ -61,6 +62,8 @@ public class MinesweeperGameActivity extends GameActivity implements Observer {
     private String currentUsername;
 
     private String gameFilename;
+
+    private long loadTime;
 
     /**
      * Set up the background image for each button based on the master list
@@ -90,7 +93,6 @@ public class MinesweeperGameActivity extends GameActivity implements Observer {
             switchToGMA();
         }
     }
-
     /**
      * Set up UI interface for SlidingTilesGame.
      *
@@ -103,11 +105,13 @@ public class MinesweeperGameActivity extends GameActivity implements Observer {
         currentUsername = getIntent().getStringExtra("USERNAME");
         gameFilename = getIntent().getStringExtra("GAME_FILENAME");
         loadFromFile(gameFilename);
+        minesweeperGame.setLoadTime();
         createTileButtons(this);
         setContentView(R.layout.activity_minesweeper_game);
         addFlagButton();
         addTimer();
         addBombCounter();
+        toggleFlaggingText();
         // Add View to activity
         gridView = findViewById(R.id.grid);
         gridView.setNumColumns(minesweeperGame.getNumCols());
@@ -157,23 +161,22 @@ public class MinesweeperGameActivity extends GameActivity implements Observer {
             @Override
             public void onClick(View v) {
                 minesweeperGame.toggleFlagging();
-                if (minesweeperGame.getFlagging()){
-                    flagText = "Flagging";
-                    flagging.setText(flagText);
-                } else {
-                    flagText = "Revealing";
-                    flagging.setText(flagText);
-                }
-
-
+                toggleFlaggingText();
             }
         });
     }
 
+    private void toggleFlaggingText(){
+        if (minesweeperGame.getFlagging()){
+            flagText = "Flagging";
+            flagging.setText(flagText);
+        } else {
+            flagText = "Revealing";
+            flagging.setText(flagText);
+        }
+    }
 
-//    intent@5786
-//    bundle@5783 outside intent
-//    bundle@5803 inside intent
+
     private void addTimer(){
         timer = findViewById(R.id.timer);
     }
@@ -276,6 +279,8 @@ public class MinesweeperGameActivity extends GameActivity implements Observer {
     public void autoSave() {
         saveToFile(gameFilename);
     }
+
+
     private void updateTimer() {
         //String newTime = minesweeperGame.getTime();
         //timer.setText(newTime);
@@ -297,6 +302,7 @@ public class MinesweeperGameActivity extends GameActivity implements Observer {
 
     @Override
     public void onBackPressed() {
+        minesweeperGame.setSaveTime();
         switchToGMA();
     }
 }

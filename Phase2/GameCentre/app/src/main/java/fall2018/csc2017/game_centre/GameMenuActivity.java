@@ -25,7 +25,7 @@ public class GameMenuActivity extends AppCompatActivity {
     private String currentUsername;
 
     /**
-     * Thus menu's game
+     * This menu's game
      */
     private Game game;
 
@@ -149,6 +149,7 @@ public class GameMenuActivity extends AppCompatActivity {
         Intent gameIntent = game.getGameActivityIntent(this);
         gameIntent.putExtra("USERNAME", currentUsername);
         gameIntent.putExtra("GAME_FILENAME", gameFilename);
+        gameIntent.putExtra("FROM_LOAD", true);
         startActivity(gameIntent);
         overridePendingTransition(R.anim.slide_from_right, R.anim.slide_to_left);
         finish();

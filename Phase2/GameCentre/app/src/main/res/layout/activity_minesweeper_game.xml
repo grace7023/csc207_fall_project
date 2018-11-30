@@ -47,8 +47,7 @@
         android:layout_height="wrap_content"
         android:layout_alignBottom="@+id/timer"
         android:layout_marginEnd="-168dp"
-        android:layout_toStartOf="@+id/bombCounter"
-        android:text="Revealing" />
+        android:layout_toStartOf="@+id/bombCounter" />
 
     <fall2018.csc2017.game_centre.GestureDetectGridView xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"

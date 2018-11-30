@@ -65,6 +65,7 @@ public class SlidingTilesGame extends Game implements Serializable {
         this.boardSize = board.getBoardSize();
         this.board = board;
         this.score = 0;
+        this.moves = new ArrayList<>();
         GestureDetectGridView.detectFling = false;
     }
 
