@@ -15,7 +15,7 @@ public class GameOverActivity extends AppCompatActivity {
     /**
      * Create Button to be connected with GameOverButton
      */
-    Button GameOverButton;
+    Button gameOverButton;
 
     /**
      * Name of current user
@@ -58,8 +58,8 @@ public class GameOverActivity extends AppCompatActivity {
      * Connect GameOverButton to actual button in activity
      */
     public void addGameOverButton() {
-        GameOverButton = findViewById(R.id.gameoverButton);
-        GameOverButton.setOnClickListener(new View.OnClickListener() {
+        gameOverButton = findViewById(R.id.gameoverButton);
+        gameOverButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 switchToGMA();
