@@ -12,6 +12,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.util.Comparator;
 import java.util.List;
 
 
@@ -49,7 +50,6 @@ public class Scoreboard implements Serializable {
      */
     public void addScore(String player, String score) {
         scores.add(new Score(player, score));
-        Collections.sort(scores);
     }
 
     /**
@@ -74,6 +74,14 @@ public class Scoreboard implements Serializable {
             }
         }
         return output;
+    }
+
+    public void sortAscending() {
+        Collections.sort(scores);
+    }
+
+    public void sortDescending() {
+        scores.sort(Collections.<Score>reverseOrder());
     }
 
     /**

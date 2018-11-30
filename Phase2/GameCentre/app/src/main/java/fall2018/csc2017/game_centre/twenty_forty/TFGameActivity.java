@@ -74,8 +74,8 @@ public class TFGameActivity extends GameActivity implements Observer {
         if (tfGame.isOver()) {
             Scoreboard scoreboard = new Scoreboard("TwentyForty");
             scoreboard.loadFromFile();
-
             scoreboard.addScore(currentUsername, String.valueOf(tfGame.getScore()));
+            scoreboard.sortDescending();
             scoreboard.saveToFile();
 
             switchToGMA();

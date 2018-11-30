@@ -72,6 +72,7 @@ public class SlidingTilesGameActivity extends GameActivity implements Observer {
             scoreboard.loadFromFile();
 
             scoreboard.addScore(currentUsername, String.valueOf(slidingTilesGame.getScore()));
+            scoreboard.sortAscending();
             scoreboard.saveToFile();
 
             switchToGMA();
