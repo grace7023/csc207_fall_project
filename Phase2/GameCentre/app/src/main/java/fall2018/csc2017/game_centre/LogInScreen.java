@@ -26,7 +26,7 @@ import com.google.firebase.storage.StorageReference;
 public class LogInScreen extends AppCompatActivity {
 
     /**
-     * The file holding the usernames
+     * The file holding the user info
      */
     private File userFile;
 
@@ -57,7 +57,7 @@ public class LogInScreen extends AppCompatActivity {
     private StorageReference userRef;
 
     /**
-     * Loads users and sets up log in screen.
+     * Loads users file from Firebase storage and
      *
      * @param savedInstanceState saved instance state
      */
@@ -138,7 +138,7 @@ public class LogInScreen extends AppCompatActivity {
             } else {
                 if (trySignUp(email, password)) {
                     Toast.makeText(LogInScreen.this, "Successfully signed in!", Toast.LENGTH_LONG).show();
-                    switchToGameManager(email);
+                    switchToGM(email);
                 } else {
                     Toast.makeText(LogInScreen.this, "Username already exists", Toast.LENGTH_LONG).show();
                 }
@@ -164,7 +164,7 @@ public class LogInScreen extends AppCompatActivity {
                 if (!tryLogIn(email, password)) {
                     Toast.makeText(LogInScreen.this, "Invalid login", Toast.LENGTH_LONG).show();
                 } else {
-                    switchToGameManager(email);
+                    switchToGM(email);
                 }
             }
         }
@@ -186,9 +186,6 @@ public class LogInScreen extends AppCompatActivity {
             br = new BufferedReader(new FileReader(userFile));
 
             while ((line = br.readLine()) != null){
-//                if ((getUsernameFromLine(line).equals(username)) && getPasswordFromLine(line).equals(password)){
-//                    check = true;
-//                }
                 if ((getUsernameFromLine(line).equals(username)) &&
                         (Addons.checkString(password, getPasswordFromLine(line)))){
                     check = true;
@@ -259,7 +256,7 @@ public class LogInScreen extends AppCompatActivity {
     /**
      * Retrieve password from the save file
      * @param line line from file with user password
-     * @return user's password
+     * @return user's inputted password
      */
     private String getPasswordFromLine(String line) {
         int index = line.indexOf(":");
@@ -284,7 +281,7 @@ public class LogInScreen extends AppCompatActivity {
     /**
      * Switch to the GameManager view to launch game centre.
      */
-    private void switchToGameManager(String sessionUsername) {
+    private void switchToGM(String sessionUsername) {
         Intent gmIntent = new Intent(LogInScreen.this, GameManager.class);
         gmIntent.putExtra("USERNAME", sessionUsername);
         startActivity(gmIntent);
