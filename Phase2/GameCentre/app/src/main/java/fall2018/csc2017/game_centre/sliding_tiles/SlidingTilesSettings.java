@@ -106,6 +106,7 @@ public class SlidingTilesSettings extends AppCompatActivity {
         gmaBundle.putString("GAME_DESC", SlidingTilesGame.GAME_DESC);
         gmaBundle.putString("GAME_FILENAME", gameFilename);
         gmaBundle.putString("USERNAME", currentUsername);
+        gmaBundle.putString("GAME_NAME", "SLIDING TILES");
         gmaIntent.putExtras(gmaBundle);
         startActivity(gmaIntent);
         overridePendingTransition(R.anim.slide_from_left, R.anim.slide_to_right);

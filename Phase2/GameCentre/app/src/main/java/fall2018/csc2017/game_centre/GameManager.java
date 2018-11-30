@@ -58,6 +58,7 @@ public class GameManager extends AppCompatActivity {
                 gmaBundle.putString("GAME_DESC", MinesweeperGame.GAME_DESC);
                 gmaBundle.putString("GAME_FILENAME", "Minesweeper_" + currentUsername);
                 gmaBundle.putString("USERNAME", currentUsername);
+                gmaBundle.putString("GAME_NAME", "MINESWEEPER");
                 msGMAIntent.putExtras(gmaBundle);
                 startActivity(msGMAIntent);
                 overridePendingTransition(R.anim.slide_from_right, R.anim.slide_to_left);
@@ -79,6 +80,7 @@ public class GameManager extends AppCompatActivity {
                 gmaBundle.putString("GAME_DESC", TFGame.GAME_DESC);
                 gmaBundle.putString("GAME_FILENAME", "TwentyForty_" + currentUsername);
                 gmaBundle.putString("USERNAME", currentUsername);
+                gmaBundle.putString("GAME_NAME", "2048");
                 tfGMAIntent.putExtras(gmaBundle);
                 startActivity(tfGMAIntent);
                 overridePendingTransition(R.anim.slide_from_right, R.anim.slide_to_left);
@@ -100,6 +102,7 @@ public class GameManager extends AppCompatActivity {
                 gmaBundle.putString("GAME_DESC", SlidingTilesGame.GAME_DESC);
                 gmaBundle.putString("GAME_FILENAME", "SlidingTiles_" + currentUsername);
                 gmaBundle.putString("USERNAME", currentUsername);
+                gmaBundle.putString("GAME_NAME", "SLIDING TILES");
                 stGMAIntent.putExtras(gmaBundle);
                 startActivity(stGMAIntent);
                 overridePendingTransition(R.anim.slide_from_right, R.anim.slide_to_left);
