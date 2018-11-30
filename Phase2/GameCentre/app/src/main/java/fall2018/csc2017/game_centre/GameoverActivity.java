@@ -20,14 +20,16 @@ public class GameoverActivity extends AppCompatActivity{
     private TextView gameoverText;
     private Button gameoverButton;
     private String currentUsername;
+    private String gameFilename;
+
     public void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_gameover);
-
         addGameoverText();
         addGameoverButton();
 
-
+        gameFilename = getIntent().getStringExtra("GAME_FILENAME");
+        currentUsername = getIntent().getStringExtra("USERNAME");
     }
 
     public void addGameoverText(){
@@ -48,7 +50,7 @@ public class GameoverActivity extends AppCompatActivity{
         Bundle gmaBundle = new Bundle();
         gmaBundle.putSerializable("GAME", new MinesweeperGame(0, 0, 0));
         gmaBundle.putString("GAME_DESC", MinesweeperGame.GAME_DESC);
-//        gmaBundle.putString("GAME_FILENAME", gameFilename);
+        gmaBundle.putString("GAME_FILENAME", gameFilename);
         gmaBundle.putString("USERNAME", currentUsername);
         gmaBundle.putString("GAME_NAME", "MINESWEEPER");
         msGMAIntent.putExtras(gmaBundle);
