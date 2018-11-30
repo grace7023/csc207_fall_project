@@ -6,28 +6,30 @@ import java.io.Serializable;
 import fall2018.csc2017.game_centre.R;
 
 /**
- * A Tile in a sliding tiles puzzle.
+ * A Tile in a minesweeper game.
  */
 public class MSTile implements Serializable {
 
-    /**
-     * The background id to find the tile image.
-     */
+    /** The background id to find the tile image. */
     private int background;
 
-    /**
-     * The unique id.
-     */
+    /** The id of this tile from 0-11. */
     private int id;
 
+    /** If this tile is revealed or not */
     private boolean revealed;
 
+    /** If this tile has been flagged or not */
     private boolean flagged;
 
-    public final static int EMPTY = 0;
-    public final static int MINE = 9;
-    public final static int FLAGGED = 10;
-    public final static int UNREVEALED = 11;
+    /** This tile is the empty tile with 0 mines around it */
+    final static int EMPTY = 0;
+    /** This tile is the mine tile */
+    final static int MINE = 9;
+    /** This tile has been flagged */
+    private final static int FLAGGED = 10;
+    /** This tile is still unrevealed */
+    private final static int UNREVEALED = 11;
     /**
      * An array of all tile backgrounds.
      */
@@ -60,27 +62,43 @@ public class MSTile implements Serializable {
      *
      * @param id The id of this tile
      */
-    public MSTile(int id) {
+    MSTile(int id) {
         this.id = id;
         revealed = false;
         flagged = false;
         background = TILE_BACKGROUNDS[UNREVEALED];
     }
 
+    /**
+     * Sets the id of the tile
+     *
+     * @param id a value from 0-11 as the id
+     */
     public void setId(int id) {
         this.id = id;
     }
 
-    public void reveal() {
+    /**
+     * Changes the background image of this tile from unrevealed to whatever image the ID represents
+     */
+    void reveal() {
         background = TILE_BACKGROUNDS[id];
         revealed = true;
     }
 
-    public boolean isRevealed() {
+    /**
+     * Returns if this tile has been revealed or not
+     *
+     * @return true if tile is revealed, false if not
+     */
+    boolean isRevealed() {
         return revealed;
     }
 
-    public void toggleFlag() {
+    /**
+     * Changes the background from either unflagged to flagged or flagged to unflagged
+     */
+    void toggleFlag() {
         if (!flagged) {
             background = TILE_BACKGROUNDS[FLAGGED];
             flagged = true;
@@ -90,9 +108,19 @@ public class MSTile implements Serializable {
         }
     }
 
-    public boolean isFlagged() {
+    /**
+     * Returns whether the tile is flagged or not
+     *
+     * @return true if the tile is flagged, false if not
+     */
+    boolean isFlagged() {
         return flagged;
     }
 
+    /**
+     * Gets the index of the background image of this tile
+     *
+     * @return index of the background image
+     */
     public int getBackground() { return background; }
 }
