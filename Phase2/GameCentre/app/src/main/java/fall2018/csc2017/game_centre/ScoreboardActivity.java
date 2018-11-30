@@ -149,7 +149,7 @@ public class ScoreboardActivity extends AppCompatActivity {
         textView.setText(text);
         textView.setHeight(300);
         textView.setTextSize(30);
-        textView.setTextAlignment(Gravity.CENTER);
+        textView.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
         return textView;
     }
 
@@ -192,7 +192,6 @@ public class ScoreboardActivity extends AppCompatActivity {
             relativeLayout.setBackgroundColor(Color.DKGRAY);
             TextView scoreboardGameTitle = findViewById(R.id.scoreboardGameTitle);
             scoreboardGameTitle.setTextColor(Color.WHITE);
-            ListView score1 = findViewById(R.id.scoreList);
         }
     }
 }

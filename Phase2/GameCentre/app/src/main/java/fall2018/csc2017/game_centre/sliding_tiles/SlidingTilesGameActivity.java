@@ -51,6 +51,9 @@ public class SlidingTilesGameActivity extends GameActivity implements Observer {
 
     private String gameFilename;
 
+    /**
+     *
+     */
     private boolean darkView;
 
     /**
@@ -78,7 +81,8 @@ public class SlidingTilesGameActivity extends GameActivity implements Observer {
     }
 
     /**
-     * Switch to the GameOverActivity. Happens when the game ends.
+     * Switch to the GameOverActivity. Happens when the
+     * game ends regardless of whether you won or not.
      */
     public void switchToGameOver() {
         Intent gameOverIntent = new Intent(getApplicationContext(), GameOverActivity.class);
