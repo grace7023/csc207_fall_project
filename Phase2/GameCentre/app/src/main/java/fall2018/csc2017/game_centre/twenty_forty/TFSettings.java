@@ -28,8 +28,14 @@ public class TFSettings extends AppCompatActivity {
      */
     private TFGame tfGame;
 
+    /**
+     * Name of current user
+     */
     private String currentUsername;
 
+    /**
+     * Name of fileSave
+     */
     private String gameFilename;
 
     /**
@@ -118,6 +124,9 @@ public class TFSettings extends AppCompatActivity {
         }
     }
 
+    /**
+     * Switch to GameMenuActivity
+     */
     private void switchToGMA() {
         Intent tfGMAIntent = new Intent(getApplicationContext(), GameMenuActivity.class);
         Bundle gmaBundle = new Bundle();
@@ -132,6 +141,9 @@ public class TFSettings extends AppCompatActivity {
         finish();
     }
 
+    /**
+     * If onBack button is pressed then switch to GameMenuActivity
+     */
     @Override
     public void onBackPressed() {
         switchToGMA();
