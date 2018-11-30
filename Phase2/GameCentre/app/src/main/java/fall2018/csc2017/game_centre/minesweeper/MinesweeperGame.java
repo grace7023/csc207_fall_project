@@ -58,12 +58,13 @@ public class MinesweeperGame extends Game implements Serializable {
     public final static String GAME_DESC = "Welcome to Minesweeper!\nTap on tiles to reveal them\n" +
             "Tap the flag button to flag bombs\nReveal all the non-bomb tiles on the field to win!";
 
-
     /**
      * Keeps track of the elapsed time since this MinesweeperGame object was created
      */
     private long startTime;
+    /** Keeps track of the time when quitting a game */
     private long saveTime;
+    /** Keeps track of the time when loading a game */
     private long loadTime;
 
 
@@ -72,7 +73,7 @@ public class MinesweeperGame extends Game implements Serializable {
      *
      * @param board the board
      */
-    public MinesweeperGame(MSBoard board, int numBombs) {
+    MinesweeperGame(MSBoard board, int numBombs) {
         this.numRows = board.getNumRows();
         this.numCols = board.getNumCols();
         this.board = board;
@@ -165,7 +166,7 @@ public class MinesweeperGame extends Game implements Serializable {
             return puzzleSolved();
     }
 
-    public boolean puzzleSolved() {
+    boolean puzzleSolved() {
         return numCols * numRows - board.getNumRevealed() == numBombs;
     }
 
@@ -279,8 +280,9 @@ public class MinesweeperGame extends Game implements Serializable {
     }
 
     /**
+     * Reveals all adjacent empty tiles and their adjacent empty tiles and so on
      *
-     * @param original
+     * @param original tile that we start expanding from
      */
     private void expandEmpty(MSTile original) {
         ArrayList<MSTile> queue = new ArrayList<>();
@@ -337,14 +339,6 @@ public class MinesweeperGame extends Game implements Serializable {
         return Arrays.asList(upLeft, above, upRight, left, right, downLeft, below, downRight);
     }
 
-
-    /**
-     * Changes activity from game to settings
-     *
-     * @param PackageContext game activity context
-     * @return SlidingTilesSettings a
-     */
-
     /**
      * Gets the intent to switch to the MinesweeperSettings activity
      *
@@ -356,7 +350,7 @@ public class MinesweeperGame extends Game implements Serializable {
     }
 
     /**
-     * Gets the intent to siwtch to the MinesweeperGameActivity activity
+     * Gets the intent to switch to the MinesweeperGameActivity activity
      *
      * @return the intent to MinesweeperGameActivity.class
      */
@@ -380,15 +374,18 @@ public class MinesweeperGame extends Game implements Serializable {
         return min + ":" + sec;
     }
 
-
+    /**
+     * Saves the the time when exitting from the game
+     */
     void setSaveTime(){
         saveTime = System.nanoTime();
-        System.out.println("SAVE TIME IS BEING CALLED BBBBBBBBBBBBBB");
     }
 
+    /**
+     * Sets the time when loaded back into the game
+     */
     void setLoadTime(){
         loadTime = System.nanoTime();
-        System.out.println("LOAD TIME IS BEING CALLED AAAAAAAAAAA");
     }
 
     /**
