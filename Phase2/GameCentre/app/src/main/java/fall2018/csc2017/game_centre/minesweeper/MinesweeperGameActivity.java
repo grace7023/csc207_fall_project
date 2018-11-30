@@ -189,7 +189,7 @@ public class MinesweeperGameActivity extends GameActivity implements Observer {
     }
 
     private void updateBombCounter(){
-        bombCounter.setText(String.valueOf(minesweeperGame.getNumBombs()));
+        bombCounter.setText(String.valueOf(minesweeperGame.getBombsLeft()));
     }
 
     /**
