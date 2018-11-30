@@ -23,7 +23,7 @@ import java.util.Observer;
 import fall2018.csc2017.game_centre.CustomAdapter;
 import fall2018.csc2017.game_centre.GameActivity;
 import fall2018.csc2017.game_centre.GameMenuActivity;
-import fall2018.csc2017.game_centre.GameoverActivity;
+import fall2018.csc2017.game_centre.GameOverActivity;
 import fall2018.csc2017.game_centre.GestureDetectGridView;
 import fall2018.csc2017.game_centre.R;
 import fall2018.csc2017.game_centre.Scoreboard;
@@ -309,7 +309,7 @@ public class MinesweeperGameActivity extends GameActivity implements Observer {
     }
 
     public void switchToGameover(){
-        Intent gameoverIntent = new Intent(getApplicationContext(), GameoverActivity.class);
+        Intent gameoverIntent = new Intent(getApplicationContext(), GameOverActivity.class);
         Bundle gmaBundle = new Bundle();
         gmaBundle.putSerializable("GAME", new MinesweeperGame(0, 0, 0));
         gmaBundle.putString("GAME_DESC", MinesweeperGame.GAME_DESC);
