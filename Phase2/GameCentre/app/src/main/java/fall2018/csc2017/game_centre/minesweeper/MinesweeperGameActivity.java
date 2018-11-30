@@ -23,6 +23,7 @@ import java.util.Observer;
 import fall2018.csc2017.game_centre.CustomAdapter;
 import fall2018.csc2017.game_centre.GameActivity;
 import fall2018.csc2017.game_centre.GameMenuActivity;
+import fall2018.csc2017.game_centre.GameoverActivity;
 import fall2018.csc2017.game_centre.GestureDetectGridView;
 import fall2018.csc2017.game_centre.R;
 import fall2018.csc2017.game_centre.Scoreboard;
@@ -89,8 +90,10 @@ public class MinesweeperGameActivity extends GameActivity implements Observer {
                 scoreboard.addScore(currentUsername, minesweeperGame.getTime());
                 scoreboard.sortAscending();
                 scoreboard.saveToFile();
+                switchToGMA();
             }
-            switchToGMA();
+            else
+                switchToGameover();
         }
     }
     /**
@@ -304,5 +307,19 @@ public class MinesweeperGameActivity extends GameActivity implements Observer {
     public void onBackPressed() {
         minesweeperGame.setSaveTime();
         switchToGMA();
+    }
+
+    public void switchToGameover(){
+        Intent msGMAIntent = new Intent(getApplicationContext(), GameoverActivity.class);
+        Bundle gmaBundle = new Bundle();
+        gmaBundle.putSerializable("GAME", new MinesweeperGame(0, 0, 0));
+        gmaBundle.putString("GAME_DESC", MinesweeperGame.GAME_DESC);
+        gmaBundle.putString("GAME_FILENAME", gameFilename);
+        gmaBundle.putString("USERNAME", currentUsername);
+        gmaBundle.putString("GAME_NAME", "MINESWEEPER");
+        msGMAIntent.putExtras(gmaBundle);
+        startActivity(msGMAIntent);
+        overridePendingTransition(R.anim.slide_from_left, R.anim.slide_to_right);
+        finish();
     }
 }

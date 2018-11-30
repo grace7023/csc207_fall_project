@@ -9,12 +9,17 @@ import static org.junit.Assert.*;
 
 public class TFBoardTest {
 
+    /**
+     * The game for testing
+     */
     private TFGame game;
 
     /**
+     * Make set of boxes in this preset:
      * 2 0 0
      * 0 4 0
      * 0 0 0
+     * @return List of boxes in order
      */
     private List<Box> makeTwoBoxes() {
         List<Box> boxes = new ArrayList<>();
@@ -31,9 +36,11 @@ public class TFBoardTest {
     }
 
     /**
+     * Make set of boxes in this preset
      * 2 4 8
      * 16 32 64
      * 128 256 512
+     * @return list of boxes in order
      */
     private List<Box> makeFilledBoxes() {
         List<Box> boxes = new ArrayList<>();
@@ -43,11 +50,18 @@ public class TFBoardTest {
         return boxes;
     }
 
+    /**
+     * Configure game with desired set of boxes
+     * @param boxes set of boxes to be set
+     */
     private void setUpGame(List<Box> boxes){
         TFBoard board = new TFBoard(boxes, 3);
         game = new TFGame(board);
     }
 
+    /**
+     * Test whether getBox works
+     */
     @Test
     public void getBox() {
         setUpGame(makeFilledBoxes());
@@ -56,6 +70,12 @@ public class TFBoardTest {
     }
 
     /**
+     * Test whether moveBoxesUp works
+     * From:
+     * 2 0 0
+     * 0 4 0
+     * 0 0 0
+     * To:
      * 2 4 0
      * 0 0 0
      * 0 0 0
@@ -69,6 +89,12 @@ public class TFBoardTest {
     }
 
     /**
+     * Test whether moveBoxesDown works
+     * From:
+     * 2 0 0
+     * 0 4 0
+     * 0 0 0
+     * To:
      * 0 0 0
      * 0 0 0
      * 2 4 0
@@ -82,6 +108,12 @@ public class TFBoardTest {
     }
 
     /**
+     * Test whether moveBoxesLeft works
+     * From:
+     * 2 0 0
+     * 0 4 0
+     * 0 0 0
+     * To:
      * 2 0 0
      * 4 0 0
      * 0 0 0
@@ -95,6 +127,12 @@ public class TFBoardTest {
     }
 
     /**
+     * Test whether moveBoxesRight works
+     * From:
+     * 2 0 0
+     * 0 4 0
+     * 0 0 0
+     * To:
      * 0 0 2
      * 0 0 4
      * 0 0 0
@@ -107,6 +145,9 @@ public class TFBoardTest {
         assertEquals(2, game.getBoard().getBox(1,2 ).getExponent());
     }
 
+    /**
+     * Test whether becomeBoard works
+     */
     @Test
     public void becomeBoard() {
         TFBoard filledBoard = new TFBoard(makeFilledBoxes(), 3);
@@ -119,6 +160,9 @@ public class TFBoardTest {
         }
     }
 
+    /**
+     * Test whether getNumBoxes works
+     */
     @Test
     public void getNumBoxes() {
         setUpGame(makeTwoBoxes());
@@ -126,7 +170,13 @@ public class TFBoardTest {
     }
 
     /**
+     * Combine Boxes to the left
+     * From:
      * 1 1 0
+     * 0 0 0
+     * 0 0 0
+     * To:
+     * 2 0 0
      * 0 0 0
      * 0 0 0
      */
@@ -145,6 +195,18 @@ public class TFBoardTest {
         game.getBoard().moveBoxesLeft();
         assertEquals(2, game.getBoard().getBox(0, 0).getExponent());
     }
+
+    /**
+     * Combine Boxes to the right
+     * From:
+     * 0 1 1
+     * 0 0 0
+     * 0 0 0
+     * To:
+     * 0 0 2
+     * 0 0 0
+     * 0 0 0
+     */
     @Test
     public void combineBoxesRight() {
         List<Box> boxes = new ArrayList<>();
@@ -161,6 +223,17 @@ public class TFBoardTest {
         assertEquals(2, game.getBoard().getBox(0, 2).getExponent());
     }
 
+    /**
+     * Combine Boxes to upwards
+     * From:
+     * 1 0 0
+     * 1 0 0
+     * 0 0 0
+     * To:
+     * 2 0 0
+     * 0 0 0
+     * 0 0 0
+     */
     @Test
     public void combineBoxesUp() {
         List<Box> boxes = new ArrayList<>();
@@ -176,6 +249,18 @@ public class TFBoardTest {
         game.getBoard().moveBoxesUp();
         assertEquals(2, game.getBoard().getBox(0, 0).getExponent());
     }
+
+    /**
+     * Combine Boxes to downwards
+     * From:
+     * 1 0 0
+     * 1 0 0
+     * 0 0 0
+     * To:
+     * 0 0 0
+     * 0 0 0
+     * 2 0 0
+     */
     @Test
     public void combineBoxesDown(){
         List<Box> boxes = new ArrayList<>();
@@ -191,6 +276,10 @@ public class TFBoardTest {
         game.getBoard().moveBoxesDown();
         assertEquals(2,game.getBoard().getBox(2,0).getExponent());
     }
+
+    /**
+     * Test isFull works
+     */
     @Test
     public void isFull(){
         setUpGame(makeFilledBoxes());

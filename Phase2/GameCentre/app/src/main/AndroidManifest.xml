@@ -12,22 +12,23 @@
         android:roundIcon="@drawable/ic_launcher"
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.Light.NoActionBar">
-        <activity android:name=".LogInScreen" >
+        <activity android:name=".LogInScreen">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".GameManager"></activity>
-        <activity android:name=".GameMenuActivity"></activity>
-        <activity android:name=".ScoreboardActivity"></activity>
-        <activity android:name=".sliding_tiles.SlidingTilesSettings"></activity>
+        <activity android:name=".GameManager" />
+        <activity android:name=".GameMenuActivity" />
+        <activity android:name=".ScoreboardActivity" />
+        <activity android:name=".sliding_tiles.SlidingTilesSettings" />
         <activity android:name=".sliding_tiles.SlidingTilesGameActivity" />
-        <activity android:name=".minesweeper.MinesweeperSettings"></activity>
-        <activity android:name=".minesweeper.MinesweeperGameActivity"></activity>
-        <activity android:name=".twenty_forty.TFSettings"></activity>
-        <activity android:name=".twenty_forty.TFGameActivity"></activity>
+        <activity android:name=".minesweeper.MinesweeperSettings" />
+        <activity android:name=".minesweeper.MinesweeperGameActivity" />
+        <activity android:name=".twenty_forty.TFSettings" />
+        <activity android:name=".twenty_forty.TFGameActivity" />
+        <activity android:name=".GameoverActivity"></activity>
     </application>
 
 </manifest>
