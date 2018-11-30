@@ -135,6 +135,7 @@ public class TFGame extends Game implements Serializable {
         }
         score += addedScore;
         pastScoreIncreases.add(addedScore);
+        board.update();
     }
 
     /**

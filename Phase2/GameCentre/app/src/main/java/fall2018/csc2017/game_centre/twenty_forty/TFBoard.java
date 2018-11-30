@@ -45,6 +45,14 @@ public class TFBoard extends Observable implements Serializable, Iterable<Box> {
     }
 
     /**
+     *
+     */
+    public void update() {
+        setChanged();
+        notifyObservers();
+    }
+
+    /**
      * return object box from list of boxes
      * @param row row of box
      * @param col column of box
