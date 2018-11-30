@@ -20,15 +20,10 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
 /**
- * Displays the loginscreen for the player
+ * Displays the login screen for the player
  */
 
 public class LogInScreen extends AppCompatActivity {
-    // TODO: figure out whats wrong with the login
-    /**
-     * The username of the player
-     */
-//    public static String currentUsername = null;
 
     /**
      * The file holding the usernames
@@ -56,12 +51,6 @@ public class LogInScreen extends AppCompatActivity {
     private Button logInButton;
 
     /**
-     * Firebase Storage
-     */
-
-    private FirebaseStorage storage;
-
-    /**
      * Firebase Storage reference to root of storage
      */
 
@@ -78,7 +67,7 @@ public class LogInScreen extends AppCompatActivity {
 
         // loads already created users to userManager
         setContentView(R.layout.login_screen);
-        storage = FirebaseStorage.getInstance();
+        FirebaseStorage storage = FirebaseStorage.getInstance();
         userRef = storage.getReferenceFromUrl("gs://gamecenter-g0503.appspot.com/users.txt");
 
         initializeUserFile();
