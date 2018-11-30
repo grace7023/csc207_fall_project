@@ -137,14 +137,13 @@ public class SlidingTilesGame extends Game implements Serializable {
      */
     private void shuffleTiles() {
         Random rand = new Random();
-        while (puzzleSolved()) {
-            int blankId = tempBoard.getBoardSize() * tempBoard.getBoardSize();
-            for (int i = 0; i < Math.pow(this.boardSize, 4); i++) {
-                int blankTilePosition = returnTilePosition(tempBoard, blankId);
-                int randomNumber = rand.nextInt(4);
-                randomSwap(randomNumber, blankTilePosition);
-            }
+        int blankId = tempBoard.getBoardSize() * tempBoard.getBoardSize();
+        for (int i = 0; i < Math.pow(this.boardSize, 4); i++) {
+            int blankTilePosition = returnTilePosition(tempBoard, blankId);
+            int randomNumber = rand.nextInt(4);
+            randomSwap(randomNumber, blankTilePosition);
         }
+
     }
 
     /**
