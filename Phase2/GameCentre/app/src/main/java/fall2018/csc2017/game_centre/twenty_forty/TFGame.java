@@ -11,24 +11,57 @@ import java.util.Random;
 import fall2018.csc2017.game_centre.Game;
 import fall2018.csc2017.game_centre.GestureDetectGridView;
 
+/**
+ * Manage TwentyFortyGame
+ */
 public class TFGame extends Game implements Serializable {
 
+    /**
+     * Maximum number of boxes being randomly set
+     */
     private final int INIT_BOX_NUM = 2;
+
+    /**
+     * The exponent that lead to victory
+     */
     private final int WINNING_EXPONENT = 11;
 
+    /**
+     * The size of the board
+     */
     private int boardSize;
 
+    /**
+     * The board being managed
+     */
     private TFBoard board;
 
+    /**
+     * Previous boards created by making moves.
+     */
     private List<TFBoard> pastBoards;
+
+    /**
+     * Previous scores modified by making moves
+     */
     private List<Integer> pastScoreIncreases;
 
-    private int score; //TODO: score is not counting correctly
+    /**
+     * The score of the current game
+     */
+    private int score;
 
+    /**
+     * Game description
+     */
     public final static String GAME_DESC = "Welcome To 2048\nSwipe the screen to slide the " +
             "numbered tiles around. Merge like-numbered tiles to add their numbers together. " +
             "Get the 2048 tile to win!";
 
+    /**
+     * Manage a board that has been pre-populated
+     * @param board the board
+     */
     public TFGame(TFBoard board) {
         this.boardSize = (int) Math.sqrt(board.getNumBoxes());
         this.board = board;
@@ -38,18 +71,20 @@ public class TFGame extends Game implements Serializable {
         this.score = 0;
     }
 
+    /**
+     * Manage a board with given boardSize
+     * @param boardSize
+     */
     public TFGame(int boardSize) {
         this.boardSize = boardSize;
         this.pastBoards = new ArrayList<>();
         this.pastScoreIncreases = new ArrayList<>();
         this.score = 0;
         GestureDetectGridView.detectFling = true;
-
         List<Box> boxes = new ArrayList<>();
         for (int i = 0; i < this.boardSize * this.boardSize; i++) {
             boxes.add(new Box(0));
         }
-
         // Randomly inserting pre-existing items into boxes
         Random rng = new Random();
         for (int i = 0; i < INIT_BOX_NUM; i++) {
@@ -60,19 +95,24 @@ public class TFGame extends Game implements Serializable {
             int exponent = rng.nextInt(2) + 1;
             boxes.set(pos, new Box(exponent));
         }
-
         this.board = new TFBoard(boxes, this.boardSize);
-
     }
 
+    /**
+     * Return board from game
+     * @return board
+     */
     public TFBoard getBoard() {
         return board;
     }
 
+    /**
+     * Return current score
+     * @return
+     */
     public int getScore() {
         return score;
     }
-
 
     /**
      * Return whether a move with parameter arg is valid
@@ -94,12 +134,10 @@ public class TFGame extends Game implements Serializable {
         } else if (arg == GestureDetectGridView.SWIPE_DIRECTION_ARG.get("Right")) {
             colMove = 1;
         }
-
         // Return true if a non-empty box is found that can be moved into an empty space
         for (int row = 0; row < boardSize; row++) {
             for (int col = 0; col < boardSize; col++) {
-                if (0 <= row + rowMove && row + rowMove < boardSize &&
-                        0 <= col + colMove && col + colMove < boardSize) {
+                if (0 <= row + rowMove && row + rowMove < boardSize && 0 <= col + colMove && col + colMove < boardSize) {
                     int curExponent = board.getBox(row, col).getExponent();
                     int adjExponent = board.getBox(row + rowMove, col + colMove).getExponent();
                     if (curExponent != 0 && (adjExponent == 0 || curExponent == adjExponent)) {
@@ -122,16 +160,12 @@ public class TFGame extends Game implements Serializable {
         ArrayList<Box> boxesSave = getBoxList(board);
         pastBoards.add(new TFBoard(boxesSave, boardSize));
         if (arg == GestureDetectGridView.SWIPE_DIRECTION_ARG.get("Up")) {
-            System.out.println("Up");
             addedScore = board.moveBoxesUp();
         } else if (arg == GestureDetectGridView.SWIPE_DIRECTION_ARG.get("Down")) {
-            System.out.println("Down");
             addedScore = board.moveBoxesDown();
         } else if (arg == GestureDetectGridView.SWIPE_DIRECTION_ARG.get("Left")) {
-            System.out.println("Left");
             addedScore = board.moveBoxesLeft();
         } else if (arg == GestureDetectGridView.SWIPE_DIRECTION_ARG.get("Right")) {
-            System.out.println("Right");
             addedScore = board.moveBoxesRight();
         }
         score += addedScore;
@@ -171,6 +205,12 @@ public class TFGame extends Game implements Serializable {
         return true;
     }
 
+    /**
+     * Get all neighboring boxes from the current box
+     * @param row row of Box
+     * @param col column of Box
+     * @return List of neighboring boxes
+     */
     private ArrayList<Box> getNeighboringBoxes(int row, int col) {
         ArrayList<Box> neighbors = new ArrayList<>();
         if (row > 0) {
@@ -196,6 +236,10 @@ public class TFGame extends Game implements Serializable {
         this.score -= pastScoreIncreases.remove(pastScoreIncreases.size() - 1);
     }
 
+    /**
+     * Check if current game state permits undos
+     * @return true if undoable
+     */
     boolean canUndoMove() {
         return this.pastBoards.size() != 0;
     }
@@ -208,6 +252,11 @@ public class TFGame extends Game implements Serializable {
         return boardSize;
     }
 
+    /**
+     * Get the list of all of the Boxes in order
+     * @param board
+     * @return
+     */
     private ArrayList<Box> getBoxList(TFBoard board) {
         ArrayList<Box> boxes = new ArrayList<>();
         for (Box box : board) {
@@ -217,16 +266,30 @@ public class TFGame extends Game implements Serializable {
         return boxes;
     }
 
+    /**
+     * Return game over text according winning or losing
+     * @return "GAME OVER!" if lose; "You won!" if win
+     */
     public String gameOverText() {
         if (isStuck()) return "GAME OVER!";
         return "You won!";
     }
 
+    /**
+     * Changes activity from game to Settings
+     * @param PackageContext game activity context
+     * @return Intent of Settings
+     */
     @Override
     public Intent getSettingsIntent(AppCompatActivity PackageContext) {
         return new Intent(PackageContext, TFSettings.class);
     }
 
+    /**
+     * Return GameActivity intent
+     * @param PackageContext game activity context
+     * @return Intent of Game Activity
+     */
     @Override
     public Intent getGameActivityIntent(AppCompatActivity PackageContext) {
         return new Intent(PackageContext, TFGameActivity.class);
