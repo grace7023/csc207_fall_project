@@ -2,6 +2,7 @@ package fall2018.csc2017.game_centre.twenty_forty;
 
 import java.io.Serializable;
 import java.util.Objects;
+
 import fall2018.csc2017.game_centre.R;
 
 public class Box implements Serializable {
@@ -35,6 +36,7 @@ public class Box implements Serializable {
 
     /**
      * Constructs a Box with the given exponent
+     *
      * @param exponent 0 represents the empty Box, otherwise the Box represents 2^exponent
      */
     Box(int exponent) {
@@ -44,6 +46,7 @@ public class Box implements Serializable {
 
     /**
      * Tells if the Box is the empty Box
+     *
      * @return True iff exponent == 0
      */
     boolean isEmptyBox() {
@@ -52,6 +55,7 @@ public class Box implements Serializable {
 
     /**
      * Gets the exponent contained in this Box
+     *
      * @return the exponent which was set to this Box at construction
      */
     int getExponent() {
@@ -60,6 +64,7 @@ public class Box implements Serializable {
 
     /**
      * Sets the exponent of this Box
+     *
      * @param newExponent 0 represents the empty Box, otherwise sets to a new exponent as normal
      */
     void setExponent(int newExponent) {
@@ -69,6 +74,7 @@ public class Box implements Serializable {
 
     /**
      * Gets the background image reference for this Box
+     *
      * @return This Box's image from R.drawable
      */
     public int getBackground() {
@@ -77,6 +83,7 @@ public class Box implements Serializable {
 
     /**
      * Checks for equality between this Box and object o
+     *
      * @param o A valid Object
      * @return True iff o is a Box and has the same exponent as this Box
      */
@@ -90,6 +97,7 @@ public class Box implements Serializable {
 
     /**
      * Gets a hash of exponent
+     *
      * @return The output of Objects.hash when given this Box's exponent as input
      */
     @Override

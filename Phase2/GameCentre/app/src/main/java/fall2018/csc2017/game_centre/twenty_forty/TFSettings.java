@@ -13,8 +13,6 @@ import android.widget.Button;
 import android.widget.Spinner;
 import android.widget.TextView;
 
-import org.w3c.dom.Text;
-
 import java.io.IOException;
 import java.io.ObjectOutputStream;
 
@@ -42,6 +40,10 @@ public class TFSettings extends AppCompatActivity {
      * Name of fileSave
      */
     private String gameFilename;
+
+    /**
+     * Whether this activity is in darkView mode or not.
+     */
 
     private boolean darkView;
 
@@ -74,10 +76,10 @@ public class TFSettings extends AppCompatActivity {
         boardSize = findViewById(R.id.stBoardSizeSpinner);
         if (darkView)
             adapter = ArrayAdapter.createFromResource(this, R.array.STGameSize,
-                                                            R.layout.white_spinner_item);
+                    R.layout.white_spinner_item);
         else
             adapter = ArrayAdapter.createFromResource(this, R.array.STGameSize,
-                                                    android.R.layout.simple_spinner_dropdown_item);
+                    android.R.layout.simple_spinner_dropdown_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         boardSize.setAdapter(adapter);
         boardSize.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -165,8 +167,11 @@ public class TFSettings extends AppCompatActivity {
         switchToGMA();
     }
 
-    private void setUpDarkView(){
-        if (darkView){
+    /**
+     * Setting up the activity to be in darkView mode.
+     */
+    private void setUpDarkView() {
+        if (darkView) {
             ConstraintLayout constraintLayout = findViewById(R.id.slidingTilesSettingsActivity);
             constraintLayout.setBackgroundColor(Color.DKGRAY);
             TextView settingsHeading = findViewById(R.id.SlidingTilesSettingsHeading);

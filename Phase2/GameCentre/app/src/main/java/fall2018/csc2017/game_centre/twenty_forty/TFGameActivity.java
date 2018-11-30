@@ -63,6 +63,10 @@ public class TFGameActivity extends GameActivity implements Observer {
      */
     private TextView currentScore;
 
+    /**
+     * Whether this activity is in darkView mode or not.
+     */
+
     private boolean darkView;
 
 

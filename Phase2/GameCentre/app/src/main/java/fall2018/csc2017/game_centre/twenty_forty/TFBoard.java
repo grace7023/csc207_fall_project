@@ -32,7 +32,7 @@ public class TFBoard extends Observable implements Serializable, Iterable<Box> {
      * @param boxesList boxes for board
      * @param boardSize size of the board
      */
-    TFBoard (List<Box> boxesList, int boardSize) {
+    TFBoard(List<Box> boxesList, int boardSize) {
         this.boardSize = boardSize;
         Iterator<Box> boxIterator = boxesList.iterator();
         this.boxes = new Box[boardSize][boardSize];
@@ -44,7 +44,7 @@ public class TFBoard extends Observable implements Serializable, Iterable<Box> {
     }
 
     /**
-     *
+     * Update the observers
      */
     void update() {
         setChanged();
@@ -52,7 +52,8 @@ public class TFBoard extends Observable implements Serializable, Iterable<Box> {
     }
 
     /**
-     * return object box from list of boxes
+     * Return object box from list of boxes
+     *
      * @param row row of box
      * @param col column of box
      * @return Box at (row,col)
@@ -63,12 +64,13 @@ public class TFBoard extends Observable implements Serializable, Iterable<Box> {
 
     /**
      * Combines the Box at (row1, col1) with the Box at (row2, col2) in boxes
+     *
      * @param row1 the row of the Box which stays in place
      * @param col1 the col of the Box which stays in place
      * @param row2 the row of the Box which moves into the position of the other
      * @param col2 the row of the Box which moves into the position of the other
      */
-    private int combineBoxes (int row1, int col1, int row2, int col2) {
+    private int combineBoxes(int row1, int col1, int row2, int col2) {
         int newExponent = boxes[row1][col1].getExponent() + 1;
         boxes[row1][col1].setExponent(newExponent);
         boxes[row2][col2].setExponent(0);
@@ -79,7 +81,7 @@ public class TFBoard extends Observable implements Serializable, Iterable<Box> {
     /**
      * Spawn a random box at an empty location
      */
-    private void generateBox(){
+    private void generateBox() {
         Random rng = new Random();
         int col = rng.nextInt(boardSize);
         int row = rng.nextInt(boardSize);
@@ -92,13 +94,16 @@ public class TFBoard extends Observable implements Serializable, Iterable<Box> {
     }
 
     /**
-     *  Check to see if board is completely full
+     * Check to see if board is completely full
+     *
      * @return true if the board is full
      */
     private boolean isFull() {
         for (int i = 0; i < boardSize; i++) {
-            for (int j = 0; j < boardSize; j++){
-                if (boxes[i][j].getExponent() == 0) {return false;}
+            for (int j = 0; j < boardSize; j++) {
+                if (boxes[i][j].getExponent() == 0) {
+                    return false;
+                }
             }
         }
         return true;
@@ -106,12 +111,13 @@ public class TFBoard extends Observable implements Serializable, Iterable<Box> {
 
     /**
      * Swap the boxes at (row1, col1) and (row2, col2)
+     *
      * @param row1 the first tile row
      * @param col1 the first tile col
      * @param row2 the second tile row
      * @param col2 the second tile col
      */
-    private void swapBoxes (int row1, int col1, int row2, int col2) {
+    private void swapBoxes(int row1, int col1, int row2, int col2) {
         Box temp = boxes[row1][col1];
         boxes[row1][col1] = boxes[row2][col2];
         boxes[row2][col2] = temp;
@@ -121,6 +127,7 @@ public class TFBoard extends Observable implements Serializable, Iterable<Box> {
 
     /**
      * Move all boxes Upward (where possible)
+     *
      * @return the sum of the merged boxes if there are any
      */
     int moveBoxesUp() {
@@ -134,12 +141,11 @@ public class TFBoard extends Observable implements Serializable, Iterable<Box> {
                         // There's space for this box to freely move
                         swapBoxes(curRow, col, curRow - 1, col);
                         curRow -= 1;
-                    }
-                    else {
+                    } else {
                         // This box has another in its way!
                         if (boxes[curRow][col].getExponent() == boxes[curRow - 1][col].getExponent()) {
                             int combinedExponent = combineBoxes(curRow - 1, col, curRow, col);
-                            addedBoxSum += (int)(Math.pow(2, combinedExponent));
+                            addedBoxSum += (int) (Math.pow(2, combinedExponent));
                         }
                         break;
                     }
@@ -155,6 +161,7 @@ public class TFBoard extends Observable implements Serializable, Iterable<Box> {
 
     /**
      * Move all boxes Downward (where possible)
+     *
      * @return the sum of the merged boxes if there are any
      */
     int moveBoxesDown() {
@@ -168,13 +175,12 @@ public class TFBoard extends Observable implements Serializable, Iterable<Box> {
                         // There's space for this box to freely move
                         swapBoxes(curRow, col, curRow + 1, col);
                         curRow += 1;
-                    }
-                    else {
+                    } else {
                         // This box has another in its way!
                         if (boxes[curRow][col].getExponent() ==
                                 boxes[curRow + 1][col].getExponent()) {
                             int combinedExponent = combineBoxes(curRow + 1, col, curRow, col);
-                            addedBoxSum += (int)(Math.pow(2, combinedExponent));
+                            addedBoxSum += (int) (Math.pow(2, combinedExponent));
                         }
                         break;
                     }
@@ -189,6 +195,7 @@ public class TFBoard extends Observable implements Serializable, Iterable<Box> {
 
     /**
      * Move all boxes Leftward (where possible)
+     *
      * @return the sum of the merged boxes if there are any
      */
     int moveBoxesLeft() {
@@ -202,13 +209,12 @@ public class TFBoard extends Observable implements Serializable, Iterable<Box> {
                         // There's space for this box to freely move
                         swapBoxes(row, curCol, row, curCol - 1);
                         curCol -= 1;
-                    }
-                    else {
+                    } else {
                         // This box has another in its way!
                         if (boxes[row][curCol].getExponent() ==
                                 boxes[row][curCol - 1].getExponent()) {
                             int combinedExponent = combineBoxes(row, curCol - 1, row, curCol);
-                            addedBoxSum += (int)(Math.pow(2, combinedExponent));
+                            addedBoxSum += (int) (Math.pow(2, combinedExponent));
                         }
                         break;
                     }
@@ -223,6 +229,7 @@ public class TFBoard extends Observable implements Serializable, Iterable<Box> {
 
     /**
      * Move all boxes Rightward (where possible)
+     *
      * @return the sum of the merged boxes if there are any
      */
     int moveBoxesRight() {
@@ -236,13 +243,12 @@ public class TFBoard extends Observable implements Serializable, Iterable<Box> {
                         // There's space for this box to freely move
                         swapBoxes(row, curCol, row, curCol + 1);
                         curCol += 1;
-                    }
-                    else {
+                    } else {
                         // This box has another in its way!
                         if (boxes[row][curCol].getExponent() ==
                                 boxes[row][curCol + 1].getExponent()) {
                             int combinedExponent = combineBoxes(row, curCol + 1, row, curCol);
-                            addedBoxSum += (int)(Math.pow(2, combinedExponent));
+                            addedBoxSum += (int) (Math.pow(2, combinedExponent));
                         }
                         break;
                     }
@@ -257,6 +263,7 @@ public class TFBoard extends Observable implements Serializable, Iterable<Box> {
 
     /**
      * Change current board to a new board
+     *
      * @param newBoard to replace
      */
     void becomeBoard(TFBoard newBoard) {
@@ -299,7 +306,9 @@ public class TFBoard extends Observable implements Serializable, Iterable<Box> {
         /**
          * An iterator containing the boxes of the Board in row-major order
          */
-        TFBoardIterator() { this.cursor = 0;}
+        TFBoardIterator() {
+            this.cursor = 0;
+        }
 
         /**
          * Tells if this iterator has a next element

@@ -61,6 +61,7 @@ public class TFGame extends Game implements Serializable {
 
     /**
      * Manage a board that has been pre-populated
+     *
      * @param board the board
      */
     TFGame(TFBoard board) {
@@ -74,6 +75,7 @@ public class TFGame extends Game implements Serializable {
 
     /**
      * Manage a board with given boardSize
+     *
      * @param boardSize the side length of the board
      */
     public TFGame(int boardSize) {
@@ -101,6 +103,7 @@ public class TFGame extends Game implements Serializable {
 
     /**
      * Return board from game
+     *
      * @return board
      */
     public TFBoard getBoard() {
@@ -109,6 +112,7 @@ public class TFGame extends Game implements Serializable {
 
     /**
      * Return current score
+     *
      * @return score
      */
     public int getScore() {
@@ -208,6 +212,7 @@ public class TFGame extends Game implements Serializable {
 
     /**
      * Get all neighboring boxes from the current box
+     *
      * @param row row of Box
      * @param col column of Box
      * @return List of neighboring boxes
@@ -238,7 +243,8 @@ public class TFGame extends Game implements Serializable {
     }
 
     /**
-     * Check if current game state permits undos
+     * Check if current game state permits the undo function
+     *
      * @return true if undoable
      */
     boolean canUndoMove() {
@@ -255,6 +261,7 @@ public class TFGame extends Game implements Serializable {
 
     /**
      * Get the list of all of the Boxes in order
+     *
      * @param board the TFGame board
      * @return a list of all the boxes
      */
@@ -269,6 +276,7 @@ public class TFGame extends Game implements Serializable {
 
     /**
      * Return game over text according winning or losing
+     *
      * @return "GAME OVER!" if lose; "You won!" if win
      */
     public String gameOverText() {
@@ -278,6 +286,7 @@ public class TFGame extends Game implements Serializable {
 
     /**
      * Changes activity from game to Settings
+     *
      * @param PackageContext game activity context
      * @return Intent of Settings
      */
@@ -288,6 +297,7 @@ public class TFGame extends Game implements Serializable {
 
     /**
      * Return GameActivity intent
+     *
      * @param PackageContext game activity context
      * @return Intent of Game Activity
      */
