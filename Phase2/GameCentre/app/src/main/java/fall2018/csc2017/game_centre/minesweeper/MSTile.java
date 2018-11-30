@@ -10,25 +10,41 @@ import fall2018.csc2017.game_centre.R;
  */
 public class MSTile implements Serializable {
 
-    /** The background id to find the tile image. */
+    /**
+     * The background id to find the tile image.
+     */
     private int background;
 
-    /** The id of this tile from 0-11. */
+    /**
+     * The id of this tile from 0-11.
+     */
     private int id;
 
-    /** If this tile is revealed or not */
+    /**
+     * If this tile is revealed or not
+     */
     private boolean revealed;
 
-    /** If this tile has been flagged or not */
+    /**
+     * If this tile has been flagged or not
+     */
     private boolean flagged;
 
-    /** This tile is the empty tile with 0 mines around it */
+    /**
+     * This tile is the empty tile with 0 mines around it
+     */
     final static int EMPTY = 0;
-    /** This tile is the mine tile */
+    /**
+     * This tile is the mine tile
+     */
     final static int MINE = 9;
-    /** This tile has been flagged */
+    /**
+     * This tile has been flagged
+     */
     private final static int FLAGGED = 10;
-    /** This tile is still unrevealed */
+    /**
+     * This tile is still unrevealed
+     */
     private final static int UNREVEALED = 11;
     /**
      * An array of all tile backgrounds.
@@ -122,5 +138,7 @@ public class MSTile implements Serializable {
      *
      * @return index of the background image
      */
-    public int getBackground() { return background; }
+    public int getBackground() {
+        return background;
+    }
 }

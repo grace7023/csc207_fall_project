@@ -74,14 +74,18 @@ public class MSBoard extends Observable implements Serializable, Iterable<MSTile
      *
      * @return number of rows
      */
-    int getNumRows() {return numRows; }
+    int getNumRows() {
+        return numRows;
+    }
 
     /**
      * Returns the number of columns of this board
      *
      * @return number of columns
      */
-    int getNumCols() {return numCols; }
+    int getNumCols() {
+        return numCols;
+    }
 
     /**
      * Return the tile at (row, col)
