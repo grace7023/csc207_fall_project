@@ -66,7 +66,7 @@ public class MinesweeperGameActivity extends GameActivity implements Observer {
     /**
      * Whether game is over
      */
-    private boolean GameOver = false;
+    private boolean gameOver = false;
 
 
     private boolean darkView;
@@ -111,7 +111,7 @@ public class MinesweeperGameActivity extends GameActivity implements Observer {
                 scoreboard.sortAscending();
                 scoreboard.saveToFile();
             } else {
-                if (!GameOver) {
+                if (!gameOver) {
                     revealAllBombs();
                 }
             }
@@ -366,7 +366,7 @@ public class MinesweeperGameActivity extends GameActivity implements Observer {
         Intent gameOverIntent = new Intent(getApplicationContext(), GameOverActivity.class);
 
         Bundle gmaBundle = new Bundle();
-        gmaBundle.putSerializable("GAME", new MinesweeperGame(0, 0, 0));
+        gmaBundle.putSerializable("GAME", minesweeperGame);
         gmaBundle.putString("GAME_DESC", MinesweeperGame.GAME_DESC);
         gmaBundle.putString("GAME_FILENAME", gameFilename);
         gmaBundle.putString("USERNAME", currentUsername);
@@ -382,7 +382,7 @@ public class MinesweeperGameActivity extends GameActivity implements Observer {
      * Reveals all bombs once the user loses the game.
      */
     public void revealAllBombs() {
-        GameOver = true;
+        gameOver = true;
         List<MSTile> tiles = new ArrayList<>();
         for (int i = 0; i < minesweeperGame.getNumRows(); i++) {
             for (int j = 0; j < minesweeperGame.getNumCols(); j++) {

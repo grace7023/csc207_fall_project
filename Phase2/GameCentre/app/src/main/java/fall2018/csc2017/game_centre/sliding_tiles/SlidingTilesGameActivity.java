@@ -82,7 +82,7 @@ public class SlidingTilesGameActivity extends GameActivity implements Observer {
         Intent gameOverIntent = new Intent(getApplicationContext(), GameOverActivity.class);
 
         Bundle gmaBundle = new Bundle();
-        gmaBundle.putSerializable("GAME", new SlidingTilesGame(0));
+        gmaBundle.putSerializable("GAME", slidingTilesGame);
         gmaBundle.putString("GAME_DESC", SlidingTilesGame.GAME_DESC);
         gmaBundle.putString("GAME_FILENAME", gameFilename);
         gmaBundle.putString("USERNAME", currentUsername);
