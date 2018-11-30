@@ -32,6 +32,13 @@ class Addons {
         }
         return toReturn;
     }
+
+    /**
+     * check if string returns the same hash as the hashed password
+     * @param input string to be hashed and compared
+     * @param password hashed string
+     * @return true if match
+     */
     static boolean checkString(String input, String password) {
         return stringToSHA256(input).equals(password);
     }
