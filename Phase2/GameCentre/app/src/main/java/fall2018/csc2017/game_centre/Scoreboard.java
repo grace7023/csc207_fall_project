@@ -54,7 +54,9 @@ public class Scoreboard implements Serializable {
      * @param score  the score they just achieved
      */
     public void addScore(String player, String score) {
-        scores.add(new Score(player, score));
+        Score s = new Score(player, score);
+        if (!scores.contains(s))
+            scores.add(s);
     }
 
     /**

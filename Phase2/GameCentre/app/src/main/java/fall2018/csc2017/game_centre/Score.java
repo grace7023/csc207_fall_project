@@ -61,7 +61,7 @@ public class Score implements Comparable<Score>, Serializable {
     public boolean equals(Object other) {
         if (other instanceof Score) {
             Score o = (Score) other;
-            return value.equals(o.value);
+            return value.equals(o.value) && player.equals(o.player);
         }
         return false;
     }
