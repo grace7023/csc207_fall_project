@@ -25,11 +25,12 @@ public class GameOverActivity extends AppCompatActivity {
      */
     private String gameFilename;
 
+    private boolean DarkView;
     /**
      * Current Game
      */
     private Game game;
-    private TextView gameOverText;
+    TextView gameOverText;
 
     /**
      * Create UI for Game Over
@@ -43,8 +44,12 @@ public class GameOverActivity extends AppCompatActivity {
         gameFilename = getIntent().getStringExtra("GAME_FILENAME");
         currentUsername = getIntent().getStringExtra("USERNAME");
         game = (Game) getIntent().getSerializableExtra("GAME");
+        DarkView = getIntent().getBooleanExtra("DARKVIEW", false);
+
         gameOverText = findViewById(R.id.gameoverText);
         gameOverText.setText(game.gameOverText());
+
+        setUpDarkview();
     }
 
     /**
@@ -76,5 +81,11 @@ public class GameOverActivity extends AppCompatActivity {
         startActivity(GMAIntent);
         overridePendingTransition(R.anim.slide_from_left, R.anim.slide_to_right);
         finish();
+    }
+
+    private void setUpDarkview(){
+        if (DarkView){
+
+        }
     }
 }

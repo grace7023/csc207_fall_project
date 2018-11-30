@@ -81,6 +81,7 @@ public class MinesweeperSettings extends AppCompatActivity {
         setupBoardSizeSpinner();
 
 
+
         final Handler handler = new Handler();
         handler.postDelayed(new Runnable() {
             @Override
@@ -138,8 +139,8 @@ public class MinesweeperSettings extends AppCompatActivity {
             numBombsText.setTextColor(Color.WHITE);
             TextView boardSizeText = findViewById(R.id.boardSizeText);
             boardSizeText.setTextColor(Color.WHITE);
-            Spinner boardSizeSpinner = findViewById(R.id.msBoardSizeSpinner);
-            String[] array = getResources().getStringArray(R.array.MSGameSize);
+            EditText msNumberBombs = findViewById(R.id.msNumberBombs);
+            msNumberBombs.setTextColor(Color.WHITE);
         }
     }
     /**
@@ -180,6 +181,7 @@ public class MinesweeperSettings extends AppCompatActivity {
             gameIntent.putExtra("USERNAME", currentUsername);
             gameIntent.putExtra("GAME_FILENAME", gameFilename);
             gameIntent.putExtra("FROM_LOAD", false);
+            gameIntent.putExtra("DARKVIEW", DarkView);
             startActivity(gameIntent);
             overridePendingTransition(R.anim.slide_from_right, R.anim.slide_to_left);
             finish();

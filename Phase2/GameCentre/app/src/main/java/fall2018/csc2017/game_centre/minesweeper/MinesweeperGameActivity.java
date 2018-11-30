@@ -69,6 +69,7 @@ public class MinesweeperGameActivity extends GameActivity implements Observer {
     private boolean GameOver = false;
 
 
+    private boolean DarkView;
     /**
      * TextView for currentScore
      */
@@ -129,6 +130,7 @@ public class MinesweeperGameActivity extends GameActivity implements Observer {
         super.onCreate(savedInstanceState);
         currentUsername = getIntent().getStringExtra("USERNAME");
         gameFilename = getIntent().getStringExtra("GAME_FILENAME");
+        DarkView = getIntent().getBooleanExtra("DARKVIEW", false);
         loadFromFile(gameFilename);
         minesweeperGame.setLoadTime();
         createTileButtons(this);
@@ -340,6 +342,7 @@ public class MinesweeperGameActivity extends GameActivity implements Observer {
         gmaBundle.putString("GAME_FILENAME", gameFilename);
         gmaBundle.putString("USERNAME", currentUsername);
         gmaBundle.putString("GAME_NAME", "MINESWEEPER");
+        gmaBundle.putBoolean("DARKVIEW", DarkView);
         msGMAIntent.putExtras(gmaBundle);
         startActivity(msGMAIntent);
         overridePendingTransition(R.anim.slide_from_left, R.anim.slide_to_right);
@@ -368,6 +371,7 @@ public class MinesweeperGameActivity extends GameActivity implements Observer {
         gmaBundle.putString("GAME_FILENAME", gameFilename);
         gmaBundle.putString("USERNAME", currentUsername);
         gmaBundle.putString("GAME_NAME", "MINESWEEPER");
+        gmaBundle.putBoolean("DARKVIEW", DarkView);
         gameOverIntent.putExtras(gmaBundle);
         startActivity(gameOverIntent);
         overridePendingTransition(R.anim.slide_from_left, R.anim.slide_to_right);
