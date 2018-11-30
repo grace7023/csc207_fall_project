@@ -1,11 +1,17 @@
 package fall2018.csc2017.game_centre;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.Gravity;
+import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
+
+import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -60,6 +66,8 @@ public class ScoreboardActivity extends AppCompatActivity {
      */
     TextView scoreboardGameTitle;
 
+    private boolean darkView;
+
     /**
      * Creates the UI elements
      *
@@ -76,6 +84,7 @@ public class ScoreboardActivity extends AppCompatActivity {
         gameFilename = gameBundle.getString("GAME_FILENAME");
         gameDesc = gameBundle.getString("GAME_DESC");
         gameName = gameBundle.getString("GAME_NAME");
+        darkView = gameBundle.getBoolean("DARKVIEW");
         String[] stringParts = gameFilename.split("_");
         scoreboard = new Scoreboard(stringParts[0]);
         scoreboard.loadFromFile();
@@ -88,10 +97,22 @@ public class ScoreboardActivity extends AppCompatActivity {
         /* This code adapted from
          * https://stackoverflow.com/questions/4540754/dynamically-add-elements-to-a-listview-android
          */
+        int scoreid1;
+        int scoreid2;
+        if (darkView) {
+            scoreid1 = R.layout.white_spinner_item;
+            scoreid2 = R.layout.white_spinner_item;
+        } else {
+            scoreid1 = android.R.layout.simple_list_item_1;
+            scoreid2 = android.R.layout.simple_list_item_1;
+        }
+
+
+
         ArrayAdapter<Score> scoreAdapter = new ArrayAdapter<>(
-                this, android.R.layout.simple_list_item_1, scores);
+                this, scoreid1, scores);
         ArrayAdapter<Score> playerScoreAdapter = new ArrayAdapter<>(
-                this, android.R.layout.simple_list_item_1, playerScores);
+                this, scoreid2, playerScores);
 
 
         ListView scoreListView = findViewById(R.id.scoreList);
@@ -100,11 +121,20 @@ public class ScoreboardActivity extends AppCompatActivity {
         ListView playerScoreListView = findViewById(R.id.scoreList2);
         playerScoreListView.setAdapter(playerScoreAdapter);
 
+        View headerView1 = getLayoutInflater().inflate(R.layout.header_item_1, null);
+        View headerView2 = getLayoutInflater().inflate(R.layout.header_item_2, null);
+        if (darkView) {
+            scoreListView.addHeaderView(headerView1);
+            playerScoreListView.addHeaderView(headerView2);
+        } else {
+            scoreListView.addHeaderView(formatText(
+                    new TextView(this), "Total Highscores"));
+            playerScoreListView.addHeaderView(formatText(
+                    new TextView(this), "Player's Highscore"));
+        }
 
-        scoreListView.addHeaderView(formatText(
-                new TextView(this), "Total Highscores"));
-        playerScoreListView.addHeaderView(formatText(
-                new TextView(this), "Player's Highscore"));
+
+        setUpDarkView();
 
     }
 
@@ -119,6 +149,7 @@ public class ScoreboardActivity extends AppCompatActivity {
         textView.setText(text);
         textView.setHeight(300);
         textView.setTextSize(30);
+        textView.setTextAlignment(Gravity.CENTER);
         return textView;
     }
 
@@ -143,6 +174,7 @@ public class ScoreboardActivity extends AppCompatActivity {
         gmaBundle.putString("GAME_FILENAME", gameFilename);
         gmaBundle.putString("USERNAME", currentUsername);
         gmaBundle.putString("GAME_NAME", gameName);
+        gmaBundle.putBoolean("DARKVIEW", darkView);
         tfGMAIntent.putExtras(gmaBundle);
         startActivity(tfGMAIntent);
         overridePendingTransition(R.anim.slide_from_left, R.anim.slide_to_right);
@@ -152,5 +184,15 @@ public class ScoreboardActivity extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         switchToGMA();
+    }
+
+    private void setUpDarkView(){
+        if (darkView){
+            RelativeLayout relativeLayout = findViewById(R.id.scoreboardActivity);
+            relativeLayout.setBackgroundColor(Color.DKGRAY);
+            TextView scoreboardGameTitle = findViewById(R.id.scoreboardGameTitle);
+            scoreboardGameTitle.setTextColor(Color.WHITE);
+            ListView score1 = findViewById(R.id.scoreList);
+        }
     }
 }
