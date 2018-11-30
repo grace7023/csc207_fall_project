@@ -71,10 +71,27 @@ public class SlidingTilesGameActivity extends GameActivity implements Observer {
             scoreboard.sortAscending();
             scoreboard.saveToFile();
 
-            switchToGMA();
+            switchToGameOver();
         }
     }
 
+    /**
+     * Switch to the GameOverActivity. Happens when the game ends.
+     */
+    public void switchToGameOver() {
+        Intent gameOverIntent = new Intent(getApplicationContext(), GameOverActivity.class);
+
+        Bundle gmaBundle = new Bundle();
+        gmaBundle.putSerializable("GAME", new SlidingTilesGame(0));
+        gmaBundle.putString("GAME_DESC", SlidingTilesGame.GAME_DESC);
+        gmaBundle.putString("GAME_FILENAME", gameFilename);
+        gmaBundle.putString("USERNAME", currentUsername);
+        gmaBundle.putString("GAME_NAME", "SLIDING TILES");
+        gameOverIntent.putExtras(gmaBundle);
+        startActivity(gameOverIntent);
+        overridePendingTransition(R.anim.slide_from_left, R.anim.slide_to_right);
+        finish();
+    }
     /**
      * Set up UI interface for SlidingTilesGame.
      *

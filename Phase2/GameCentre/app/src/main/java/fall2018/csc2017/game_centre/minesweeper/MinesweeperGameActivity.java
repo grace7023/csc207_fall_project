@@ -54,12 +54,12 @@ public class MinesweeperGameActivity extends GameActivity implements Observer {
     private int columnWidth, columnHeight;
 
     /**
-     * Textview telling user whether they are flagging tiles or revealing tiles
+     * set to "Flagging" if user is flagging and "Revealing" if user is revealing
      */
     private TextView flagging;
 
     /**
-     * set to "Flagging" if user is flagging and "Revealing" if user is revealing
+     * Textview telling user whether they are flagging tiles or revealing tiles
      */
     String flagText;
 
@@ -109,13 +109,12 @@ public class MinesweeperGameActivity extends GameActivity implements Observer {
                 scoreboard.addScore(currentUsername, minesweeperGame.getTime());
                 scoreboard.sortAscending();
                 scoreboard.saveToFile();
-                switchToGMA();
             } else {
                 if (!GameOver) {
                     revealAllBombs();
-                    switchToGameOver();
                 }
             }
+            switchToGameOver();
         }
     }
 

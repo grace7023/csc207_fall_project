@@ -82,10 +82,7 @@ public class TFGameActivity extends GameActivity implements Observer {
             scoreboard.addScore(currentUsername, String.valueOf(tfGame.getScore()));
             scoreboard.sortDescending();
             scoreboard.saveToFile();
-            if (tfGame.isStuck()) {
-                switchToGameover();
-            } else
-                switchToGMA();
+            switchToGameover();
         }
     }
 
