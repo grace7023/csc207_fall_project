@@ -10,7 +10,7 @@ import java.util.NoSuchElementException;
 import static org.junit.Assert.*;
 
 public class MSBoardTest {
-    MinesweeperGame minesweeperGame;
+    private MinesweeperGame minesweeperGame;
 
     /**
      * Makes a list of tiles as an input for the board
