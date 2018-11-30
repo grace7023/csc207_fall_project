@@ -284,18 +284,6 @@ public class TFBoard extends Observable implements Serializable, Iterable<Box> {
     }
 
     /**
-     * Return a string representation of this Board
-     *
-     * @return A string representation of the Boxes within this Board
-     */
-    @Override
-    public String toString() {
-        return "TFBoard{" +
-                "boxes=" + Arrays.toString(boxes) +
-                '}';
-    }
-
-    /**
      * @return total number of boxes (empty and non-empty)
      */
     int getNumBoxes() {

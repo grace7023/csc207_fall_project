@@ -287,4 +287,16 @@ public class TFBoardTest {
         game.getBoard().moveBoxesUp();
         assertEquals(1,game.getBoard().getBox(0,0).getExponent());
     }
+
+    /**
+     * Test whether generateBox works
+     */
+    @Test
+    public void rng(){
+        setUpGame(makeFilledBoxes());
+        game.getBoard().getBox(0,0 ).setExponent(0);
+        game.getBoard().getBox(2,2 ).setExponent(0);
+        game.move(1);
+        assertEquals(0,game.getBoard().getBox(2,2 ).getExponent());
+    }
 }
