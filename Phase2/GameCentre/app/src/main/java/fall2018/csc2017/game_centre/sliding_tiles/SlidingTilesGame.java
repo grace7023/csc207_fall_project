@@ -320,7 +320,6 @@ public class SlidingTilesGame extends Game implements Serializable {
      * @param PackageContext game activity context
      * @return SlidingTilesSettings a
      */
-
     @Override
     public Intent getSettingsIntent(AppCompatActivity PackageContext) {
         return new Intent(PackageContext, SlidingTilesSettings.class);
