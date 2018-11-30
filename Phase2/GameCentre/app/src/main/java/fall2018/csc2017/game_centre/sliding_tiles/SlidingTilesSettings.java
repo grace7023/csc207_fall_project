@@ -25,6 +25,10 @@ public class SlidingTilesSettings extends AppCompatActivity {
      */
     private int gameSize;
 
+    /**
+     * Whether this activity is in darkView mode or not.
+     */
+
     private boolean darkView;
 
     /**
@@ -32,7 +36,15 @@ public class SlidingTilesSettings extends AppCompatActivity {
      */
     private SlidingTilesGame slidingTilesGame;
 
+    /**
+     * the current user's username
+     */
+
     private String currentUsername;
+
+    /**
+     * save file path for game
+     */
 
     private String gameFilename;
 
@@ -148,6 +160,9 @@ public class SlidingTilesSettings extends AppCompatActivity {
         }
     }
 
+    /**
+     * When the back button is pressed, switch to the GameMenuActivity
+     */
     @Override
     public void onBackPressed() {
         switchToGMA();

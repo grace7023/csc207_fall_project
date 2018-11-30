@@ -47,12 +47,20 @@ public class SlidingTilesGameActivity extends GameActivity implements Observer {
      */
     private TextView currentScore;
 
+    /**
+     * the current user
+     */
+
     private String currentUsername;
+
+    /**
+     * the game save file path
+     */
 
     private String gameFilename;
 
     /**
-     *
+     * Whether this activity is in darkView mode or not.
      */
     private boolean darkView;
 
@@ -219,6 +227,13 @@ public class SlidingTilesGameActivity extends GameActivity implements Observer {
         }
     }
 
+    /**
+     * Update the display
+     *
+     * @param o   Observable
+     * @param arg Object
+     */
+
     @Override
     public void update(Observable o, Object arg) {
         updateScore();
@@ -253,9 +268,17 @@ public class SlidingTilesGameActivity extends GameActivity implements Observer {
         });
     }
 
+    /**
+     * Add current score to the screen for user to see
+     */
+
     public void addCurrentScore() {
         currentScore = findViewById(R.id.currentScore);
     }
+
+    /**
+     * Update the score whenever the user makes a move
+     */
 
     private void updateScore() {
         String newScore = "Score: " + String.valueOf(slidingTilesGame.getScore());
@@ -281,6 +304,9 @@ public class SlidingTilesGameActivity extends GameActivity implements Observer {
         finish();
     }
 
+    /**
+     * When back button is pressed, switch to GameMenuActivity.
+     */
     @Override
     public void onBackPressed() {
         switchToGMA();
