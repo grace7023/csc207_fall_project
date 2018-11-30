@@ -63,8 +63,8 @@ public class TFBoardTest {
     @Test
     public void moveBoxesUp() {
         setUpGame(makeTwoBoxes());
-        game.getBoard().moveBoxesUp();
-        assertEquals(0, game.getBoard().getBox(1,1 ).getExponent());
+        game.move(1);
+        assertEquals(1, game.getBoard().getBox(0,0 ).getExponent());
         assertEquals(2, game.getBoard().getBox(0,1 ).getExponent());
     }
 
@@ -76,7 +76,7 @@ public class TFBoardTest {
     @Test
     public void moveBoxesDown() {
         setUpGame(makeTwoBoxes());
-        game.getBoard().moveBoxesDown();
+        game.move(2);
         assertEquals(1, game.getBoard().getBox(2,0 ).getExponent());
         assertEquals(2, game.getBoard().getBox(2,1 ).getExponent());
     }
@@ -89,7 +89,7 @@ public class TFBoardTest {
     @Test
     public void moveBoxesLeft() {
         setUpGame(makeTwoBoxes());
-        game.getBoard().moveBoxesLeft();
+        game.move(3);
         assertEquals(1, game.getBoard().getBox(0,0 ).getExponent());
         assertEquals(2, game.getBoard().getBox(1,0 ).getExponent());
     }
@@ -102,7 +102,7 @@ public class TFBoardTest {
     @Test
     public void moveBoxesRight() {
         setUpGame(makeTwoBoxes());
-        game.getBoard().moveBoxesRight();
+        game.move(4);
         assertEquals(1, game.getBoard().getBox(0,2 ).getExponent());
         assertEquals(2, game.getBoard().getBox(1,2 ).getExponent());
     }
@@ -142,7 +142,7 @@ public class TFBoardTest {
         }
         setUpGame(boxes);
         assertEquals(1, game.getBoard().getBox(0, 0).getExponent());
-        game.getBoard().moveBoxesLeft();
+        game.move(3);
         assertEquals(2, game.getBoard().getBox(0, 0).getExponent());
     }
     @Test
@@ -157,7 +157,7 @@ public class TFBoardTest {
         }
         setUpGame(boxes);
         assertEquals(1, game.getBoard().getBox(0, 2).getExponent());
-        game.getBoard().moveBoxesRight();
+        game.move(4);
         assertEquals(2, game.getBoard().getBox(0, 2).getExponent());
     }
 
@@ -173,7 +173,7 @@ public class TFBoardTest {
         }
         setUpGame(boxes);
         assertEquals(1, game.getBoard().getBox(0, 0).getExponent());
-        game.getBoard().moveBoxesUp();
+        game.move(1);
         assertEquals(2, game.getBoard().getBox(0, 0).getExponent());
     }
     @Test
@@ -188,7 +188,7 @@ public class TFBoardTest {
         }
         setUpGame(boxes);
         assertEquals(1,game.getBoard().getBox(0,0).getExponent());
-        game.getBoard().moveBoxesDown();
+        game.move(2);
         assertEquals(2,game.getBoard().getBox(2,0).getExponent());
     }
     @Test
@@ -198,5 +198,4 @@ public class TFBoardTest {
         game.getBoard().moveBoxesUp();
         assertEquals(1,game.getBoard().getBox(0,0).getExponent());
     }
-
 }
