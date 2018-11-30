@@ -20,28 +20,22 @@ public class MinesweeperGame extends Game implements Serializable {
     /**
      * The number of rows of the board.
      */
-    public int numRows;
+    private int numRows;
 
     /**
      * The number of columns of the board.
      */
-    public int numCols;
+    private int numCols;
 
     /**
      * The number of bombs on the board.
      */
-    public int numBombs;
+    private int numBombs;
 
     /**
      * The number of bombs left on the board. Represents numBombs - number of Flagged tiles
      */
     private int totalFlagged;
-
-//    /**
-//     * The number of flagged tiles
-//     */
-//
-//    private int totalFlagged;
 
     /**
      * The board being managed.
@@ -49,20 +43,28 @@ public class MinesweeperGame extends Game implements Serializable {
     private MSBoard board;
 
     /**
-     * The score of the current game
+     * Whether the game is currently in flagging mode or not
      */
-
     private boolean flagging;
 
+    /**
+     * Is true if a tile that was a bomb was clicked
+     */
     private boolean bombClicked;
 
+    /**
+     * Displayed game description in the GameMenu
+     */
     public final static String GAME_DESC = "Welcome to Minesweeper!\nTap on tiles to reveal them\n" +
             "Tap the flag button to flag bombs\nReveal all the non-bomb tiles on the field to win!";
 
+
+    /**
+     * Keeps track of the elapsed time since this MinesweeperGame object was created
+     */
     private long startTime;
     private long saveTime;
     private long loadTime;
-    private int timer;
 
 
     /**
@@ -70,8 +72,6 @@ public class MinesweeperGame extends Game implements Serializable {
      *
      * @param board the board
      */
-
-
     public MinesweeperGame(MSBoard board, int numBombs) {
         this.numRows = board.getNumRows();
         this.numCols = board.getNumCols();
@@ -84,13 +84,12 @@ public class MinesweeperGame extends Game implements Serializable {
     }
 
     /**
-     * Manage a board given the size of the board.
+     * Manage a board given the size of the board and the number of bombs.
      *
      * @param numRows the number of rows of this board
      * @param numCols the number of columns of this board
      * @param numBombs the number of bombs of this board
      */
-
     public MinesweeperGame(int numRows, int numCols, int numBombs) {
         this.numRows = numRows;
         this.numCols = numCols;
@@ -106,7 +105,7 @@ public class MinesweeperGame extends Game implements Serializable {
     }
 
     /**
-     * Creates the board with the specified rows, columns and number of bombs
+     * Creates and randomly scrambles the board with the specified number of rows, columns and bombs
      */
     private void generateBoard() {
         List<MSTile> tiles = new ArrayList<>(numRows*numCols);
@@ -138,23 +137,23 @@ public class MinesweeperGame extends Game implements Serializable {
     }
 
     /**
-     * Return the size of the board
+     * Returns the size of the board
      *
-     * @return boardSize
+     * @return screenSize
      */
     public int getScreenSize() {
         return numRows * numCols;
     }
 
     /**
-     * Return the current board.
+     * Returns the current board.
      */
     public MSBoard getBoard() {
         return board;
     }
 
     /**
-     * Return whether the current state of the game is over.
+     * Return whether the current state of the game is over either if a bomb was clicked or the game is completed.
      *
      * @return whether the game is over
      */
@@ -172,10 +171,10 @@ public class MinesweeperGame extends Game implements Serializable {
 
 
     /**
-     * Return whether any of the four surrounding tiles is the blank tile.
+     * Return whether there are any unrevealed tiles around the selected tile at position arg
      *
      * @param arg the tile to check
-     * @return whether the tile at position is surrounded by a blank tile
+     * @return whether the tile at position has any unrevealed tiles around it
      */
     public boolean isValidMove(int arg) {
         int row = arg / numRows;
@@ -203,7 +202,7 @@ public class MinesweeperGame extends Game implements Serializable {
     }
 
     /**
-     * Process a touch at position in the board, swapping tiles as appropriate.
+     * Process a touch at position in the board, revealing or flagging tiles as appropriate.
      *
      * @param arg the position
      */
@@ -222,6 +221,12 @@ public class MinesweeperGame extends Game implements Serializable {
         }
     }
 
+    /**
+     * Either flags an unflagged unrevealed tile or unflags a flagged unrevealed tile
+     *
+     * @param currentTile the current tile being clicked
+     * @param currentTilePosition the position of the current tile being clicked
+     */
     private void flaggingMove(MSTile currentTile, int currentTilePosition) {
         if (!currentTile.isRevealed()) {
             boolean currentTileFlagged = currentTile.isFlagged();
@@ -230,6 +235,12 @@ public class MinesweeperGame extends Game implements Serializable {
         }
     }
 
+    /**
+     * Reveals the tile that is being clicked and sets bombClicked to true if the tile was a bomb
+     *
+     * @param currentTile the current tile being clicked
+     * @param currentTileId the ID of the current tile being clicked
+     */
     private void revealingMove(MSTile currentTile, int currentTileId) {
         if (!currentTile.isRevealed()) {
             if (currentTileId == MSTile.MINE) {
@@ -241,6 +252,12 @@ public class MinesweeperGame extends Game implements Serializable {
         }
     }
 
+    /**
+     * Reveals all the unflagged tiles around a revealed tile if there are the same amount of flagged tiles as its own ID
+     *
+     * @param currentTileId the current tile being clicked's ID
+     * @param currentTilePosition the position of the current tile being clicked
+     */
     private void revealedTileMove(int currentTileId, int currentTilePosition) {
         int surroundingFlagged = 0;
         List<MSTile> neighbours = adjacentTiles(currentTilePosition, board);
@@ -261,8 +278,11 @@ public class MinesweeperGame extends Game implements Serializable {
         }
     }
 
+    /**
+     *
+     * @param original
+     */
     private void expandEmpty(MSTile original) {
-        //Tile original = board.getTile(row, col);
         ArrayList<MSTile> queue = new ArrayList<>();
 
         queue.add(original);
@@ -325,11 +345,21 @@ public class MinesweeperGame extends Game implements Serializable {
      * @return SlidingTilesSettings a
      */
 
+    /**
+     * Gets the intent to switch to the MinesweeperSettings activity
+     *
+     * @return the intent to MinesweeperSettings.class
+     */
     @Override
     public Intent getSettingsIntent(AppCompatActivity PackageContext) {
         return new Intent(PackageContext, MinesweeperSettings.class);
     }
 
+    /**
+     * Gets the intent to siwtch to the MinesweeperGameActivity activity
+     *
+     * @return the intent to MinesweeperGameActivity.class
+     */
     @Override
     public Intent getGameActivityIntent(AppCompatActivity PackageContext) {
         return new Intent(PackageContext, MinesweeperGameActivity.class);
@@ -343,18 +373,13 @@ public class MinesweeperGame extends Game implements Serializable {
     // This code was adapted from an article by bealdung on 2018/11/28
     // URL: https://www.baeldung.com/java-measure-elapsed-time
     public String getTime(){
-        timer = (int)(((System.nanoTime() - startTime - (loadTime - saveTime))/1000000000));
+        int timer = (int)(((System.nanoTime() - startTime - (loadTime - saveTime))/1000000000));
         String min = timer / 60 < 10 ? "0" + String.valueOf(timer/60) : String.valueOf(timer/60);
         String sec = timer % 60 < 10 ? "0" + String.valueOf(timer%60) : String.valueOf(timer%60);
-        System.out.println("Start: " + startTime/1000000000);
-        System.out.println("Load: " + loadTime/1000000000);
-        System.out.println("Save: " + saveTime/1000000000);
-//        System.out.println("Pre-save time: " + (saveTime - startTime)/1000000000);
-        System.out.println("During-save time: " + (loadTime - saveTime)/1000000000);
-//        System.out.println("Post-save time: " + (System.nanoTime() - loadTime)/1000000000);
-        System.out.println("Nano time: " + System.nanoTime()/1000000000);
+
         return min + ":" + sec;
     }
+
 
     void setSaveTime(){
         saveTime = System.nanoTime();
@@ -365,10 +390,40 @@ public class MinesweeperGame extends Game implements Serializable {
         loadTime = System.nanoTime();
         System.out.println("LOAD TIME IS BEING CALLED AAAAAAAAAAA");
     }
-    int getNumBombs(){ return totalFlagged; }
+
+    /**
+     * Returns the number of bombs left on the board
+     *
+     * @return the number of bombs left
+     */
+    int getBombsLeft(){ return totalFlagged; }
+
+    /**
+     * Returns the number of rows of the board being managed
+     *
+     * @return the number of rows
+     */
     int getNumRows() { return numRows; }
+
+    /**
+     * Returns the number of columns of the board being managed
+     *
+     * @return the number of columns
+     */
     int getNumCols() { return numCols; }
+
+    /**
+     * Returns whether the game is either in revealing mode or flagging mode
+     *
+     * @return true if flagging, false if revealing
+     */
     public boolean getFlagging() { return flagging; }
+
+    /**
+     * Return a string of whether the game is solved or over due to a bomb
+     *
+     * @return "GAME OVER!" if clicked on a bomb or "YOU WIN!" if the board was solved
+     */
     public String gameOverText() {
         if (bombClicked) return "GAME OVER!";
         else return "YOU WIN!";
