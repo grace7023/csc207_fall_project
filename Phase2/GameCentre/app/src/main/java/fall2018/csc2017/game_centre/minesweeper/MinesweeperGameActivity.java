@@ -50,8 +50,7 @@ public class MinesweeperGameActivity extends GameActivity implements Observer {
     private static int columnWidth, columnHeight;
 
     private TextView flagging;
-    private String flagText;
-    private int startTime;
+     String flagText;
 
 
     /**
@@ -64,7 +63,6 @@ public class MinesweeperGameActivity extends GameActivity implements Observer {
 
     private String gameFilename;
 
-    private long loadTime;
 
     /**
      * Set up the background image for each button based on the master list
@@ -93,6 +91,7 @@ public class MinesweeperGameActivity extends GameActivity implements Observer {
                 switchToGMA();
             }
             else
+                revealAllBombs();
                 switchToGameover();
         }
     }
@@ -321,5 +320,19 @@ public class MinesweeperGameActivity extends GameActivity implements Observer {
         startActivity(msGMAIntent);
         overridePendingTransition(R.anim.slide_from_left, R.anim.slide_to_right);
         finish();
+    }
+    public void revealAllBombs(){
+        List<MSTile> tiles = new ArrayList<>();
+        for (int i=0; i<minesweeperGame.getNumRows(); i++){
+            for (int j=0; j<minesweeperGame.getNumCols(); j++){
+                tiles.add(minesweeperGame.getBoard().getTile(i, j));
+                System.out.println(i + "," + j);
+            }
+        }
+        for (MSTile t: tiles)
+            if (t.getId() == MSTile.MINE) {
+                t.reveal();
+                System.out.println(t.getId());
+            }
     }
 }

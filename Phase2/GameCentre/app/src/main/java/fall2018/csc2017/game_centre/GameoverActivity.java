@@ -34,6 +34,7 @@ public class GameoverActivity extends AppCompatActivity{
 
     public void addGameoverText(){
         gameoverText = findViewById(R.id.gameoverText);
+        gameoverText.setTextSize(40);
 
     }
     public void addGameoverButton(){
