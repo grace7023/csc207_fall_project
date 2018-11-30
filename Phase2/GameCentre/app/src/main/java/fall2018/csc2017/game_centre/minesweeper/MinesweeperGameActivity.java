@@ -307,15 +307,15 @@ public class MinesweeperGameActivity extends GameActivity implements Observer {
     }
 
     public void switchToGameover(){
-        Intent msGMAIntent = new Intent(getApplicationContext(), GameoverActivity.class);
+        Intent gameoverIntent = new Intent(getApplicationContext(), GameoverActivity.class);
         Bundle gmaBundle = new Bundle();
         gmaBundle.putSerializable("GAME", new MinesweeperGame(0, 0, 0));
         gmaBundle.putString("GAME_DESC", MinesweeperGame.GAME_DESC);
         gmaBundle.putString("GAME_FILENAME", gameFilename);
         gmaBundle.putString("USERNAME", currentUsername);
         gmaBundle.putString("GAME_NAME", "MINESWEEPER");
-        msGMAIntent.putExtras(gmaBundle);
-        startActivity(msGMAIntent);
+        gameoverIntent.putExtras(gmaBundle);
+        startActivity(gameoverIntent);
         overridePendingTransition(R.anim.slide_from_left, R.anim.slide_to_right);
         finish();
     }
