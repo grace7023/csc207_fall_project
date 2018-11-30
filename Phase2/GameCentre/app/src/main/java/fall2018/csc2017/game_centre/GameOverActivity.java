@@ -70,7 +70,7 @@ public class GameOverActivity extends AppCompatActivity {
     /**
      * Switch to Game Menu Activity
      */
-    public void switchToGMA() {
+    private void switchToGMA() {
         Intent GMAIntent = new Intent(getApplicationContext(), GameMenuActivity.class);
         Bundle gmaBundle = new Bundle();
         gmaBundle.putSerializable("GAME", game);
