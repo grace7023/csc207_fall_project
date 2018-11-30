@@ -31,6 +31,9 @@ public class GameManager extends AppCompatActivity {
 
     private ConstraintLayout gameManagerLayout;
 
+    /**
+     * Boolean value corresponding to whether the game is in DarkMode or not"
+     */
     private boolean darkView;
     /**
      * Creates the UI elements
