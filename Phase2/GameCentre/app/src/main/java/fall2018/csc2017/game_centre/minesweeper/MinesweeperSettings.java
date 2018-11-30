@@ -64,7 +64,6 @@ public class MinesweeperSettings extends AppCompatActivity {
                 handler.postDelayed(this, 100);
             }
         }, 100);
-        //setupNumBombs();
     }
 
     /**
@@ -117,7 +116,6 @@ public class MinesweeperSettings extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 minesweeperGame = new MinesweeperGame(numRows, numCols, numBombs);
-                ;
                 switchToGame();
             }
         });
