@@ -50,8 +50,8 @@ public class MinesweeperGameActivity extends GameActivity implements Observer {
     private static int columnWidth, columnHeight;
 
     private TextView flagging;
-    private String flagText;
-    private int startTime;
+     String flagText;
+    private boolean GameOver = false;
 
 
     /**
@@ -64,7 +64,6 @@ public class MinesweeperGameActivity extends GameActivity implements Observer {
 
     private String gameFilename;
 
-    private long loadTime;
 
     /**
      * Set up the background image for each button based on the master list
@@ -87,8 +86,13 @@ public class MinesweeperGameActivity extends GameActivity implements Observer {
                 scoreboard.saveToFile();
                 switchToGMA();
             }
-            else
-                switchToGameover();
+            else {
+                if (!GameOver) {
+                    revealAllBombs();
+                    System.out.println("Revealed all bombsAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
+                    switchToGameover();
+                }
+            }
         }
     }
     /**
@@ -303,16 +307,31 @@ public class MinesweeperGameActivity extends GameActivity implements Observer {
     }
 
     public void switchToGameover(){
-        Intent msGMAIntent = new Intent(getApplicationContext(), GameoverActivity.class);
+        Intent gameoverIntent = new Intent(getApplicationContext(), GameoverActivity.class);
         Bundle gmaBundle = new Bundle();
         gmaBundle.putSerializable("GAME", new MinesweeperGame(0, 0, 0));
         gmaBundle.putString("GAME_DESC", MinesweeperGame.GAME_DESC);
         gmaBundle.putString("GAME_FILENAME", gameFilename);
         gmaBundle.putString("USERNAME", currentUsername);
         gmaBundle.putString("GAME_NAME", "MINESWEEPER");
-        msGMAIntent.putExtras(gmaBundle);
-        startActivity(msGMAIntent);
+        gameoverIntent.putExtras(gmaBundle);
+        startActivity(gameoverIntent);
         overridePendingTransition(R.anim.slide_from_left, R.anim.slide_to_right);
         finish();
+    }
+    public void revealAllBombs(){
+        GameOver = true;
+        List<MSTile> tiles = new ArrayList<>();
+        for (int i=0; i<minesweeperGame.getNumRows(); i++){
+            for (int j=0; j<minesweeperGame.getNumCols(); j++){
+                tiles.add(minesweeperGame.getBoard().getTile(i, j));
+                System.out.println(i + "," + j);
+            }
+        }
+        for (MSTile t: tiles)
+            if (t.getId() == MSTile.MINE) {
+                minesweeperGame.getBoard().revealTile(t);
+                System.out.println(t.getId());
+            }
     }
 }

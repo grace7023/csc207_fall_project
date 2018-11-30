@@ -192,7 +192,7 @@ public class TFGame extends Game implements Serializable {
      *
      * @return True iff tiles are not movable
      */
-    private boolean isStuck() {
+    public boolean isStuck() {
         for (int row = 0; row < boardSize; row++) {
             for (int col = 0; col < boardSize; col++) {
                 int curExp = board.getBox(row, col).getExponent();
