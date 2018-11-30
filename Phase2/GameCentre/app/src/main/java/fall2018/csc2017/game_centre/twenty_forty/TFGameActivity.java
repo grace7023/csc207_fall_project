@@ -60,11 +60,7 @@ public class TFGameActivity extends GameActivity implements Observer {
      * of positions, and then call the adapter to set the view.
      */
     public void display() {
-        updateScore();
-        updateBoxButtons();
         gridView.setAdapter(new CustomAdapter(boxButtons, columnWidth, columnHeight));
-        autoSave();
-        checkIsOver();
     }
 
     /**
@@ -201,7 +197,11 @@ public class TFGameActivity extends GameActivity implements Observer {
 
     @Override
     public void update(Observable o, Object arg) {
+        updateScore();
+        updateBoxButtons();
         display();
+        autoSave();
+        checkIsOver();
     }
 
     /**

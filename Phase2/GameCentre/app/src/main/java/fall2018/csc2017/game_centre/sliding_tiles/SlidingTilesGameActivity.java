@@ -56,11 +56,7 @@ public class SlidingTilesGameActivity extends GameActivity implements Observer {
      * of positions, and then call the adapter to set the view.
      */
     public void display() {
-        updateScore();
-        updateTileButtons();
         gridView.setAdapter(new CustomAdapter(tileButtons, columnWidth, columnHeight));
-        autoSave();
-        checkIsOver();
     }
 
     /**
@@ -199,7 +195,11 @@ public class SlidingTilesGameActivity extends GameActivity implements Observer {
 
     @Override
     public void update(Observable o, Object arg) {
+        updateScore();
+        updateTileButtons();
         display();
+        autoSave();
+        checkIsOver();
     }
 
     /**
