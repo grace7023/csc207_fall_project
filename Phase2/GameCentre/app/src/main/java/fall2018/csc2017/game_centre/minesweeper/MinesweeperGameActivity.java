@@ -71,12 +71,7 @@ public class MinesweeperGameActivity extends GameActivity implements Observer {
      * of positions, and then call the adapter to set the view.
      */
     public void display() {
-        updateTimer();
-        updateTileButtons();
-        updateBombCounter();
         gridView.setAdapter(new CustomAdapter(tileButtons, columnWidth, columnHeight));
-        autoSave();
-        checkIsOver();
     }
 
     /**
@@ -273,7 +268,11 @@ public class MinesweeperGameActivity extends GameActivity implements Observer {
 
     @Override
     public void update(Observable o, Object arg) {
+        updateTileButtons();
+        updateBombCounter();
         display();
+        autoSave();
+        checkIsOver();
     }
 
     /**
@@ -281,12 +280,6 @@ public class MinesweeperGameActivity extends GameActivity implements Observer {
      */
     public void autoSave() {
         saveToFile(gameFilename);
-    }
-
-
-    private void updateTimer() {
-        //String newTime = minesweeperGame.getTime();
-        //timer.setText(newTime);
     }
 
     private void switchToGMA() {
