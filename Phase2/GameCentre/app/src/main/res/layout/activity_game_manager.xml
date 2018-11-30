@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".GameManager">
+    tools:context=".GameManager"
+    android:id="@+id/gameManagerActivity">
 
     <ImageView
         android:id="@+id/AppLogo"
@@ -102,6 +103,16 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/Minesweeper" />
 
+    <Button
+        android:id="@+id/darkButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        android:text="DarkView"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
     <TextView
         android:id="@+id/TwentyFortyHeading"
         android:layout_width="123dp"
@@ -113,4 +124,5 @@
         android:textAppearance="@style/TextAppearance.AppCompat.Caption"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/TwentyForty" />
+
 </android.support.constraint.ConstraintLayout>
