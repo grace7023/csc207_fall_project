@@ -51,6 +51,7 @@ public class MinesweeperGameActivity extends GameActivity implements Observer {
 
     private TextView flagging;
      String flagText;
+    private boolean GameOver = false;
 
 
     /**
@@ -90,9 +91,13 @@ public class MinesweeperGameActivity extends GameActivity implements Observer {
                 scoreboard.saveToFile();
                 switchToGMA();
             }
-            else
-                revealAllBombs();
-                switchToGameover();
+            else {
+                if (!GameOver) {
+                    revealAllBombs();
+                    System.out.println("Revealed all bombsAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
+                    switchToGameover();
+                }
+            }
         }
     }
     /**
@@ -322,6 +327,7 @@ public class MinesweeperGameActivity extends GameActivity implements Observer {
         finish();
     }
     public void revealAllBombs(){
+        GameOver = true;
         List<MSTile> tiles = new ArrayList<>();
         for (int i=0; i<minesweeperGame.getNumRows(); i++){
             for (int j=0; j<minesweeperGame.getNumCols(); j++){
@@ -331,7 +337,7 @@ public class MinesweeperGameActivity extends GameActivity implements Observer {
         }
         for (MSTile t: tiles)
             if (t.getId() == MSTile.MINE) {
-                t.reveal();
+                minesweeperGame.getBoard().revealTile(t);
                 System.out.println(t.getId());
             }
     }
