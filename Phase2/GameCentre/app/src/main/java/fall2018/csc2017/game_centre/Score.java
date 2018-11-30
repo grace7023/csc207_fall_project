@@ -1,6 +1,7 @@
 package fall2018.csc2017.game_centre;
 
 import android.support.annotation.NonNull;
+
 import java.io.Serializable;
 import java.util.regex.Pattern;
 
@@ -17,15 +18,16 @@ public class Score implements Comparable<Score>, Serializable {
     /**
      * The player who achieved this score
      */
-     private String player;
+    private String player;
 
     /**
      * Create a new score with player and value.
+     *
      * @param player player
-     * @param value value of score
+     * @param value  value of score
      */
 
-     Score(String player, String value) {
+    Score(String player, String value) {
         this.player = player;
         this.value = value;
     }
@@ -35,10 +37,10 @@ public class Score implements Comparable<Score>, Serializable {
     }
 
     /**
-    * Allows for the scores to be comparable by their numerical value
-    *
-    * @param o the score being compared to
-    */
+     * Allows for the scores to be comparable by their numerical value
+     *
+     * @param o the score being compared to
+     */
     @Override
     public int compareTo(@NonNull Score o) {
         if (Pattern.matches("\\d+", this.value) && Pattern.matches("\\d+", o.value)) {
@@ -58,6 +60,7 @@ public class Score implements Comparable<Score>, Serializable {
         }
         return false;
     }
+
     /**
      * Returns the string representation of a score
      *
