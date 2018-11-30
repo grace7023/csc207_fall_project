@@ -30,22 +30,34 @@ public class ScoreboardActivity extends AppCompatActivity {
      */
     public List<Score> playerScores = new ArrayList<>();
 
-    /** the game that the scoreboard is currently displaying scores for */
+    /**
+     * the game that the scoreboard is currently displaying scores for
+     */
     private Game game;
 
-    /** the username of the current logged in user */
+    /**
+     * the username of the current logged in user
+     */
     private String currentUsername;
 
-    /** the save file directory of the game */
+    /**
+     * the save file directory of the game
+     */
     private String gameFilename;
 
-    /** the description of the game */
+    /**
+     * the description of the game
+     */
     private String gameDesc;
 
-    /** name of the game */
+    /**
+     * name of the game
+     */
     private String gameName;
 
-    /** the textview object that displays the title of the game in scoreboard */
+    /**
+     * the textview object that displays the title of the game in scoreboard
+     */
     TextView scoreboardGameTitle;
 
     /**
@@ -113,12 +125,16 @@ public class ScoreboardActivity extends AppCompatActivity {
     /**
      * Displays the title of the scoreboard
      */
-    public void setUpScoreboardGameTitle(){
+    public void setUpScoreboardGameTitle() {
         scoreboardGameTitle = findViewById(R.id.scoreboardGameTitle);
         scoreboardGameTitle.setText(gameName);
         scoreboardGameTitle.setTextSize(35);
     }
 
+    /**
+     * Switch to GameMenuActivity for Minesweeper. Pass the game, game description, game file name,
+     * current username, and game name into the intent.
+     */
     private void switchToGMA() {
         Intent tfGMAIntent = new Intent(getApplicationContext(), GameMenuActivity.class);
         Bundle gmaBundle = new Bundle();

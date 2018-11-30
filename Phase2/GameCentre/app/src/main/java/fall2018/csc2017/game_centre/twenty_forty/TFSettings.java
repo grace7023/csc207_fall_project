@@ -125,7 +125,8 @@ public class TFSettings extends AppCompatActivity {
     }
 
     /**
-     * Switch to GameMenuActivity
+     * Switch to GameMenuActivity for Minesweeper. Pass the game, game description, game file name,
+     * current username, and game name into the intent.
      */
     private void switchToGMA() {
         Intent tfGMAIntent = new Intent(getApplicationContext(), GameMenuActivity.class);

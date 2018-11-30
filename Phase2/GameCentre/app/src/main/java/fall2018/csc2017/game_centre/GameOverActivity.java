@@ -33,6 +33,10 @@ public class GameOverActivity extends AppCompatActivity {
         });
     }
 
+    /**
+     * Switch to GameMenuActivity for Minesweeper. Pass the game, game description, game file name,
+     * current username, and game name into the intent.
+     */
     public void switchToGMA() {
         Intent GMAIntent = new Intent(getApplicationContext(), GameMenuActivity.class);
         Bundle gmaBundle = new Bundle();

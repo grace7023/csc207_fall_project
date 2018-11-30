@@ -330,7 +330,7 @@ public class MinesweeperGameActivity extends GameActivity implements Observer {
     }
 
     /**
-     * Switch to GameMenuActivity. Pass the game, game description, game file name,
+     * Switch to GameMenuActivity for Minesweeper. Pass the game, game description, game file name,
      * current username, and game name into the intent.
      */
     private void switchToGMA() {
