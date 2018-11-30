@@ -7,9 +7,9 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 
 
-public class GameoverActivity extends AppCompatActivity {
+public class GameOverActivity extends AppCompatActivity {
 
-     Button gameoverButton;
+    Button GameOverButton;
     private String currentUsername;
     private String gameFilename;
     private Game game;
@@ -17,15 +17,15 @@ public class GameoverActivity extends AppCompatActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_gameover);
-        addGameoverButton();
+        addGameOverButton();
         gameFilename = getIntent().getStringExtra("GAME_FILENAME");
         currentUsername = getIntent().getStringExtra("USERNAME");
         game = (Game) getIntent().getSerializableExtra("GAME");
     }
 
-    public void addGameoverButton() {
-        gameoverButton = findViewById(R.id.gameoverButton);
-        gameoverButton.setOnClickListener(new View.OnClickListener() {
+    public void addGameOverButton() {
+        GameOverButton = findViewById(R.id.gameoverButton);
+        GameOverButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 switchToGMA();

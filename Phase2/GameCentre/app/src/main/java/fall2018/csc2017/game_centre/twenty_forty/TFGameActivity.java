@@ -263,7 +263,7 @@ public class TFGameActivity extends GameActivity implements Observer {
      * Switch to GameOver Activity
      */
     private void switchToGameover() {
-        Intent gameoverIntent = new Intent(getApplicationContext(), GameoverActivity.class);
+        Intent gameoverIntent = new Intent(getApplicationContext(), GameOverActivity.class);
         Bundle gmaBundle = new Bundle();
         gmaBundle.putSerializable("GAME", new TFGame(4));
         gmaBundle.putString("GAME_DESC", TFGame.GAME_DESC);

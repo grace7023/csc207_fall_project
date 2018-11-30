@@ -23,7 +23,7 @@ import java.util.Observer;
 import fall2018.csc2017.game_centre.CustomAdapter;
 import fall2018.csc2017.game_centre.GameActivity;
 import fall2018.csc2017.game_centre.GameMenuActivity;
-import fall2018.csc2017.game_centre.GameoverActivity;
+import fall2018.csc2017.game_centre.GameOverActivity;
 import fall2018.csc2017.game_centre.GestureDetectGridView;
 import fall2018.csc2017.game_centre.R;
 import fall2018.csc2017.game_centre.Scoreboard;
@@ -48,11 +48,24 @@ public class MinesweeperGameActivity extends GameActivity implements Observer {
      */
     private GestureDetectGridView<MinesweeperGame> gridView;
 
-    
+    /**
+     * the height and width of a column of the grid
+     */
     private int columnWidth, columnHeight;
 
+    /**
+     * Textview telling user whether they are flagging tiles or revealing tiles
+     */
     private TextView flagging;
-     String flagText;
+
+    /**
+     * set to "Flagging" if user is flagging and "Revealing" if user is revealing
+     */
+    String flagText;
+
+    /**
+     * Whether game is over
+     */
     private boolean GameOver = false;
 
 
@@ -60,10 +73,20 @@ public class MinesweeperGameActivity extends GameActivity implements Observer {
      * TextView for currentScore
      */
     private TextView timer;
+
+    /**
+     * Textview that tells user number of bombs subtracting number of flags
+     */
     private TextView bombCounter;
 
+    /**
+     * the username of the current user
+     */
     private String currentUsername;
 
+    /**
+     * the name of the save file for a Minesweeper game
+     */
     private String gameFilename;
 
 
@@ -87,16 +110,15 @@ public class MinesweeperGameActivity extends GameActivity implements Observer {
                 scoreboard.sortAscending();
                 scoreboard.saveToFile();
                 switchToGMA();
-            }
-            else {
+            } else {
                 if (!GameOver) {
                     revealAllBombs();
-                    System.out.println("Revealed all bombsAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
-                    switchToGameover();
+                    switchToGameOver();
                 }
             }
         }
     }
+
     /**
      * Set up UI interface for SlidingTilesGame.
      *
@@ -133,10 +155,9 @@ public class MinesweeperGameActivity extends GameActivity implements Observer {
                 timer.setText(time);
                 handler.postDelayed(this, 1000);
             }
-        },1000);
+        }, 1000);
 
         minesweeperGame.getBoard().addObserver(this);
-
 
         // Observer sets up desired dimensions as well as calls our display function
         gridView.getViewTreeObserver().addOnGlobalLayoutListener(
@@ -156,6 +177,9 @@ public class MinesweeperGameActivity extends GameActivity implements Observer {
                 });
     }
 
+    /**
+     * Adds the button that the user can press to switch between flagging mode and revealing mode
+     */
     private void addFlagButton() {
         flagging = findViewById(R.id.flagging);
 
@@ -170,8 +194,11 @@ public class MinesweeperGameActivity extends GameActivity implements Observer {
         });
     }
 
-    private void toggleFlaggingText(){
-        if (minesweeperGame.getFlagging()){
+    /**
+     * Sets text that tells user whether they are in flagging mode or revealing mode
+     */
+    private void toggleFlaggingText() {
+        if (minesweeperGame.getFlagging()) {
             flagText = "Flagging";
             flagging.setText(flagText);
         } else {
@@ -180,16 +207,24 @@ public class MinesweeperGameActivity extends GameActivity implements Observer {
         }
     }
 
-
-    private void addTimer(){
+    /**
+     * Adds text that tells user their time
+     */
+    private void addTimer() {
         timer = findViewById(R.id.timer);
     }
 
-    private void addBombCounter(){
+    /**
+     * Adds the text that tells user number of bombs subtracting number of flags
+     */
+    private void addBombCounter() {
         bombCounter = findViewById(R.id.bombCounter);
     }
 
-    private void updateBombCounter(){
+    /**
+     * Updates the bomb counter every time the user adds or removes a flag.
+     */
+    private void updateBombCounter() {
         bombCounter.setText(String.valueOf(minesweeperGame.getBombsLeft()));
     }
 
@@ -272,6 +307,12 @@ public class MinesweeperGameActivity extends GameActivity implements Observer {
         }
     }
 
+    /**
+     * Called when the display is to be updated (after a move is made)
+     *
+     * @param o   Observable
+     * @param arg Object
+     */
     @Override
     public void update(Observable o, Object arg) {
         updateTileButtons();
@@ -288,6 +329,10 @@ public class MinesweeperGameActivity extends GameActivity implements Observer {
         saveToFile(gameFilename);
     }
 
+    /**
+     * Switch to GameMenuActivity. Pass the game, game description, game file name,
+     * current username, and game name into the intent.
+     */
     private void switchToGMA() {
         Intent msGMAIntent = new Intent(getApplicationContext(), GameMenuActivity.class);
         Bundle gmaBundle = new Bundle();
@@ -302,35 +347,47 @@ public class MinesweeperGameActivity extends GameActivity implements Observer {
         finish();
     }
 
+    /**
+     * When the back button is pressed, the activity is switched to GameMenuActivity
+     */
+
     @Override
     public void onBackPressed() {
         minesweeperGame.setSaveTime();
         switchToGMA();
     }
 
-    public void switchToGameover(){
-        Intent gameoverIntent = new Intent(getApplicationContext(), GameoverActivity.class);
+    /**
+     * Switch to the GameOverActivity. Happens when the game ends.
+     */
+    public void switchToGameOver() {
+        Intent gameOverIntent = new Intent(getApplicationContext(), GameOverActivity.class);
+
         Bundle gmaBundle = new Bundle();
         gmaBundle.putSerializable("GAME", new MinesweeperGame(0, 0, 0));
         gmaBundle.putString("GAME_DESC", MinesweeperGame.GAME_DESC);
         gmaBundle.putString("GAME_FILENAME", gameFilename);
         gmaBundle.putString("USERNAME", currentUsername);
         gmaBundle.putString("GAME_NAME", "MINESWEEPER");
-        gameoverIntent.putExtras(gmaBundle);
-        startActivity(gameoverIntent);
+        gameOverIntent.putExtras(gmaBundle);
+        startActivity(gameOverIntent);
         overridePendingTransition(R.anim.slide_from_left, R.anim.slide_to_right);
         finish();
     }
-    public void revealAllBombs(){
+
+    /**
+     * Reveals all bombs once the user loses the game.
+     */
+    public void revealAllBombs() {
         GameOver = true;
         List<MSTile> tiles = new ArrayList<>();
-        for (int i=0; i<minesweeperGame.getNumRows(); i++){
-            for (int j=0; j<minesweeperGame.getNumCols(); j++){
+        for (int i = 0; i < minesweeperGame.getNumRows(); i++) {
+            for (int j = 0; j < minesweeperGame.getNumCols(); j++) {
                 tiles.add(minesweeperGame.getBoard().getTile(i, j));
                 System.out.println(i + "," + j);
             }
         }
-        for (MSTile t: tiles)
+        for (MSTile t : tiles)
             if (t.getId() == MSTile.MINE) {
                 minesweeperGame.getBoard().revealTile(t);
                 System.out.println(t.getId());
