@@ -91,7 +91,7 @@ public class MinesweeperSettings extends AppCompatActivity {
                     numCols = 13;
                 } else if (i == 2) {
                     numRows = 15;
-                    numCols = 11;
+                    numCols = 15;
                 }
             }
 
