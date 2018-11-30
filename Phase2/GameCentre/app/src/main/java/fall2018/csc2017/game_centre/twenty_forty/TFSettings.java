@@ -1,7 +1,9 @@
 package fall2018.csc2017.game_centre.twenty_forty;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
+import android.support.constraint.ConstraintLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
@@ -9,6 +11,9 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
+import android.widget.TextView;
+
+import org.w3c.dom.Text;
 
 import java.io.IOException;
 import java.io.ObjectOutputStream;
@@ -38,6 +43,8 @@ public class TFSettings extends AppCompatActivity {
      */
     private String gameFilename;
 
+    private boolean darkView;
+
     /**
      * Set up UI interface for TFSettings.
      *
@@ -49,9 +56,11 @@ public class TFSettings extends AppCompatActivity {
 
         currentUsername = getIntent().getStringExtra("USERNAME");
         gameFilename = getIntent().getStringExtra("GAME_FILENAME");
+        darkView = getIntent().getBooleanExtra("DARKVIEW", false);
 
         addStartButtonListener();
         setupSpinner();
+        setUpDarkView();
     }
 
     /**
@@ -63,8 +72,12 @@ public class TFSettings extends AppCompatActivity {
         ArrayAdapter<CharSequence> adapter;
 
         boardSize = findViewById(R.id.stBoardSizeSpinner);
-        adapter = ArrayAdapter.createFromResource(this, R.array.STGameSize,
-                android.R.layout.simple_spinner_item);
+        if (darkView)
+            adapter = ArrayAdapter.createFromResource(this, R.array.STGameSize,
+                                                            R.layout.white_spinner_item);
+        else
+            adapter = ArrayAdapter.createFromResource(this, R.array.STGameSize,
+                                                    android.R.layout.simple_spinner_dropdown_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         boardSize.setAdapter(adapter);
         boardSize.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -102,6 +115,7 @@ public class TFSettings extends AppCompatActivity {
         Intent gameIntent = new Intent(this, TFGameActivity.class);
         gameIntent.putExtra("USERNAME", currentUsername);
         gameIntent.putExtra("GAME_FILENAME", gameFilename);
+        gameIntent.putExtra("DARKVIEW", darkView);
         startActivity(gameIntent);
         overridePendingTransition(R.anim.slide_from_right, R.anim.slide_to_left);
         finish();
@@ -136,6 +150,7 @@ public class TFSettings extends AppCompatActivity {
         gmaBundle.putString("GAME_FILENAME", gameFilename);
         gmaBundle.putString("USERNAME", currentUsername);
         gmaBundle.putString("GAME_NAME", "2048");
+        gmaBundle.putBoolean("DARKVIEW", darkView);
         tfGMAIntent.putExtras(gmaBundle);
         startActivity(tfGMAIntent);
         overridePendingTransition(R.anim.slide_from_left, R.anim.slide_to_right);
@@ -148,5 +163,17 @@ public class TFSettings extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         switchToGMA();
+    }
+
+    private void setUpDarkView(){
+        if (darkView){
+            ConstraintLayout constraintLayout = findViewById(R.id.slidingTilesSettingsActivity);
+            constraintLayout.setBackgroundColor(Color.DKGRAY);
+            TextView settingsHeading = findViewById(R.id.SlidingTilesSettingsHeading);
+            settingsHeading.setTextColor(Color.WHITE);
+            TextView stSpinner = findViewById(R.id.stBoardSpinnerText);
+            stSpinner.setTextColor(Color.WHITE);
+
+        }
     }
 }

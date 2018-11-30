@@ -63,6 +63,8 @@ public class TFGameActivity extends GameActivity implements Observer {
      */
     private TextView currentScore;
 
+    private boolean darkView;
+
 
     /**
      * Set up the background image for each button based on the master list
@@ -96,6 +98,7 @@ public class TFGameActivity extends GameActivity implements Observer {
         super.onCreate(savedInstanceState);
         currentUsername = getIntent().getStringExtra("USERNAME");
         gameFilename = getIntent().getStringExtra("GAME_FILENAME");
+        darkView = getIntent().getBooleanExtra("DARKVIEW", false);
         loadFromFile(gameFilename);
         createBoxButtons(this);
         setContentView(R.layout.activity_slidingtiles_game);
@@ -267,6 +270,7 @@ public class TFGameActivity extends GameActivity implements Observer {
         gmaBundle.putString("GAME_FILENAME", gameFilename);
         gmaBundle.putString("USERNAME", currentUsername);
         gmaBundle.putString("GAME_NAME", "2048");
+        gmaBundle.putBoolean("DARKVIEW", darkView);
         gameoverIntent.putExtras(gmaBundle);
         startActivity(gameoverIntent);
         overridePendingTransition(R.anim.slide_from_left, R.anim.slide_to_right);
@@ -285,6 +289,7 @@ public class TFGameActivity extends GameActivity implements Observer {
         gmaBundle.putString("GAME_FILENAME", gameFilename);
         gmaBundle.putString("USERNAME", currentUsername);
         gmaBundle.putString("GAME_NAME", "2048");
+        gmaBundle.putBoolean("DARKVIEW", darkView);
         tfGMAIntent.putExtras(gmaBundle);
         startActivity(tfGMAIntent);
         overridePendingTransition(R.anim.slide_from_left, R.anim.slide_to_right);
