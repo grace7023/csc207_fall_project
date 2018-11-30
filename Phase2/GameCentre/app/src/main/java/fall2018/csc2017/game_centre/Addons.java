@@ -14,9 +14,10 @@ class Addons {
 
     /**
      * Hash string to SHA256 for security
+     *
      * @param input string that is to be hashed
      * @return hash of string
-     *
+     * <p>
      * Inspired from https://stackoverflow.com/questions/3103652/hash-string-via-sha-256-in-java
      */
     static String stringToSHA256(String input) {
@@ -35,7 +36,8 @@ class Addons {
 
     /**
      * check if string returns the same hash as the hashed password
-     * @param input string to be hashed and compared
+     *
+     * @param input    string to be hashed and compared
      * @param password hashed string
      * @return true if match
      */

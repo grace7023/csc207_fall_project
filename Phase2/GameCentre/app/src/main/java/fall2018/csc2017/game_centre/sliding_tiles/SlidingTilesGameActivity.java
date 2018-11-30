@@ -99,6 +99,7 @@ public class SlidingTilesGameActivity extends GameActivity implements Observer {
         overridePendingTransition(R.anim.slide_from_left, R.anim.slide_to_right);
         finish();
     }
+
     /**
      * Set up UI interface for SlidingTilesGame.
      *

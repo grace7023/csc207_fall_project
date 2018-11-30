@@ -2,6 +2,7 @@
 package fall2018.csc2017.game_centre.sliding_tiles;
 
 import fall2018.csc2017.game_centre.*;
+
 import java.io.Serializable;
 
 /**
@@ -71,8 +72,9 @@ public class STTile implements Serializable {
 
     /**
      * Constructor for tile
+     *
      * @param backgroundId background ID
-     * @param gameSize size of game
+     * @param gameSize     size of game
      */
     public STTile(int backgroundId, int gameSize) {
         id = backgroundId + 1;

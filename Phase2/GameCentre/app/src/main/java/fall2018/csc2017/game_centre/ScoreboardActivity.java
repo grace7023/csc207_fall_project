@@ -66,6 +66,9 @@ public class ScoreboardActivity extends AppCompatActivity {
      */
     TextView scoreboardGameTitle;
 
+    /**
+     * Boolean value corresponding to whether the app is in dark mode or not
+     */
     private boolean darkView;
 
     /**
@@ -186,6 +189,10 @@ public class ScoreboardActivity extends AppCompatActivity {
         switchToGMA();
     }
 
+    /**
+     * Puts the app into dark mode by setting the background colour
+     * to dark grey and the text colour to white
+     */
     private void setUpDarkView(){
         if (darkView){
             RelativeLayout relativeLayout = findViewById(R.id.scoreboardActivity);
