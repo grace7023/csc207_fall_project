@@ -33,11 +33,15 @@ public class Scoreboard implements Serializable {
     private final String dir = "data/data/fall2018.csc2017.slidingtiles/files/";
 
     /**
-     * The name of the file being saved
+     * The name of the file being saved, which is "[GameName]Score.ser"
      */
     private File scoreFile;
 
-
+    /**
+     * Creates a new scoreboard with a game name
+     *
+     * @param game the name of the game
+     */
     public Scoreboard(String game) {
         scoreFile = new File(dir + game + "Score.ser");
         scores = new ArrayList<>();
@@ -78,18 +82,22 @@ public class Scoreboard implements Serializable {
         return output;
     }
 
+    /**
+     * Sorts the scores in ascending order
+     */
     public void sortAscending() {
         Collections.sort(scores);
     }
 
+    /**
+     * Sorts the scores in descending order
+     */
     public void sortDescending() {
         scores.sort(Collections.<Score>reverseOrder());
     }
 
     /**
-     * Loads the scoreboard from the file
-     *
-     * @return the scoreboard for the game
+     * Loads the scoreboard from the file and stores its scores in this scoreboard
      */
     public void loadFromFile() {
         Scoreboard file = new Scoreboard("");
@@ -112,7 +120,7 @@ public class Scoreboard implements Serializable {
     }
 
     /**
-     * Saves the scoreboard to the file
+     * Saves the scoreboard to the file named "[GameName]Score.ser"
      */
     public void saveToFile() {
         try {
