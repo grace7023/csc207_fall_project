@@ -3,7 +3,9 @@ package fall2018.csc2017.game_centre.sliding_tiles;
 import fall2018.csc2017.game_centre.*;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
+import android.support.constraint.ConstraintLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
@@ -11,6 +13,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
+import android.widget.TextView;
 
 import java.io.IOException;
 import java.io.ObjectOutputStream;
@@ -21,6 +24,8 @@ public class SlidingTilesSettings extends AppCompatActivity {
      * Board size.
      */
     private int gameSize;
+
+    private boolean darkView;
 
     /**
      * SlidingTiles Game in function.
@@ -41,10 +46,13 @@ public class SlidingTilesSettings extends AppCompatActivity {
 
         currentUsername = getIntent().getStringExtra("USERNAME");
         gameFilename = getIntent().getStringExtra("GAME_FILENAME");
+        darkView = getIntent().getBooleanExtra("DARKVIEW", false);
 
         setContentView(R.layout.settings_slidingtiles);
         addStartButtonListener();
         setupBoardSizeSpinner();
+
+        setUpDarkView();
     }
 
     /**
@@ -56,8 +64,12 @@ public class SlidingTilesSettings extends AppCompatActivity {
         ArrayAdapter<CharSequence> adapter;
 
         boardSize = findViewById(R.id.stBoardSizeSpinner);
-        adapter = ArrayAdapter.createFromResource(this, R.array.STGameSize,
-                android.R.layout.simple_spinner_item);
+        if (darkView)
+            adapter = ArrayAdapter.createFromResource(this, R.array.STGameSize,
+                                            R.layout.white_spinner_item);
+        else
+            adapter = ArrayAdapter.createFromResource(this, R.array.STGameSize,
+                             android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         boardSize.setAdapter(adapter);
         boardSize.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -94,6 +106,7 @@ public class SlidingTilesSettings extends AppCompatActivity {
         Intent gameIntent = new Intent(this, SlidingTilesGameActivity.class);
         gameIntent.putExtra("USERNAME", currentUsername);
         gameIntent.putExtra("GAME_FILENAME", gameFilename);
+        gameIntent.putExtra("DARKVIEW", darkView);
         startActivity(gameIntent);
         overridePendingTransition(R.anim.slide_from_right, R.anim.slide_to_left);
         finish();
@@ -111,6 +124,7 @@ public class SlidingTilesSettings extends AppCompatActivity {
         gmaBundle.putString("GAME_FILENAME", gameFilename);
         gmaBundle.putString("USERNAME", currentUsername);
         gmaBundle.putString("GAME_NAME", "SLIDING TILES");
+        gmaBundle.putBoolean("DARKVIEW", darkView);
         gmaIntent.putExtras(gmaBundle);
         startActivity(gmaIntent);
         overridePendingTransition(R.anim.slide_from_left, R.anim.slide_to_right);
@@ -137,5 +151,17 @@ public class SlidingTilesSettings extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         switchToGMA();
+    }
+
+    private void setUpDarkView(){
+        if (darkView){
+            ConstraintLayout constraintLayout = findViewById(R.id.slidingTilesSettingsActivity);
+            constraintLayout.setBackgroundColor(Color.DKGRAY);
+            TextView settingsHeading = findViewById(R.id.SlidingTilesSettingsHeading);
+            settingsHeading.setTextColor(Color.WHITE);
+            TextView stSpinner = findViewById(R.id.stBoardSpinnerText);
+            stSpinner.setTextColor(Color.WHITE);
+
+        }
     }
 }
