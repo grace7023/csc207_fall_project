@@ -14,6 +14,7 @@ public class MSBoardTest {
 
     /**
      * Makes a list of tiles as an input for the board
+     *
      * @return a List of MSTiles as an input for the board
      */
     private List<MSTile> makeTiles(int numRows, int numCols, int numBombs) {
@@ -41,15 +42,17 @@ public class MSBoardTest {
      */
     @Test
     public void getNumRevealed() {
-        setUpBoard(3,3,0);
+        setUpBoard(3, 3, 0);
         MSBoard board = minesweeperGame.getBoard();
 
-        board.revealTile(board.getTile(0,0));
+        assertEquals(0, board.getNumRevealed());
+
+        board.revealTile(board.getTile(0, 0));
         assertEquals(1, board.getNumRevealed());
 
         for (int i = 0; i < board.getNumRows(); i++) {
             for (int j = 0; j < board.getNumCols(); j++) {
-                board.revealTile(board.getTile(i,j));
+                board.revealTile(board.getTile(i, j));
             }
         }
         assertEquals(board.getBoardSize(), board.getNumRevealed());
@@ -60,16 +63,16 @@ public class MSBoardTest {
      */
     @Test
     public void toggleFlag() {
-        setUpBoard(2,3,3);
+        setUpBoard(2, 3, 3);
         MSBoard board = minesweeperGame.getBoard();
 
-        board.toggleFlag(1,1);
+        board.toggleFlag(1, 1);
 
-        assertTrue(board.getTile(1,1).isFlagged());
-        assertFalse(board.getTile(1,2).isFlagged());
+        assertTrue(board.getTile(1, 1).isFlagged());
+        assertFalse(board.getTile(1, 2).isFlagged());
 
-        board.getTile(1,1).toggleFlag();
-        assertFalse(board.getTile(1,1).isFlagged());
+        board.getTile(1, 1).toggleFlag();
+        assertFalse(board.getTile(1, 1).isFlagged());
 
     }
 
@@ -78,21 +81,21 @@ public class MSBoardTest {
      */
     @Test
     public void getPosition() {
-        setUpBoard(3,3,3);
+        setUpBoard(3, 3, 3);
         MSBoard board = minesweeperGame.getBoard();
 
-        assertEquals(4, board.getPosition(board.getTile(1,1)));
+        assertEquals(4, board.getPosition(board.getTile(1, 1)));
 
         MSTile tile = new MSTile(MSTile.EMPTY);
         assertEquals(-1, board.getPosition(tile));
     }
 
     /**
-     *  Tests whether the iterator throws a NoSuchElementException if given bad tiles
+     * Tests whether the iterator throws a NoSuchElementException if given bad tiles
      */
     @Test(expected = NoSuchElementException.class)
     public void testIterator() {
-        setUpBoard(2,2,3);
+        setUpBoard(2, 2, 3);
         MSBoard board = minesweeperGame.getBoard();
         Iterator<MSTile> tileIterator = board.iterator();
         MSTile[][] emptyBoard = new MSTile[3][3];
