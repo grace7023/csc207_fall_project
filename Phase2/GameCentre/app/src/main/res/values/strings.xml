@@ -10,8 +10,8 @@
     </string-array>
 
     <string-array name="MSGameSize">
-        <item>10</item>
-        <item>11</item>
-        <item>12</item>
+        <item>Small</item>
+        <item>Medium</item>
+        <item>Large</item>
     </string-array>
 </resources>
