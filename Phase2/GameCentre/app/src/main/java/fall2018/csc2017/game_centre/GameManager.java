@@ -4,10 +4,14 @@ import fall2018.csc2017.game_centre.twenty_forty.*;
 import fall2018.csc2017.game_centre.minesweeper.*;
 
 import android.content.Intent;
+import android.graphics.Color;
+import android.support.constraint.ConstraintLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.TextView;
 
 /**
  * Displays the available games to the player
@@ -25,6 +29,7 @@ public class GameManager extends AppCompatActivity {
 
     private String currentUsername;
 
+    private ConstraintLayout relativeLayout;
     /**
      * Creates the UI elements
      * @param savedInstanceState A bundle
@@ -40,9 +45,12 @@ public class GameManager extends AppCompatActivity {
 
         currentUsername = getIntent().getStringExtra("USERNAME");
 
+        relativeLayout = findViewById(R.id.gameManagerActivity);
+
         addSlidingTilesListener();
         addTFListener();
         addMinesweeperListener();
+        addDarkButton();
     }
 
     /**
@@ -107,6 +115,24 @@ public class GameManager extends AppCompatActivity {
                 startActivity(stGMAIntent);
                 overridePendingTransition(R.anim.slide_from_right, R.anim.slide_to_left);
                 finish();
+            }
+        });
+    }
+
+    private void addDarkButton() {
+        Button darkButton = findViewById(R.id.darkButton);
+        darkButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                relativeLayout.setBackgroundColor(Color.DKGRAY);
+                TextView slidingTilesHeading = findViewById(R.id.SlidingTilesHeading);
+                slidingTilesHeading.setTextColor(Color.WHITE);
+                TextView minesweeperHeading = findViewById(R.id.minesweeperHeading);
+                minesweeperHeading.setTextColor(Color.WHITE);
+                TextView twentyfourtyHeading = findViewById(R.id.TwentyFortyHeading);
+                twentyfourtyHeading.setTextColor(Color.WHITE);
+                TextView title = findViewById(R.id.GameCentreTitle);
+                title.setTextColor(Color.WHITE);
             }
         });
     }
