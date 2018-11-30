@@ -63,6 +63,10 @@ public class BoardAndTileTest {
         }
     }
 
+    private void makeShuffledBoard(int boardSize) {
+        slidingTilesGame = new SlidingTilesGame(boardSize);
+    }
+
     /**
      * Test whether swapping two tiles makes a solved board unsolved.
      */
@@ -235,6 +239,33 @@ public class BoardAndTileTest {
         makeTwoMoves();
         makeTwoUndos();
         assertTrue(!slidingTilesGame.canUndoMove());
+    }
+
+    /**
+     * Test whether the board is sufficiently shuffled after generating
+     */
+    @Test
+    public void testShuffle3() {
+        makeShuffledBoard(3);
+        assertTrue(!slidingTilesGame.puzzleSolved());
+    }
+
+    /**
+     * Test whether the board is sufficiently shuffled after generating
+     */
+    @Test
+    public void testShuffle4() {
+        makeShuffledBoard(4);
+        assertTrue(!slidingTilesGame.puzzleSolved());
+    }
+
+    /**
+     * Test whether the board is sufficiently shuffled after generating
+     */
+    @Test
+    public void testShuffle5() {
+        makeShuffledBoard(5);
+        assertTrue(!slidingTilesGame.puzzleSolved());
     }
 }
 
