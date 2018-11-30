@@ -5,7 +5,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".minesweeper.MinesweeperSettings">
+    tools:context=".minesweeper.MinesweeperSettings"
+    android:id="@+id/MSsettingsActivity">
 
     <Button
         android:id="@+id/StartButton"
