@@ -43,7 +43,7 @@ public class TFGameActivity extends GameActivity implements Observer {
      */
     private GestureDetectGridView<TFGame> gridView;
 
-    private static int columnWidth, columnHeight;
+    private int columnWidth, columnHeight;
 
     private String currentUsername;
 

@@ -47,7 +47,9 @@ public class MinesweeperGameActivity extends GameActivity implements Observer {
      * Grid View and calculated column height and width based on device size
      */
     private GestureDetectGridView<MinesweeperGame> gridView;
-    private static int columnWidth, columnHeight;
+
+    
+    private int columnWidth, columnHeight;
 
     private TextView flagging;
      String flagText;
