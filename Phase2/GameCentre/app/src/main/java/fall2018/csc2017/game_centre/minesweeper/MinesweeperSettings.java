@@ -137,6 +137,7 @@ public class MinesweeperSettings extends AppCompatActivity {
             Intent gameIntent = new Intent(this, MinesweeperGameActivity.class);
             gameIntent.putExtra("USERNAME", currentUsername);
             gameIntent.putExtra("GAME_FILENAME", gameFilename);
+            gameIntent.putExtra("FROM_LOAD", false);
             startActivity(gameIntent);
             overridePendingTransition(R.anim.slide_from_right, R.anim.slide_to_left);
             finish();
