@@ -75,7 +75,6 @@ public class TFGameActivity extends GameActivity implements Observer {
             scoreboard.saveToFile();
             if (tfGame.isStuck()) {
                 switchToGameover();
-                System.out.println("SWITCHING TO GAME OVER AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
             }
             else
                 switchToGMA();
