@@ -86,8 +86,8 @@ public class MinesweeperGameActivity extends GameActivity implements Observer {
             if (minesweeperGame.puzzleSolved()) {
                 Scoreboard scoreboard = new Scoreboard("Minesweeper");
                 scoreboard.loadFromFile();
-
                 scoreboard.addScore(currentUsername, minesweeperGame.getTime());
+                scoreboard.sortAscending();
                 scoreboard.saveToFile();
             }
             switchToGMA();

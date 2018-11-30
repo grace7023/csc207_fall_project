@@ -30,10 +30,11 @@ public class TFGame extends Game implements Serializable {
             "Get the 2048 tile to win!";
 
     public TFGame(TFBoard board) {
-        this.boardSize = board.getNumBoxes();
+        this.boardSize = (int) Math.sqrt(board.getNumBoxes());
         this.board = board;
         this.pastBoards = new ArrayList<>();
         this.pastScoreIncreases = new ArrayList<>();
+        GestureDetectGridView.detectFling = true;
         this.score = 0;
     }
 
@@ -135,6 +136,7 @@ public class TFGame extends Game implements Serializable {
         }
         score += addedScore;
         pastScoreIncreases.add(addedScore);
+        board.update();
     }
 
     /**

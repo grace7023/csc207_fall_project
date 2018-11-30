@@ -64,7 +64,7 @@ public class TFBoardTest {
     public void moveBoxesUp() {
         setUpGame(makeTwoBoxes());
         game.getBoard().moveBoxesUp();
-        assertEquals(0, game.getBoard().getBox(1,1 ).getExponent());
+        assertEquals(1, game.getBoard().getBox(0,0 ).getExponent());
         assertEquals(2, game.getBoard().getBox(0,1 ).getExponent());
     }
 
@@ -198,5 +198,4 @@ public class TFBoardTest {
         game.getBoard().moveBoxesUp();
         assertEquals(1,game.getBoard().getBox(0,0).getExponent());
     }
-
 }

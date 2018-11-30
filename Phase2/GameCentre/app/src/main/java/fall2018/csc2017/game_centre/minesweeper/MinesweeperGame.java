@@ -60,8 +60,9 @@ public class MinesweeperGame extends Game implements Serializable {
             "Tap the flag button to flag bombs\nReveal all the non-bomb tiles on the field to win!";
 
     private long startTime;
-
-    private int saveTime;
+    private long saveTime;
+    private long loadTime;
+    private int timer;
 
 
     /**
@@ -79,6 +80,7 @@ public class MinesweeperGame extends Game implements Serializable {
         flagging = false;
         bombClicked = false;
         startTime = System.nanoTime();
+        saveTime = startTime;
     }
 
     /**
@@ -100,6 +102,7 @@ public class MinesweeperGame extends Game implements Serializable {
 
         generateBoard();
         startTime = System.nanoTime();
+        saveTime = startTime;
     }
 
     /**
@@ -340,9 +343,16 @@ public class MinesweeperGame extends Game implements Serializable {
     // This code was adapted from an article by bealdung on 2018/11/28
     // URL: https://www.baeldung.com/java-measure-elapsed-time
     public String getTime(){
-        int timer = (int)(saveTime + (System.nanoTime() - startTime)/1000000000);
+        timer = (int)(((System.nanoTime() - startTime - (loadTime - saveTime))/1000000000));
         String min = timer / 60 < 10 ? "0" + String.valueOf(timer/60) : String.valueOf(timer/60);
         String sec = timer % 60 < 10 ? "0" + String.valueOf(timer%60) : String.valueOf(timer%60);
+        System.out.println("Start: " + startTime/1000000000);
+        System.out.println("Load: " + loadTime/1000000000);
+        System.out.println("Save: " + saveTime/1000000000);
+        System.out.println("Pre-save time: " + (saveTime - startTime)/1000000000);
+        System.out.println("During-save time: " + (loadTime - saveTime)/1000000000);
+        System.out.println("Post-save time: " + (System.nanoTime() - loadTime)/1000000000);
+        System.out.println("Nano time: " + System.nanoTime()/1000000000);
         return min + ":" + sec;
     }
 
@@ -353,5 +363,14 @@ public class MinesweeperGame extends Game implements Serializable {
     public String gameOverText() {
         if (bombClicked) return "GAME OVER!";
         else return "YOU WIN!";
+    }
+
+    public void setSaveTime(){
+        saveTime = System.nanoTime() - startTime;
+        System.out.println("Save time is: " + saveTime);
+    }
+
+    public void setLoadTime(){
+        loadTime = (System.nanoTime() - startTime)/1000000000;
     }
 }

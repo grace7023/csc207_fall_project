@@ -1,4 +1,4 @@
-package fall2018.csc2017.game_centre;
+package fall2018.csc2017.game_centre.sliding_tiles;
 
 import fall2018.csc2017.game_centre.sliding_tiles.*;
 
