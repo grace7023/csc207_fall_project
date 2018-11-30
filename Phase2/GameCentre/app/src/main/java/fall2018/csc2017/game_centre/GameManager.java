@@ -45,17 +45,17 @@ public class GameManager extends AppCompatActivity {
         mSlidingTilesBtn = findViewById(R.id.SlidingTiles);
         mTwentyFortyBtn = findViewById(R.id.TwentyForty);
         mMinesweeperBtn = findViewById(R.id.Minesweeper);
-
+        DarkView = false;
         currentUsername = getIntent().getStringExtra("USERNAME");
-
+        DarkView = getIntent().getBooleanExtra("DARKVIEW", false);
         gameManagerLayout = findViewById(R.id.gameManagerActivity);
 
         addSlidingTilesListener();
         addTFListener();
         addMinesweeperListener();
         addDarkButton();
+        setUpDarkView();
 
-        DarkView = false;
     }
 
     /**
@@ -132,39 +132,36 @@ public class GameManager extends AppCompatActivity {
         darkButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (!DarkView) {
-                    setGameManagerDark();
-                    DarkView = true;
-                } else {
-                    setGameManagerLight();
-                    DarkView = false;
-                }
-//                setGameMenuDark();
+                DarkView = !DarkView;
+                setUpDarkView();
+
             }
         });
     }
 
-    private void setGameManagerDark(){
-        gameManagerLayout.setBackgroundColor(Color.DKGRAY);
-        TextView slidingTilesHeading = findViewById(R.id.SlidingTilesHeading);
-        slidingTilesHeading.setTextColor(Color.WHITE);
-        TextView minesweeperHeading = findViewById(R.id.minesweeperHeading);
-        minesweeperHeading.setTextColor(Color.WHITE);
-        TextView twentyfourtyHeading = findViewById(R.id.TwentyFortyHeading);
-        twentyfourtyHeading.setTextColor(Color.WHITE);
-        TextView title = findViewById(R.id.GameCentreTitle);
-        title.setTextColor(Color.WHITE);
+    private void setUpDarkView(){
+        if (DarkView) {
+            gameManagerLayout.setBackgroundColor(Color.DKGRAY);
+            TextView slidingTilesHeading = findViewById(R.id.SlidingTilesHeading);
+            slidingTilesHeading.setTextColor(Color.WHITE);
+            TextView minesweeperHeading = findViewById(R.id.minesweeperHeading);
+            minesweeperHeading.setTextColor(Color.WHITE);
+            TextView twentyfourtyHeading = findViewById(R.id.TwentyFortyHeading);
+            twentyfourtyHeading.setTextColor(Color.WHITE);
+            TextView title = findViewById(R.id.GameCentreTitle);
+            title.setTextColor(Color.WHITE);
+        } else {
+            gameManagerLayout.setBackgroundColor(Color.WHITE);
+            TextView slidingTilesHeading = findViewById(R.id.SlidingTilesHeading);
+            slidingTilesHeading.setTextColor(Color.BLACK);
+            TextView minesweeperHeading = findViewById(R.id.minesweeperHeading);
+            minesweeperHeading.setTextColor(Color.BLACK);
+            TextView twentyfourtyHeading = findViewById(R.id.TwentyFortyHeading);
+            twentyfourtyHeading.setTextColor(Color.BLACK);
+            TextView title = findViewById(R.id.GameCentreTitle);
+            title.setTextColor(Color.BLACK);
+
+        }
     }
 
-    private void setGameManagerLight(){
-        gameManagerLayout.setBackgroundColor(Color.WHITE);
-        TextView slidingTilesHeading = findViewById(R.id.SlidingTilesHeading);
-        slidingTilesHeading.setTextColor(Color.BLACK);
-        TextView minesweeperHeading = findViewById(R.id.minesweeperHeading);
-        minesweeperHeading.setTextColor(Color.BLACK);
-        TextView twentyfourtyHeading = findViewById(R.id.TwentyFortyHeading);
-        twentyfourtyHeading.setTextColor(Color.BLACK);
-        TextView title = findViewById(R.id.GameCentreTitle);
-        title.setTextColor(Color.BLACK);
-    }
 }
