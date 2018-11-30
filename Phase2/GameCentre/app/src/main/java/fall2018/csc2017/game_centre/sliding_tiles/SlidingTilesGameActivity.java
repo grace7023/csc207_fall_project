@@ -51,6 +51,8 @@ public class SlidingTilesGameActivity extends GameActivity implements Observer {
 
     private String gameFilename;
 
+    private boolean darkView;
+
     /**
      * Set up the background image for each button based on the master list
      * of positions, and then call the adapter to set the view.
@@ -87,6 +89,7 @@ public class SlidingTilesGameActivity extends GameActivity implements Observer {
         gmaBundle.putString("GAME_FILENAME", gameFilename);
         gmaBundle.putString("USERNAME", currentUsername);
         gmaBundle.putString("GAME_NAME", "SLIDING TILES");
+        gmaBundle.putBoolean("DARKVIEW", darkView);
         gameOverIntent.putExtras(gmaBundle);
         startActivity(gameOverIntent);
         overridePendingTransition(R.anim.slide_from_left, R.anim.slide_to_right);
@@ -103,6 +106,7 @@ public class SlidingTilesGameActivity extends GameActivity implements Observer {
         super.onCreate(savedInstanceState);
         currentUsername = getIntent().getStringExtra("USERNAME");
         gameFilename = getIntent().getStringExtra("GAME_FILENAME");
+        darkView = getIntent().getBooleanExtra("DARKVIEW", false);
         loadFromFile(gameFilename);
         createTileButtons(this);
         setContentView(R.layout.activity_slidingtiles_game);
@@ -265,6 +269,7 @@ public class SlidingTilesGameActivity extends GameActivity implements Observer {
         gmaBundle.putString("GAME_FILENAME", gameFilename);
         gmaBundle.putString("USERNAME", currentUsername);
         gmaBundle.putString("GAME_NAME", "SLIDING TILES");
+        gmaBundle.putBoolean("DARKVIEW", darkView);
         gmaIntent.putExtras(gmaBundle);
         startActivity(gmaIntent);
         overridePendingTransition(R.anim.slide_from_left, R.anim.slide_to_right);
