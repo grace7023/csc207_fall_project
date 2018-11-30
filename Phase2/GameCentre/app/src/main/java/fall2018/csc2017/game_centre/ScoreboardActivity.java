@@ -30,13 +30,16 @@ public class ScoreboardActivity extends AppCompatActivity {
      */
     public List<Score> playerScores = new ArrayList<>();
 
-    public Game game;
+    private Game game;
 
-    public String currentUsername;
+    private String currentUsername;
 
-    public String gameFilename;
+    private String gameFilename;
 
-    public String gameDesc;
+    private String gameDesc;
+
+    private String gameName;
+
     private TextView scoreboardGameTitle;
 
     /**
@@ -54,6 +57,7 @@ public class ScoreboardActivity extends AppCompatActivity {
         currentUsername = gameBundle.getString("USERNAME");
         gameFilename = gameBundle.getString("GAME_FILENAME");
         gameDesc = gameBundle.getString("GAME_DESC");
+        gameName = gameBundle.getString("GAME_NAME");
         String[] stringParts = gameFilename.split("_");
         scoreboard = new Scoreboard(stringParts[0]);
         scoreboard.loadFromFile();
@@ -103,9 +107,7 @@ public class ScoreboardActivity extends AppCompatActivity {
 
     public void setUpScoreboardGameTitle(){
         scoreboardGameTitle = findViewById(R.id.scoreboardGameTitle);
-        String classString = game.getClass().getSimpleName();
-        String titleText = classString.substring(0, classString.length()-4);
-        scoreboardGameTitle.setText(titleText);
+        scoreboardGameTitle.setText(gameName);
         scoreboardGameTitle.setTextSize(35);
     }
 
@@ -116,6 +118,7 @@ public class ScoreboardActivity extends AppCompatActivity {
         gmaBundle.putString("GAME_DESC", gameDesc);
         gmaBundle.putString("GAME_FILENAME", gameFilename);
         gmaBundle.putString("USERNAME", currentUsername);
+        gmaBundle.putString("GAME_NAME", gameName);
         tfGMAIntent.putExtras(gmaBundle);
         startActivity(tfGMAIntent);
         overridePendingTransition(R.anim.slide_from_left, R.anim.slide_to_right);

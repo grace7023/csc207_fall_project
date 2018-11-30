@@ -192,6 +192,8 @@ public class GameMenuActivity extends AppCompatActivity {
         scoreboardBundle.putString("GAME_DESC", gameDesc);
         scoreboardBundle.putString("GAME_FILENAME", gameFilename);
         scoreboardBundle.putString("USERNAME", currentUsername);
+        assert getIntent().getExtras() != null;
+        scoreboardBundle.putString("GAME_NAME", getIntent().getExtras().getString("GAME_NAME"));
         scoreboardIntent.putExtras(scoreboardBundle);
         startActivity(scoreboardIntent);
         overridePendingTransition(R.anim.slide_from_right, R.anim.slide_to_left);
