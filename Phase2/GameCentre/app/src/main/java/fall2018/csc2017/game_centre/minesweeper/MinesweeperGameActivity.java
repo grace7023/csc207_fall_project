@@ -50,6 +50,7 @@ public class MinesweeperGameActivity extends GameActivity implements Observer {
 
     private TextView flagging;
     private String flagText;
+    private int startTime;
 
 
     /**
@@ -61,6 +62,8 @@ public class MinesweeperGameActivity extends GameActivity implements Observer {
     private String currentUsername;
 
     private String gameFilename;
+
+    private long loadTime;
 
     /**
      * Set up the background image for each button based on the master list
@@ -83,20 +86,13 @@ public class MinesweeperGameActivity extends GameActivity implements Observer {
             if (minesweeperGame.puzzleSolved()) {
                 Scoreboard scoreboard = new Scoreboard("Minesweeper");
                 scoreboard.loadFromFile();
-                System.out.println(minesweeperGame.numBombs);
-                System.out.println(minesweeperGame.numCols);
-                System.out.println(minesweeperGame.numRows);
-                System.out.println(minesweeperGame.getBoard().getNumRevealed());
-                System.out.println(minesweeperGame.getBoard().getNumCols());
-                System.out.println(minesweeperGame.getBoard().getNumRows());
-
                 scoreboard.addScore(currentUsername, minesweeperGame.getTime());
+                scoreboard.sortAscending();
                 scoreboard.saveToFile();
             }
             switchToGMA();
         }
     }
-
     /**
      * Set up UI interface for SlidingTilesGame.
      *
@@ -114,11 +110,13 @@ public class MinesweeperGameActivity extends GameActivity implements Observer {
         addFlagButton();
         addTimer();
         addBombCounter();
+        toggleFlaggingText();
         // Add View to activity
         gridView = findViewById(R.id.grid);
         gridView.setNumColumns(minesweeperGame.getNumCols());
         gridView.setGame(minesweeperGame);
         timer = findViewById(R.id.timer);
+        minesweeperGame.setLoadTime();
 
         // updates the timer for Minesweeper
         // This code was adapted from a post by waqaslam on 2018/11/29
@@ -163,23 +161,22 @@ public class MinesweeperGameActivity extends GameActivity implements Observer {
             @Override
             public void onClick(View v) {
                 minesweeperGame.toggleFlagging();
-                if (minesweeperGame.getFlagging()){
-                    flagText = "Flagging";
-                    flagging.setText(flagText);
-                } else {
-                    flagText = "Revealing";
-                    flagging.setText(flagText);
-                }
-
-
+                toggleFlaggingText();
             }
         });
     }
 
+    private void toggleFlaggingText(){
+        if (minesweeperGame.getFlagging()){
+            flagText = "Flagging";
+            flagging.setText(flagText);
+        } else {
+            flagText = "Revealing";
+            flagging.setText(flagText);
+        }
+    }
 
-//    intent@5786
-//    bundle@5783 outside intent
-//    bundle@5803 inside intent
+
     private void addTimer(){
         timer = findViewById(R.id.timer);
     }
@@ -282,6 +279,8 @@ public class MinesweeperGameActivity extends GameActivity implements Observer {
     public void autoSave() {
         saveToFile(gameFilename);
     }
+
+
     private void updateTimer() {
         //String newTime = minesweeperGame.getTime();
         //timer.setText(newTime);
@@ -303,5 +302,6 @@ public class MinesweeperGameActivity extends GameActivity implements Observer {
     @Override
     public void onBackPressed() {
         switchToGMA();
+        minesweeperGame.setSaveTime();
     }
 }
