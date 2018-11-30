@@ -77,7 +77,8 @@ public class TFGameActivity extends GameActivity implements Observer {
             scoreboard.addScore(currentUsername, String.valueOf(tfGame.getScore()));
             scoreboard.sortDescending();
             scoreboard.saveToFile();
-
+            if (tfGame.isStuck())
+                switchToGameover();
             switchToGMA();
         }
     }
@@ -238,6 +239,19 @@ public class TFGameActivity extends GameActivity implements Observer {
             currentScore.setText(newScore);
     }
 
+    private void switchToGameover() {
+        Intent tfGMAIntent = new Intent(getApplicationContext(), GameoverActivity.class);
+        Bundle gmaBundle = new Bundle();
+        gmaBundle.putSerializable("GAME", new TFGame(4));
+        gmaBundle.putString("GAME_DESC", TFGame.GAME_DESC);
+        gmaBundle.putString("GAME_FILENAME", gameFilename);
+        gmaBundle.putString("USERNAME", currentUsername);
+        gmaBundle.putString("GAME_NAME", "2048");
+        tfGMAIntent.putExtras(gmaBundle);
+        startActivity(tfGMAIntent);
+        overridePendingTransition(R.anim.slide_from_left, R.anim.slide_to_right);
+        finish();
+    }
     private void switchToGMA() {
         Intent tfGMAIntent = new Intent(getApplicationContext(), GameMenuActivity.class);
         Bundle gmaBundle = new Bundle();
