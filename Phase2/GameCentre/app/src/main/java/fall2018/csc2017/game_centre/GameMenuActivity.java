@@ -215,6 +215,7 @@ public class GameMenuActivity extends AppCompatActivity {
         scoreboardBundle.putString("USERNAME", currentUsername);
         assert getIntent().getExtras() != null;
         scoreboardBundle.putString("GAME_NAME", getIntent().getExtras().getString("GAME_NAME"));
+        scoreboardBundle.putBoolean("DARKVIEW", DarkView);
         scoreboardIntent.putExtras(scoreboardBundle);
         startActivity(scoreboardIntent);
         overridePendingTransition(R.anim.slide_from_right, R.anim.slide_to_left);
