@@ -1,8 +1,10 @@
 package fall2018.csc2017.game_centre.minesweeper;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
+import android.support.constraint.ConstraintLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.util.Log;
@@ -12,6 +14,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.io.IOException;
@@ -57,6 +60,8 @@ public class MinesweeperSettings extends AppCompatActivity {
      */
     private String gameFilename;
 
+    private Boolean DarkView;
+
     /**
      * Set up UI interface for MinesweeperSettings.
      *
@@ -68,9 +73,13 @@ public class MinesweeperSettings extends AppCompatActivity {
 
         currentUsername = getIntent().getStringExtra("USERNAME");
         gameFilename = getIntent().getStringExtra("GAME_FILENAME");
+        DarkView = getIntent().getBooleanExtra("DARKVIEW", false);
+
+        setUpDarkView();
 
         addStartButtonListener();
         setupBoardSizeSpinner();
+
 
         final Handler handler = new Handler();
         handler.postDelayed(new Runnable() {
@@ -91,8 +100,12 @@ public class MinesweeperSettings extends AppCompatActivity {
         ArrayAdapter<CharSequence> adapter;
 
         boardSize = findViewById(R.id.msBoardSizeSpinner);
-        adapter = ArrayAdapter.createFromResource(this, R.array.MSGameSize,
-                android.R.layout.simple_spinner_item);
+        if (DarkView)
+            adapter = ArrayAdapter.createFromResource(this, R.array.MSGameSize,
+                    R.layout.white_spinner_item);
+        else
+            adapter = ArrayAdapter.createFromResource(this, R.array.MSGameSize,
+                                                    android.R.layout.simple_spinner_dropdown_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         boardSize.setAdapter(adapter);
         boardSize.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -115,7 +128,20 @@ public class MinesweeperSettings extends AppCompatActivity {
             }
         });
     }
-
+    private void setUpDarkView(){
+        if (DarkView){
+            ConstraintLayout constraintLayout = findViewById(R.id.MSsettingsActivity);
+            constraintLayout.setBackgroundColor(Color.DKGRAY);
+            TextView gameSettings = findViewById(R.id.msSettingsHeading);
+            gameSettings.setTextColor(Color.WHITE);
+            TextView numBombsText = findViewById(R.id.bombNumberText);
+            numBombsText.setTextColor(Color.WHITE);
+            TextView boardSizeText = findViewById(R.id.boardSizeText);
+            boardSizeText.setTextColor(Color.WHITE);
+            Spinner boardSizeSpinner = findViewById(R.id.msBoardSizeSpinner);
+            String[] array = getResources().getStringArray(R.array.MSGameSize);
+        }
+    }
     /**
      * Gets the input for the number of bombs from the player
      */
@@ -197,6 +223,7 @@ public class MinesweeperSettings extends AppCompatActivity {
         gmaBundle.putString("GAME_FILENAME", gameFilename);
         gmaBundle.putString("USERNAME", currentUsername);
         gmaBundle.putString("GAME_NAME", "MINESWEEPER");
+        gmaBundle.putBoolean("DARKVIEW", DarkView);
         msGMAIntent.putExtras(gmaBundle);
         startActivity(msGMAIntent);
         overridePendingTransition(R.anim.slide_from_left, R.anim.slide_to_right);
