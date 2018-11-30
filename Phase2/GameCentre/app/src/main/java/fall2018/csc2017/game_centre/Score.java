@@ -48,6 +48,17 @@ public class Score implements Comparable<Score>, Serializable {
     }
 
     /**
+     * Checks if other has the same value as self
+     */
+    @Override
+    public boolean equals(Object other) {
+        if (other instanceof Score) {
+            Score o = (Score) other;
+            return value.equals(o.value);
+        }
+        return false;
+    }
+    /**
      * Returns the string representation of a score
      *
      * @return the string representation
