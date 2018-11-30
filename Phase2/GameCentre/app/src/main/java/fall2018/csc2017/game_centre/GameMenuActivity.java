@@ -1,11 +1,13 @@
 package fall2018.csc2017.game_centre;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -31,6 +33,8 @@ public class GameMenuActivity extends AppCompatActivity {
 
     private String gameDesc;
 
+    private boolean DarkView;
+
     /**
      * Create UI for a game menu
      *
@@ -49,10 +53,25 @@ public class GameMenuActivity extends AppCompatActivity {
         TextView textView = findViewById(R.id.GameText);
         textView.setText(gameDesc);
 
+
         addStartButtonListener();
         addLoadButtonListener();
         addReturnButtonListener();
         addScoreboardButtonListener();
+
+
+        DarkView = gameBundle.getBoolean("DARKVIEW");
+        setDarkView();
+    }
+
+
+    private void setDarkView(){
+        if (DarkView){
+            RelativeLayout relativeLayout = findViewById(R.id.gameMenuActivity);
+            relativeLayout.setBackgroundColor(Color.DKGRAY);
+            TextView gameText = findViewById(R.id.GameText);
+            gameText.setTextColor(Color.WHITE);
+        }
     }
 
     /**
@@ -177,6 +196,7 @@ public class GameMenuActivity extends AppCompatActivity {
         saveToFile(gameFilename);
         Intent mainMenuIntent = new Intent(this, GameManager.class);
         mainMenuIntent.putExtra("USERNAME", currentUsername);
+        mainMenuIntent.putExtra("DARKVIEW", DarkView);
         startActivity(mainMenuIntent);
         overridePendingTransition(R.anim.slide_from_left, R.anim.slide_to_right);
         finish();

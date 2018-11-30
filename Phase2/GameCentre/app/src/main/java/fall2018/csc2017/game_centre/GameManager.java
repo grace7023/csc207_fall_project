@@ -167,11 +167,4 @@ public class GameManager extends AppCompatActivity {
         TextView title = findViewById(R.id.GameCentreTitle);
         title.setTextColor(Color.BLACK);
     }
-
-//    private void setGameMenuDark(){
-//        gameMenuLayout.setBackgroundColor(Color.DKGRAY);
-//        TextView gameText = findViewById(R.layout.activity_game_menu);
-//        gameText.setTextColor(Color.WHITE);
-//
-//    }
 }
