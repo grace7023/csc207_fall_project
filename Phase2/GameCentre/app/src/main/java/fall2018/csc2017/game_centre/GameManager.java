@@ -32,7 +32,7 @@ public class GameManager extends AppCompatActivity {
     private ConstraintLayout gameManagerLayout;
 
     /**
-     * Boolean value corresponding to whether the game is in DarkMode or not"
+     * Boolean value corresponding to whether the game is in dark mode or not"
      */
     private boolean darkView;
     /**
@@ -129,6 +129,9 @@ public class GameManager extends AppCompatActivity {
         });
     }
 
+    /**
+     * Creates the actual dark mode button in the app
+     */
     private void addDarkButton() {
         Button darkButton = findViewById(R.id.darkButton);
         darkButton.setOnClickListener(new View.OnClickListener() {
@@ -141,6 +144,11 @@ public class GameManager extends AppCompatActivity {
         });
     }
 
+    /**
+     * Puts the game into darkview by changing the background
+     * colour to dark grey and the text colour to white. This applies to all
+     * other screens of the app, not specifically this one.
+     */
     private void setUpDarkView(){
         if (darkView) {
             gameManagerLayout.setBackgroundColor(Color.DKGRAY);

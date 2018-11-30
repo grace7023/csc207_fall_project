@@ -40,7 +40,7 @@ public class GameMenuActivity extends AppCompatActivity {
     private String gameDesc;
 
     /**
-     * true if Darkmode Enabled
+     * Boolean value corresponding to whether the game is in dark mode or not
      */
     private boolean darkView;
 
@@ -72,7 +72,10 @@ public class GameMenuActivity extends AppCompatActivity {
         setDarkView();
     }
 
-
+    /**
+     * Puts the app into dark mode by setting the background colour
+     * to dark grey and the text colour to white
+     */
     private void setDarkView(){
         if (darkView){
             RelativeLayout relativeLayout = findViewById(R.id.gameMenuActivity);
