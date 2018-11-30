@@ -17,7 +17,6 @@ import fall2018.csc2017.game_centre.GestureDetectGridView;
  * Manage a board, including swapping tiles, checking for a win, and managing taps.
  */
 public class MinesweeperGame extends Game implements Serializable {
-    //TODO: figure out how to count score as time passed
     /**
      * The number of rows of the board.
      */
