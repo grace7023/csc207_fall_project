@@ -99,6 +99,10 @@ public class SlidingTilesSettings extends AppCompatActivity {
         finish();
     }
 
+    /**
+     * Switch to GameMenuActivity for Minesweeper. Pass the game, game description, game file name,
+     * current username, and game name into the intent.
+     */
     private void switchToGMA() {
         Intent gmaIntent = new Intent(this, GameMenuActivity.class);
         Bundle gmaBundle = new Bundle();
