@@ -1,6 +1,7 @@
 package fall2018.csc2017.game_centre;
 
 import android.util.Log;
+
 import java.io.InputStream;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -46,7 +47,7 @@ public class Scoreboard implements Serializable {
      * Adds the player's new score to the current list of scores
      *
      * @param player the current player
-     * @param score the score they just achieved
+     * @param score  the score they just achieved
      */
     public void addScore(String player, String score) {
         scores.add(new Score(player, score));
@@ -54,6 +55,7 @@ public class Scoreboard implements Serializable {
 
     /**
      * returns all the scores for the game
+     *
      * @return scores for the game
      */
     List<Score> getScores() {
@@ -86,6 +88,7 @@ public class Scoreboard implements Serializable {
 
     /**
      * Loads the scoreboard from the file
+     *
      * @return the scoreboard for the game
      */
     public void loadFromFile() {
