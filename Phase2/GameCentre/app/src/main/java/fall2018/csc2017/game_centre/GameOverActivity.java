@@ -102,6 +102,10 @@ public class GameOverActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * switch to Game Menu Activity to when back button is pressed.
+     */
+
     @Override
     public void onBackPressed() {
         switchToGMA();

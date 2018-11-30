@@ -277,6 +277,10 @@ public class GameMenuActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * Switch to Game Manager when back button is pressed.
+     */
+
     @Override
     public void onBackPressed() {
         switchToMainMenu();
