@@ -60,7 +60,7 @@ public class MinesweeperSettings extends AppCompatActivity {
      */
     private String gameFilename;
 
-    private Boolean DarkView;
+    private boolean darkView;
 
     /**
      * Set up UI interface for MinesweeperSettings.
@@ -73,7 +73,7 @@ public class MinesweeperSettings extends AppCompatActivity {
 
         currentUsername = getIntent().getStringExtra("USERNAME");
         gameFilename = getIntent().getStringExtra("GAME_FILENAME");
-        DarkView = getIntent().getBooleanExtra("DARKVIEW", false);
+        darkView = getIntent().getBooleanExtra("DARKVIEW", false);
 
         setUpDarkView();
 
@@ -101,7 +101,7 @@ public class MinesweeperSettings extends AppCompatActivity {
         ArrayAdapter<CharSequence> adapter;
 
         boardSize = findViewById(R.id.msBoardSizeSpinner);
-        if (DarkView)
+        if (darkView)
             adapter = ArrayAdapter.createFromResource(this, R.array.MSGameSize,
                     R.layout.white_spinner_item);
         else
@@ -130,7 +130,7 @@ public class MinesweeperSettings extends AppCompatActivity {
         });
     }
     private void setUpDarkView(){
-        if (DarkView){
+        if (darkView){
             ConstraintLayout constraintLayout = findViewById(R.id.MSsettingsActivity);
             constraintLayout.setBackgroundColor(Color.DKGRAY);
             TextView gameSettings = findViewById(R.id.msSettingsHeading);
@@ -181,7 +181,7 @@ public class MinesweeperSettings extends AppCompatActivity {
             gameIntent.putExtra("USERNAME", currentUsername);
             gameIntent.putExtra("GAME_FILENAME", gameFilename);
             gameIntent.putExtra("FROM_LOAD", false);
-            gameIntent.putExtra("DARKVIEW", DarkView);
+            gameIntent.putExtra("DARKVIEW", darkView);
             startActivity(gameIntent);
             overridePendingTransition(R.anim.slide_from_right, R.anim.slide_to_left);
             finish();
@@ -225,7 +225,7 @@ public class MinesweeperSettings extends AppCompatActivity {
         gmaBundle.putString("GAME_FILENAME", gameFilename);
         gmaBundle.putString("USERNAME", currentUsername);
         gmaBundle.putString("GAME_NAME", "MINESWEEPER");
-        gmaBundle.putBoolean("DARKVIEW", DarkView);
+        gmaBundle.putBoolean("DARKVIEW", darkView);
         msGMAIntent.putExtras(gmaBundle);
         startActivity(msGMAIntent);
         overridePendingTransition(R.anim.slide_from_left, R.anim.slide_to_right);

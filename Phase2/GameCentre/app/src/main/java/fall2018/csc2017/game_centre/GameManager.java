@@ -31,7 +31,7 @@ public class GameManager extends AppCompatActivity {
 
     private ConstraintLayout gameManagerLayout;
 
-    private boolean DarkView;
+    private boolean darkView;
     /**
      * Creates the UI elements
      * @param savedInstanceState A bundle
@@ -44,9 +44,9 @@ public class GameManager extends AppCompatActivity {
         mSlidingTilesBtn = findViewById(R.id.SlidingTiles);
         mTwentyFortyBtn = findViewById(R.id.TwentyForty);
         mMinesweeperBtn = findViewById(R.id.Minesweeper);
-        DarkView = false;
+        darkView = false;
         currentUsername = getIntent().getStringExtra("USERNAME");
-        DarkView = getIntent().getBooleanExtra("DARKVIEW", false);
+        darkView = getIntent().getBooleanExtra("DARKVIEW", false);
         gameManagerLayout = findViewById(R.id.gameManagerActivity);
 
         addSlidingTilesListener();
@@ -71,7 +71,7 @@ public class GameManager extends AppCompatActivity {
                 gmaBundle.putString("GAME_FILENAME", "Minesweeper_" + currentUsername);
                 gmaBundle.putString("USERNAME", currentUsername);
                 gmaBundle.putString("GAME_NAME", "MINESWEEPER");
-                gmaBundle.putBoolean("DARKVIEW", DarkView);
+                gmaBundle.putBoolean("DARKVIEW", darkView);
                 msGMAIntent.putExtras(gmaBundle);
                 startActivity(msGMAIntent);
                 overridePendingTransition(R.anim.slide_from_right, R.anim.slide_to_left);
@@ -94,7 +94,7 @@ public class GameManager extends AppCompatActivity {
                 gmaBundle.putString("GAME_FILENAME", "TwentyForty_" + currentUsername);
                 gmaBundle.putString("USERNAME", currentUsername);
                 gmaBundle.putString("GAME_NAME", "2048");
-                gmaBundle.putBoolean("DARKVIEW", DarkView);
+                gmaBundle.putBoolean("DARKVIEW", darkView);
                 tfGMAIntent.putExtras(gmaBundle);
                 startActivity(tfGMAIntent);
                 overridePendingTransition(R.anim.slide_from_right, R.anim.slide_to_left);
@@ -117,7 +117,7 @@ public class GameManager extends AppCompatActivity {
                 gmaBundle.putString("GAME_FILENAME", "SlidingTiles_" + currentUsername);
                 gmaBundle.putString("USERNAME", currentUsername);
                 gmaBundle.putString("GAME_NAME", "SLIDING TILES");
-                gmaBundle.putBoolean("DARKVIEW", DarkView);
+                gmaBundle.putBoolean("DARKVIEW", darkView);
                 stGMAIntent.putExtras(gmaBundle);
                 startActivity(stGMAIntent);
                 overridePendingTransition(R.anim.slide_from_right, R.anim.slide_to_left);
@@ -131,7 +131,7 @@ public class GameManager extends AppCompatActivity {
         darkButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                DarkView = !DarkView;
+                darkView = !darkView;
                 setUpDarkView();
 
             }
@@ -139,7 +139,7 @@ public class GameManager extends AppCompatActivity {
     }
 
     private void setUpDarkView(){
-        if (DarkView) {
+        if (darkView) {
             gameManagerLayout.setBackgroundColor(Color.DKGRAY);
             TextView slidingTilesHeading = findViewById(R.id.SlidingTilesHeading);
             slidingTilesHeading.setTextColor(Color.WHITE);

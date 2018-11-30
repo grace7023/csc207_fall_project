@@ -27,7 +27,7 @@ public class GameOverActivity extends AppCompatActivity {
      */
     private String gameFilename;
 
-    private boolean DarkView;
+    private boolean darkView;
     /**
      * Current Game
      */
@@ -46,9 +46,9 @@ public class GameOverActivity extends AppCompatActivity {
         gameFilename = getIntent().getStringExtra("GAME_FILENAME");
         currentUsername = getIntent().getStringExtra("USERNAME");
         game = (Game) getIntent().getSerializableExtra("GAME");
-        DarkView = getIntent().getBooleanExtra("DARKVIEW", false);
+        darkView = getIntent().getBooleanExtra("DARKVIEW", false);
 
-        gameOverText = findViewById(R.id.gameoverText);
+        gameOverText = findViewById(R.id.gameOverText);
         gameOverText.setText(game.gameOverText());
 
         setUpDarkview();
@@ -79,7 +79,7 @@ public class GameOverActivity extends AppCompatActivity {
         gmaBundle.putString("GAME_FILENAME", gameFilename);
         gmaBundle.putString("USERNAME", currentUsername);
         gmaBundle.putString("GAME_NAME", getIntent().getExtras().getString("GAME_NAME"));
-        gmaBundle.putBoolean("DARKVIEW", DarkView);
+        gmaBundle.putBoolean("DARKVIEW", darkView);
         GMAIntent.putExtras(gmaBundle);
         startActivity(GMAIntent);
         overridePendingTransition(R.anim.slide_from_left, R.anim.slide_to_right);
@@ -87,7 +87,7 @@ public class GameOverActivity extends AppCompatActivity {
     }
 
     private void setUpDarkview(){
-        if (DarkView){
+        if (darkView){
             ConstraintLayout constraintLayout = findViewById(R.id.gameOverActivity);
             constraintLayout.setBackgroundColor(Color.DKGRAY);
             TextView gameOverText = findViewById(R.id.gameOverText);

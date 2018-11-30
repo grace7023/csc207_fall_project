@@ -42,7 +42,7 @@ public class GameMenuActivity extends AppCompatActivity {
     /**
      * true if Darkmode Enabled
      */
-    private boolean DarkView;
+    private boolean darkView;
 
     /**
      * Create UI for a game menu
@@ -68,13 +68,13 @@ public class GameMenuActivity extends AppCompatActivity {
         addScoreboardButtonListener();
 
 
-        DarkView = gameBundle.getBoolean("DARKVIEW");
+        darkView = gameBundle.getBoolean("DARKVIEW");
         setDarkView();
     }
 
 
     private void setDarkView(){
-        if (DarkView){
+        if (darkView){
             RelativeLayout relativeLayout = findViewById(R.id.gameMenuActivity);
             relativeLayout.setBackgroundColor(Color.DKGRAY);
             TextView gameText = findViewById(R.id.GameText);
@@ -191,7 +191,7 @@ public class GameMenuActivity extends AppCompatActivity {
         Intent settingsIntent = game.getSettingsIntent(this);
         settingsIntent.putExtra("USERNAME", currentUsername);
         settingsIntent.putExtra("GAME_FILENAME", gameFilename);
-        settingsIntent.putExtra("DARKVIEW", DarkView);
+        settingsIntent.putExtra("DARKVIEW", darkView);
         startActivity(settingsIntent);
         overridePendingTransition(R.anim.slide_from_right, R.anim.slide_to_left);
         finish();
@@ -205,7 +205,7 @@ public class GameMenuActivity extends AppCompatActivity {
         saveToFile(gameFilename);
         Intent mainMenuIntent = new Intent(this, GameManager.class);
         mainMenuIntent.putExtra("USERNAME", currentUsername);
-        mainMenuIntent.putExtra("DARKVIEW", DarkView);
+        mainMenuIntent.putExtra("DARKVIEW", darkView);
         startActivity(mainMenuIntent);
         overridePendingTransition(R.anim.slide_from_left, R.anim.slide_to_right);
         finish();
@@ -224,7 +224,7 @@ public class GameMenuActivity extends AppCompatActivity {
         scoreboardBundle.putString("USERNAME", currentUsername);
         assert getIntent().getExtras() != null;
         scoreboardBundle.putString("GAME_NAME", getIntent().getExtras().getString("GAME_NAME"));
-        scoreboardBundle.putBoolean("DARKVIEW", DarkView);
+        scoreboardBundle.putBoolean("DARKVIEW", darkView);
         scoreboardIntent.putExtras(scoreboardBundle);
         startActivity(scoreboardIntent);
         overridePendingTransition(R.anim.slide_from_right, R.anim.slide_to_left);
